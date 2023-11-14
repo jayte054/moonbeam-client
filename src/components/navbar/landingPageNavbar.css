@@ -1,0 +1,24 @@
+.landingPageNavbar-Container{
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: rgb(186, 196, 180);
+    border-radius: .7rem;
+    font-weight: bold;
+}
+
+.landingPageNavbar-Title{
+    font-size: 1.7rem
+}
+
+.landingPageNavbar-Nav{
+    padding: .5rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.landingPageNavbar-Nav span{
+    padding-right: 1rem;
+}
