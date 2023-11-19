@@ -1,33 +1,30 @@
-.landingPageNavbar-Container{
+.landingPageNavbar-Container {
     margin: 1rem;
     padding: 1rem;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     background-color: rgb(6, 6, 6);
-    border-radius: .7rem;
+    border-radius: 0.7rem;
     font-weight: bold;
     color: white;
-}
-
-.landingPageNavbar-Container img{
-    margin: .5rem;
+  }
+  
+  .landingPageNavbar-Container img {
+    margin: 0.5rem;
     height: 5rem;
-
-}
-
-.landingPageNavbar-Title{
+  }
+  
+  .landingPageNavbar-Title {
     font-size: 1.7rem;
     margin-top: 2rem;
-}
-
-.landingPageNavbar-Nav{
+  }
+  
+  .landingPageNavbar-Nav {
     margin-top: 2rem;
-    padding: .5rem;
+    padding: 0.5rem;
     display: flex;
-    flex-direction: row;
-}
-
-.landingPageNavbar-Nav span{
+  }
+  
+  .landingPageNavbar-Nav span {
     padding-right: 1rem;
-}
+  }

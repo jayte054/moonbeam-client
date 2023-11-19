@@ -1,33 +1,30 @@
-.signupPageNavbar-Container{
+.signupPageNavbar-Container {
     margin: 1rem;
     padding: 1rem;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
     background-color: rgb(6, 6, 6);
-    border-radius: .7rem;
+    border-radius: 0.7rem;
     font-weight: bold;
     color: white;
-}
-
-.signupPageNavbar-Container img{
-    margin: .5rem;
+  }
+  
+  .signupPageNavbar-Container img {
+    margin: 0.5rem;
     height: 5rem;
-
-}
-
-.signupPageNavbar-Title{
+  }
+  
+  .signupPageNavbar-Title {
     font-size: 1.7rem;
     margin-top: 2rem;
-}
-
-.signUpNavbar-Nav{
-     margin: 2rem;
-    padding: .5rem;
+  }
+  
+  .signUpNavbar-Nav {
+    margin-top: 2rem;
+    padding: 0.5rem;
     display: flex;
-    flex-direction: row;
-}
-
-.signUpNavbar-Nav span{
+  }
+  
+  .signUpNavbar-Nav span {
     padding-right: 1rem;
-}
+  }
