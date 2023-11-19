@@ -1,21 +1,21 @@
- import { Link } from "react-router-dom";
-import "./landingPageNavbar.css";
+import { Link } from "react-router-dom";
+import "./signupPageNavbar.css";
 
- export const LandingPageNavbar = () => {
+ export const SignUpPageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
-    <div className="landingPageNavbar-Container">
+    <div className="signupPageNavbar-Container">
       <img src={logo} alt = "moonbeam logo" />
-      <div className="landingPageNavbar-Title">
+      <div className="signupPageNavbar-Title">
         <span>
           MOONBEAM CAKES
         </span>
       </div>
-      <div className="landingPageNavbar-Nav">
+      <div className="signUpNavbar-Nav">
         
           <span><Link to="/">Home</Link></span>
           <span>Quick Order</span>
-          <span><Link to="/signUpPage">Sign Up</Link></span>
+          <span>Sign Up</span>
           <span><Link to="/signinPage">Sign in</Link></span>
         
       </div>
