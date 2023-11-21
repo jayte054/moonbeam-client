@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar"
 import "./signinPage.css";
 export const SigninPage = () => {
@@ -15,7 +16,6 @@ export const SigninPage = () => {
                 </div>
                 <div className="signin-input">
                 <h2>Signin page</h2>
-                <p>please sign in </p>
                 <span>Email</span>
                 <input type = "email"
                        placeholder = "email"
@@ -36,6 +36,9 @@ export const SigninPage = () => {
                 </button>
                 </div>
                 </div>
+            </div>
+            <div>
+                <Footer />
             </div>
         </div>
     )

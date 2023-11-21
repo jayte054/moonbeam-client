@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { Footer } from "../../footer/footer";
 import { SignUpPageNavbar } from "../../navbar/signupPageNavbar";
 import "./signupPage.css";
 
@@ -40,7 +41,6 @@ export const SignUpPage = () => {
             </div>
             <div className="signup-input">
             <h2>Sign Up Page</h2>
-            <p>please sign up with your credentials below</p>
             <span>Firstname</span>
             <input type = "text" 
                    placeholder= "firstname"
@@ -95,6 +95,9 @@ export const SignUpPage = () => {
             </div>
             
         </div>
+            <div>
+                <Footer />
+            </div>
         </div>
         
     )
