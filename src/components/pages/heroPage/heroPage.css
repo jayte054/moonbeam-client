@@ -1,18 +1,48 @@
 .heroPage-container{
     margin: 1rem;
-    background-image: url("../../../../public/greenFieldbackground.jpeg");
+    /* background-color: antiquewhite; */
 
 }
 
 .heroPage-container img{
     border-radius: 1rem;
-    height:17rem;
-    width: 17rem;
+    height:90%;
+    width: 70%;
     margin-left: 3rem;
 }
 
 .heroPage-one{
     display: flex;
     flex-direction: row;
+    font-family: Apple Chancery;
+    font-size:3rem;
+}
+
+.heroPage-one blockquote {
+    margin: 10rem 2rem 0rem 0rem
+}
+
+.heroPage-two {
+    display: flex;
+    flex-direction: row;
+    font-family: Apple Chancery;
+    font-size:3rem;
     justify-content: space-between;
+}
+
+.heroPage-two span {
+    margin: 0rem 0rem 0rem 4rem;
+    font-weight: bold;
+}
+
+.heroPage-two  li {
+    margin: 0rem 0rem 0rem 4rem;
+    list-style: none;
+}
+
+.heroPage-two img {
+    border-radius: 1rem;
+    width:70%;
+    /* justify-content:right; */
+    /* margin: 0rem 0rem 0rem 4rem; */
 }

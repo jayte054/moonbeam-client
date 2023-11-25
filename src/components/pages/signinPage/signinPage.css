@@ -13,7 +13,11 @@
   .signin-input {
     display: flex;
     flex-direction: column;
-    margin-right: 10rem;
+    margin-right: 3rem;
+  }
+
+  .signin-input img {
+    width:80%;
   }
   
   .signin-image img {
@@ -24,6 +28,7 @@
   
   .signin-input span {
     padding-top: 0.5rem;
+    font-weight: bold;
   }
   
   .signin-input input {
@@ -40,5 +45,12 @@
     width: 6rem;
     height: 2rem;
     font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+  }
+
+  .page-logo img{
+    margin: 2.5rem 0rem 0rem 0rem;
+    opacity: 0.1;
   }
   

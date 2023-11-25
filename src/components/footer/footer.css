@@ -5,5 +5,44 @@
     color: white;
     border-top-style: dashed;
     border-radius: 1rem;
+    
 }
 
+.footer-body {
+    margin: 2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.footer-logo img{
+    width:40%;
+    margin:0rem 0rem 0rem 4rem;
+}
+
+.footer-contacts li {
+    list-style: none;
+}
+
+.footer-socials span {
+    font-size: 1rem;
+    padding: 1rem;
+    color: white;
+}
+
+.footer-socials a {
+    text-decoration: none;
+}
+
+.footer-newsletter input {
+    width: 70%;
+    height: 12%;
+}
+
+.footer-newsletter button {
+    margin: 1rem 0rem;
+    height: 17%;
+    width: 40%;
+    border-radius: .5rem;
+    font-weight: bold;
+    font-size: 1rem;
+}

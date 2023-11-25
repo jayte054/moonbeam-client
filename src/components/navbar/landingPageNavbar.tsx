@@ -13,10 +13,34 @@ import "./landingPageNavbar.css";
       </div>
       <div className="landingPageNavbar-Nav">
         
-          <span><Link to="/">Home</Link></span>
-          <span>Quick Order</span>
-          <span><Link to="/signUpPage">Sign Up</Link></span>
-          <span><Link to="/signinPage">Sign in</Link></span>
+          <span>
+            <Link style={{color:"white", textDecoration:"none"}} 
+                      to="/"
+            >
+              Home
+              </Link>
+          </span>
+          <span>
+            <Link style={{color:"white", textDecoration:"none"}} 
+                      to="/quickOrderPage"
+            >
+              Quick Order
+            </Link>
+          </span>
+          <span>
+            <Link style={{color:"white", textDecoration:"none"}} 
+                  to="/signUpPage"
+            >
+              Sign Up
+            </Link>
+          </span>
+          <span>
+            <Link style={{color:"white", textDecoration:"none"}} 
+                  to="/signinPage"
+            >
+              Sign in
+            </Link>
+          </span>
         
       </div>
     </div>

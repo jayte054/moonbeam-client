@@ -1,7 +1,8 @@
+import "./quickOrderPageNavbar.css"
 import { Link } from "react-router-dom";
 import "./signupPageNavbar.css";
 
- export const SignUpPageNavbar = () => {
+ export const QuickOrderPageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
     <div className="signupPageNavbar-Container">
@@ -26,7 +27,13 @@ import "./signupPageNavbar.css";
                 Quick Order
             </Link>
         </span>
-        <span>Sign Up</span>
+        <span>
+            <Link style={{color:"white", textDecoration:"none"}} 
+                  to="/signupPage"
+            >
+              Sign Up
+            </Link>
+          </span>
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
                   to="/signinPage"

@@ -1,0 +1,31 @@
+.quickOrder-container{
+
+}
+
+.quickOrder-body {
+    background-color: rgb(239, 239, 225);
+    border-radius: 1rem;
+    margin: 2rem; 
+    
+}
+
+.quickOrder-title {
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quickOrder-body span {
+    font-size: 2rem;
+    font-family: Apple Chancery;
+    /* background: url("../../../../public/moonbeamLogo.jpeg") no-repeat center center fixed;
+    background-size: cover; */
+}
+
+.category-title {
+    background-color: black;
+    color: white;
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: .5rem;
+}

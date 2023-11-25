@@ -14,15 +14,21 @@
     flex-direction: column;
     margin-right: 10rem;
   }
+
+  .signup-image {
+    border-right-color: black;
+  }
   
   .signup-image img {
     width: 130%;
     height: 100%;
-    border-radius: 1rem;
+    border-radius: 2rem;
+    border-right-width: 2rem;
   }
   
   .signup-input span {
     padding-top: 1rem;
+    font-weight: bold;
   }
   
   .signup-input input {
@@ -39,5 +45,7 @@
     width: 6rem;
     height: 2rem;
     font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 1rem;
   }
   

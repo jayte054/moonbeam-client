@@ -34,6 +34,13 @@ export const SigninPage = () => {
                         type="button">
                             Sign In
                 </button>
+                <div className="page-logo">
+                <img src="/moonbeamLogo.jpeg" alt="moonbeam logo" 
+                                              
+                />
+                </div>
+                
+
                 </div>
                 </div>
             </div>
