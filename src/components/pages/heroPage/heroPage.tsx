@@ -24,7 +24,7 @@ export const HeroPage = () => {
                         <li>Birthday Cakes</li>
                         <li>Anniversary Cakes</li>
                         <li>Chops & Pastries</li>
-                        <li>Suprise Package</li>
+                        <li>Suprise Package(s)</li>
                     </ul>
                 </div>
                 <div>

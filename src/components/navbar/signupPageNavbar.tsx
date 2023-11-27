@@ -21,9 +21,9 @@ import "./signupPageNavbar.css";
         </span>
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/quickOrderPage"
+                  to="/galleryPage"
             >
-                Quick Order
+                Gallery
             </Link>
         </span>
         <span>Sign Up</span>

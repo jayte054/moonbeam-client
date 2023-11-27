@@ -8,7 +8,6 @@ export const LandingPage = () => {
             <LandingPageNavbar />
             <HeroPage />
             <Footer />
-
         </div>
     )
 }

@@ -1,16 +1,16 @@
 import { BsBasket2Fill } from "react-icons/bs";
 import { Footer } from "../../footer/footer"
-import { QuickOrderPageNavbar } from "../../navbar/quickOrderPageNavbar"
-import "./quickOrderPage.css"
+import { GalleryPageNavbar } from "../../navbar/galleryPageNavbar"
+import "./galleryPage.css"
 
-export const QuickOrderPage = () => {
+export const GalleryPage = () => {
 
     return (
         <div className="quickOrder-container">
-            <QuickOrderPageNavbar />
+            <GalleryPageNavbar />
             <div className="quickOrder-body">
                 <div className = "quickOrder-title">
-                <span>Quick Order </span>
+                <span>Gallery </span>
                 <span>Cart <BsBasket2Fill /></span>
                 </div>
             <div className="quickorder-categories">
