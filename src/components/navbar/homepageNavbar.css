@@ -1,0 +1,35 @@
+.homePageNavbar-Container {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(6, 6, 6);
+    border-radius: 0.7rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .homePageNavbar-Container img {
+    margin: 0.5rem;
+    height: 5rem;
+  }
+  
+  .homePageNavbar-Title {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    font-family: Apple Chancery;
+  }
+  
+  .homePageNavbar-Nav {
+    margin-top: 2rem;
+    padding: 0.5rem;
+    display: flex;
+  }
+  
+  .homePageNavbar-Nav span {
+    padding-right: 1rem;
+  }
+
+  .nav-link {
+    color: white;
+  }
