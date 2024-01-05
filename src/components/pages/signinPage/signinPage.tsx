@@ -14,8 +14,13 @@ export const SigninPage = () => {
 
     const handleSubmit = async (e: React.SyntheticEvent) => {
         e.preventDefault();
-        const userData = await signIn({email, password})
-          navigate("/auth/homepage")
+        try{
+            const userData = await signIn({email, password})
+            navigate("/auth/homepage")
+        } catch(error) {
+            console.log(error)
+        }
+        
     }
 
 
@@ -50,9 +55,7 @@ export const SigninPage = () => {
                             Sign In
                 </button>
                 <div className="page-logo">
-                <img src="/moonbeamLogo.jpeg" alt="moonbeam logo" 
-                                              
-                />
+                <img src="/moonbeamLogo.jpeg" alt="moonbeam logo"/>
                 </div>
                 
 

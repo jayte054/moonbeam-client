@@ -1,0 +1,35 @@
+.profilePageNavbar-Container {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(6, 6, 6);
+    border-radius: 0.7rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .profilePageNavbar-Container img {
+    margin: 0.5rem;
+    height: 5rem;
+  }
+  
+  .profilePageNavbar-Title {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    font-family: Apple Chancery;
+  }
+  
+  .profilePageNavbar-Nav {
+    margin-top: 2rem;
+    padding: 0.5rem;
+    display: flex;
+  }
+  
+  .profilePageNavbar-Nav span {
+    padding-right: 1rem;
+  }
+
+  .nav-link {
+    color: white;
+  }

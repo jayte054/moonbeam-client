@@ -1,17 +1,17 @@
 import { Link } from "react-router-dom";
-import "./homepageNavbar.css";
+import "./profilePageNavbar.css";
 
- export const HomePageNavbar = () => {
+ export const ProfilePageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
-    <div className="homePageNavbar-Container">
+    <div className="profilePageNavbar-Container">
       <img src={logo} alt = "moonbeam logo" />
-      <div className="homePageNavbar-Title">
+      <div className="profilePageNavbar-Title">
         <span>
           MOONBEAM CAKES
         </span>
       </div>
-      <div className="homePageNavbar-Nav">
+      <div className="profilePageNavbar-Nav">
         
           <span>
             <Link style={{color:"white", textDecoration:"none"}} 

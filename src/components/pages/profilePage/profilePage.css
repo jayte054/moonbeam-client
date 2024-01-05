@@ -1,0 +1,58 @@
+.profile-container{
+    background-color: rgb(239, 239, 225);
+    display: flex;
+    margin: 1rem;
+    border-radius: 1rem;
+    justify-content: space-between;
+    
+}
+.profile-save{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 0rem 1rem 3rem;
+    padding-top: 1.5rem;
+
+    /* justify-content: space-evenly; */
+}
+
+.profile-save span {
+    font-weight: bold;
+    padding-top: 1rem;
+
+}
+
+.profile-retrieve{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem 8rem 1rem 0rem;
+    
+}
+
+.profile-retrieve span{
+    font-weight: bold;
+    padding-top: 1rem;
+}
+
+.profile-input{
+    background-color: rgb(239, 239, 225);
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-top: 1rem;
+    width: auto;
+}
+
+.profile-button{
+    font-weight: bold;
+    margin: 1rem 0rem;
+    width: 10rem;
+    height: 2.5rem;
+    color: white;
+    background-color: black;
+    border-radius: 1rem;
+}
+
+.profile-img{
+    margin: 2.5rem 0rem 1rem 0rem;
+    opacity: 0.5;
+}
