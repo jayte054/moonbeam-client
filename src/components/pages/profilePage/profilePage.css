@@ -4,18 +4,15 @@
     margin: 1rem;
     border-radius: 1rem;
     justify-content: space-between;
-    
+    width: auto;
 }
 .profile-save{
     display: flex;
     flex-direction: column;
-    margin: 1rem 0rem 1rem 3rem;
-    padding-top: 1.5rem;
-
-    /* justify-content: space-evenly; */
+    margin: 3rem 3rem 1rem 0rem;
 }
 
-.profile-save span {
+.profile-retrieve span {
     font-weight: bold;
     padding-top: 1rem;
 
@@ -24,13 +21,18 @@
 .profile-retrieve{
     display: flex;
     flex-direction: column;
-    margin: 1rem 8rem 1rem 0rem;
+    margin: 1rem 3rem 1rem 3rem;
+    padding-top: 1.5rem;
     
 }
 
-.profile-retrieve span{
+.profile-save span{
     font-weight: bold;
     padding-top: 1rem;
+}
+
+.profile-retrieve input{
+    width: 18rem
 }
 
 .profile-input{
@@ -55,4 +57,52 @@
 .profile-img{
     margin: 2.5rem 0rem 1rem 0rem;
     opacity: 0.5;
+    width: auto;
 }
+
+.profile-pic{
+    border-radius: 2rem;
+
+}
+
+.profile-pic{
+    margin: .5rem;
+    border-color: black;
+    /* background-color: white; */
+}
+
+.profile-image{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 1rem
+}
+
+/* @media (max-width: 768px) {
+  .profile-container {
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem;
+  }
+
+  .profile-save {
+    margin: 1rem 0;
+    padding-top: 1rem;
+  }
+
+  .profile-retrieve {
+    margin: 1rem 0;
+  }
+
+  .profile-retrieve input {
+    width: 100%;
+  }
+
+  .profile-button {
+    width: 100%;
+  }
+
+  .profile-image {
+    width: 8rem;
+    height: 8rem;
+  }
+} */

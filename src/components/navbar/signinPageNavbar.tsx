@@ -5,7 +5,7 @@ import "./signinPageNavbar.css";
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
     <div className="signinPageNavbar-Container">
-      <img src={logo} alt = "moonbeam logo" />
+      {/* <img src={logo} alt = "moonbeam logo" /> */}
       <div className="signinPageNavbar-Title">
         <span>
           MOONBEAM CAKES
@@ -34,7 +34,6 @@ import "./signinPageNavbar.css";
               Sign Up
             </Link>
           </span>
-          <span>Sign in</span>
         
       </div>
     </div>

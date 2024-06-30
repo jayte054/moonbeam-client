@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../../context/authcontext/authContext";
 import { userStore } from "../../../stores/userStore";
 import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar"
@@ -8,6 +9,7 @@ import "./signinPage.css";
 export const SigninPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("")
+    const {user, updateUser} = useContext(AuthContext)
     const signinImage = "/signinPic.png"
     const navigate = useNavigate()
     const {signIn} = userStore
@@ -16,7 +18,9 @@ export const SigninPage = () => {
         e.preventDefault();
         try{
             const userData = await signIn({email, password})
-            navigate("/auth/homepage")
+            updateUser(userData)
+            navigate("/auth/homepage", {state: {data: userData.user.email}, replace: true})
+            console.log('signin successful')
         } catch(error) {
             console.log(error)
         }
@@ -25,7 +29,7 @@ export const SigninPage = () => {
 
 
     return (
-        <div style={{backgroundColor: "rgba(250, 246, 246, 0.459)",}}>
+        <div>
             <SigninPageNavbar />
             <div className = "signinpage-container">
                 <div className = "signin-body">

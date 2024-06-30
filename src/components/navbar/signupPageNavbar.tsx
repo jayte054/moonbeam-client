@@ -1,11 +1,13 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import "./signupPageNavbar.css";
 
  export const SignUpPageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
+    
    return (
     <div className="signupPageNavbar-Container">
-      <img src={logo} alt = "moonbeam logo" />
+      {/* <img src={logo} alt = "moonbeam logo" /> */}
       <div className="signupPageNavbar-Title">
         <span>
           MOONBEAM CAKES
@@ -26,7 +28,6 @@ import "./signupPageNavbar.css";
                 Gallery
             </Link>
         </span>
-        <span>Sign Up</span>
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
                   to="/signinPage"

@@ -120,7 +120,10 @@ export const GalleryPage = () => {
                 .map((product: any) => (
                     <div key={product.productId}>
                         <div className="category-item">
-                            <img src={product.imageUrl} alt={product.description} /><br />
+                            <img src={product.imageUrl} 
+                                 alt={product.description} 
+                                 className="item"
+                                 /><br />
                             <span>{product.description}</span><br />
                             {/* <button type="button">Add to Cart</button> */}
                         </div>

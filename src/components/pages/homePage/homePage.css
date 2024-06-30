@@ -1,0 +1,59 @@
+.home-container {
+  background-color: rgb(239, 239, 225);
+  /* margin: 0 2rem ; */
+  /* padding: 0 2rem; */
+  width: 100%;
+  border-radius: 1rem;
+  font-family: Apple Chancery
+}
+
+.header{
+    padding-left: 2rem;
+}
+
+.home-body {
+  padding: 1rem;
+}
+
+.package-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  width: 95%;
+}
+
+.package-container img {
+  width: 90%;
+  height: 30rem;
+  border-radius: 1rem;
+}
+
+.package-cake, .package-surprise, .package-chops {
+  border: 3px solid #d767e8;
+  border-radius: 1rem;
+  display: flex; /* Ensure flex properties are applied */
+  flex-direction: column;
+  align-items: center; /* Center items along the cross axis */
+  padding: 1rem;
+  transition: border 0.3s ease; /* Smooth transition for border changes */
+}
+.package-cake h4, .package-surprise h4, .package-chops h4{
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+.package-cake:hover, .package-surprise:hover, .package-chops:hover {
+  border-width: 10px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+}
+
+.home-order{
+    background-color: black;
+    color: white;
+    margin: 1rem;
+    border-radius: 1rem;
+    padding: .5rem;
+}

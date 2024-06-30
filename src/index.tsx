@@ -1,9 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {RouterStore} from "mobx-react-router";
+// import {createBrowserHistory} from "history"
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { GalleryProvider } from './context/galleryContext/galleryContext';
+import { UserProvider } from './context/authcontext/authContext';
+import { ProfileProvider } from './context/profileContext/profileContext';
+
+let stores: any = {}
+
+stores.routerStore = new RouterStore()
+// const browserHistory = createBrowserHistory()
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -11,7 +20,11 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <GalleryProvider>
-      <App />
+    <UserProvider>
+      <ProfileProvider>
+        <App />
+      </ProfileProvider>
+    </UserProvider>
     </GalleryProvider>
   </React.StrictMode>
 );

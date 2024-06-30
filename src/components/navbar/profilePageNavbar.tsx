@@ -1,11 +1,21 @@
+import React from "react";
 import { Link } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
 import "./profilePageNavbar.css";
 
  export const ProfilePageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
+    const {signOut} = userStore
+
+    const handleSignout = async (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        await signOut()
+        document.location.href = "/"
+
+    }
    return (
     <div className="profilePageNavbar-Container">
-      <img src={logo} alt = "moonbeam logo" />
+      {/* <img src={logo} alt = "moonbeam logo" className="moonbeam-logo"/> */}
       <div className="profilePageNavbar-Title">
         <span>
           MOONBEAM CAKES
@@ -27,14 +37,14 @@ import "./profilePageNavbar.css";
               Gallery
             </Link>
           </span>
-          <span>
+          {/* <span>
             <Link style={{color:"white", textDecoration:"none"}} 
                   to="/auth/profilePage"
             >
                 Profile
             </Link>
-          </span>
-          <span>
+          </span> */}
+          <span onClick={(e) => handleSignout(e)}>
             <Link style={{color:"white", textDecoration:"none"}} 
                   to="/"
             >

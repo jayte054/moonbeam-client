@@ -6,7 +6,7 @@ import "./signupPageNavbar.css";
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
     <div className="signupPageNavbar-Container">
-      <img src={logo} alt = "moonbeam logo" />
+      {/* <img src={logo} alt = "moonbeam logo" /> */}
       <div className="signupPageNavbar-Title">
         <span>
           MOONBEAM CAKES

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { userStore } from "../../../stores/userStore";
 import { Footer } from "../../footer/footer";
 import { SignUpPageNavbar } from "../../navbar/signupPageNavbar";
 import "./signupPage.css";
@@ -13,6 +14,8 @@ export const SignUpPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("")
     const [passwordMatch, setPasswordMatch] = useState(true)
     const navigate = useNavigate()
+    const { signUp } = userStore;
+
 
     const handlePassword = (value: string) => {
         setPassword(value);
@@ -24,15 +27,23 @@ export const SignUpPage = () => {
         setPasswordMatch(password === value);
     }
 
-    const handleSignup = () => {
-        if(!passwordMatch) {
+    const handleSignup = async (e: React.SyntheticEvent) => {
+
+         e.preventDefault();
+        try{
+          await signUp(firstname, lastname, phoneNumber, email, password)
+          if(!passwordMatch) {
             alert("Passwords do not match. Please check again.");
             return;
         }
         navigate("/signinPage")
+        } catch(error) {
+            console.log(error)
+        }
+       
     }
     return (
-        <div style={{backgroundColor: "rgba(250, 246, 246, 0.459)",}}>
+        <div >
                 <SignUpPageNavbar />
         <div className="signup-container">
             <div className = "signup-body">
@@ -88,7 +99,8 @@ export const SignUpPage = () => {
             )}
             <button className="signup-button" 
                     type = "button" 
-                    onClick={handleSignup}>
+                    onClick={(e) => handleSignup(e)}
+            >
                         Sign Up
             </button>
             </div>            
