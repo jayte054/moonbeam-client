@@ -48,12 +48,21 @@
   border-width: 10px; /* Change only the border width on hover */
   border-color: #c72bdf;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
-.home-order{
+.quick-order{
     background-color: black;
     color: white;
     margin: 1rem;
     border-radius: 1rem;
     padding: .5rem;
+}
+
+.quick-order:hover {
+  border-width: 10px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  color: #c72bdf;
+  cursor: pointer;
 }

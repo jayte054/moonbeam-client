@@ -1,0 +1,17 @@
+.quickOrderCake-container{
+    width: 25rem;
+    border: 3px solid #d767e8;
+    border-radius: 1rem;
+    text-align: center;
+}
+
+.quickOrder-container{
+    display:flex;
+    justify-content:space-between
+}
+
+.quickOrderCake-container img {
+    width: 95%;
+    height: 30rem;
+    border-radius: 1rem;
+}

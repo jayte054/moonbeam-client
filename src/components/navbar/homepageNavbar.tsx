@@ -30,7 +30,7 @@ import "./homepageNavbar.css";
           </span>
           <span>
             <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/galleryPage"
+                      to="/auth/galleryPage"
             >
               Gallery
             </Link>

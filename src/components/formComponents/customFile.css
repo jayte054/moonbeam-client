@@ -1,0 +1,27 @@
+.customFile{
+    margin: 1rem;
+}
+
+.customFile span {
+    display: flex;
+   
+}
+
+.label{
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.customFileput input{
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    height: 1.5rem;
+    width: 12rem;
+    background-color: rgb(239, 239, 225);
+    margin-top: .5rem;
+}
+
+.error{
+    font-size:.7rem;
+    color: red;
+}

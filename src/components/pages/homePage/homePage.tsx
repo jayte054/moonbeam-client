@@ -1,4 +1,5 @@
 import {useContext} from "react"
+import { useNavigate } from 'react-router-dom';
 import { Footer } from "../../footer/footer"
 import { HomePageNavbar } from "../../navbar/homepageNavbar"
 import {AuthContext} from "../../../context/authcontext/authContext"
@@ -6,8 +7,13 @@ import "./homePage.css"
 
 export const Homepage = () => {
     const {user} = useContext(AuthContext)
+    const navigate = useNavigate()
     console.log(user)
     const name = user?.user?.firstname || ""
+
+    const navQuickOrder = () => {
+        navigate("/auth/quickOrderPage")
+    }
     return(
         <div>
             <HomePageNavbar />
@@ -30,7 +36,9 @@ export const Homepage = () => {
                     <img src="/chops_pic.png" alt="chops pic" />
                 </div>
             </div>
-            <div className="home-order">
+            <div className="quick-order"
+                 onClick={navQuickOrder}
+            >
                 <h3>Quick Order</h3>
             </div>
             </div>

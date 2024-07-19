@@ -2,7 +2,7 @@ import "./galleryPageNavbar.css"
 import { Link } from "react-router-dom";
 import "./galleryPageNavbar.css";
 
- export const GalleryPageNavbar = () => {
+ export const GalleryPageNav = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
    return (
     <div className="galleryPageNavbar-Container">
@@ -15,7 +15,7 @@ import "./galleryPageNavbar.css";
       <div className="galleryNavbar-Nav">
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/"
+                  to="/auth/homepage"
             >
                 Home
             </Link>
@@ -23,16 +23,16 @@ import "./galleryPageNavbar.css";
        
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/signupPage"
+                  to="/auth/profilePage"
             >
-              Sign Up
+             Profile
             </Link>
           </span>
         <span>
             <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/signinPage"
+                  to="/signoutPage"
             >
-                Sign in
+                Signout
             </Link>
         </span>    
       </div>

@@ -1,32 +1,40 @@
-.galleryPageNavbar-Container {
+.quickOrder-Container {
     margin: 1rem;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
-    background-color: #816e91;
+    background-color:#816e91;
     border-radius: 0.7rem;
     font-weight: bold;
     color: white;
   }
   
-  .galleryPageNavbar-Container img {
+  .quickOrder-Container img {
     margin: 0.5rem;
     height: 5rem;
   }
   
-  .galleryPageNavbar-Title {
+  .quickOrder-Title {
     font-size: 2rem;
     margin-top: 1.5rem;
     font-family: Apple Chancery;
+  }
 
+  .moonbeam-logo{
+    border-radius: 1.5rem;
+    opacity:.6
   }
   
-  .galleryNavbar-Nav {
+  .quickOrder-Nav {
     margin-top: 2rem;
     padding: 0.5rem;
     display: flex;
   }
   
-  .galleryNavbar-Nav span {
+  .quickOrder-Nav span {
     padding-right: 1rem;
+  }
+
+  .nav-link {
+    color: white;
   }

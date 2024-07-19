@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {RouterStore} from "mobx-react-router";
+// import {RouterStore} from "mobx-react-router";
 // import {createBrowserHistory} from "history"
 import './index.css';
 import App from './App';
@@ -9,9 +9,9 @@ import { GalleryProvider } from './context/galleryContext/galleryContext';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
 
-let stores: any = {}
+// let stores: any = {}
 
-stores.routerStore = new RouterStore()
+// stores.routerStore = new RouterStore()
 // const browserHistory = createBrowserHistory()
 
 const root = ReactDOM.createRoot(
