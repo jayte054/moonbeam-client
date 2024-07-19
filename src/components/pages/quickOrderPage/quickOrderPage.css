@@ -19,6 +19,10 @@
 .quickOrder-input {
     padding: 0 0 0 2rem;
 }
+.quickCakeOrder-container{
+    display:flex;
+    justify-content:space-between
+}
 
 /* .quickOrder-input span{
     font-size: 1.3rem;

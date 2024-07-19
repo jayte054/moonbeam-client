@@ -4,6 +4,7 @@ import {QuickOrderPageNav} from "../../navbar/quickOrder"
 import {Footer} from "../../footer/footer"
 import {quickOrderSchema} from "../../formComponents/formSchema"
 import {QuickCakeOrderForm} from "../../formComponents/quickCakeOrderForm"
+import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
 import {OrderObject} from "../../../types"
 
 import "./quickOrderPage.css"
@@ -35,12 +36,12 @@ export const QuickOrderPage = () => {
                             onSubmit = {submit}
                             validationSchema={quickOrderSchema}>
                     {(props) => (
-                        <div className="quickOrder-container">
+                        <div className="quickCakeOrder-container">
                             <div>
                                 <QuickCakeOrderForm />
                             </div>
                             <div>
-                                <QuickCakeOrderForm />
+                                <QuickSurprisePackageForm />
                             </div>
                             <div>
                                 <QuickCakeOrderForm />
