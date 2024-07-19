@@ -1,10 +1,12 @@
 import {Formik, Form} from "formik"
+import { BsBasket2Fill } from "react-icons/bs";
 
 import {QuickOrderPageNav} from "../../navbar/quickOrder"
 import {Footer} from "../../footer/footer"
 import {quickOrderSchema} from "../../formComponents/formSchema"
 import {QuickCakeOrderForm} from "../../formComponents/quickCakeOrderForm"
 import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
+import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
 import {OrderObject} from "../../../types"
 
 import "./quickOrderPage.css"
@@ -30,7 +32,10 @@ export const QuickOrderPage = () => {
         <div className="quickOrderPage-container">
          <QuickOrderPageNav />
          <div className="quickOrderPage-body">
-            <h1>Quick Order</h1>
+            <div className="quickOrder-header">
+                <span>Quick Order</span>
+                <span>Cart <BsBasket2Fill /></span>
+            </div>
             <div className="quickOrder-input">
                 <Formik initialValues = {initialValues} 
                             onSubmit = {submit}
@@ -44,7 +49,7 @@ export const QuickOrderPage = () => {
                                 <QuickSurprisePackageForm />
                             </div>
                             <div>
-                                <QuickCakeOrderForm />
+                                <QuickChopsOrderForm />
                             </div>
                         </div>
                     )}

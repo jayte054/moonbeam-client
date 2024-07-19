@@ -3,6 +3,17 @@
 
 }
 
+.quickOrder-header{
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.quickOrder-header span{
+    font-size: 2rem;
+    font-weight: bold;
+}
+
 .quickOrderPage-body{
     background-color: rgb(239, 239, 225);
     border-radius: 1rem;

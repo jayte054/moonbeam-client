@@ -32,7 +32,7 @@ export const Homepage = () => {
                     <img src="/package-pic.png" alt="surprise-package" />
                 </div>
                 <div className="package-chops">
-                    <h4>Small Chops</h4>
+                    <h4>Small Chops / Pastries</h4>
                     <img src="/chops_pic.png" alt="chops pic" />
                 </div>
             </div>

@@ -6,10 +6,10 @@ import {CustomDate} from "./customDate"
 import {CustomTextArea} from "./customTextArea"
 import {CustomFile} from "./customFile"
 import {CustomButton} from "./customButton"
-import "./quickCakeOrderForm.css"
+import "./quickChopsOrder.css"
 
-export const QuickCakeOrderForm = () => {
-    const cakeFormImage = <img src="/cake-form.png" alt="cake-form"/>
+export const QuickChopsOrderForm = () => {
+    const chopsFormImage = <img src="/chopsform.png" alt="chops image" />
     const [showForm, setShowForm] = useState(false)
 
     const toggleForm = () => {
@@ -17,14 +17,14 @@ export const QuickCakeOrderForm = () => {
     }
 
     return(
-        <div className="quickOrderCake-container">
+        <div className="quickOrderChops-container">
             <CustomButton type="button"
-                          label={!showForm ? "Cakes": "Order Cake"}
+                          label={!showForm ? "Chops / Pastries": "Order chops/pastries"}
                           onClick={toggleForm}
-                    />
+            />
             {showForm ? (
-                        <Form>
-                          <CustomInput 
+                <Form>
+                    <CustomInput 
                              label= "Order Name"
                              name= "orderName"
                              type= "text"
@@ -121,14 +121,13 @@ export const QuickCakeOrderForm = () => {
                             type="file"
                             
                           />
-                          <button type="submit">Add to Cart</button>    
-                        </Form>
-                          ):(
-                            <span>
-                                {cakeFormImage}
-                            </span>
-                           )}
-                          
+                          <button type="submit">Add to Cart</button>
+                </Form>
+            ) : (
+                <span>
+                    {chopsFormImage}
+                </span>
+            )}
         </div>
     )
 }
