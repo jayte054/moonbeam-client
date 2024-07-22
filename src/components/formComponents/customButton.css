@@ -8,3 +8,10 @@
     font-family: Apple Chancery;
     font-size: 1.8rem;
 }
+
+.customButton button:hover{
+  border-width: 2px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}

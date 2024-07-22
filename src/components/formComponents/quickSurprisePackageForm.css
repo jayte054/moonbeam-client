@@ -5,6 +5,13 @@
     text-align: center;
 }
 
+.quickSurprisePackage-container:hover {
+  border-width: 7px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
 .quickSurprisePackage-container img {
     width: 95%;
     height: 30rem;

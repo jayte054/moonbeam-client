@@ -1,10 +1,20 @@
 import "./galleryPageNavbar.css"
 import { Link } from "react-router-dom";
+import { userStore } from "../../stores/userStore";
 import "./quickOrder.css";
 
  export const QuickOrderPageNav = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
-   return (
+    const {signOut} = userStore
+
+    const handleSignout = async (e: React.SyntheticEvent) => {
+        e.preventDefault()
+        await signOut()
+        document.location.href = "/"
+
+    }
+   
+    return (
     <div className="quickOrder-Container">
       {/* <img src={logo} alt = "moonbeam logo" /> */}
       <div className="quickOrder-Title">
@@ -34,9 +44,9 @@ import "./quickOrder.css";
              Profile
             </Link>
           </span>
-        <span>
+        <span onClick={(e) => handleSignout(e)}>
             <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/signoutPage"
+                  to="/"
             >
                 Signout
             </Link>

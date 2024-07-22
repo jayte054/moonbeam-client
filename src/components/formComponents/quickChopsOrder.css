@@ -1,11 +1,17 @@
 .quickOrderChops-container{
+    /* width: 85%; */
     width: 25rem;
     border: 3px solid #d767e8;
     border-radius: 1rem;
     text-align: center;
 }
 
-
+.quickOrderChops-container:hover {
+  border-width: 7px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}
 
 .quickOrderChops-container img {
     width: 95%;
