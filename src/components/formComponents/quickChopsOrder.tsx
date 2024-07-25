@@ -10,82 +10,101 @@ import "./quickChopsOrder.css"
 
 export const QuickChopsOrderForm = () => {
     const chopsFormImage = <img src="/chopsform.png" alt="chops image" />
-    const [showForm, setShowForm] = useState(false)
+    const [showChopsForm, setShowChopsForm] = useState(false)
+    const [showPastryForm, setShowPastryForm] = useState(false)
+    const [showCategory, setShowCategory] = useState(false)
+    
 
-    const toggleForm = () => {
-        setShowForm((prevShowForm) => !prevShowForm)
+    const toggleChopsForm = () => {
+        setShowChopsForm((prevShowForm) => !prevShowForm)
     }
+
+    const togglePastryForm = () => {
+        setShowPastryForm((prevShowForm) => !prevShowForm)
+    }
+
+    const togglePage = () => {
+        setShowCategory((prev) => !prev)
+    }
+
+    
 
     return(
         <div className="quickOrderChops-container">
             <CustomButton type="button"
-                          label={!showForm ? "Chops / Pastries": "Order chops/pastries"}
-                          onClick={toggleForm}
+                          label={!showCategory ? "Chops / Pastries": "Order chops/pastries"}
+                          onClick={togglePage}
             />
-            {showForm ? (
+            {showCategory ? (
+                <>
+                <CustomButton type="button"
+                          label="Chops"
+                          onClick={toggleChopsForm}
+                />
+                {showChopsForm && (
                 <Form>
                     <CustomInput 
                              label= "Order Name"
-                             name= "orderName"
+                             name= "orderTitle"
                              type= "text"
                              placeholder= "Order Name"
                           />   
                           <CustomSelect
-                            label= "Flavour"
-                            name= "productFlavour"
-                            type="text"
-                            placeholder="Cake Flavour"
-                            > 
-                                <option value="">Cake Flavour</option>
-                                <option value="chocolateCake">Chocolate Cake</option>
-                                <option value="strawberryCake">Strawberry Cake</option>
-                                <option value="vanillaCake">Vanilla Cake</option>
-                                <option value="redvelvetCake">Red Velvet Cake</option>
-                                <option value="carrotCake">Carrot Cake</option>
-                                <option value="cheeseCake">Cheese Cake</option>
-                                <option value="bananaCake">Banana Cake</option>
-                                <option value="appleCake">Apple Cake</option>
-                                <option value="lemonCake">Lemon Cake</option>
-                                <option value="coffeeCake">Coffee Cake</option>
-                                <option value="coconutCake">Coconut Cake</option>
-                                <option value="blueberryCake">Blueberry Cake</option>
-                          </CustomSelect> 
-                           <CustomSelect
                             label= "Type"
                             name= "type"
                             type="text"
-                            placeholder="Cake Type"
+                            placeholder="Chop Type"
                             > 
-                                <option value="">Cake Type</option>
-                                <option value="Traditional">Traditional</option>
-                                <option value="Wedding">Wedding</option>
-                                <option value="Birthday">Birthday</option>
-                                <option value="Anniversary">Anniversary</option>
+                                <option value="">Chop Type</option>
+                                <option value="Chops_Pastries">Chops / Pastries</option>
                           </CustomSelect> 
+                         
+                          <CustomSelect
+                            label= "Chops Package"
+                            name= "chopPackageType"
+                            type="text"
+                            placeholder="Package Type"
+                            > 
+                                <option value="">Chop/pastry Package</option>
+                                <option value="samosa">Samosa</option>
+                                <option value="springroll">Springroll</option>
+                                <option value="puff">Puff</option>
+                                <option value="pepperedMeat">Peppered Meat</option>
+                                <option value="samosa_spingroll">Samosa & Spingroll</option>
+                                <option value="puff_pepperedMeat">Puff & PepperedMeat</option>
+                                <option value="samosa_pepperedMeat">Samosa & PepperedMeat</option>
+                                <option value="springroll_pepperedMeat">Springroll &PepperedMeat</option>
+                                
+                          </CustomSelect>
+                          
                           <CustomSelect
                             label= "Covering"
                             name= "designCovering"
                             type="text"
-                            placeholder="Cake Covering"
+                            placeholder="Pastry Covering"
                             > 
-                                <option value="">Cake Covering</option>
-                                <option value="naked">Naked</option>
-                                <option value="butterCream">Butter Cream</option>
-                                <option value="fundant">Fundant</option>
+                                <option value="">Pastry Covering</option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
                           </CustomSelect> 
                           <CustomSelect
-                            label= "Layers"
-                            name= "layers"
+                            label= "Number Of Packs"
+                            name= "numberOfPacks"
                             type="text"
-                            placeholder="Cake Layers"
+                            placeholder="no of Packs"
                             > 
-                                <option value="">Cake Layers</option>
+                                <option value="">Number Of Packs</option>
                                 <option value="1">1</option>
                                 <option value="2">2 </option>
                                 <option value="3">3</option>
                                 <option value="4">4</option>
                                 <option value="5">5</option>
-                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="other">other</option>
+                               
                           </CustomSelect>
                           <CustomDate
                             label= "Delivery Date"
@@ -93,22 +112,7 @@ export const QuickChopsOrderForm = () => {
                             type="date"
                             placeholder="Delivery Date"
                             /> 
-                             <CustomSelect
-                            label= "Inches"
-                            name= "inches"
-                            type="text"
-                            placeholder="Cake Inches"
-                            > 
-                                <option value="">Cake Inches</option>
-                                <option value="6">6</option>
-                                <option value="8">8 </option>
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="14">14</option>
-                                <option value="16">16</option>
-                                <option value="18">18</option>
-                                <option value="20">20</option>
-                          </CustomSelect>
+                             
                           <CustomTextArea 
                             label="Description"
                             name="description"
@@ -122,8 +126,97 @@ export const QuickChopsOrderForm = () => {
                             
                           />
                           <button type="submit">Add to Cart</button>
-                </Form>
-            ) : (
+                </Form>)}
+                <CustomButton type="button"
+                          label="Pastry"
+                          onClick={togglePastryForm}
+                />
+                {showPastryForm && (
+                <Form>
+                    <CustomInput 
+                             label= "Order Name"
+                             name= "orderTitle"
+                             type= "text"
+                             placeholder= "Order Name"
+                          />   
+                          <CustomSelect
+                            label= "Type"
+                            name= "type"
+                            type="text"
+                            placeholder="Chop Type"
+                            > 
+                                <option value="">Chop Type</option>
+                                <option value="Chops_Pastries">Chops / Pastries</option>
+                          </CustomSelect> 
+                        
+                          <CustomSelect
+                            label= "Pastry Package"
+                            name= "pastryPackageType"
+                            type="text"
+                            placeholder="Pastry Package"
+                            > 
+                                <option value="">Pastry Package</option>
+                                <option value="meatPie">MeatPie</option>
+                                <option value="donuts">donuts</option>
+                                <option value="cinamonRolls">Cinamon Rolls</option>
+                                <option value="pancakes">Pancakes</option>
+                                <option value="corndogs">Corndogs</option>
+                                <option value="waffels">Waffels</option>
+                                <option value="meatPie_donuts">MeatPie & Donuts</option>
+                                <option value="pancakes_corndogs_waffels">Pancake, corndogs & waffels</option>
+                          </CustomSelect> 
+                          <CustomSelect
+                            label= "Covering"
+                            name= "designCovering"
+                            type="text"
+                            placeholder="Pastry Covering"
+                            > 
+                                <option value="">Pastry Covering</option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                          </CustomSelect> 
+                          <CustomSelect
+                            label= "Number Of Packs"
+                            name= "numberOfPacks"
+                            type="text"
+                            placeholder="no of Packs"
+                            > 
+                                <option value="">Number Of Packs</option>
+                                <option value="1">1</option>
+                                <option value="2">2 </option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="other">other</option>
+                               
+                          </CustomSelect>
+                          <CustomDate
+                            label= "Delivery Date"
+                            name= "deliveryDate"
+                            type="date"
+                            placeholder="Delivery Date"
+                            /> 
+                             
+                          <CustomTextArea 
+                            label="Description"
+                            name="description"
+                            type="text"
+                            placeholder="please describe or add any other information we would need like decor title"
+                          />   
+                          <CustomFile 
+                            label="File"
+                            name="file"
+                            type="file"
+                            
+                          />
+                          <button type="submit">Add to Cart</button>
+                </Form>)}
+                </>
+            ):(
                 <span>
                     {chopsFormImage}
                 </span>
