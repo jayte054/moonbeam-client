@@ -31,7 +31,7 @@ export const getProfileService = async(user: any) => {
 
     try{
     const profile = await axios.get(`${Base_Url}/profile/getProfile`, config)
-    console.log(profile)
+    console.log(profile.data)
         return profile.data
     }catch(error){
         throw error

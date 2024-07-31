@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { GalleryProvider } from './context/galleryContext/galleryContext';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
+import { PackageProvider } from './context/orderContext/orderContext';
 
 // let stores: any = {}
 
@@ -20,11 +21,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <GalleryProvider>
-    <UserProvider>
-      <ProfileProvider>
-        <App />
-      </ProfileProvider>
-    </UserProvider>
+      <UserProvider>
+        <ProfileProvider>
+          <PackageProvider>
+            <App />
+          </PackageProvider>
+        </ProfileProvider>
+      </UserProvider>
     </GalleryProvider>
   </React.StrictMode>
 );

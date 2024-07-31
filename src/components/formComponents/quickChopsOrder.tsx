@@ -78,16 +78,6 @@ export const QuickChopsOrderForm = () => {
                           </CustomSelect>
                           
                           <CustomSelect
-                            label= "Covering"
-                            name= "designCovering"
-                            type="text"
-                            placeholder="Pastry Covering"
-                            > 
-                                <option value="">Pastry Covering</option>
-                                <option value="true">True</option>
-                                <option value="false">False</option>
-                          </CustomSelect> 
-                          <CustomSelect
                             label= "Number Of Packs"
                             name= "numberOfPacks"
                             type="text"

@@ -18,6 +18,7 @@ export const QuickOrderPage = () => {
         orderName: "",
         description: "",
         productFlavour: "",
+        type: "",
         designCovering: "",
         layers: "",
         deliveryDate: "",

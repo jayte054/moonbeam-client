@@ -28,7 +28,8 @@ export const quickOrderSchema = yup.object().shape({
                  .oneOf(["Traditional",
                         "Wedding", 
                         "Birthday", 
-                        "Anniversary"], "invalid type")
+                        "Anniversary",
+                        "Chops_Pastries"], "invalid type")
                  .required("Required"),
         designCovering: yup.string()
                             .oneOf(["naked", 
@@ -42,6 +43,8 @@ export const quickOrderSchema = yup.object().shape({
                          .required("Required")
                          .min(new Date(), "Delivery Date must be in the future")
                          .typeError("invalid delivery date format"),
+        
+        //same day delivery datef ormatting
         // deliveryDate: yup
         // .date()
         // .required("Required")

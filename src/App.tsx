@@ -10,28 +10,37 @@ import { QuickOrderPage } from './components/pages/quickOrderPage/quickOrderPage
 import { ProtectAuthRoute } from './components/utilsComponent';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
+import { PackageProvider } from './context/orderContext/orderContext';
 
 function App() {
   return (
     <div>
       <UserProvider>
-      <ProfileProvider>  
-      <Router>
-        <Routes>
-          <Route path ="/" element = {<LandingPage />} />
-          <Route path = "/signUpPage" element = {<SignUpPage />} />
-          <Route path = "/signinPage" element = {<SigninPage />} />
-          <Route path = "/galleryPage" element = {<GalleryPage />} />
-          <Route element = {<ProtectAuthRoute />} >
-          <Route path = "/auth/homepage" element = {<Homepage />}/>
-          <Route path = "/auth/profilePage" element = {<ProfilePage />} />
-          <Route path = "/auth/galleryPage" element = {<GalleryPageAuth />} />
-          <Route path = "/auth/quickOrderPage" element = {<QuickOrderPage />} />
-          </Route>
-        </Routes>
-      </Router>
-      </ProfileProvider>
-      </UserProvider> 
+        <ProfileProvider>
+          <PackageProvider>
+            <Router>
+              <Routes>
+                <Route path="/" element={<LandingPage />} />
+                <Route path="/signUpPage" element={<SignUpPage />} />
+                <Route path="/signinPage" element={<SigninPage />} />
+                <Route path="/galleryPage" element={<GalleryPage />} />
+                <Route element={<ProtectAuthRoute />}>
+                  <Route path="/auth/homepage" element={<Homepage />} />
+                  <Route path="/auth/profilePage" element={<ProfilePage />} />
+                  <Route
+                    path="/auth/galleryPage"
+                    element={<GalleryPageAuth />}
+                  />
+                  <Route
+                    path="/auth/quickOrderPage"
+                    element={<QuickOrderPage />}
+                  />
+                </Route>
+              </Routes>
+            </Router>
+          </PackageProvider>
+        </ProfileProvider>
+      </UserProvider>
     </div>
   );
 }

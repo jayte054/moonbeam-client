@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import {Form} from "formik"
 import {CustomInput} from "./customInput"
 import {CustomSelect} from "./customSelect"
@@ -7,128 +7,215 @@ import {CustomTextArea} from "./customTextArea"
 import {CustomFile} from "./customFile"
 import {CustomButton} from "./customButton"
 import "./quickSurprisePackageForm.css"
+import { SurprisePackageContext } from "../../context/orderContext/orderContext"
+interface bronzePackage {
+  packageId: string;  
+  packageName: string  
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  description: string;
+  imageUrl: string;
+  price: string;
 
+}
+interface _package {
+    bronzePackage: bronzePackage[],
+    silverPackage: any,
+    goldPackage: any,
+    diamondPackage: any,
+}
 
 export const QuickSurprisePackageForm = () => {
     const surpriseFormImage = <img src="/surpriseForm.png" alt="surprise-package" />
-    const [showForm, setShowForm] = useState(false)
-    const toggleForm = () => {
-        setShowForm((prevShowForm) => !prevShowForm)
+    const [showPackages, setShowPackages] = useState(false)
+    const [showBronzeForm, setShowBronzeForm] = useState(false)
+    const [showSilverForm, setShowSilverForm] = useState(false);
+    const [showGoldForm, setShowGoldForm] = useState(false);
+    const [showDiamondForm, setShowDiamondForm] = useState(false);
+    const [packages, setPackages] = useState<_package[]>([])
+    const [bronzePackage, setBronzePackage] = useState<bronzePackage | null>(null);
+    const {packageMap} = useContext<any>(SurprisePackageContext)
+
+    useEffect(() => {
+        const getPackages = () => {
+        setBronzePackage(packageMap.bronzePackage || []);
+
+        }
+        console.log(typeof(bronzePackage))
+        getPackages()
+    }, [packageMap, bronzePackage])
+
+    const togglePackage = () => {
+        setShowPackages((prev) => !prev);
     }
 
-    return(
-        <div className="quickSurprisePackage-container">
-            <CustomButton type="button"
-                          label= {!showForm ? "Suprise Packages" : "Order Package"}
-                          onClick= {toggleForm}
-            />
-            {showForm ? (
-                <Form>
-                          <CustomInput 
-                             label= "Order Name"
-                             name= "orderName"
-                             type= "text"
-                             placeholder= "Order Name"
-                          />   
-                          <CustomSelect
-                            label= "Flavour"
-                            name= "productFlavour"
-                            type="text"
-                            placeholder="Cake Flavour"
-                            > 
-                                <option value="">Cake Flavour</option>
-                                <option value="chocolateCake">Chocolate Cake</option>
-                                <option value="strawberryCake">Strawberry Cake</option>
-                                <option value="vanillaCake">Vanilla Cake</option>
-                                <option value="redvelvetCake">Red Velvet Cake</option>
-                                <option value="carrotCake">Carrot Cake</option>
-                                <option value="cheeseCake">Cheese Cake</option>
-                                <option value="bananaCake">Banana Cake</option>
-                                <option value="appleCake">Apple Cake</option>
-                                <option value="lemonCake">Lemon Cake</option>
-                                <option value="coffeeCake">Coffee Cake</option>
-                                <option value="coconutCake">Coconut Cake</option>
-                                <option value="blueberryCake">Blueberry Cake</option>
-                          </CustomSelect> 
-                           <CustomSelect
-                            label= "Type"
-                            name= "type"
-                            type="text"
-                            placeholder="Cake Type"
-                            > 
-                                <option value="">Cake Type</option>
-                                <option value="Traditional">Traditional</option>
-                                <option value="Wedding">Wedding</option>
-                                <option value="Birthday">Birthday</option>
-                                <option value="Anniversary">Anniversary</option>
-                          </CustomSelect> 
-                          <CustomSelect
-                            label= "Covering"
-                            name= "designCovering"
-                            type="text"
-                            placeholder="Cake Covering"
-                            > 
-                                <option value="">Cake Covering</option>
-                                <option value="naked">Naked</option>
-                                <option value="butterCream">Butter Cream</option>
-                                <option value="fundant">Fundant</option>
-                          </CustomSelect> 
-                          <CustomSelect
-                            label= "Layers"
-                            name= "layers"
-                            type="text"
-                            placeholder="Cake Layers"
-                            > 
-                                <option value="">Cake Layers</option>
-                                <option value="1">1</option>
-                                <option value="2">2 </option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                          </CustomSelect>
-                          <CustomDate
-                            label= "Delivery Date"
-                            name= "deliveryDate"
-                            type="date"
-                            placeholder="Delivery Date"
-                            /> 
-                             <CustomSelect
-                            label= "Inches"
-                            name= "inches"
-                            type="text"
-                            placeholder="Cake Inches"
-                            > 
-                                <option value="">Cake Inches</option>
-                                <option value="6">6</option>
-                                <option value="8">8 </option>
-                                <option value="10">10</option>
-                                <option value="12">12</option>
-                                <option value="14">14</option>
-                                <option value="16">16</option>
-                                <option value="18">18</option>
-                                <option value="20">20</option>
-                          </CustomSelect>
-                          <CustomTextArea 
-                            label="Description"
-                            name="description"
-                            type="text"
-                            placeholder="please describe or add any other information we would need like decor title"
-                          />   
-                          <CustomFile 
-                            label="File"
-                            name="file"
-                            type="file"
-                            
-                          />
-                          <button type="submit">Add to Cart</button>
-                </Form>    
-            ) : (
-            <span>
-                {surpriseFormImage}
-            </span>
-            )}
+    const toggleBronzeForm = () => {
+        setShowBronzeForm((prevShowForm) => !prevShowForm);
+    }
 
-        </div>
-    )
+    const toggleSilverForm= () => {
+        setShowSilverForm((prev) => !prev);
+    }
+
+    const toggleGoldForm = () => {
+        setShowGoldForm((prev) => !prev);
+    }
+
+    const toggleDiamondForm = () => {
+        setShowDiamondForm((prev) => !prev);
+    }
+
+    const renderForm = () => (
+          <Form>
+            <CustomInput
+              label="Order Name"
+              name="packageOrderName"
+              type="text"
+              placeholder="Order Name"
+            />
+            <CustomDate
+              label="Delivery Date"
+              name="deliveryDate"
+              type="date"
+              placeholder="Delivery Date"
+            />
+            <CustomTextArea
+              label="Additional Info"
+              name="addInfo"
+              type="text"
+              placeholder="please include any other additional information like delivery address"
+            />
+            <button type="submit">Add to Cart</button>
+          </Form>
+        );
+    
+
+    return (
+      <div className="quickSurprisePackage-container">
+        <CustomButton
+          type="button"
+          label={!showPackages ? "Surprise Packages" : "Order Package"}
+          onClick={togglePackage}
+        />
+        {showPackages ? (
+          <>
+            <CustomButton
+              type="button"
+              label="Bronze Package"
+              onClick={toggleBronzeForm}
+            />
+
+            {showBronzeForm && (
+              <>
+                {bronzePackage ? (
+                  <div key={bronzePackage.packageId}>
+                    <img
+                      src={bronzePackage.imageUrl}
+                      alt={bronzePackage.description}
+                    />
+                    <h3>
+                      {bronzePackage.description} ................ NGN
+                      {bronzePackage.price}
+                    </h3>
+                  </div>
+                ) : (
+                  <p>No Bronze package</p>
+                )}
+                {renderForm()}
+              </>
+            )}
+            <CustomButton
+              type="button"
+              label="Silver Package"
+              onClick={toggleSilverForm}
+            />
+            {showSilverForm && (
+              <Form>
+                <CustomInput
+                  label="Order Name"
+                  name="packageOrderName"
+                  type="text"
+                  placeholder="Order Name"
+                />
+                <CustomDate
+                  label="Delivery Date"
+                  name="deliveryDate"
+                  type="date"
+                  placeholder="Delivery Date"
+                />
+                <CustomTextArea
+                  label="Additional Info"
+                  name="addInfo"
+                  type="text"
+                  placeholder="please include any other additional information like delivery address"
+                />
+                <button type="submit">Add to Cart</button>
+              </Form>
+            )}
+            <CustomButton
+              type="button"
+              label="Gold Package"
+              onClick={toggleGoldForm}
+            />
+            {showGoldForm && (
+              <Form>
+                <CustomInput
+                  label="Order Name"
+                  name="packageOrderName"
+                  type="text"
+                  placeholder="Order Name"
+                />
+                <CustomDate
+                  label="Delivery Date"
+                  name="deliveryDate"
+                  type="date"
+                  placeholder="Delivery Date"
+                />
+                <CustomTextArea
+                  label="Additional Info"
+                  name="addInfo"
+                  type="text"
+                  placeholder="please include any other additional information like delivery address"
+                />
+                <button type="submit">Add to Cart</button>
+              </Form>
+            )}
+            <CustomButton
+              type="button"
+              label="Diamond Package"
+              onClick={toggleDiamondForm}
+            />
+            {showDiamondForm && (
+              <Form>
+                <CustomInput
+                  label="Order Name"
+                  name="packageOrderName"
+                  type="text"
+                  placeholder="Order Name"
+                />
+                <CustomDate
+                  label="Delivery Date"
+                  name="deliveryDate"
+                  type="date"
+                  placeholder="Delivery Date"
+                />
+                <CustomTextArea
+                  label="Additional Info"
+                  name="addInfo"
+                  type="text"
+                  placeholder="please include any other additional information like delivery address"
+                />
+                <button type="submit">Add to Cart</button>
+              </Form>
+            )}
+          </>
+        ) : (
+          <span>{surpriseFormImage}</span>
+        )}
+      </div>
+    );
 }
