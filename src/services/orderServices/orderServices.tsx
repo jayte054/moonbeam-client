@@ -16,7 +16,7 @@ export const surprisePackageOrder = async () => {
                  acc.bronzePackage = _package;
                  break;
                case "silver":
-                 acc.bronzePackage = _package;
+                 acc.silverPackage = _package;
                  break;
                case "gold":
                  acc.goldPackage = _package;

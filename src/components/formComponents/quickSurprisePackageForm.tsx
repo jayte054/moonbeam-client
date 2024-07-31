@@ -36,16 +36,21 @@ export const QuickSurprisePackageForm = () => {
     const [showSilverForm, setShowSilverForm] = useState(false);
     const [showGoldForm, setShowGoldForm] = useState(false);
     const [showDiamondForm, setShowDiamondForm] = useState(false);
-    const [packages, setPackages] = useState<_package[]>([])
+    // const [packages, setPackages] = useState<_package[]>([])
     const [bronzePackage, setBronzePackage] = useState<bronzePackage | null>(null);
+    const [silverPackage, setSilverPackage] = useState<bronzePackage | null>(null)
+    const [goldPackage, setGoldPackage] = useState<bronzePackage | null>(null);
+    const [diamondPackage, setDiamondPackage] = useState<bronzePackage | null>(null);
     const {packageMap} = useContext<any>(SurprisePackageContext)
 
     useEffect(() => {
         const getPackages = () => {
         setBronzePackage(packageMap.bronzePackage || []);
-
+        setSilverPackage(packageMap.silverPackage || []);
+        setGoldPackage(packageMap.goldPackage || []);
+        setDiamondPackage(packageMap.diamondPackage || []);
         }
-        console.log(typeof(bronzePackage))
+        console.log(goldPackage);
         getPackages()
     }, [packageMap, bronzePackage])
 
@@ -134,27 +139,23 @@ export const QuickSurprisePackageForm = () => {
               onClick={toggleSilverForm}
             />
             {showSilverForm && (
-              <Form>
-                <CustomInput
-                  label="Order Name"
-                  name="packageOrderName"
-                  type="text"
-                  placeholder="Order Name"
-                />
-                <CustomDate
-                  label="Delivery Date"
-                  name="deliveryDate"
-                  type="date"
-                  placeholder="Delivery Date"
-                />
-                <CustomTextArea
-                  label="Additional Info"
-                  name="addInfo"
-                  type="text"
-                  placeholder="please include any other additional information like delivery address"
-                />
-                <button type="submit">Add to Cart</button>
-              </Form>
+              <>
+                {silverPackage ? (
+                  <div key={silverPackage?.packageId}>
+                    <img
+                      src={silverPackage?.imageUrl}
+                      alt={silverPackage.description}
+                    />
+                    <h3>
+                      {silverPackage.description} ................ NGN
+                      {silverPackage.price}
+                    </h3>
+                  </div>
+                ): (
+                    <p>No Silver Package</p>
+                )}
+                {renderForm()}
+              </>
             )}
             <CustomButton
               type="button"
@@ -162,27 +163,22 @@ export const QuickSurprisePackageForm = () => {
               onClick={toggleGoldForm}
             />
             {showGoldForm && (
-              <Form>
-                <CustomInput
-                  label="Order Name"
-                  name="packageOrderName"
-                  type="text"
-                  placeholder="Order Name"
-                />
-                <CustomDate
-                  label="Delivery Date"
-                  name="deliveryDate"
-                  type="date"
-                  placeholder="Delivery Date"
-                />
-                <CustomTextArea
-                  label="Additional Info"
-                  name="addInfo"
-                  type="text"
-                  placeholder="please include any other additional information like delivery address"
-                />
-                <button type="submit">Add to Cart</button>
-              </Form>
+                <>
+                {goldPackage ? (
+                    <div key={goldPackage.packageId}>
+                        <img src={goldPackage.imageUrl}
+                             alt={goldPackage.description}
+                        />
+                        <h3>
+                            {goldPackage.description} ................ NGN
+                            {goldPackage.price}
+                        </h3>
+                    </div>
+                ): (
+                    <p>No Gold Package</p>
+                )}
+                {renderForm()}
+                </>
             )}
             <CustomButton
               type="button"
@@ -190,27 +186,22 @@ export const QuickSurprisePackageForm = () => {
               onClick={toggleDiamondForm}
             />
             {showDiamondForm && (
-              <Form>
-                <CustomInput
-                  label="Order Name"
-                  name="packageOrderName"
-                  type="text"
-                  placeholder="Order Name"
-                />
-                <CustomDate
-                  label="Delivery Date"
-                  name="deliveryDate"
-                  type="date"
-                  placeholder="Delivery Date"
-                />
-                <CustomTextArea
-                  label="Additional Info"
-                  name="addInfo"
-                  type="text"
-                  placeholder="please include any other additional information like delivery address"
-                />
-                <button type="submit">Add to Cart</button>
-              </Form>
+                <>
+                    {diamondPackage ? (
+                        <div key={diamondPackage.packageId}>
+                            <img src={diamondPackage.imageUrl}
+                                 alt={diamondPackage.description}
+                            />
+                            <h3>
+                                {diamondPackage.description} ................ NGN
+                                {diamondPackage.price}
+                            </h3>
+                        </div>
+                    ):(
+                        <p>No Diamond Package</p>
+                    )}
+                    {renderForm()}
+                </>
             )}
           </>
         ) : (

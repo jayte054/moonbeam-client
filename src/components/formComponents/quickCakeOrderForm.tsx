@@ -10,19 +10,23 @@ import "./quickCakeOrderForm.css"
 
 export const QuickCakeOrderForm = () => {
     const cakeFormImage = <img src="/cake-form.png" alt="cake-form"/>
-    const [showForm, setShowForm] = useState(false)
+    const [cakeCategoryForm, setCakeCategoryForm] = useState(false)
+    const [budgetCakesForm, setBudgetCakesForm] = useState(false)
+    const [specialCakesForm, setSpecialCakesForm] = useState(false)
 
-    const toggleForm = () => {
-        setShowForm((prevShowForm) => !prevShowForm)
+    const toggleCategoryForm = () => {
+        setCakeCategoryForm((prevShowForm) => !prevShowForm);
     }
 
-    return(
-        <div className="quickOrderCake-container">
-            <CustomButton type="button"
-                          label={!showForm ? "Cakes": "Order Cake"}
-                          onClick={toggleForm}
-                    />
-            {showForm ? (
+    const toggleBudgetCakesForm = () => {
+      setBudgetCakesForm((prev) => !prev);
+    }
+
+    const toggleSpecialCakesForm = () => {
+      setSpecialCakesForm((prev) => !prev)
+    }
+
+    const renderForm = () => (
                         <Form>
                           <CustomInput 
                              label= "Order Name"
@@ -123,11 +127,38 @@ export const QuickCakeOrderForm = () => {
                           />
                           <button type="submit">Add to Cart</button>    
                         </Form>
-                          ):(
-                            <span>
-                                {cakeFormImage}
-                            </span>
-                           )}
+    )
+
+    return(
+        <div className="quickOrderCake-container">
+            <CustomButton type="button"
+                          label={!cakeCategoryForm ? "Cakes": "Order Cake"}
+                          onClick={toggleCategoryForm}
+                    />
+            {cakeCategoryForm ? (
+              <>
+                <CustomButton 
+                  type="button"
+                  label="Budget Cakes"
+                  onClick={toggleBudgetCakesForm}
+                />
+                {budgetCakesForm && (
+                  renderForm()
+                )}
+                <CustomButton 
+                  type="button"
+                  label="Special Cakes"
+                  onClick={toggleSpecialCakesForm}
+                  />
+                  {specialCakesForm && (
+                    renderForm()
+                  )}
+              </>
+                ):(
+                  <span>
+                      {cakeFormImage}
+                  </span>
+                )}
                           
         </div>
     )
