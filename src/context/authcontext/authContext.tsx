@@ -13,11 +13,23 @@ export const UserProvider: React.FC<UserContextProps> = ({children}: UserContext
         firstname: "", 
         lastname: "", 
         isAdmin: "", 
-        phoneNumber: ""
+        phoneNumber: "",
+        accessToken: ""
     })
 
     const updateUser = (userData: any) => {
-        setUser(userData)
+        console.log(userData)
+        setUser((data: any) => ({
+          ...data,
+          id: userData.user.id,
+          email: userData.user.email,
+          firstname: userData.user.firstname,
+          lastname: userData.user.lastname,
+          isAdmin: userData.user.isAdmin,
+          phoneNumber: userData.user.phoneNumber,
+          accessToken: userData.accessToken,
+        }));
+        console.log(user)
     };
 
     const contextValue = useMemo(() => ({user, updateUser}), [user]);

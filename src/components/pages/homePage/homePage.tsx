@@ -9,7 +9,7 @@ export const Homepage = () => {
     const {user} = useContext(AuthContext)
     const navigate = useNavigate()
     console.log(user)
-    const name = user?.user?.firstname || ""
+    const name = user?.firstname || ""
 
     const navQuickOrder = () => {
         navigate("/auth/quickOrderPage")
