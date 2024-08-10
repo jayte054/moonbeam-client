@@ -74,10 +74,28 @@
 
 .quickOrder-input {
     padding-left: 2rem; /* Simplified padding */
+    display: flex;
+    justify-content: space-between;
 }
 
 .quickCakeOrder-container {
     display: flex;
     justify-content: space-between;
+}
+
+.quickOrder-variants {
+    margin: 2rem;
+    border: 3px solid #d767e8;
+    border-radius: 1rem;
+}
+
+.quickOrder-foilCakes, .quickOrder-cakeParfait{
+    margin: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
 }
 

@@ -101,7 +101,7 @@ export const QuickSurprisePackageForm = () => {
       <div className="quickSurprisePackage-container">
         <CustomButton
           type="button"
-          label={!showPackages ? "Surprise Packages" : "Order Package"}
+          label={!showPackages ? "Surprise Packages" : "Package Category"}
           onClick={togglePackage}
         />
         {showPackages ? (

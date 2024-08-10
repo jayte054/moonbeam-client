@@ -32,7 +32,7 @@ export const QuickChopsOrderForm = () => {
     return(
         <div className="quickOrderChops-container">
             <CustomButton type="button"
-                          label={!showCategory ? "Chops / Pastries": "Order chops/pastries"}
+                          label={!showCategory ? "Chops / Pastries": "chops/pastries category"}
                           onClick={togglePage}
             />
             {showCategory ? (

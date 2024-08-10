@@ -128,11 +128,12 @@ export const QuickCakeOrderForm = () => {
                           <button type="submit">Add to Cart</button>    
                         </Form>
     )
+    
 
     return(
         <div className="quickOrderCake-container">
             <CustomButton type="button"
-                          label={!cakeCategoryForm ? "Cakes": "Order Cake"}
+                          label={!cakeCategoryForm ? "Cakes": "Cake Category"}
                           onClick={toggleCategoryForm}
                     />
             {cakeCategoryForm ? (

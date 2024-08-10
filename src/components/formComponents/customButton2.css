@@ -1,0 +1,17 @@
+.customButton2 button{
+    margin: .2rem;
+    padding: 1rem;
+    width: 104.8%;
+    border-radius: 1rem;
+    color: white;
+    background-color: #4d2953;
+    font-family: Apple Chancery;
+    font-size: 1.8rem;
+}
+
+.customButton2 button:hover{
+  border-width: 2px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}
