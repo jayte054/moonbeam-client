@@ -14,11 +14,24 @@ import { CustomSelect } from "../../formComponents/customSelect";
 import { CustomButton } from "../../formComponents/customButton";
 import { FoilCakeForm } from "../../formComponents/foilCakeForm";
 import { CakeParfaitForm } from "../../formComponents/cakeParfaitForm";
+import { useContext, useEffect, useState } from "react";
+import { CakeVariantRatesContext } from "../../../context/orderContext/orderContext";
 
 
 
 export const QuickOrderPage = () => {
-    
+    const [foilCakePrice, setFoilCakePrice] = useState<string>('');
+    const [cakeParfaitPrice, setCakeParfaitPrice] = useState<string>("");
+    const {foilCake, cakeParfait} = useContext(CakeVariantRatesContext);
+
+    useEffect(() => {
+        const getRates = () => {
+            setFoilCakePrice(foilCake)
+            setCakeParfaitPrice(cakeParfait)
+        }
+        getRates()
+    }, [foilCake, cakeParfait, foilCakePrice, cakeParfaitPrice])
+
     const initialValues: OrderObject = {
         orderName: "",
         description: "",
@@ -127,7 +140,7 @@ export const QuickOrderPage = () => {
               </Formik>
 
               <div>
-                <span>Price: {}</span>
+                <span>Price: ₦{foilCakePrice}</span>
               </div>
             </div>
             <div className="quickOrder-cakeParfait">
@@ -144,7 +157,7 @@ export const QuickOrderPage = () => {
               </Formik>
 
               <div>
-                <span>Price: {}</span>
+                <span>Price: ₦{cakeParfaitPrice}</span>
               </div>
             </div>
           </div>

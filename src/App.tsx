@@ -10,7 +10,10 @@ import { QuickOrderPage } from './components/pages/quickOrderPage/quickOrderPage
 import { ProtectAuthRoute } from './components/utilsComponent';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
-import { PackageProvider } from './context/orderContext/orderContext';
+import {
+  PackageProvider,
+  VariantRatesProvider,
+} from "./context/orderContext/orderContext";
 
 function App() {
   return (
@@ -18,6 +21,7 @@ function App() {
       <UserProvider>
         <ProfileProvider>
           <PackageProvider>
+            <VariantRatesProvider>
             <Router>
               <Routes>
                 <Route path="/" element={<LandingPage />} />
@@ -38,6 +42,7 @@ function App() {
                 </Route>
               </Routes>
             </Router>
+            </VariantRatesProvider>
           </PackageProvider>
         </ProfileProvider>
       </UserProvider>

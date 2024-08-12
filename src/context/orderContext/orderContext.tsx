@@ -5,6 +5,11 @@ interface PackageContextType {
   packageMap: any[];
 }
 
+interface CakeVariantRates {
+  foilCake: string;
+  cakeParfait: string;
+}
+
 interface PackageProviderProps {
   children: ReactNode;
 }
@@ -18,7 +23,7 @@ export const PackageProvider = ({children}: PackageProviderProps) => {
 
     useEffect(() => {
         const getPackageMap = async () => {
-            const packages: any = await OrderStores.surprisePackageOrder()
+            const packages: any = await OrderStores.surprisePackageOrderDetails()
             console.log(packages)
             setPackageMap(packages)
         }
@@ -31,4 +36,32 @@ export const PackageProvider = ({children}: PackageProviderProps) => {
         {children}
       </SurprisePackageContext.Provider>
     );
+}
+
+export const CakeVariantRatesContext = createContext<CakeVariantRates>({
+  foilCake: "",
+  cakeParfait: ""
+})
+
+export const VariantRatesProvider = ({children}: PackageProviderProps) => {
+  const [variantRates, setVariantRates] = useState<CakeVariantRates>({
+    foilCake: '',
+    cakeParfait: ''
+  })
+
+  useEffect(() => {
+    const getVariantRates = async () => {
+      const rates = await OrderStores.cakeVariantRates()
+      console.log(rates)
+      setVariantRates(rates)
+    }
+    getVariantRates()
+  }, [])
+
+  const value = variantRates
+  return (
+    <CakeVariantRatesContext.Provider value={value}>
+      {children}
+    </CakeVariantRatesContext.Provider>
+  )
 }

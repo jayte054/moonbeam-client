@@ -8,7 +8,10 @@ import reportWebVitals from './reportWebVitals';
 import { GalleryProvider } from './context/galleryContext/galleryContext';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
-import { PackageProvider } from './context/orderContext/orderContext';
+import {
+  PackageProvider,
+  VariantRatesProvider,
+} from "./context/orderContext/orderContext";
 
 // let stores: any = {}
 
@@ -24,7 +27,9 @@ root.render(
       <UserProvider>
         <ProfileProvider>
           <PackageProvider>
-            <App />
+            <VariantRatesProvider>
+              <App />
+            </VariantRatesProvider>
           </PackageProvider>
         </ProfileProvider>
       </UserProvider>

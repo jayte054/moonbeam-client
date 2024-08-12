@@ -1,7 +1,11 @@
-import { surprisePackageOrder } from "../services/orderServices/orderServices"
+import { cakeVariantRates, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
 
 export const OrderStores = {
-    surprisePackageOrder: async() => {
-        return await surprisePackageOrder()
+    surprisePackageOrderDetails: async() => {
+        return await surprisePackageOrderDetails()
+    },
+
+    cakeVariantRates:  async() =>{
+        return await cakeVariantRates();
     },
 }

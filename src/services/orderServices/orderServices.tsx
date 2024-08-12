@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Base_Url } from "../galleryServices/galleryServices";
 
-export const surprisePackageOrder = async () => {
+export const surprisePackageOrderDetails = async () => {
     // const config = {
     //     headers: {
     //         "Authorization": `Bearer ${user}`
@@ -38,4 +38,13 @@ export const surprisePackageOrder = async () => {
     }catch(error){
         throw error;
     }
+}
+
+export const cakeVariantRates = async () => {
+try {
+  const rates = await axios.get(`${Base_Url}/bareAdminHub/getCakeVariantsRates`);
+  return rates.data
+} catch (error) {
+  throw error;
+}
 }

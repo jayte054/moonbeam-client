@@ -50,7 +50,7 @@ export const QuickSurprisePackageForm = () => {
         }
         console.log(goldPackage);
         getPackages()
-    }, [packageMap, bronzePackage])
+    }, [packageMap, bronzePackage, silverPackage, goldPackage, diamondPackage])
 
     const togglePackage = () => {
         setShowPackages((prev) => !prev);
@@ -121,7 +121,7 @@ export const QuickSurprisePackageForm = () => {
                       alt={bronzePackage.description}
                     />
                     <h3>
-                      {bronzePackage.description} ................ NGN
+                      {bronzePackage.description} ................ ₦
                       {bronzePackage.price}
                     </h3>
                   </div>
@@ -145,12 +145,12 @@ export const QuickSurprisePackageForm = () => {
                       alt={silverPackage.description}
                     />
                     <h3>
-                      {silverPackage.description} ................ NGN
+                      {silverPackage.description} ................ ₦
                       {silverPackage.price}
                     </h3>
                   </div>
-                ): (
-                    <p>No Silver Package</p>
+                ) : (
+                  <p>No Silver Package</p>
                 )}
                 {renderForm()}
               </>
@@ -161,22 +161,23 @@ export const QuickSurprisePackageForm = () => {
               onClick={toggleGoldForm}
             />
             {showGoldForm && (
-                <>
+              <>
                 {goldPackage ? (
-                    <div key={goldPackage.packageId}>
-                        <img src={goldPackage.imageUrl}
-                             alt={goldPackage.description}
-                        />
-                        <h3>
-                            {goldPackage.description} ................ NGN
-                            {goldPackage.price}
-                        </h3>
-                    </div>
-                ): (
-                    <p>No Gold Package</p>
+                  <div key={goldPackage.packageId}>
+                    <img
+                      src={goldPackage.imageUrl}
+                      alt={goldPackage.description}
+                    />
+                    <h3>
+                      {goldPackage.description} ................ ₦
+                      {goldPackage.price}
+                    </h3>
+                  </div>
+                ) : (
+                  <p>No Gold Package</p>
                 )}
                 {renderForm()}
-                </>
+              </>
             )}
             <CustomButton
               type="button"
@@ -184,22 +185,23 @@ export const QuickSurprisePackageForm = () => {
               onClick={toggleDiamondForm}
             />
             {showDiamondForm && (
-                <>
-                    {diamondPackage ? (
-                        <div key={diamondPackage.packageId}>
-                            <img src={diamondPackage.imageUrl}
-                                 alt={diamondPackage.description}
-                            />
-                            <h3>
-                                {diamondPackage.description} ................ NGN
-                                {diamondPackage.price}
-                            </h3>
-                        </div>
-                    ):(
-                        <p>No Diamond Package</p>
-                    )}
-                    {renderForm()}
-                </>
+              <>
+                {diamondPackage ? (
+                  <div key={diamondPackage.packageId}>
+                    <img
+                      src={diamondPackage.imageUrl}
+                      alt={diamondPackage.description}
+                    />
+                    <h3>
+                      {diamondPackage.description} ................ ₦
+                      {diamondPackage.price}
+                    </h3>
+                  </div>
+                ) : (
+                  <p>No Diamond Package</p>
+                )}
+                {renderForm()}
+              </>
             )}
           </>
         ) : (
