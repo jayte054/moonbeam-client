@@ -3,6 +3,7 @@ import { CustomButton2 } from "./customButton2";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
+import { AddToCartButton } from "./addToCartButton";
 import './foilCakeForm.css'
 
 export const FoilCakeForm = () => {
@@ -47,7 +48,10 @@ export const FoilCakeForm = () => {
                 />
 
               <div>
-                <button type="button">Add to Cart</button>
+                <AddToCartButton 
+                            type="submit"
+                            label="Add To Cart"
+                          /> 
               </div>
             </div>
           )}

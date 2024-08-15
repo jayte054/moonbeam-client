@@ -6,6 +6,7 @@ import {CustomDate} from "./customDate"
 import {CustomTextArea} from "./customTextArea"
 import {CustomFile} from "./customFile"
 import {CustomButton} from "./customButton"
+import {AddToCartButton} from "./addToCartButton"
 import "./quickChopsOrder.css"
 
 export const QuickChopsOrderForm = () => {
@@ -115,7 +116,10 @@ export const QuickChopsOrderForm = () => {
                             type="file"
                             
                           />
-                          <button type="submit">Add to Cart</button>
+                          <AddToCartButton 
+                            type="submit"
+                            label="Add To Cart"
+                          />  
                 </Form>)}
                 <CustomButton type="button"
                           label="Pastry"
@@ -203,7 +207,10 @@ export const QuickChopsOrderForm = () => {
                             type="file"
                             
                           />
-                          <button type="submit">Add to Cart</button>
+                          <AddToCartButton 
+                            type="submit"
+                            label="Add To Cart"
+                          /> 
                 </Form>)}
                 </>
             ):(

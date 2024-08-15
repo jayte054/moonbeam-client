@@ -17,3 +17,11 @@
     height: 30rem;
     border-radius: 1rem;
 }
+
+.bronzePackage span, .diamondPackage span,.goldPackage span, .silverPackage span{
+    border: 1.5px solid;
+    border-radius: 1rem;
+    margin: .7rem;
+    padding: .4rem;
+    background-color: #d0d0d0
+}

@@ -6,6 +6,7 @@ import {CustomDate} from "./customDate"
 import {CustomTextArea} from "./customTextArea"
 import {CustomFile} from "./customFile"
 import {CustomButton} from "./customButton"
+import {AddToCartButton} from "./addToCartButton"
 import "./quickCakeOrderForm.css"
 
 export const QuickCakeOrderForm = () => {
@@ -125,7 +126,10 @@ export const QuickCakeOrderForm = () => {
                             type="file"
                             
                           />
-                          <button type="submit">Add to Cart</button>    
+                          <AddToCartButton 
+                            type="submit"
+                            label="Add To Cart"
+                          />  
                         </Form>
     )
     

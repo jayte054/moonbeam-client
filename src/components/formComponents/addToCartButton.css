@@ -1,0 +1,17 @@
+.addToCartButton button{
+    margin: .2rem;
+    padding: 1rem;
+    width: 74.8%;
+    border-radius: 1rem;
+    color: white;
+    background-color: #d6ab44;
+    font-family: Apple Chancery;
+    font-size: 1.8rem;
+}
+
+.addToCartButton button:hover{
+  border-width: 2px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}

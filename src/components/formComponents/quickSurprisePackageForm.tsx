@@ -4,6 +4,7 @@ import {CustomInput} from "./customInput"
 import {CustomDate} from "./customDate"
 import {CustomTextArea} from "./customTextArea"
 import {CustomButton} from "./customButton"
+import {AddToCartButton} from "./addToCartButton"
 import "./quickSurprisePackageForm.css"
 import { SurprisePackageContext } from "../../context/orderContext/orderContext"
 interface bronzePackage {
@@ -92,7 +93,10 @@ export const QuickSurprisePackageForm = () => {
               type="text"
               placeholder="please include any other additional information like delivery address"
             />
-            <button type="submit">Add to Cart</button>
+             <AddToCartButton 
+                            type="submit"
+                            label="Add To Cart"
+                          />  
           </Form>
         );
     
@@ -115,14 +119,16 @@ export const QuickSurprisePackageForm = () => {
             {showBronzeForm && (
               <>
                 {bronzePackage ? (
-                  <div key={bronzePackage.packageId}>
+                  <div key={bronzePackage.packageId}
+                       className="bronzePackage"
+                  >
                     <img
                       src={bronzePackage.imageUrl}
                       alt={bronzePackage.description}
                     />
                     <h3>
-                      {bronzePackage.description} ................ ₦
-                      {bronzePackage.price}
+                      {bronzePackage.description} ................ 
+                     <span> ₦{bronzePackage.price} </span>
                     </h3>
                   </div>
                 ) : (
@@ -139,14 +145,17 @@ export const QuickSurprisePackageForm = () => {
             {showSilverForm && (
               <>
                 {silverPackage ? (
-                  <div key={silverPackage?.packageId}>
+                  <div key={silverPackage?.packageId}
+                       className="silverPackage"
+                       
+                  >
                     <img
                       src={silverPackage?.imageUrl}
                       alt={silverPackage.description}
                     />
                     <h3>
-                      {silverPackage.description} ................ ₦
-                      {silverPackage.price}
+                      {silverPackage.description} ................ 
+                     <span> ₦{silverPackage.price} </span>
                     </h3>
                   </div>
                 ) : (
@@ -163,14 +172,16 @@ export const QuickSurprisePackageForm = () => {
             {showGoldForm && (
               <>
                 {goldPackage ? (
-                  <div key={goldPackage.packageId}>
+                  <div key={goldPackage.packageId}
+                       className="goldPackage"            
+                  >
                     <img
                       src={goldPackage.imageUrl}
                       alt={goldPackage.description}
                     />
                     <h3>
-                      {goldPackage.description} ................ ₦
-                      {goldPackage.price}
+                      {goldPackage.description} ................ 
+                     <span> ₦{goldPackage.price} </span>
                     </h3>
                   </div>
                 ) : (
@@ -187,14 +198,16 @@ export const QuickSurprisePackageForm = () => {
             {showDiamondForm && (
               <>
                 {diamondPackage ? (
-                  <div key={diamondPackage.packageId}>
+                  <div key={diamondPackage.packageId}
+                       className="diamondPackage"
+                  >
                     <img
                       src={diamondPackage.imageUrl}
                       alt={diamondPackage.description}
                     />
                     <h3>
-                      {diamondPackage.description} ................ ₦
-                      {diamondPackage.price}
+                      {diamondPackage.description} ................ 
+                     <span> ₦{diamondPackage.price} </span>
                     </h3>
                   </div>
                 ) : (

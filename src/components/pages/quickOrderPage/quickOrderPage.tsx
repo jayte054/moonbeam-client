@@ -139,8 +139,8 @@ export const QuickOrderPage = () => {
                 )}
               </Formik>
 
-              <div>
-                <span>Price: ₦{foilCakePrice}</span>
+              <div className="foilPrice">
+                Price:<span> ₦{foilCakePrice}</span>
               </div>
             </div>
             <div className="quickOrder-cakeParfait">
@@ -156,8 +156,8 @@ export const QuickOrderPage = () => {
                 )}
               </Formik>
 
-              <div>
-                <span>Price: ₦{cakeParfaitPrice}</span>
+              <div className="parfaitPrice">
+                Price:<span> ₦{cakeParfaitPrice}</span>
               </div>
             </div>
           </div>
