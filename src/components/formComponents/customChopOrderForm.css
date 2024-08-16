@@ -1,4 +1,4 @@
-.quickOrderChops-container{
+.customOderChops-container{
     /* width: 85%; */
     width: 95%;
     border: 3px solid #d767e8;
@@ -6,14 +6,14 @@
     text-align: center;
 }
 
-.quickOrderChops-container:hover {
+.customOderChops-container:hover {
   border-width: 7px; /* Change only the border width on hover */
   border-color: #c72bdf;
   border-radius: 1rem;
   cursor: pointer;
 }
 
-.quickOrderChops-container img {
+.customOderChops-container img {
     width: 95%;
     height: 30rem;
     border-radius: 1rem;

@@ -1,20 +1,20 @@
-.quickOrderChops-container{
-    /* width: 85%; */
+.customSurprisePackage-container{
     width: 95%;
     border: 3px solid #d767e8;
     border-radius: 1rem;
     text-align: center;
 }
 
-.quickOrderChops-container:hover {
+.customSurprisePackage-container:hover {
   border-width: 7px; /* Change only the border width on hover */
   border-color: #c72bdf;
   border-radius: 1rem;
   cursor: pointer;
 }
 
-.quickOrderChops-container img {
+.customSurprisePackage-container img {
     width: 95%;
     height: 30rem;
     border-radius: 1rem;
 }
+

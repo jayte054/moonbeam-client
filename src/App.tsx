@@ -7,6 +7,7 @@ import { SignUpPage } from './components/pages/signupPage/signupPage';
 import { Homepage } from './components/pages/homePage/homePage';
 import { ProfilePage } from './components/pages/profilePage/profilePage';
 import { QuickOrderPage } from './components/pages/quickOrderPage/quickOrderPage';
+import { CustomOrderPage } from './components/pages/customOrderPage/customOrderPage';
 import { ProtectAuthRoute } from './components/utilsComponent';
 import { UserProvider } from './context/authcontext/authContext';
 import { ProfileProvider } from './context/profileContext/profileContext';
@@ -38,6 +39,10 @@ function App() {
                   <Route
                     path="/auth/quickOrderPage"
                     element={<QuickOrderPage />}
+                  />
+                  <Route 
+                    path="/auth/customOrderPage"
+                    element={<CustomOrderPage />}
                   />
                 </Route>
               </Routes>

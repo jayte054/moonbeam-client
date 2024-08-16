@@ -1,0 +1,42 @@
+.quickOrderPage-container {
+    width: 100%;
+    /* Consider adding a global margin or padding instead of using margins in multiple places */
+}
+
+.quickOrder-header {
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures header elements are aligned vertically */
+}
+
+.quickOrder-header span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.quickOrderPage-body {
+    background-color: #efefe1; /* Hex color code for consistency */
+    border-radius: 1rem;
+    margin: 1rem auto; /* Centered margin */
+    padding: 1rem;
+    font-family: "Apple Chancery", cursive; /* Added fallback font */
+    font-weight: bold;
+    width: 90%;
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+.quickOrderPage-body h2 {
+    margin: 1rem 0; /* Adds top and bottom margin only */
+}
+
+.quickOrder-input {
+    padding-left: 2rem; /* Simplified padding */
+    display: flex;
+    justify-content: space-between;
+}
+
+.quickCakeOrder-container {
+    display: flex;
+    justify-content: space-between;
+}
