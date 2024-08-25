@@ -1,13 +1,25 @@
 import { useContext, useEffect, useState } from "react";
 import { BsBasket2Fill } from "react-icons/bs";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
 import { GalleryContext } from "../../../context/galleryContext/galleryContext";
 import { Footer } from "../../footer/footer"
 import { GalleryPageNavbar } from "../../navbar/galleryPageNavbar"
 import "./galleryPage.css"
+import { FaArrowRight, FaArrowLeft} from "react-icons/fa";
 
 export const GalleryPage = () => {
     const [products, setProducts] = useState<any[]>([])
+    const [pageIndex, setPageIndex] = useState<{[key: string]: number}>({
+        birthday: 0,
+        anniversary: 0,
+        wedding: 0,
+        "chops / pastries": 0,
+        "suprise package": 0
+    })
     const { galleryMap } = useContext<any>(GalleryContext)
+    const nextArrow = <FaArrowRight />;
+    const prevArrow = <FaArrowLeft />;
+    const itemsPerPage = 4;
 
     useEffect(() => {
         const getProducts = () => {
@@ -16,69 +28,89 @@ export const GalleryPage = () => {
         getProducts()
     }, [galleryMap])
 
+    const handleNext = (productType: string) => {
+        setPageIndex((prevIndex) => ({
+            ...prevIndex,
+            [productType]: prevIndex[productType] + 1
+        }))
+    }
+
+    const handlePrev = (productType: string) => {
+        setPageIndex((prevIndex) => ({
+            ...prevIndex,
+            [productType]: Math.max(prevIndex[productType] -1, 0),
+        }))
+    }
+
     // Function to render products based on type
     const renderProductsByType = (productType: string) => {
+        const startIndex = pageIndex[productType] * itemsPerPage;
+       
+
         return (
-            products
+          <>
+            <div className="pagination-nav">
+              <span className="arrow" onClick={() => handlePrev(productType)}>
+                <FaArrowLeft className="span-nav" />
+              </span>
+              <span className="arrow" onClick={() => handleNext(productType)}>
+                <FaArrowRight className="span-nav" />
+              </span>
+            </div>
+            <div className="category-type">
+              {products
                 .filter((product: any) => product.type === productType)
-                .slice(0, 4)
+                .slice(startIndex, startIndex + itemsPerPage)
                 .map((product: any) => (
-                    <div key={product.productId}>
-                        <div className="category-item">
-                            <img src={product.imageUrl} 
-                                 alt={product.description} 
-                                 className="item"
-                                 /><br />
-                            <span>{product.description}</span><br />
-                            {/* <button type="button">Add to Cart</button> */}
-                        </div>
+                  <div key={product.productId}>
+                    <div className="category-item">
+                      <img
+                        src={product.imageUrl}
+                        alt={product.description}
+                        className="item"
+                      />
+                      <br />
+                      <span>{product.description}</span>
+                      <br />
                     </div>
-                ))
+                  </div>
+                ))}
+            </div>
+          </>
         );
     }
 
     return (
-        <div className="quickOrder-container">
-            <GalleryPageNavbar />
-            <div className="quickOrder-body">
-                <div className="gallery-header">
-                    <span>Gallery </span>
-                    <span>Cart <BsBasket2Fill /></span>
-                </div>
-                <div className="quickorder-categories">
-                    <div className="category-title">
-                        <h3>Birthday Cakes</h3>
-                    </div>
-                    <div className="category-type">
-                        {renderProductsByType("birthday")}
-                    </div>
-                    <div className="category-title">
-                        <h3>Anniversary Cakes</h3>
-                    </div>
-                    <div className="category-type">
-                        {renderProductsByType("anniversary")}
-                    </div>
-                    <div className="category-title">
-                        <h3>Wedding Cakes</h3>
-                    </div>
-                    <div className="category-type">
-                        {renderProductsByType("wedding")}
-                    </div>
-                    <div className="category-title">
-                        <h3>Chops / Pastries</h3>
-                    </div>
-                    <div className="category-type">
-                    {renderProductsByType("chops / pastries")}
-                    </div>
-                    <div className="category-title">
-                        <h3>Surprise Packages</h3>
-                    </div>
-                    <div className="category-type">
-                        {renderProductsByType("suprise package")}
-                    </div>
-                </div>
+      <div className="quickOrder-container">
+        <GalleryPageNavbar />
+        <div className="quickOrder-body">
+          <div className="gallery-header">
+            <span>Gallery </span>
+          </div>
+          <div className="quickorder-categories">
+            <div className="category-title">
+              <span>Birthday Cakes</span>
             </div>
-            <Footer />
+              {renderProductsByType("birthday")}
+            <div className="category-title">
+              <span>Anniversary Cakes</span>
+            </div>
+              {renderProductsByType("anniversary")}
+            <div className="category-title">
+              <span>Wedding Cakes</span>
+            </div>
+              {renderProductsByType("wedding")}
+            <div className="category-title">
+              <span>Chops / Pastries</span>
+            </div>
+              {renderProductsByType("chops / pastries")}
+            <div className="category-title">
+              <span>Surprise Packages</span>
+            </div>
+              {renderProductsByType("suprise package")}
+          </div>
         </div>
-    )
+        <Footer />
+      </div>
+    );
 }

@@ -28,6 +28,12 @@
   
   .landingPageNavbar-Nav span {
     padding-right: 1rem;
+    font-family: "Apple Chancery", cursive;
+    
+  }
+
+  .landingPageNavbar-Nav span:hover{
+    font-size: 1.2rem;
   }
 
   .nav-link {

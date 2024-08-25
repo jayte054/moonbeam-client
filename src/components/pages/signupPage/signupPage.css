@@ -48,4 +48,10 @@
     font-size: 1.1rem;
     border-radius: 1rem;
   }
+
+  .signup-button:hover{
+    width: 7rem;
+    height: 2.5rem;
+    background-color:blanchedalmond;
+  }
   

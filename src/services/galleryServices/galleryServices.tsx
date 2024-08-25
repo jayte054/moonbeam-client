@@ -5,6 +5,7 @@ export const fetchGalleryProducts = async () => {
     try {
         const response = await axios.get(`${Base_Url}/bareAdminHub/getProductsGallery`)
         localStorage.setItem("accessToken", response.data.accessToken)
+        console.log(response.data)
         return response.data;
     } catch (error) {
         return ({

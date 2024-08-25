@@ -12,7 +12,6 @@ import "./landingPageNavbar.css";
         </span>
       </div>
       <div className="landingPageNavbar-Nav">
-        
           <span>
             <Link style={{color:"white", textDecoration:"none"}} 
                       to="/"

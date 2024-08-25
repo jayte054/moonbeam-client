@@ -29,4 +29,9 @@
   
   .galleryNavbar-Nav span {
     padding-right: 1rem;
+    font-family: "Apple Chancery", cursive
+  }
+
+  .galleryNavbar-Nav span:hover{
+    font-size: 1.2rem;
   }

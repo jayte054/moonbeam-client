@@ -16,6 +16,7 @@ import { FoilCakeForm } from "../../formComponents/foilCakeForm";
 import { CakeParfaitForm } from "../../formComponents/cakeParfaitForm";
 import { useContext, useEffect, useState } from "react";
 import { CakeVariantRatesContext } from "../../../context/orderContext/orderContext";
+import { AuthContext } from "../../../context/authcontext/authContext";
 
 
 
@@ -23,7 +24,9 @@ export const QuickOrderPage = () => {
     const [foilCakePrice, setFoilCakePrice] = useState<string>('');
     const [cakeParfaitPrice, setCakeParfaitPrice] = useState<string>("");
     const {foilCake, cakeParfait} = useContext(CakeVariantRatesContext);
+    const {user} = useContext(AuthContext)
 
+    const name = user?.firstname || ""
     useEffect(() => {
         const getRates = () => {
             setFoilCakePrice(foilCake)
@@ -79,7 +82,7 @@ export const QuickOrderPage = () => {
         <QuickOrderPageNav />
         <div className="quickOrderPage-body">
           <div className="quickOrder-header">
-            <span>Quick Order</span>
+            <span>Make Your Quick Order {name}</span>
             <span>
               Cart <BsBasket2Fill />
             </span>

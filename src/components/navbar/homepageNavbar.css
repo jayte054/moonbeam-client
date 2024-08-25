@@ -27,7 +27,12 @@
   }
   
   .homePageNavbar-Nav span {
+    font-family: "Apple Chancery", cursive;
     padding-right: 1rem;
+  }
+
+  .homePageNavbar-Nav span:hover{
+    font-size: 1.2rem;
   }
 
   .nav-link {

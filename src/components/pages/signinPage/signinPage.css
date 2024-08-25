@@ -49,6 +49,13 @@
     font-weight: bold;
     font-size: 1.1rem;
     border-radius: 1rem;
+    cursor: pointer;
+  }
+
+  .signin-button:hover{
+    width: 7rem;
+    height: 2.5rem;
+    background-color:blanchedalmond;
   }
 
   .page-logo img{
