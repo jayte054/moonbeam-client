@@ -7,7 +7,7 @@ export type OrderObject = {
         layers: string,
         deliveryDate: string,
         inches: string,
-        file: string
+        file: any,
 }
 
 export type CustomOrderObject = {
@@ -70,3 +70,15 @@ export type parfaitObject = {
   quantity: string;
   description: string;
 };
+
+export interface GenericProductOrderDto {
+        orderName: string,
+        deliveryDate: string,
+        description: string,
+        productFlavour: string,
+        designCovering: string,
+        layers: string,
+        inches: string,
+        type: string,
+        file: any
+}

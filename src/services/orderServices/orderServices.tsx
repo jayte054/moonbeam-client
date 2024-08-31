@@ -1,12 +1,8 @@
 import axios from "axios";
+import { GenericProductOrderDto, OrderObject } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const surprisePackageOrderDetails = async () => {
-    // const config = {
-    //     headers: {
-    //         "Authorization": `Bearer ${user}`
-    //     }
-    // }
     try{
         const surprisePackage = await axios.get(`${Base_Url}/bareAdminHub/getSurprisePackages`)
         const setPackages = surprisePackage.data.reduce(
@@ -47,4 +43,86 @@ try {
 } catch (error) {
   throw error;
 }
+}
+
+export const budgetCakeOrder = async (
+  accessToken: string,
+  genericProductOrderDto: GenericProductOrderDto,
+  // file: File
+) => {
+  const {orderName,
+         deliveryDate, 
+         description, 
+         productFlavour, 
+         designCovering, 
+         layers, 
+         inches, 
+         type, 
+         file } = genericProductOrderDto
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }
+  const formData = new FormData();
+  formData.append('orderName', orderName)
+  formData.append("deliveryDate", deliveryDate);
+  formData.append("description", description);
+  formData.append("productFlavour", productFlavour);
+  formData.append("designCovering", designCovering);
+  formData.append("layers", layers);
+  formData.append("inches", inches);
+  formData.append("type", type);
+  formData.append('file', file)
+  const budgetOrder = await axios.post(`${Base_Url}/products/budgetCakeOrder`, formData, config);
+  try {
+    console.log(budgetOrder.data)
+    return budgetOrder.data
+  } catch(error) {
+    console.log(error)
+    throw error
+  }
+};
+
+export const specialCakeOrder = async (
+  accessToken: string,
+  genericProductOrderDto: OrderObject
+) => {
+  const {orderName, 
+         description, 
+         productFlavour, 
+         type, 
+         designCovering, 
+         layers, 
+         deliveryDate, 
+         inches, 
+         file } = genericProductOrderDto;
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  }
+  const formData = new FormData()
+  formData.append("orderName", orderName);
+  formData.append("description", description);
+  formData.append("productFlavour", productFlavour);
+  formData.append("type", type);
+  formData.append("designCovering", designCovering);
+  formData.append("layers", layers);
+  formData.append("deliveryDate", deliveryDate);
+  formData.append("inches", inches);
+  formData.append("file", file);
+
+  const order = await axios.post(
+    `${Base_Url}/products/postGenericOrder`,
+    formData,
+    config
+  );
+  try {
+    console.log(order.data)
+    return order.data;
+  } catch(error) {
+    console.log(error);
+    throw error
+  }
 }

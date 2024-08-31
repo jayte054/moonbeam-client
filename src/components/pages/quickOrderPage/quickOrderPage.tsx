@@ -7,7 +7,7 @@ import {chopsOrderSchema, foilOrderSchema, packageOrderSchema, parfaitOrderSchem
 import {QuickCakeOrderForm} from "../../formComponents/quickCakeOrderForm"
 import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
 import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
-import {chopsObject, foilObject, OrderObject, packageObject, parfaitObject} from "../../../types"
+import {chopsObject, foilObject, GenericProductOrderDto, OrderObject, packageObject, parfaitObject} from "../../../types"
 
 import "./quickOrderPage.css"
 import { CustomSelect } from "../../formComponents/customSelect";
@@ -17,6 +17,7 @@ import { CakeParfaitForm } from "../../formComponents/cakeParfaitForm";
 import { useContext, useEffect, useState } from "react";
 import { CakeVariantRatesContext } from "../../../context/orderContext/orderContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
+import { OrderStores } from "../../../stores/orderStores";
 
 
 
@@ -25,27 +26,27 @@ export const QuickOrderPage = () => {
     const [cakeParfaitPrice, setCakeParfaitPrice] = useState<string>("");
     const {foilCake, cakeParfait} = useContext(CakeVariantRatesContext);
     const {user} = useContext(AuthContext)
-
+    const { budgetCakeOrder, specialCakeOrder } = OrderStores;
     const name = user?.firstname || ""
     useEffect(() => {
         const getRates = () => {
-            setFoilCakePrice(foilCake)
-            setCakeParfaitPrice(cakeParfait)
+            setFoilCakePrice(() =>foilCake)
+            setCakeParfaitPrice(() => cakeParfait)
         }
         getRates()
     }, [foilCake, cakeParfait, foilCakePrice, cakeParfaitPrice])
 
-    const initialValues: OrderObject = {
-        orderName: "",
-        description: "",
-        productFlavour: "",
-        type: "",
-        designCovering: "",
-        layers: "",
-        deliveryDate: "",
-        inches: "",
-        file: ""
-    }
+    const initialValues: GenericProductOrderDto = {
+      orderName: "",
+      description: "",
+      productFlavour: "",
+      type: "",
+      designCovering: "",
+      layers: "",
+      deliveryDate: "",
+      inches: "",
+      file: null,
+    };
     const packageInitialValues: packageObject = {
       packageOrderName: "",
       deliveryDate: "",
@@ -74,6 +75,32 @@ export const QuickOrderPage = () => {
       description: "",
     };
   
+  const budgetOrder = async (values: GenericProductOrderDto, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...genericProductOrderDto} = values;
+      
+    console.log("order: ", genericProductOrderDto);
+    try {
+      await budgetCakeOrder(accessToken, genericProductOrderDto);
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const specialOrder = async (values: OrderObject, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...genericProductOrderDto} = values;
+    console.log("special order", genericProductOrderDto)
+
+    try {
+      await specialCakeOrder(accessToken, genericProductOrderDto)
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+    const [onSubmit, setOnSubmit] = useState<Function>(() => budgetOrder);
 
     const submit: any = () => "submitted"
 
@@ -90,13 +117,20 @@ export const QuickOrderPage = () => {
           <div className="quickOrder-input">
             <Formik
               initialValues={initialValues}
-              onSubmit={submit}
+              onSubmit={(values, formikHelpers) => {
+                if(onSubmit) {
+                onSubmit(values, formikHelpers);
+                }
+              }}
               validationSchema={quickOrderSchema}
             >
-              {(props) => (
+              {(formikProps) => (
                 <div className="quickCakeOrder-container">
                   <div>
-                    <QuickCakeOrderForm />
+                    <QuickCakeOrderForm {...formikProps} 
+                        toggleBudgetOrder={() => setOnSubmit(() => budgetOrder)}
+                        toggleSpecialOrder={() => setOnSubmit(() => specialOrder)}
+                    />
                   </div>
                 </div>
               )}
