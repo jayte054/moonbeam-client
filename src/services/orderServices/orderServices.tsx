@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GenericProductOrderDto, OrderObject } from "../../types";
+import { GenericProductOrderDto, OrderObject, packageObject } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const surprisePackageOrderDetails = async () => {
@@ -48,7 +48,6 @@ try {
 export const budgetCakeOrder = async (
   accessToken: string,
   genericProductOrderDto: GenericProductOrderDto,
-  // file: File
 ) => {
   const {orderName,
          deliveryDate, 
@@ -126,3 +125,81 @@ export const specialCakeOrder = async (
     throw error
   }
 }
+
+export const bronzePackageOrder = async (
+  accessToken: string,
+  surprisePackageOrderDto: packageObject
+) => {
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`,
+    },
+  };
+
+  const bronzeOrder = await axios.post(
+    `${Base_Url}/products/bronzePackageOrder`,
+    surprisePackageOrderDto,
+    config
+  );
+  try {
+    
+    console.log(bronzeOrder.data);
+    return bronzeOrder.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const silverPackageOrder = async (accessToken: string, surprisePackageOrderDto: packageObject) => {
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  }
+  try {
+  const silverOrder = await axios.post(
+    `${Base_Url}/products/silverPackageOrder`,
+    surprisePackageOrderDto,
+    config
+  );
+  console.log(silverOrder.data);
+  return silverOrder.data
+  } catch (error) {
+    console.log(error)
+    throw error
+  }
+}
+
+  export const goldPackageOrder = async(accessToken: string, surprisePackageOrderDto: packageObject) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+
+    try {
+      const goldOrder = await axios.post(`${Base_Url}/products/goldPackageOrder`, surprisePackageOrderDto, config);
+      console.log(goldOrder.data);
+      return goldOrder.data
+    }catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  export const diamondPackageOrder = async(accessToken: string,surprisePacakgeOrderDto: packageObject) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+
+    try{
+        const diamondOrder = await axios.post(`${Base_Url}/products/diamondPackageOrder`, surprisePacakgeOrderDto, config);
+        console.log(diamondOrder.data)
+        return diamondOrder.data
+    } catch (error) {
+      console.log(error)
+    }
+  }

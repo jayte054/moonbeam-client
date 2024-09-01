@@ -26,7 +26,12 @@ export const QuickOrderPage = () => {
     const [cakeParfaitPrice, setCakeParfaitPrice] = useState<string>("");
     const {foilCake, cakeParfait} = useContext(CakeVariantRatesContext);
     const {user} = useContext(AuthContext)
-    const { budgetCakeOrder, specialCakeOrder } = OrderStores;
+    const { budgetCakeOrder, 
+            specialCakeOrder, 
+            bronzePackageOrder, 
+            goldPackageOrder, 
+            silverPackageOrder, 
+            diamondPackageOrder } = OrderStores;
     const name = user?.firstname || ""
     useEffect(() => {
         const getRates = () => {
@@ -100,8 +105,60 @@ export const QuickOrderPage = () => {
       console.log(error)
     }
   }
-    const [onSubmit, setOnSubmit] = useState<Function>(() => budgetOrder);
 
+  const bronzeOrder = async(values: packageObject, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...surprisePackageOrderDto} = values;
+    console.log("bronzeOrder", surprisePackageOrderDto)
+
+    try {
+      await bronzePackageOrder(accessToken, surprisePackageOrderDto);
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const silverOrder = async(values: packageObject, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...surprisePackageOrderDto} = values;
+    console.log("silverOrder", surprisePackageOrderDto)
+
+    try {
+      await silverPackageOrder(accessToken, surprisePackageOrderDto)
+      formikHelpers.resetForm()
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  const goldOrder = async(values: packageObject, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...surprisePackageOrderDto} = values;
+    console.log(surprisePackageOrderDto)
+
+    try{
+      await goldPackageOrder(accessToken, surprisePackageOrderDto)
+      formikHelpers.resetForm();
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const diamondOrder = async (values: packageObject, formikHelpers: any) => {
+    const accessToken = user.accessToken;
+    const {...surprisePackageOrderDto} = values;
+    console.log(" diamond",surprisePackageOrderDto)
+
+    try {
+      await diamondPackageOrder(accessToken, surprisePackageOrderDto)
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+    const [onSubmit, setOnSubmit] = useState<Function>(() => budgetOrder);
+    const [packageSubmit, setPackageSubmit] = useState<Function>(() => bronzeOrder);
     const submit: any = () => "submitted"
 
     return (
@@ -137,13 +194,22 @@ export const QuickOrderPage = () => {
             </Formik>
             <Formik
               initialValues={packageInitialValues}
-              onSubmit={submit}
+              onSubmit={(values, formikHelpers) =>  {
+                if(onSubmit) {
+                  packageSubmit(values, formikHelpers)
+                }
+              }}
               validationSchema={packageOrderSchema}
             >
-              {(props) => (
+              {(formikProps) => (
                 <div className="quickCakeOrder-container">
                   <div>
-                    <QuickSurprisePackageForm />
+                    <QuickSurprisePackageForm {...formikProps}
+                        toggleBronzeOrder={() => setPackageSubmit(() => bronzeOrder)}
+                        toggleSilverOrder={() => setPackageSubmit(() => silverOrder)}
+                        toggleGoldOrder={() => setPackageSubmit(() => goldOrder)}
+                        toggleDiamondOrder={() => setPackageSubmit(() => diamondOrder)}
+                    />
                   </div>
                 </div>
               )}
