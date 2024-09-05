@@ -7,8 +7,7 @@ export const CustomSelect = ({label, ...props}: any) => {
         const {setFieldValue} = useFormikContext()
         const [selectedValue, setSelectedVaue] = useState(field.value || "")
         const [customValue, setCustomValue] = useState("")
-        console.log(field, "firled")
-        console.log(meta, "metad")
+       
 
         const handleSelectedValue = (e: any) => {
         e.preventDefault()

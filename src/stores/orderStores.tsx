@@ -1,5 +1,5 @@
-import { bronzePackageOrder, budgetCakeOrder, cakeVariantRates, diamondPackageOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
-import { GenericProductOrderDto, OrderObject, packageObject } from "../types";
+import { bronzePackageOrder, budgetCakeOrder, cakeVariantRates, chopsOrder, diamondPackageOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
+import { chopsObject, GenericProductOrderDto, OrderObject, packageObject } from "../types";
 
 export const OrderStores = {
   surprisePackageOrderDetails: async () => {
@@ -44,5 +44,10 @@ export const OrderStores = {
 
   diamondPackageOrder: async(accessToken: string, surprisePacakgeOrderDto: packageObject) => {
     return await diamondPackageOrder(accessToken, surprisePacakgeOrderDto)
-  }
+  },
+
+  chopsOrder: async(accessToken: string, genericChopsOrderDto: chopsObject) => {
+    return await chopsOrder(accessToken, genericChopsOrderDto);
+  },
+
 };

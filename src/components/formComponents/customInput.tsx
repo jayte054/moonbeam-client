@@ -8,8 +8,7 @@ interface CustomInputProps {
 //: React.Fc
 export const CustomInput: React.FC<any> = ({label, ...props}) => {
     const [field, meta] = useField(props)
-    console.log(field, "firled")
-    console.log(meta, "metad")
+    
     return (
         <div className="customInput">
             <span className="label">

@@ -9,8 +9,7 @@ interface CustomInputProps {
 //: React.Fc
 export const CustomTextArea = ({label, ...props}: any) => {
     const [field, meta] = useField(props)
-    console.log(field, "firled")
-    console.log(meta, "metad")
+   
     return (
         <div className="customTextArea">
             <span className="label">

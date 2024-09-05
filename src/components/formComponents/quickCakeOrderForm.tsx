@@ -39,9 +39,6 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => 
       props.toggleSpecialOrder();
     }
 
-    
-    
-
 
 
     const renderForm = () => (

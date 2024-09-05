@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GenericProductOrderDto, OrderObject, packageObject } from "../../types";
+import { chopsObject, GenericProductOrderDto, OrderObject, packageObject } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const surprisePackageOrderDetails = async () => {
@@ -201,5 +201,40 @@ export const silverPackageOrder = async (accessToken: string, surprisePackageOrd
         return diamondOrder.data
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  export const chopsOrder = async(accessToken: string, genericChopsOrderDto: chopsObject) => {
+    const {
+      orderTitle, 
+      type, 
+      chopPackageType, 
+      numberOfPacks, 
+      description, 
+      deliveryDate, 
+      covering, 
+      file} = genericChopsOrderDto;
+    
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+    const formData = new FormData()
+    formData.append("orderTitle", orderTitle)
+    formData.append("type", type)
+    formData.append("chopPackageType", chopPackageType)
+    formData.append("numberOfPacks", numberOfPacks)
+    formData.append("description", description)
+    formData.append("deliveryDate", deliveryDate)
+    formData.append("covering", covering)
+    formData.append("file", file)
+    try {
+      const order = await axios.post(`${Base_Url}/products/postGenericChopsOrder`, formData, config);
+      console.log(order.data)
+      return order.data
+    }catch (error) {
+      console.log(error)
+      throw error;
     }
   }

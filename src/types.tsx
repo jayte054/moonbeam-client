@@ -37,13 +37,13 @@ export type CustomPackageObject = {
 export type chopsObject = {
         orderTitle: string,
         type: string,
-        chopPackageType?: string,
+        chopPackageType?: any,
         pastryPackageType?: string,
-        designCovering?: string,
+        covering?: any,
         numberOfPacks: string,
         deliveryDate: string,
         description: string,
-        file: string
+        file: any
 }
 
 export type CustomChopsObject = {

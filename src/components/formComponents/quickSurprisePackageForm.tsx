@@ -55,10 +55,10 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
 
     useEffect(() => {
         const getPackages = () => {
-        setBronzePackage(packageMap.bronzePackage || []);
-        setSilverPackage(packageMap.silverPackage || []);
-        setGoldPackage(packageMap.goldPackage || []);
-        setDiamondPackage(packageMap.diamondPackage || []);
+        setBronzePackage(() => packageMap.bronzePackage || []);
+        setSilverPackage(() => packageMap.silverPackage || []);
+        setGoldPackage(() => packageMap.goldPackage || []);
+        setDiamondPackage(() => packageMap.diamondPackage || []);
         }
         console.log(goldPackage);
         getPackages()
@@ -129,7 +129,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
       <div className="quickSurprisePackage-container">
         <CustomButton
           type="button"
-          label={!showPackages ? "Surprise Packages" : "Package Category"}
+          label={!showPackages ? "Packages" : "Package Category"}
           onClick={togglePackage}
         />
         {showPackages ? (

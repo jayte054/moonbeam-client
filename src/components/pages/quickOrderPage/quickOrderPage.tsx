@@ -1,4 +1,4 @@
-import {Formik, Form} from "formik"
+import {Formik, Form, useFormikContext, FormikErrors, FormikTouched, FormikHelpers} from "formik"
 import { BsBasket2Fill } from "react-icons/bs";
 
 import {QuickOrderPageNav} from "../../navbar/quickOrder"
@@ -19,6 +19,7 @@ import { CakeVariantRatesContext } from "../../../context/orderContext/orderCont
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderStores } from "../../../stores/orderStores";
 
+interface formikHelper extends FormikHelpers<chopsObject> {}
 
 
 export const QuickOrderPage = () => {
@@ -31,8 +32,11 @@ export const QuickOrderPage = () => {
             bronzePackageOrder, 
             goldPackageOrder, 
             silverPackageOrder, 
-            diamondPackageOrder } = OrderStores;
+            diamondPackageOrder,
+            chopsOrder, } = OrderStores;
+            
     const name = user?.firstname || ""
+
     useEffect(() => {
         const getRates = () => {
             setFoilCakePrice(() =>foilCake)
@@ -62,11 +66,11 @@ export const QuickOrderPage = () => {
       type: "",
       chopPackageType: "",
       pastryPackageType: "",
-      designCovering: "",
+      covering: "",
       numberOfPacks: "",
       deliveryDate: "",
       description: "",
-      file: "",
+      file: null,
     };
     const foilInitialValues: foilObject = {
       orderName: "",
@@ -97,6 +101,7 @@ export const QuickOrderPage = () => {
     const accessToken = user.accessToken;
     const {...genericProductOrderDto} = values;
     console.log("special order", genericProductOrderDto)
+   
 
     try {
       await specialCakeOrder(accessToken, genericProductOrderDto)
@@ -110,6 +115,7 @@ export const QuickOrderPage = () => {
     const accessToken = user.accessToken;
     const {...surprisePackageOrderDto} = values;
     console.log("bronzeOrder", surprisePackageOrderDto)
+    console.log(formikHelpers);
 
     try {
       await bronzePackageOrder(accessToken, surprisePackageOrderDto);
@@ -157,9 +163,31 @@ export const QuickOrderPage = () => {
       console.log(error)
     }
   }
-    const [onSubmit, setOnSubmit] = useState<Function>(() => budgetOrder);
+
+
+  const chopOrder = async( values: chopsObject, formikHelpers: formikHelper) => {
+    try {
+       const accessToken = user.accessToken;
+       const { ...genericChopsOrderDto } = values;
+       console.log("chops", genericChopsOrderDto);
+      await chopsOrder(accessToken, genericChopsOrderDto);
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+   
+
+    const [onSubmit, setOnSubmit] = useState<Function>(
+      () => budgetOrder
+    );
     const [packageSubmit, setPackageSubmit] = useState<Function>(() => bronzeOrder);
     const submit: any = () => "submitted"
+
+  
+
+    
 
     return (
       <div className="quickOrderPage-container">
@@ -175,8 +203,8 @@ export const QuickOrderPage = () => {
             <Formik
               initialValues={initialValues}
               onSubmit={(values, formikHelpers) => {
-                if(onSubmit) {
-                onSubmit(values, formikHelpers);
+                if (onSubmit) {
+                  onSubmit(values, formikHelpers);
                 }
               }}
               validationSchema={quickOrderSchema}
@@ -184,9 +212,10 @@ export const QuickOrderPage = () => {
               {(formikProps) => (
                 <div className="quickCakeOrder-container">
                   <div>
-                    <QuickCakeOrderForm {...formikProps} 
-                        toggleBudgetOrder={() => setOnSubmit(() => budgetOrder)}
-                        toggleSpecialOrder={() => setOnSubmit(() => specialOrder)}
+                    <QuickCakeOrderForm
+                      {...formikProps}
+                      toggleBudgetOrder={() => setOnSubmit(() => budgetOrder)}
+                      toggleSpecialOrder={() => setOnSubmit(() => specialOrder)}
                     />
                   </div>
                 </div>
@@ -194,9 +223,9 @@ export const QuickOrderPage = () => {
             </Formik>
             <Formik
               initialValues={packageInitialValues}
-              onSubmit={(values, formikHelpers) =>  {
-                if(onSubmit) {
-                  packageSubmit(values, formikHelpers)
+              onSubmit={(values, formikHelpers) => {
+                if (packageSubmit) {
+                  packageSubmit(values, formikHelpers);
                 }
               }}
               validationSchema={packageOrderSchema}
@@ -204,11 +233,18 @@ export const QuickOrderPage = () => {
               {(formikProps) => (
                 <div className="quickCakeOrder-container">
                   <div>
-                    <QuickSurprisePackageForm {...formikProps}
-                        toggleBronzeOrder={() => setPackageSubmit(() => bronzeOrder)}
-                        toggleSilverOrder={() => setPackageSubmit(() => silverOrder)}
-                        toggleGoldOrder={() => setPackageSubmit(() => goldOrder)}
-                        toggleDiamondOrder={() => setPackageSubmit(() => diamondOrder)}
+                    <QuickSurprisePackageForm
+                      {...formikProps}
+                      toggleBronzeOrder={() =>
+                        setPackageSubmit(() => bronzeOrder)
+                      }
+                      toggleSilverOrder={() =>
+                        setPackageSubmit(() => silverOrder)
+                      }
+                      toggleGoldOrder={() => setPackageSubmit(() => goldOrder)}
+                      toggleDiamondOrder={() =>
+                        setPackageSubmit(() => diamondOrder)
+                      }
                     />
                   </div>
                 </div>
@@ -216,13 +252,21 @@ export const QuickOrderPage = () => {
             </Formik>
             <Formik
               initialValues={chopsInitialValues}
-              onSubmit={submit}
+              onSubmit={(values, formikHelpers) => {
+                chopOrder(values, formikHelpers);
+              }}
               validationSchema={chopsOrderSchema}
             >
-              {(props) => (
+              {(formikProps) => (
                 <div className="quickCakeOrder-container">
                   <div>
-                    <QuickChopsOrderForm />
+                    <QuickChopsOrderForm
+                      {...formikProps}
+                      toggleChopOrder={(
+                        values: chopsObject,
+                        // formikHelpers: formikHelper
+                      ) => chopOrder(values, formikProps)}
+                    />
                   </div>
                 </div>
               )}

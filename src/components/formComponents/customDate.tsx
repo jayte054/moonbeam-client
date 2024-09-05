@@ -9,8 +9,7 @@ interface CustomInputProps {
 //: React.Fc
 export const CustomDate = ({label, ...props}: any) => {
     const [field, meta] = useField(props)
-    console.log(field, "firled")
-    console.log(meta, "metad")
+   
     return (
         <div className="customDate">
             <span className="label">
