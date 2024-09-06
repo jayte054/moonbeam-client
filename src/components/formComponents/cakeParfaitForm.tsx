@@ -5,13 +5,24 @@ import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import { AddToCartButton } from "./addToCartButton";
 import "./foilCakeForm.css";
+import { parfaitObject } from "../../types";
+import { FormikProps } from "formik";
+import { CustomDate } from "./customDate";
 
-export const CakeParfaitForm = () => {
+interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
+  toggleParfaitOrder: (values: parfaitObject, foilFormikHelpers: any) => void 
+}
+export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   const [parfaitForm, setParfaitForm] = useState(false);
+  const {values, handleChange, handleSubmit, touched, errors, toggleParfaitOrder} = props;
 
   const toggleParfaitForm = () => {
     setParfaitForm((prev) => !prev);
   };
+
+  const handleParfaitFormOrder = async(formikHelpers: any) => {
+    toggleParfaitOrder(values, formikHelpers)
+  }
   return (
     <div className="quickOrder-foilCakesInput">
       <div>
@@ -25,22 +36,45 @@ export const CakeParfaitForm = () => {
             <CustomInput
               label="Order Name"
               name="orderName"
+              value={values.orderName}
+              onChange={handleChange}
               type="text"
               placeholder="order name"
+              error={touched.orderName && errors.orderName}
             />
-            <CustomInput label="Quantity" name="Quantity" type="number" />
+            <CustomInput
+              label="Quantity"
+              name="quantity"
+              value={values.quantity}
+              onChange={handleChange}
+              type="text"
+              error={touched.quantity && errors.quantity}
+            />
+            <CustomDate
+              label="Delivery Date"
+              name="deliveryDate"
+              value={values.deliveryDate}
+              onChange={handleChange}
+              type="date"
+              placeholder="Delivery Date"
+              error={touched.deliveryDate && errors.deliveryDate}
+            />
             <CustomTextArea
               label="Description"
               name="description"
+              value={values.description}
+              onChange={handleChange}
               type="text"
               placeholder="additional info"
+              error={touched.description && errors.description}
             />
 
             <div>
-              <AddToCartButton 
-                            type="submit"
-                            label="Add To Cart"
-                          /> 
+              <AddToCartButton
+                type="submit"
+                label="Add To Cart"
+                onClick={handleParfaitFormOrder}
+              />
             </div>
           </div>
         )}

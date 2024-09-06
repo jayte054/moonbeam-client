@@ -20,6 +20,8 @@ import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderStores } from "../../../stores/orderStores";
 
 interface formikHelper extends FormikHelpers<chopsObject> {}
+interface foilFormikHelper extends FormikHelpers<foilObject> {}
+interface parfaitFormikHelper extends FormikHelpers<parfaitObject> {}
 
 
 export const QuickOrderPage = () => {
@@ -27,13 +29,17 @@ export const QuickOrderPage = () => {
     const [cakeParfaitPrice, setCakeParfaitPrice] = useState<string>("");
     const {foilCake, cakeParfait} = useContext(CakeVariantRatesContext);
     const {user} = useContext(AuthContext)
-    const { budgetCakeOrder, 
-            specialCakeOrder, 
-            bronzePackageOrder, 
-            goldPackageOrder, 
-            silverPackageOrder, 
-            diamondPackageOrder,
-            chopsOrder, } = OrderStores;
+    const {
+      budgetCakeOrder,
+      specialCakeOrder,
+      bronzePackageOrder,
+      goldPackageOrder,
+      silverPackageOrder,
+      diamondPackageOrder,
+      chopsOrder,
+      foilCakeOrder,
+      cakeParfaitOrder,
+    } = OrderStores;
             
     const name = user?.firstname || ""
 
@@ -76,11 +82,13 @@ export const QuickOrderPage = () => {
       orderName: "",
       quantity: "",
       description: "",
+      deliveryDate: "",
       productFlavour: "",
     };
     const parfaitInitialValues: parfaitObject = {
       orderName: "",
       quantity: "",
+      deliveryDate: "",
       description: "",
     };
   
@@ -177,6 +185,29 @@ export const QuickOrderPage = () => {
     }
   }
 
+  const foilOrder = async(values: foilObject, foilFormikHelpers: foilFormikHelper) => {
+    try {
+      const accessToken = user.accessToken;
+      const {...foilCakeOrderDto}= values;
+      console.log(foilCakeOrderDto)
+      await foilCakeOrder(accessToken, foilCakeOrderDto);
+      foilFormikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const parfaitOrder = async(values: parfaitObject, formikHelpers: parfaitFormikHelper) => {
+    try{
+      const accessToken = user.accessToken;
+      const {...parfaitOrderDto} = values;
+      console.log("parfait", parfaitOrderDto);
+      await cakeParfaitOrder(accessToken, parfaitOrderDto)
+      formikHelpers.resetForm()
+    } catch (error) {
+      console.log(error)
+    }
+  }
    
 
     const [onSubmit, setOnSubmit] = useState<Function>(
@@ -276,12 +307,17 @@ export const QuickOrderPage = () => {
             <div className="quickOrder-foilCakes">
               <Formik
                 initialValues={foilInitialValues}
-                onSubmit={submit}
+                onSubmit={(values, foilFormikHelpers) => {
+                  foilOrder(values, foilFormikHelpers)
+                }}
                 validationSchema={foilOrderSchema}
               >
-                {(props) => (
+                {(formikProps) => (
                   <div className="quickOrder-foilCakes">
-                    <FoilCakeForm />
+                    <FoilCakeForm 
+                      {...formikProps}
+                      toggleFoilOrder={(values: foilObject) => foilOrder(values, formikProps)}
+                    />
                   </div>
                 )}
               </Formik>
@@ -293,12 +329,17 @@ export const QuickOrderPage = () => {
             <div className="quickOrder-cakeParfait">
               <Formik
                 initialValues={parfaitInitialValues}
-                onSubmit={submit}
+                onSubmit={(values, formikHelpers) => {
+                  parfaitOrder(values, formikHelpers)
+                }}
                 validationSchema={parfaitOrderSchema}
               >
-                {(props) => (
+                {(formikProps) => (
                   <div className="quickOrder-foilCakes">
-                    <CakeParfaitForm />
+                    <CakeParfaitForm 
+                        {...formikProps}
+                        toggleParfaitOrder={(values: parfaitObject) => parfaitOrder(values, formikProps)}
+                    />
                   </div>
                 )}
               </Formik>

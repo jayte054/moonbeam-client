@@ -159,11 +159,18 @@ export const foilOrderSchema = yup.object().shape({
     .string()
     .min(1, "order name must contain at least one number")
     .required("Required"),
-  description: yup.string()
+  deliveryDate: yup
+    .date()
+    .required("Required")
+    .min(new Date(), "Delivery Date must be in the future")
+    .typeError("invalid delivery date format"),
+  description: yup
+    .string()
     .min(8, "description must contain at least 8 letters")
     .required("Required"),
-  productFlavour: yup.string()
-                     .oneOf(["chcolateCake", "strawberryCake", "vanillaCake", "redvelvetCake"]),
+  productFlavour: yup
+    .string()
+    .oneOf(["chocolateCake", "strawberryCake", "vanillaCake", "redvelvetCake"]),
 });
 
 export const parfaitOrderSchema = yup.object().shape({

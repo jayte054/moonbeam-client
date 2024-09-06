@@ -1,5 +1,5 @@
-import { bronzePackageOrder, budgetCakeOrder, cakeVariantRates, chopsOrder, diamondPackageOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
-import { chopsObject, GenericProductOrderDto, OrderObject, packageObject } from "../types";
+import { bronzePackageOrder, budgetCakeOrder, cakeParfaitOrder, cakeVariantRates, chopsOrder, diamondPackageOrder, foilCakeOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
+import { chopsObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../types";
 
 export const OrderStores = {
   surprisePackageOrderDetails: async () => {
@@ -38,16 +38,32 @@ export const OrderStores = {
     return await silverPackageOrder(accessToken, surprisePackageOrderDto);
   },
 
-  goldPackageOrder: async (accessToken: string, surprisePackageOrderDto: packageObject) => {
-    return await goldPackageOrder(accessToken, surprisePackageOrderDto)
+  goldPackageOrder: async (
+    accessToken: string,
+    surprisePackageOrderDto: packageObject
+  ) => {
+    return await goldPackageOrder(accessToken, surprisePackageOrderDto);
   },
 
-  diamondPackageOrder: async(accessToken: string, surprisePacakgeOrderDto: packageObject) => {
-    return await diamondPackageOrder(accessToken, surprisePacakgeOrderDto)
+  diamondPackageOrder: async (
+    accessToken: string,
+    surprisePacakgeOrderDto: packageObject
+  ) => {
+    return await diamondPackageOrder(accessToken, surprisePacakgeOrderDto);
   },
 
-  chopsOrder: async(accessToken: string, genericChopsOrderDto: chopsObject) => {
+  chopsOrder: async (
+    accessToken: string,
+    genericChopsOrderDto: chopsObject
+  ) => {
     return await chopsOrder(accessToken, genericChopsOrderDto);
   },
 
+  foilCakeOrder: async(accessToken: string, foilCakeOrderDto: FoilCakeOrderDto) => {
+    return await foilCakeOrder(accessToken, foilCakeOrderDto)
+  },
+
+  cakeParfaitOrder: async(accessToken: string, parfaitOrderDto: parfaitObject) => {
+    return await cakeParfaitOrder(accessToken, parfaitOrderDto)
+  }
 };

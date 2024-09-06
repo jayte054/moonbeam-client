@@ -1,5 +1,5 @@
 import axios from "axios";
-import { chopsObject, GenericProductOrderDto, OrderObject, packageObject } from "../../types";
+import { chopsObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const surprisePackageOrderDetails = async () => {
@@ -236,5 +236,43 @@ export const silverPackageOrder = async (accessToken: string, surprisePackageOrd
     }catch (error) {
       console.log(error)
       throw error;
+    }
+  }
+
+  export const foilCakeOrder = async(accessToken: string, foilCakeOrderDto: FoilCakeOrderDto) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+    console.log(foilCakeOrderDto)
+
+    try{
+      const foilCakeOrder = await axios.post(
+        `${Base_Url}/products/foilCakeOrder`, foilCakeOrderDto, config
+      );
+      console.log(foilCakeOrder.data)
+      return foilCakeOrder.data
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  export const  cakeParfaitOrder = async(accessToken: string, parfaitOrderDto: parfaitObject) => {
+    const config = {
+      headers: {
+          "Authorization" : `Bearer ${accessToken}`
+      }
+    }
+
+    try {
+      const parfaitOrder = await axios.post(
+        `${Base_Url}/products/cakeParfaitOrder`, parfaitOrderDto, config);
+        console.log(parfaitOrder.data)
+        return parfaitOrder.data;
+    } catch (error) {
+      console.log(error)
+      throw error
     }
   }

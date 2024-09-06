@@ -5,13 +5,27 @@ import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import { AddToCartButton } from "./addToCartButton";
 import './foilCakeForm.css'
+import { FormikProps } from "formik";
+import { foilObject } from "../../types";
+import { CustomDate } from "./customDate";
 
-export const FoilCakeForm = () => {
+interface FoilCakeFormProps extends FormikProps<foilObject>  {
+  toggleFoilOrder: (values: foilObject, foilFormikHelpers: any) => void
+}
+export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
     const [foilCakeForm, setFoilCakeForm] = useState(false)
+    const {values, handleChange, handleSubmit, setFieldValue, touched, errors} = props;
+
 
     const toggleFoilCakeForm = () => {
         setFoilCakeForm(prev => !prev);
     }
+
+    const handleFoilFormSubmit = async(foilFormikHelpers: any) => {
+      props.toggleFoilOrder(values, foilFormikHelpers)
+    }
+
+
     return (
       <div className="quickOrder-foilCakesInput">
         <div>
@@ -22,36 +36,59 @@ export const FoilCakeForm = () => {
           />
           {foilCakeForm && (
             <div>
-                <CustomInput
-                  label="Order Name"
-                  name="orderName"
-                  type="text"
-                  placeholder="order name"
-                />
-                <CustomSelect
-                  name="Flavour"
-                  type="text"
-                  placeholder="Cake Flavour"
-                >
-                  <option value="">Cake Flavours</option>
-                  <option value="chocolateCake">Chocolate Cake</option>
-                  <option value="strawberryCake">Strawberry Cake</option>
-                  <option value="vanillaCake">Vanilla Cake</option>
-                  <option value="redvelvetCake">Red Velvet Cake</option>
-                </CustomSelect>
-                <CustomInput label="Quantity" name="Quantity" type="number" />
-                <CustomTextArea
-                  label="Description"
-                  name="description"
-                  type="text"
-                  placeholder="additional info"
-                />
+              <CustomInput
+                label="Order Name"
+                name="orderName"
+                value={values.orderName}
+                onChange={handleChange}
+                type="text"
+                placeholder="order name"
+              />
+              <CustomSelect
+                label="Product Flavour"
+                name="productFlavour"
+                value={values.productFlavour}
+                onChange={handleChange}
+                type="text"
+                placeholder="Cake Flavour"
+              >
+                <option value="">Cake Flavours</option>
+                <option value="chocolateCake">Chocolate Cake</option>
+                <option value="strawberryCake">Strawberry Cake</option>
+                <option value="vanillaCake">Vanilla Cake</option>
+                <option value="redvelvetCake">Red Velvet Cake</option>
+              </CustomSelect>
+              <CustomInput
+                label="Quantity"
+                name="quantity"
+                value={values.quantity}
+                onChange={handleChange}
+                type="text"
+              />
+              <CustomDate
+                label="Delivery Date"
+                name="deliveryDate"
+                value={values.deliveryDate}
+                onChange={handleChange}
+                type="date"
+                placeholder="Delivery Date"
+                error={touched.deliveryDate && errors.deliveryDate}
+              />
+              <CustomTextArea
+                label="Description"
+                name="description"
+                value={values.description}
+                onChange={handleChange}
+                type="text"
+                placeholder="additional info"
+              />
 
               <div>
-                <AddToCartButton 
-                            type="submit"
-                            label="Add To Cart"
-                          /> 
+                <AddToCartButton
+                  type="submit"
+                  label="Add To Cart"
+                  onClick={handleFoilFormSubmit}
+                />
               </div>
             </div>
           )}

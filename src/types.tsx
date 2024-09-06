@@ -62,11 +62,13 @@ export type foilObject = {
         orderName: string,
         quantity: string,
         description: string,
+        deliveryDate: string,
         productFlavour: string,
 }
 
 export type parfaitObject = {
   orderName: string;
+  deliveryDate: "";
   quantity: string;
   description: string;
 };
@@ -81,4 +83,19 @@ export interface GenericProductOrderDto {
         inches: string,
         type: string,
         file: any
+}
+
+export interface FoilCakeOrderDto {
+        orderName: string,
+        quantity: string,
+        description: string,
+        deliveryDate: string,
+        productFlavour: string,
+}
+
+export interface CakePafaitOrderDto {
+  orderName: string;
+  quantity: string;
+  description: string;
+  deliveryDate: string;
 }
