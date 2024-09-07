@@ -1,4 +1,4 @@
-import { Form } from "formik";
+import { Form, FormikProps } from "formik";
 import { useState } from "react"
 import { AddToCartButton } from "./addToCartButton";
 import { CustomButton } from "./customButton"
@@ -8,29 +8,45 @@ import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import "./customCakeOrders.css"
+import { CustomOrderObject } from "../../types";
 
-export const CustomCakeOrderForm = () => {
+interface CustomCakeOrderFormProps extends FormikProps<CustomOrderObject> {
+  toggleCakeOrder: (values: CustomOrderObject, formikHelpers: any) => void;
+}
+
+
+export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) => {
     const cakeFormImage = <img src="/cake-form.png" alt="cake-form" />;
-
-    const [cakeForm, setCakeForm] = useState(false)
+    const [cakeForm, setCakeForm] = useState(false);
+    const {values, handleSubmit, handleChange, touched, errors, toggleCakeOrder} = props
 
     const toggleCakeForm = () => {
         setCakeForm((prev) => !prev)
     }
 
+    const handleCakeFormSubmit = (formikHelpers: any) => {
+      toggleCakeOrder(values, formikHelpers);
+    }
+
      const renderForm = () => (
-       <Form>
+       <Form onSubmit={handleSubmit}>
          <CustomInput
            label="Order Name"
            name="orderName"
+           value={values.orderName}
+           onChange={handleChange}
            type="text"
            placeholder="Order Name"
+           error={touched.orderName && errors.orderName}
          />
          <CustomSelect
            label="Flavour"
            name="productFlavour"
+           value={values.productFlavour}
+           onChange={handleChange}
            type="text"
            placeholder="Cake Flavour"
+           error={touched.productFlavour && errors.productFlavour}
          >
            <option value="">Cake Flavour</option>
            <option value="chocolateCake">Chocolate Cake</option>
@@ -49,8 +65,11 @@ export const CustomCakeOrderForm = () => {
          <CustomSelect
            label="Type"
            name="type"
+           value={values.type}
+           onChange={handleChange}
            type="text"
            placeholder="Cake Type"
+           error={touched.type && errors.type}
          >
            <option value="">Cake Type</option>
            <option value="Traditional">Traditional</option>
@@ -61,8 +80,11 @@ export const CustomCakeOrderForm = () => {
          <CustomSelect
            label="Covering"
            name="designCovering"
+           value= {values.designCovering}
+           onChange={handleChange}
            type="text"
            placeholder="Cake Covering"
+           error={touched.designCovering && errors.designCovering}
          >
            <option value="">Cake Covering</option>
            <option value="naked">Naked</option>
@@ -72,8 +94,11 @@ export const CustomCakeOrderForm = () => {
          <CustomSelect
            label="Layers"
            name="layers"
+           value={values.layers}
+           onChange={handleChange}
            type="text"
            placeholder="Cake Layers"
+           error= {touched.layers && errors.layers}
          >
            <option value="">Cake Layers</option>
            <option value="1">1</option>
@@ -86,14 +111,20 @@ export const CustomCakeOrderForm = () => {
          <CustomDate
            label="Delivery Date"
            name="deliveryDate"
+           value={values.deliveryDate}
+           onChange={handleChange}
            type="date"
            placeholder="Delivery Date"
+           error={touched.deliveryDate && errors.deliveryDate}
          />
          <CustomSelect
            label="Inches"
            name="inches"
+           value={values.inches}
+           onChange={handleChange}
            type="text"
            placeholder="Cake Inches"
+           error={touched.inches && errors.inches}
          >
            <option value="">Cake Inches</option>
            <option value="6">6</option>
@@ -108,11 +139,18 @@ export const CustomCakeOrderForm = () => {
          <CustomTextArea
            label="Description"
            name="description"
+           value={values.description}
+           onChange={handleChange}
            type="text"
            placeholder="please describe or add any other information we would need like decor title or delivery address"
+           error={touched.description && errors.description}
          />
          <CustomFile label="File" name="file" type="file" />
-         <AddToCartButton type="submit" label="Custom Request" />
+         <AddToCartButton 
+              type="submit" 
+              label="Custom Request" 
+              onSubmit={handleCakeFormSubmit}
+              />
        </Form>
      );
     return (

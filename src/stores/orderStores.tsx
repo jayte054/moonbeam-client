@@ -1,5 +1,5 @@
-import { bronzePackageOrder, budgetCakeOrder, cakeParfaitOrder, cakeVariantRates, chopsOrder, diamondPackageOrder, foilCakeOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
-import { chopsObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../types";
+import { bronzePackageOrder, budgetCakeOrder, cakeParfaitOrder, cakeVariantRates, chopsOrder, customCakeOrder, customChopsOrder, customPackageOrder, diamondPackageOrder, foilCakeOrder, goldPackageOrder, silverPackageOrder, specialCakeOrder, surprisePackageOrderDetails } from "../services/orderServices/orderServices"
+import { chopsObject, CustomChopsObject, CustomOrderObject, CustomPackageObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../types";
 
 export const OrderStores = {
   surprisePackageOrderDetails: async () => {
@@ -60,10 +60,22 @@ export const OrderStores = {
   },
 
   foilCakeOrder: async(accessToken: string, foilCakeOrderDto: FoilCakeOrderDto) => {
-    return await foilCakeOrder(accessToken, foilCakeOrderDto)
+    return await foilCakeOrder(accessToken, foilCakeOrderDto);
   },
 
   cakeParfaitOrder: async(accessToken: string, parfaitOrderDto: parfaitObject) => {
-    return await cakeParfaitOrder(accessToken, parfaitOrderDto)
-  }
+    return await cakeParfaitOrder(accessToken, parfaitOrderDto);
+  },
+
+  customCakeOrder: async(accessToken: string, customProductOrderDto: CustomOrderObject) => {
+    return await customCakeOrder(accessToken, customProductOrderDto);
+  },
+
+  customPackageOrder: async(accessToken: string, customPackageOrderDto: CustomPackageObject) => {
+    return await customPackageOrder(accessToken, customPackageOrderDto);
+  },
+
+  customChopsOrder: async(accessToken: string, customChopsOrderDto: CustomChopsObject) => {
+    return await customChopsOrder(accessToken, customChopsOrderDto)
+  },
 };

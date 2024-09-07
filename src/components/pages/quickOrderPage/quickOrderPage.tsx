@@ -214,11 +214,8 @@ export const QuickOrderPage = () => {
       () => budgetOrder
     );
     const [packageSubmit, setPackageSubmit] = useState<Function>(() => bronzeOrder);
-    const submit: any = () => "submitted"
 
   
-
-    
 
     return (
       <div className="quickOrderPage-container">

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { chopsObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../../types";
+import { chopsObject, CustomChopsObject, CustomOrderObject, CustomPackageObject, FoilCakeOrderDto, GenericProductOrderDto, OrderObject, packageObject, parfaitObject } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const surprisePackageOrderDetails = async () => {
@@ -272,6 +272,71 @@ export const silverPackageOrder = async (accessToken: string, surprisePackageOrd
         console.log(parfaitOrder.data)
         return parfaitOrder.data;
     } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  export const customCakeOrder = async (accessToken: string, customProductOrderDto: CustomOrderObject) => {
+    const {orderName, productFlavour, type, designCovering, layers, deliveryDate, inches, description, file} = customProductOrderDto;
+      const config = {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }
+
+      const formData = new FormData()
+        formData.append("orderName", orderName);
+        formData.append("productFlavour", productFlavour);
+        formData.append("type", type);
+        formData.append("designCovering", designCovering);
+        formData.append("layers", layers);
+        formData.append("deliveryDate", deliveryDate);
+        formData.append("inches", inches);
+        formData.append("description", description);
+        formData.append("file", file);
+
+      try{
+        const customOrder = await axios.post(
+          `${Base_Url}/products/postCustomOrder`, formData, config
+        );
+        console.log(customOrder.data)
+        return customOrder.data
+      } catch( error ) {
+        console.log(error)
+        throw error
+      }
+  } 
+
+  export const customPackageOrder = async(accessToken: string, customPackageDto: CustomPackageObject) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+
+    try{
+      const packageOrder = await axios.post(`${Base_Url}/products/postCustomPackageOrder`, customPackageDto, config);
+      console.log(packageOrder.data)
+      return packageOrder.data;
+    } catch (error) {
+      console.log(error)
+      throw error
+    }
+  }
+
+  export const customChopsOrder = async(accessToken: string, customChopsOrderDto:CustomChopsObject) => {
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+
+    try {
+      const chopsOrder =await axios.post(`${Base_Url}/products/postCustomChopsOrder`, customChopsOrderDto, config);
+      console.log(chopsOrder.data)
+      return chopsOrder.data;
+    } catch(error) {
       console.log(error)
       throw error
     }

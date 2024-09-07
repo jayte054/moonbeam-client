@@ -29,7 +29,8 @@ export type packageObject = {
 }
 
 export type CustomPackageObject = {
-        packageOrderName: string,
+        orderName: string,
+        item: string[],
         deliveryDate: string,
         addInfo: string,
 }
@@ -47,15 +48,11 @@ export type chopsObject = {
 }
 
 export type CustomChopsObject = {
-        orderTitle: string,
-        type: string,
-        chopPackageType?: string,
-        pastryPackageType?: string,
-        designCovering?: string,
+        orderName: string,
+        chopType: string,
         numberOfPacks: string,
         deliveryDate: string,
         description: string,
-        file: string
 }
 
 export type foilObject = {

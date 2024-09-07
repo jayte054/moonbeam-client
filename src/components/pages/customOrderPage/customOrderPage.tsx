@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import { BsBasket2Fill } from "react-icons/bs";
-import {Formik, Form} from "formik"
+import {Formik, Form, FormikHelpers} from "formik"
 import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
 import {chopsOrderSchema, foilOrderSchema, packageOrderSchema, parfaitOrderSchema, quickOrderSchema} from "../../formComponents/formSchema"
 import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
@@ -15,11 +15,18 @@ import "./customOrderPage.css"
 import { CustomCakeOrderForm } from "../../formComponents/customCakeOders";
 import { CustomSurprisePackageForm } from "../../formComponents/customSurprisePackageForm";
 import { CustomChopOrdersForm } from "../../formComponents/customChopOrders";
+import { OrderStores } from "../../../stores/orderStores";
+
+interface CustomCakeFormikHelper extends FormikHelpers<CustomOrderObject> {}
+interface CustomPackageFormikHelper extends FormikHelpers<CustomPackageObject> {}
+interface CustomChopsFormikHelper extends FormikHelpers<CustomChopsObject> {}
 
 export const CustomOrderPage = () => {
 const {signOut} = userStore;
 const {user} = useContext(AuthContext)
+const {customCakeOrder, customPackageOrder, customChopsOrder} = OrderStores;
 const name = user?.firstname || ""
+
 
 const handleSignout = async() => {
     await signOut()
@@ -41,21 +48,57 @@ const handleSignout = async() => {
         file: ""
     }
     const packageInitialValues: CustomPackageObject = {
-      packageOrderName: "",
+      orderName: "",
+      item: [""],
       deliveryDate: "",
       addInfo: "",
     };
     const chopsInitialValues: CustomChopsObject = {
-      orderTitle: "",
-      type: "",
-      chopPackageType: "",
-      pastryPackageType: "",
-      designCovering: "",
+      orderName: "",
+      chopType: "",
       numberOfPacks: "",
       deliveryDate: "",
       description: "",
-      file: "",
     };
+
+    const cakeOrder = async(values: CustomOrderObject, formikHelpers:CustomCakeFormikHelper) => {
+      const accessToken = user.accessToken;
+      const { ...customProductOrderDto } = values;
+      console.log("customCake", customProductOrderDto);
+
+      try {
+        await customCakeOrder(accessToken, customProductOrderDto);
+        formikHelpers.resetForm()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const packageOrder = async(values: CustomPackageObject, formikHelpers:CustomPackageFormikHelper) => {
+      const accessToken = user.accessToken;
+      const {...customPackageOrderDto} = values;
+      console.log("package Order", customPackageOrderDto)
+
+      try {
+        await customPackageOrder(accessToken, customPackageOrderDto)
+        formikHelpers.resetForm()
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+    const chopsOrder = async(values: CustomChopsObject, formikHelpers: CustomChopsFormikHelper) => {
+      const accessToken = user.accessToken;
+      const {...customChopsOrderDto} = values;
+      console.log(customChopsOrderDto)
+
+      try{
+        await customChopsOrder(accessToken, customChopsOrderDto);
+        formikHelpers.resetForm()
+      } catch (error) {
+        console.log(error)
+      }
+    }
    
     
     return (
@@ -73,39 +116,60 @@ const handleSignout = async() => {
             <div className="quickOrder-input">
               <Formik
                 initialValues={initialValues}
-                onSubmit={submit}
+                onSubmit={(values, formikHelpers) => {
+                  cakeOrder(values, formikHelpers)
+                }}
                 validationSchema={quickOrderSchema}
               >
-                {(props) => (
+                {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomCakeOrderForm />
+                      <CustomCakeOrderForm 
+                          {...formikProps}
+                          toggleCakeOrder = {(values: CustomOrderObject) => {
+                            cakeOrder(values, formikProps)
+                          }}
+                      />
                     </div>
                   </div>
                 )}
               </Formik>
               <Formik
                 initialValues={packageInitialValues}
-                onSubmit={submit}
+                onSubmit={(values: CustomPackageObject, formikHelpers: CustomPackageFormikHelper) => {
+                  packageOrder(values, formikHelpers)
+                }}
                 validationSchema={packageOrderSchema}
               >
-                {(props) => (
+                {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomSurprisePackageForm />
+                      <CustomSurprisePackageForm 
+                          {...formikProps}
+                          togglePackageOrder={(values: CustomPackageObject) => {
+                            packageOrder(values, formikProps)
+                          }}
+                      />
                     </div>
                   </div>
                 )}
               </Formik>
               <Formik
                 initialValues={chopsInitialValues}
-                onSubmit={submit}
+                onSubmit={(values: CustomChopsObject, formikHelpers: CustomChopsFormikHelper) => {
+                  chopsOrder(values, formikHelpers)
+                }}
                 validationSchema={chopsOrderSchema}
               >
-                {(props) => (
+                {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomChopOrdersForm />
+                      <CustomChopOrdersForm 
+                          {...formikProps}
+                          toggleChopsOrder={(values: CustomChopsObject) =>{
+                            chopsOrder(values, formikProps)
+                          }}
+                      />
                     </div>
                   </div>
                 )}
