@@ -13,37 +13,42 @@ import { userStore } from "../../stores/userStore";
        document.location.href = "/";
      };
    return (
-    <div className="galleryPageNavbar-Container">
-      {/* <img src={logo} alt = "moonbeam logo" /> */}
-      <div className="galleryPageNavbar-Title">
-        <span>
-          MOONBEAM CAKES
-        </span>
-      </div>
-      <div className="galleryNavbar-Nav">
-        <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/homepage"
-            >
-                Home
-            </Link>
-        </span>
-       
-        <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/profilePage"
-            >
+     <div className="galleryPageNavbar-Container">
+       {/* <img src={logo} alt = "moonbeam logo" /> */}
+       <div className="galleryPageNavbar-Title">
+         <span>MOONBEAM CAKES</span>
+       </div>
+       <div className="galleryNavbar-Nav">
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/homepage"
+           >
+             Home
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/checkOutPage"
+           >
+             Cart
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/profilePage"
+           >
              Profile
-            </Link>
-          </span>
-        <span onClick={handleSignout}>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to={"/"}
-            >
-                Signout
-            </Link>
-        </span>    
-      </div>
-    </div>
-   )
+           </Link>
+         </span>
+         <span onClick={handleSignout}>
+           <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
+             Signout
+           </Link>
+         </span>
+       </div>
+     </div>
+   );
 }

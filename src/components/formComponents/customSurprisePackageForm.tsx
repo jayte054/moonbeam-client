@@ -71,7 +71,7 @@ export const CustomSurprisePackageForm: React.FC<CustomSurprisePackageFormProps>
     <div className="customSurprisePackage-container">
       <CustomButton
         type="button"
-        label={!packageForm ? "Surprise Packages" : "Order Package"}
+        label={!packageForm ? "Packages" : "Order Package"}
         onClick={togglePackageForm}
       />
       <>{packageForm ? renderForm() : <span>{surpriseFormImage}</span>}</>

@@ -15,6 +15,8 @@ import {
   PackageProvider,
   VariantRatesProvider,
 } from "./context/orderContext/orderContext";
+import { CartItemsPage } from "./components/pages/cartItemsPage/cartItemsPage";
+import {CartProvider} from "./context/cartContext/cartContext"
 
 function App() {
   return (
@@ -23,30 +25,39 @@ function App() {
         <ProfileProvider>
           <PackageProvider>
             <VariantRatesProvider>
-            <Router>
-              <Routes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/signUpPage" element={<SignUpPage />} />
-                <Route path="/signinPage" element={<SigninPage />} />
-                <Route path="/galleryPage" element={<GalleryPage />} />
-                <Route element={<ProtectAuthRoute />}>
-                  <Route path="/auth/homepage" element={<Homepage />} />
-                  <Route path="/auth/profilePage" element={<ProfilePage />} />
-                  <Route
-                    path="/auth/galleryPage"
-                    element={<GalleryPageAuth />}
-                  />
-                  <Route
-                    path="/auth/quickOrderPage"
-                    element={<QuickOrderPage />}
-                  />
-                  <Route 
-                    path="/auth/customOrderPage"
-                    element={<CustomOrderPage />}
-                  />
-                </Route>
-              </Routes>
-            </Router>
+              <CartProvider>
+                <Router>
+                  <Routes>
+                    <Route path="/" element={<LandingPage />} />
+                    <Route path="/signUpPage" element={<SignUpPage />} />
+                    <Route path="/signinPage" element={<SigninPage />} />
+                    <Route path="/galleryPage" element={<GalleryPage />} />
+                    <Route element={<ProtectAuthRoute />}>
+                      <Route path="/auth/homepage" element={<Homepage />} />
+                      <Route
+                        path="/auth/profilePage"
+                        element={<ProfilePage />}
+                      />
+                      <Route
+                        path="/auth/galleryPage"
+                        element={<GalleryPageAuth />}
+                      />
+                      <Route
+                        path="/auth/quickOrderPage"
+                        element={<QuickOrderPage />}
+                      />
+                      <Route
+                        path="/auth/customOrderPage"
+                        element={<CustomOrderPage />}
+                      />
+                      <Route
+                        path="/auth/checkOutPage"
+                        element={<CartItemsPage />}
+                      />
+                    </Route>
+                  </Routes>
+                </Router>
+              </CartProvider>
             </VariantRatesProvider>
           </PackageProvider>
         </ProfileProvider>

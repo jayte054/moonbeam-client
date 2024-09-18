@@ -15,43 +15,50 @@ import "./quickOrder.css";
     }
    
     return (
-    <div className="quickOrder-Container">
-      {/* <img src={logo} alt = "moonbeam logo" /> */}
-      <div className="quickOrder-Title">
-        <span>
-          MOONBEAM CAKES
-        </span>
-      </div>
-      <div className="quickOrder-Nav">
-        <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/homepage"
+      <div className="quickOrder-Container">
+        {/* <img src={logo} alt = "moonbeam logo" /> */}
+        <div className="quickOrder-Title">
+          <span>MOONBEAM CAKES</span>
+        </div>
+        <div className="quickOrder-Nav">
+          <span>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/auth/homepage"
             >
-                Home
+              Home
             </Link>
-        </span>
-       <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/auth/galleryPage"
+          </span>
+          <span>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/auth/galleryPage"
             >
               Gallery
             </Link>
           </span>
-        <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/profilePage"
+          <span>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/auth/cartPage"
             >
-             Profile
+              Cart
             </Link>
           </span>
-        <span onClick={(e) => handleSignout(e)}>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/"
+          <span>
+            <Link
+              style={{ color: "white", textDecoration: "none" }}
+              to="/auth/profilePage"
             >
-                Signout
+              Profile
             </Link>
-        </span>    
+          </span>
+          <span onClick={(e) => handleSignout(e)}>
+            <Link style={{ color: "white", textDecoration: "none" }} to="/">
+              Signout
+            </Link>
+          </span>
+        </div>
       </div>
-    </div>
-   )
+    );
 }

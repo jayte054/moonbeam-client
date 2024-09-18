@@ -12,45 +12,50 @@ import "./homepageNavbar.css";
         document.location.href = "/"
     }
    return (
-    <div className="homePageNavbar-Container">
-      {/* <img src={logo} alt = "moonbeam logo" /> */}
-      <div className="homePageNavbar-Title">
-        <span>
-          MOONBEAM CAKES
-        </span>
-      </div>
-      <div className="homePageNavbar-Nav">
-        
-          <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/auth/homepage"
-            >
-              Home
-              </Link>
-          </span>
-          <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/auth/galleryPage"
-            >
-              Gallery
-            </Link>
-          </span>
-          <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/profilePage"
-            >
-                Profile
-            </Link>
-          </span>
-          <span onClick = {(e) => handleSignout(e)}>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/"
-            >
-                Signout
-            </Link>
-          </span>
-        
-      </div>
-    </div>
-   )
+     <div className="homePageNavbar-Container">
+       {/* <img src={logo} alt = "moonbeam logo" /> */}
+       <div className="homePageNavbar-Title">
+         <span>MOONBEAM CAKES</span>
+       </div>
+       <div className="homePageNavbar-Nav">
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/homepage"
+           >
+             Home
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/galleryPage"
+           >
+             Gallery
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/checkOutPage"
+           >
+             Cart
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/profilePage"
+           >
+             Profile
+           </Link>
+         </span>
+         <span onClick={(e) => handleSignout(e)}>
+           <Link style={{ color: "white", textDecoration: "none" }} to="/">
+             Signout
+           </Link>
+         </span>
+       </div>
+     </div>
+   );
 }

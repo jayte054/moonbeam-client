@@ -14,45 +14,49 @@ import "./profilePageNavbar.css";
 
     }
    return (
-    <div className="profilePageNavbar-Container">
-      {/* <img src={logo} alt = "moonbeam logo" className="moonbeam-logo"/> */}
-      <div className="profilePageNavbar-Title">
-        <span>
-          MOONBEAM CAKES
-        </span>
-      </div>
-      <div className="profilePageNavbar-Nav">
-        
-          <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/auth/homepage"
-            >
-              Home
-              </Link>
-          </span>
-          <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                      to="/auth/galleryPage"
-            >
-              Gallery
-            </Link>
-          </span>
-          {/* <span>
+     <div className="profilePageNavbar-Container">
+       {/* <img src={logo} alt = "moonbeam logo" className="moonbeam-logo"/> */}
+       <div className="profilePageNavbar-Title">
+         <span>MOONBEAM CAKES</span>
+       </div>
+       <div className="profilePageNavbar-Nav">
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/homepage"
+           >
+             Home
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/galleryPage"
+           >
+             Gallery
+           </Link>
+         </span>
+         <span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/checkOutPage"
+           >
+             Cart
+           </Link>
+         </span>
+         {/* <span>
             <Link style={{color:"white", textDecoration:"none"}} 
                   to="/auth/profilePage"
             >
                 Profile
             </Link>
           </span> */}
-          <span onClick={(e) => handleSignout(e)}>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/"
-            >
-                Signout
-            </Link>
-          </span>
-        
-      </div>
-    </div>
-   )
+         <span onClick={(e) => handleSignout(e)}>
+           <Link style={{ color: "white", textDecoration: "none" }} to="/">
+             Signout
+           </Link>
+         </span>
+       </div>
+     </div>
+   );
 }
