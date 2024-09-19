@@ -9,8 +9,9 @@ import {CustomButton} from "./customButton"
 import {AddToCartButton} from "./addToCartButton"
 import "./quickCakeOrderForm.css"
 import { AuthContext } from "../../context/authcontext/authContext"
-import { GenericProductOrderDto } from "../../types"
+import { GenericProductOrderDto, setCartCountProps } from "../../types"
 import { quickOrderSchema } from "./formSchema"
+import { CartContext } from "../../context/cartContext/cartContext"
 
 interface QuickCakeOrderFormProps extends FormikProps<GenericProductOrderDto> {
   // onSubmit: (values: GenericProductOrderDto, formikHelpers: any) => void;
@@ -24,6 +25,7 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => 
     const [specialCakesForm, setSpecialCakesForm] = useState(false)
     const {values, handleChange, handleSubmit, setFieldValue, touched, errors,} = props
     const {user} = useContext(AuthContext)
+    const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext);
 
     const toggleCategoryForm = () => {
         setCakeCategoryForm((prevShowForm) => !prevShowForm);
@@ -32,11 +34,15 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => 
     const toggleBudgetCakesForm = () => {
       setBudgetCakesForm((prev) => !prev);
       props.toggleBudgetOrder();
+      const newCount = Number(cartCount) + 1
+      setCartCount(newCount);
     }
 
     const toggleSpecialCakesForm = () => {
       setSpecialCakesForm((prev) => !prev)
       props.toggleSpecialOrder();
+      const newCount = Number(cartCount) + 1;
+      setCartCount(newCount);
     }
 
 

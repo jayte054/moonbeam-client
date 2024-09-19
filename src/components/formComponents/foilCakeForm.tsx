@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CustomButton2 } from "./customButton2";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
@@ -8,14 +8,19 @@ import './foilCakeForm.css'
 import { FormikProps } from "formik";
 import { foilObject } from "../../types";
 import { CustomDate } from "./customDate";
+import { CartContext } from "../../context/cartContext/cartContext";
 
 interface FoilCakeFormProps extends FormikProps<foilObject>  {
   toggleFoilOrder: (values: foilObject, foilFormikHelpers: any) => void
 }
+interface setCartCountProps {
+  setCartCount: (newCount: number) => void,
+  cartCount: number
+}
 export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
     const [foilCakeForm, setFoilCakeForm] = useState(false)
     const {values, handleChange, handleSubmit, setFieldValue, touched, errors} = props;
-
+    const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
 
     const toggleFoilCakeForm = () => {
         setFoilCakeForm(prev => !prev);
@@ -23,6 +28,8 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
 
     const handleFoilFormSubmit = async(foilFormikHelpers: any) => {
       props.toggleFoilOrder(values, foilFormikHelpers)
+      const newCount = Number(cartCount) + Number(values.quantity)
+      setCartCount(newCount)
     }
 
 

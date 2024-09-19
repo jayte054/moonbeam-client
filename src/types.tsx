@@ -108,3 +108,8 @@ export interface CartObject {
   productOrderId: string;
   userId: string
 }
+
+export interface setCartCountProps {
+  setCartCount: (newCount: number) => void;
+  cartCount: number;
+}

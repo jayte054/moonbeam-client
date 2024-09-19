@@ -37,13 +37,13 @@ export const CartPageNav = () => {
           </Link>
         </span>
         <span>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to="/auth/checkOutPage"
-          >
-            Cart
-          </Link>
-        </span>
+           <Link
+             style={{ color: "white", textDecoration: "none" }}
+             to="/auth/galleryPage"
+           >
+             Gallery
+           </Link>
+           </span>
         <span onClick={handleSignout}>
           <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
             Signout

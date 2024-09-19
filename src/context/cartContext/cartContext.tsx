@@ -1,17 +1,31 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { getCartItems } from "../../services/cartServices/cartServices";
 import { CartStores } from "../../stores/cartStores";
 import { CartObject } from "../../types";
 import { AuthContext } from "../authcontext/authContext";
 
-export const CartContext: any = createContext({
+interface CartProviderProps {
+    children: ReactNode
+}
+
+interface CartContextType {
     cartItems: [],
-    cartTotal: 0
+    cartTotal: string,
+    cartCount: string,
+    setCartCount: () => void
+}
+
+export const CartContext: any = createContext<CartContextType>({
+    cartItems: [],
+    cartTotal: "0.00",
+    cartCount: "",
+    setCartCount: () => {},
 });
 
-export const CartProvider = ({children}: any) => {
+export const CartProvider = ({children}: CartProviderProps) => {
     const [cartItems, setCartItems] = useState<CartObject[]>([])
     const [cartTotal, setCartTotal] = useState(0)
+    const [cartCount, setCartCount] = useState("")
     const {getCartItems} = CartStores
     const {user} = useContext(AuthContext)
     const accessToken = user.accessToken;
@@ -32,7 +46,31 @@ export const CartProvider = ({children}: any) => {
         setCartTotal(() => newTotal)
     }, [cartItems])
 
-    const value = {cartItems, cartTotal};
+    useEffect(() => {
+         const totalCartCount = () => {
+           const count = cartItems.reduce(
+             (total, cartItem) => total + Number(cartItem.quantity),
+             0
+           );
+           setCartCount(() => count.toString());
+         };
+         totalCartCount()
+    }, [cartItems])
+   
+
+    const formatCurrency = (amount: number) => {
+        return new Intl.NumberFormat("en-us", {
+            style: "currency",
+            currency: "NGN"
+        }).format(amount)
+    }
+
+    const value = {
+        cartItems, 
+        cartTotal: formatCurrency(cartTotal),
+        cartCount,
+        setCartCount,
+    };
 
     return (
         <CartContext.Provider value = {value}>{children}</CartContext.Provider>

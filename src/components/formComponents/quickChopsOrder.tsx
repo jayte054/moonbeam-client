@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useContext, useState} from "react"
 import {Form, FormikHelpers, FormikProps} from "formik"
 import {CustomInput} from "./customInput"
 import {CustomSelect} from "./customSelect"
@@ -9,7 +9,8 @@ import {CustomButton} from "./customButton"
 import {AddToCartButton} from "./addToCartButton"
 import "./quickChopsOrder.css"
 import { CustomSelectChops } from "./customSelectChops"
-import { chopsObject } from "../../types"
+import { chopsObject, setCartCountProps } from "../../types"
+import { CartContext } from "../../context/cartContext/cartContext"
 
 interface QuickChopsOrderFormProps extends FormikProps<chopsObject> {
   toggleChopOrder: (values: chopsObject, formikHelpers: any) => void;
@@ -23,7 +24,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
     const [showCategory, setShowCategory] = useState(false)
     const [selectImage, setSelectImage] = useState<string | null>(null)
     const {values, handleChange, handleSubmit,setFieldValue, touched, errors} = props
-
+    const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
 
     const preLoadedImages: { [key: string]: string } = {
       samosa: "/samosa.png",
@@ -80,7 +81,8 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
 
      const handleChopsFormSubmit = async (formikHelpers: any) => {
        props.toggleChopOrder(values, formikHelpers); // Toggles the form 
-       
+       const newCount = Number(cartCount) + Number(values.numberOfPacks)
+       setCartCount(newCount)
      };
      
     const renderChopsForm = () => (

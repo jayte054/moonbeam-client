@@ -18,6 +18,7 @@ import { useContext, useEffect, useState } from "react";
 import { CakeVariantRatesContext } from "../../../context/orderContext/orderContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderStores } from "../../../stores/orderStores";
+import { CartIcon } from "../../cartIcon/cartIcon";
 
 interface formikHelper extends FormikHelpers<chopsObject> {}
 interface foilFormikHelper extends FormikHelpers<foilObject> {}
@@ -224,7 +225,7 @@ export const QuickOrderPage = () => {
           <div className="quickOrder-header">
             <span>Make Your Quick Order {name}</span>
             <span>
-              Cart <BsBasket2Fill />
+              <CartIcon />
             </span>
           </div>
           <div className="quickOrder-input">

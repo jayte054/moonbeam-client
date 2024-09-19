@@ -2,6 +2,7 @@ import { useContext, useEffect, useState, useCallback } from "react";
 import DataTable, {TableColumn} from "react-data-table-component";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { CartContext } from "../../../context/cartContext/cartContext";
+import { CartStores } from "../../../stores/cartStores";
 import { CartObject } from "../../../types";
 import { Footer } from "../../footer/footer"
 import { CustomButton } from "../../formComponents/customButton";
@@ -13,6 +14,7 @@ export const CartItemsPage = () => {
  const [cartItem, setCartItem] = useState<CartObject[]>([])
  const {cartItems, cartTotal} = useContext<any>(CartContext)
  const {user} = useContext(AuthContext)
+ const {deleteCartItem} = CartStores;
  const name = user ? `${user.firstname}'s Cart` : "Cart";
 
   // useEffect(() => {
@@ -24,44 +26,44 @@ export const CartItemsPage = () => {
   //   cart()
   // }, [cartItems])
 
-  // useEffect(() => {
-  //   const cart = async () => {
-  //     const items = await cartItems;
+  useEffect(() => {
+    const cart = async () => {
+      const items = await cartItems;
 
-  //     // Assign images based on item type
-  //     const updatedItems = items.map((item: CartObject) => {
-  //       if (item.itemType === "foilCake") {
-  //         return { ...item, image: "/foilcake.png" };
-  //       } else if (item.itemType === "cakeParfait") {
-  //         return { ...item, image: "/cakeParfait.png" };
-  //       }
-  //       return item;
-  //     });
+      // Assign images based on item type
+      const updatedItems = items.map((item: CartObject) => {
+        if (item.itemType === "foilCake") {
+          return { ...item, image: "/foilcake.png" };
+        } else if (item.itemType === "cakeParfait") {
+          return { ...item, image: "/cakeParfait.png" };
+        }
+        return item;
+      });
 
-  //     setCartItem(updatedItems);
-  //   };
-  //   cart();
-  // }, [cartItems]);
+      setCartItem(updatedItems);
+    };
+    cart();
+  }, [cartItems]);
 
-   const fetchCartItems = useCallback(async () => {
-     const items = await cartItems;
+  //  const fetchCartItems = useCallback(async () => {
+  //    const items = await cartItems;
 
-     // Assign images based on item type
-     const updatedItems = items.map((item: CartObject) => {
-       if (item.itemType === "foilCake") {
-         return { ...item, image: "/foilcake.png" };
-       } else if (item.itemType === "cakeParfait") {
-         return { ...item, image: "/cakeParfait.png" };
-       }
-       return item;
-     });
+  //    // Assign images based on item type
+  //    const updatedItems = items.map((item: CartObject) => {
+  //      if (item.itemType === "foilCake") {
+  //        return { ...item, image: "/foilcake.png" };
+  //      } else if (item.itemType === "cakeParfait") {
+  //        return { ...item, image: "/cakeParfait.png" };
+  //      }
+  //      return item;
+  //    });
 
-     setCartItem(updatedItems);
-   }, [cartItems]);
+  //    setCartItem(updatedItems);
+  //  }, [cartItems]);
 
-   useEffect(() => {
-     fetchCartItems();
-   }, [fetchCartItems]);
+  //  useEffect(() => {
+  //    fetchCartItems();
+  //  }, [fetchCartItems]);
 
 
   const columns: TableColumn<CartObject>[] | any = [
@@ -99,7 +101,6 @@ export const CartItemsPage = () => {
           label="remove"
           onClick={() => {
             handleRemoveItem(row.itemId);
-            // update cart
           }}
         />
       ),
@@ -117,8 +118,9 @@ export const CartItemsPage = () => {
       },
       cells: {
         style: {
-          fontSize: ".9rem",
+          fontSize: "1rem",
           padding: "0.5rem",
+          textAlign: "center" as "center",
         },
       },
       rows: {
@@ -131,8 +133,9 @@ export const CartItemsPage = () => {
       },
     };
 
-  const handleRemoveItem = (itemId: string) => {
+  const handleRemoveItem = async (itemId: string) => {
     const updatedCart = cartItem.filter(item => item.itemId !== itemId)
+    await deleteCartItem(user.accessToken, itemId);
     setCartItem(updatedCart)
   }
 
@@ -151,7 +154,7 @@ export const CartItemsPage = () => {
               customStyles={customStyles}
             />
             <div>
-              <h2>Total : NGN {cartTotal} </h2>
+              <h2>Total : {cartTotal} </h2>
               <span>
                 <CustomButton type="button" label="proceed to checkout" />
               </span>

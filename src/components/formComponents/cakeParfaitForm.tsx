@@ -1,13 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CustomButton2 } from "./customButton2";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import { AddToCartButton } from "./addToCartButton";
 import "./foilCakeForm.css";
-import { parfaitObject } from "../../types";
+import { parfaitObject, setCartCountProps } from "../../types";
 import { FormikProps } from "formik";
 import { CustomDate } from "./customDate";
+import { CartContext } from "../../context/cartContext/cartContext";
 
 interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
   toggleParfaitOrder: (values: parfaitObject, foilFormikHelpers: any) => void 
@@ -15,6 +16,7 @@ interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
 export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   const [parfaitForm, setParfaitForm] = useState(false);
   const {values, handleChange, handleSubmit, touched, errors, toggleParfaitOrder} = props;
+  const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
 
   const toggleParfaitForm = () => {
     setParfaitForm((prev) => !prev);
@@ -22,6 +24,8 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
 
   const handleParfaitFormOrder = async(formikHelpers: any) => {
     toggleParfaitOrder(values, formikHelpers)
+    const newCount = Number(cartCount) + Number(values.quantity)
+    setCartCount(newCount)
   }
   return (
     <div className="quickOrder-foilCakesInput">

@@ -7,7 +7,8 @@ import {CustomButton} from "./customButton"
 import {AddToCartButton} from "./addToCartButton"
 import "./quickSurprisePackageForm.css"
 import { SurprisePackageContext } from "../../context/orderContext/orderContext"
-import { packageObject } from "../../types"
+import { packageObject, setCartCountProps } from "../../types"
+import { CartContext } from "../../context/cartContext/cartContext"
 
 interface bronzePackage {
   packageId: string;  
@@ -51,7 +52,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     const [diamondPackage, setDiamondPackage] = useState<bronzePackage | null>(null);
     const {packageMap} = useContext<any>(SurprisePackageContext)
     const {values, handleChange, touched, errors} = props;
-
+    const {cartCount, setCartCount}: setCartCountProps = useContext(CartContext)
 
     useEffect(() => {
         const getPackages = () => {
@@ -71,21 +72,25 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     const toggleBronzeForm = () => {
         setShowBronzeForm((prevShowForm) => !prevShowForm);
         props.toggleBronzeOrder()
+        
     }
 
     const toggleSilverForm= () => {
         setShowSilverForm((prev) => !prev);
         props.toggleSilverOrder()
+        
     }
 
     const toggleGoldForm = () => {
         setShowGoldForm((prev) => !prev);
         props.toggleGoldOrder()
+        
     }
 
     const toggleDiamondForm = () => {
         setShowDiamondForm((prev) => !prev);
         props.toggleDiamondOrder()
+        
     }
 
     const renderForm = () => (
@@ -120,6 +125,10 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
              <AddToCartButton 
                             type="submit"
                             label="Add To Cart"
+                            onClick={() => {
+                              const newCount = Number(cartCount) + 1;
+                              setCartCount(newCount);
+                            }}
                           />  
           </Form>
         );

@@ -40,7 +40,7 @@ import "./quickOrder.css";
           <span>
             <Link
               style={{ color: "white", textDecoration: "none" }}
-              to="/auth/cartPage"
+              to="/auth/checkoutPage"
             >
               Cart
             </Link>

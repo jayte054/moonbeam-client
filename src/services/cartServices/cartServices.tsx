@@ -17,3 +17,18 @@ export const getCartItems = async(accessToken: string) => {
       throw error;
     }
 }
+
+export const deleteCartItem = async (accessToken: string, itemId: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+    console.log(itemId)
+    try {
+        return await axios.delete(`${Base_Url}/products/deleteCartItem/${itemId}`, config)
+    } catch(error) {
+        console.log(error);
+        throw error;
+    }
+}
