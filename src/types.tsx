@@ -96,3 +96,15 @@ export interface CakePafaitOrderDto {
   description: string;
   deliveryDate: string;
 }
+
+export interface CartObject {
+  itemId: string;
+  itemName: string;
+  itemType: string;
+  price: string;
+  imageUrl: string;
+  image?: string;
+  quantity: string;
+  productOrderId: string;
+  userId: string
+}
