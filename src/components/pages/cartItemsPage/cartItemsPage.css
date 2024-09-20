@@ -14,6 +14,14 @@
     padding: 1rem;
     font-weight: bold;
     font-size: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.cartItemsPage-header button{
+    background-color: rgb(78, 51, 104);
+    border-radius: 1rem;
+    cursor: pointer;
 }
 
 .cartItems-content {

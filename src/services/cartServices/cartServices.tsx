@@ -10,7 +10,7 @@ export const getCartItems = async(accessToken: string) => {
 
     try {
         const cartItems = await axios.get(`${Base_Url}/products/fetchCartItems`, config);
-        console.log(cartItems.data);
+        // console.log(cartItems.data);
         return cartItems.data;
     } catch (error) {
       console.log(error);

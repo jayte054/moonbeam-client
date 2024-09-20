@@ -51,7 +51,7 @@ function App() {
                         element={<CustomOrderPage />}
                       />
                       <Route
-                        path="/auth/checkOutPage"
+                        path="/auth/cartItemsPage"
                         element={<CartItemsPage />}
                       />
                     </Route>

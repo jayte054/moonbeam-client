@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import DataTable, {TableColumn} from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { CartContext } from "../../../context/cartContext/cartContext";
 import { CartStores } from "../../../stores/cartStores";
@@ -15,6 +16,8 @@ export const CartItemsPage = () => {
  const {cartItems, cartTotal} = useContext<any>(CartContext)
  const {user} = useContext(AuthContext)
  const {deleteCartItem} = CartStores;
+ const navigate = useNavigate()
+
  const name = user ? `${user.firstname}'s Cart` : "Cart";
 
   // useEffect(() => {
@@ -26,44 +29,44 @@ export const CartItemsPage = () => {
   //   cart()
   // }, [cartItems])
 
-  useEffect(() => {
-    const cart = async () => {
-      const items = await cartItems;
+  // useEffect(() => {
+  //   const cart = async () => {
+  //     const items = await cartItems;
 
-      // Assign images based on item type
-      const updatedItems = items.map((item: CartObject) => {
-        if (item.itemType === "foilCake") {
-          return { ...item, image: "/foilcake.png" };
-        } else if (item.itemType === "cakeParfait") {
-          return { ...item, image: "/cakeParfait.png" };
-        }
-        return item;
-      });
+  //     // Assign images based on item type
+  //     const updatedItems = items.map((item: CartObject) => {
+  //       if (item.itemType === "foilCake") {
+  //         return { ...item, image: "/foilcake.png" };
+  //       } else if (item.itemType === "cakeParfait") {
+  //         return { ...item, image: "/cakeParfait.png" };
+  //       }
+  //       return item;
+  //     });
 
-      setCartItem(updatedItems);
-    };
-    cart();
-  }, [cartItems]);
+  //     setCartItem(updatedItems);
+  //   };
+  //   cart();
+  // }, [cartItems]);
 
-  //  const fetchCartItems = useCallback(async () => {
-  //    const items = await cartItems;
+   const fetchCartItems = useCallback(async () => {
+     const items = await cartItems;
 
-  //    // Assign images based on item type
-  //    const updatedItems = items.map((item: CartObject) => {
-  //      if (item.itemType === "foilCake") {
-  //        return { ...item, image: "/foilcake.png" };
-  //      } else if (item.itemType === "cakeParfait") {
-  //        return { ...item, image: "/cakeParfait.png" };
-  //      }
-  //      return item;
-  //    });
+     // Assign images based on item type
+     const updatedItems = items.map((item: CartObject) => {
+       if (item.itemType === "foilCake") {
+         return { ...item, image: "/foilcake.png" };
+       } else if (item.itemType === "cakeParfait") {
+         return { ...item, image: "/cakeParfait.png" };
+       }
+       return item;
+     });
 
-  //    setCartItem(updatedItems);
-  //  }, [cartItems]);
+     setCartItem(() => updatedItems);
+   }, [cartItems]);
 
-  //  useEffect(() => {
-  //    fetchCartItems();
-  //  }, [fetchCartItems]);
+   useEffect(() => {
+     fetchCartItems();
+   }, [fetchCartItems]);
 
 
   const columns: TableColumn<CartObject>[] | any = [
@@ -119,7 +122,7 @@ export const CartItemsPage = () => {
       cells: {
         style: {
           fontSize: "1rem",
-          padding: "0.5rem",
+          padding: "0.5rem auto",
           textAlign: "center" as "center",
         },
       },
@@ -139,12 +142,17 @@ export const CartItemsPage = () => {
     setCartItem(updatedCart)
   }
 
+  const quickOrderPage = () => navigate("/auth/quickOrderPage")
+
 
     return (
       <div className="cartItemsPage-container">
         <CartPageNav />
         <div className="cartItemsPage-body">
-          <div className="cartItemsPage-header">{name}</div>
+          <div className="cartItemsPage-header">
+            <span>{name}</span>
+            <button type="button" onClick={quickOrderPage}>quick order page</button>
+          </div>
           <div className="cartItems-content">
             <DataTable
               columns={columns}

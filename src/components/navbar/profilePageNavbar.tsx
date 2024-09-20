@@ -39,7 +39,7 @@ import "./profilePageNavbar.css";
          <span>
            <Link
              style={{ color: "white", textDecoration: "none" }}
-             to="/auth/checkOutPage"
+             to="/auth/cartItemsPage"
            >
              Cart
            </Link>

@@ -34,12 +34,12 @@ export const CartProvider = ({children}: CartProviderProps) => {
         if(user && user.accessToken) {
           const cartItems = async () => {
             const items = await getCartItems(accessToken);
-            console.log(items);
-            setCartItems(items);
+            // console.log(items);
+            setCartItems(() => items);
           };
           cartItems();
         }
-    }, [user, accessToken])
+    }, [user, cartItems])
 
     useEffect(() => {
         const newTotal = cartItems.reduce((total, cartItem) => total + Number(cartItem.quantity) * Number(cartItem.price), 0)
