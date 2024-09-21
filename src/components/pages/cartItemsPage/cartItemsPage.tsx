@@ -143,7 +143,7 @@ export const CartItemsPage = () => {
   }
 
   const quickOrderPage = () => navigate("/auth/quickOrderPage")
-
+  const checkoutPage = () => navigate("/auth/checkoutPage")
 
     return (
       <div className="cartItemsPage-container">
@@ -163,8 +163,12 @@ export const CartItemsPage = () => {
             />
             <div>
               <h2>Total : {cartTotal} </h2>
-              <span>
-                <CustomButton type="button" label="proceed to checkout" />
+              <span >
+                <CustomButton 
+                  type="button" 
+                  label="proceed to checkout" 
+                  onClick={checkoutPage} 
+                  />
               </span>
             </div>
           </div>

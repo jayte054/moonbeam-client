@@ -42,9 +42,10 @@
 }
 
 .quickOrder-variants {
-    margin: 2rem;
+    margin: 2rem ;
     border: 3px solid #d767e8;
     border-radius: 1rem;
+    width: 95.7%
 }
 
 .quickOrder-foilCakes, .quickOrder-cakeParfait{

@@ -1,0 +1,40 @@
+
+
+
+.checkoutPageNavbar-Container {
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: #816e91;
+    border-radius: 0.7rem;
+    font-weight: bold;
+    color: white;
+  }
+  
+  .checkoutPageNavbar-Container img {
+    margin: 0.5rem;
+    height: 5rem;
+  }
+  
+  .checkoutPageNavbar-Title {
+    font-size: 2rem;
+    margin-top: 1.5rem;
+    font-family: Apple Chancery;
+
+  }
+  
+  .checkoutNavbar-Nav {
+    margin-top: 2rem;
+    padding: 0.5rem;
+    display: flex;
+  }
+  
+  .checkoutNavbar-Nav span {
+    padding-right: 1rem;
+    font-family: "Apple Chancery", cursive
+  }
+
+  .checkoutNavbar-Nav span:hover{
+    font-size: 1.2rem;
+  }

@@ -17,12 +17,14 @@ export const CartIcon = () => {
 
     return (
       <>
-           <BsBasket2Fill 
-                style={{cursor: "pointer"}}
-                onClick={toggleCart}
-           />
-          <span style={{fontSize: "1rem"}}>{cartCount}</span>
-          {isOpen &&  <CartPreview />}
+        <BsBasket2Fill
+          style={{ cursor: "pointer", color: "rgb(78, 51, 104)" }}
+          onClick={toggleCart}
+        />
+        <span style={{ fontSize: "1rem", color: "rgb(78, 51, 104)" }}>
+          {cartCount}
+        </span>
+        {isOpen && <CartPreview />}
       </>
     );
 }

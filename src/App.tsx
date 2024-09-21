@@ -17,6 +17,8 @@ import {
 } from "./context/orderContext/orderContext";
 import { CartItemsPage } from "./components/pages/cartItemsPage/cartItemsPage";
 import {CartProvider} from "./context/cartContext/cartContext"
+import {CheckoutPage} from "./components/pages/checkoutPage/checkoutPage";
+
 
 function App() {
   return (
@@ -54,6 +56,11 @@ function App() {
                         path="/auth/cartItemsPage"
                         element={<CartItemsPage />}
                       />
+                       <Route
+                        path="/auth/checkoutPage"
+                        element={<CheckoutPage />}
+                      />
+                    {/* </Route> */}
                     </Route>
                   </Routes>
                 </Router>
