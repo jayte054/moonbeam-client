@@ -28,6 +28,15 @@
     font-weight: bold;
 }
 
+.deliveryAddress-content {
+    font-family:'Times New Roman', Times, serif;
+    padding: 0.6rem 1rem;
+}
+
+.deliveryAddress-content span{
+    /* padding-bottom: .8rem */
+}
+
 .orderSummary {
     /* margin: 1rem; */
 }

@@ -13,6 +13,7 @@ import {
   VariantRatesProvider,
 } from "./context/orderContext/orderContext";
 import {CartProvider} from "./context/cartContext/cartContext"
+import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
 
 // let stores: any = {}
 
@@ -30,7 +31,9 @@ root.render(
           <PackageProvider>
             <VariantRatesProvider>
               <CartProvider>
-                <App />
+                <CheckoutProvider>
+                  <App />
+                </CheckoutProvider>
               </CartProvider>
             </VariantRatesProvider>
           </PackageProvider>

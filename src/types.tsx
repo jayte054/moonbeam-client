@@ -113,3 +113,16 @@ export interface setCartCountProps {
   setCartCount: React.Dispatch<React.SetStateAction<string>>;
   cartCount: string;
 }
+
+export interface AddressObject {
+        deliveryAddressId: string,
+        firstName: string,
+        lastName: string,
+        phoneNumber: number,
+        additionalPhoneNumber?:number,
+        deliveryAddress: string,
+        region: string,
+        city: string,
+        defaultAddress: boolean,
+        userId: string
+}
