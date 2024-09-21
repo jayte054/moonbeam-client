@@ -25,7 +25,7 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   const handleParfaitFormOrder = async(formikHelpers: any) => {
     toggleParfaitOrder(values, formikHelpers)
     const newCount = Number(cartCount) + Number(values.quantity)
-    setCartCount(newCount)
+    setCartCount(newCount.toString())
   }
   return (
     <div className="quickOrder-foilCakesInput">

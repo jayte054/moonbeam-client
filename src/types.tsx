@@ -110,6 +110,6 @@ export interface CartObject {
 }
 
 export interface setCartCountProps {
-  setCartCount: (newCount: number) => void;
-  cartCount: number;
+  setCartCount: React.Dispatch<React.SetStateAction<string>>;
+  cartCount: string;
 }

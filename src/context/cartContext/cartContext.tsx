@@ -1,5 +1,4 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import { getCartItems } from "../../services/cartServices/cartServices";
 import { CartStores } from "../../stores/cartStores";
 import { CartObject } from "../../types";
 import { AuthContext } from "../authcontext/authContext";
@@ -9,13 +8,13 @@ interface CartProviderProps {
 }
 
 interface CartContextType {
-    cartItems: [],
-    cartTotal: string,
-    cartCount: string,
-    setCartCount: () => void
+  cartItems: CartObject[];
+  cartTotal: string;
+  cartCount: string;
+  setCartCount: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const CartContext: any = createContext<CartContextType>({
+export const CartContext = createContext<CartContextType>({
     cartItems: [],
     cartTotal: "0.00",
     cartCount: "",
@@ -26,7 +25,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
     const [cartItems, setCartItems] = useState<CartObject[]>([])
     const [cartTotal, setCartTotal] = useState(0)
     const [cartCount, setCartCount] = useState("")
-    const {getCartItems} = CartStores
+    const {getCartItems}: any = CartStores
     const {user} = useContext(AuthContext)
     const accessToken = user.accessToken;
 
@@ -39,7 +38,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
           };
           cartItems();
         }
-    }, [user, cartItems])
+    }, [user, accessToken, getCartItems ])
 
     useEffect(() => {
         const newTotal = cartItems.reduce((total, cartItem) => total + Number(cartItem.quantity) * Number(cartItem.price), 0)
@@ -70,6 +69,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         cartTotal: formatCurrency(cartTotal),
         cartCount,
         setCartCount,
+        setCartItems,
     };
 
     return (

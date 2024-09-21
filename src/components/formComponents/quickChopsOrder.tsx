@@ -82,7 +82,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
      const handleChopsFormSubmit = async (formikHelpers: any) => {
        props.toggleChopOrder(values, formikHelpers); // Toggles the form 
        const newCount = Number(cartCount) + Number(values.numberOfPacks)
-       setCartCount(newCount)
+       setCartCount(newCount.toString())
      };
      
     const renderChopsForm = () => (

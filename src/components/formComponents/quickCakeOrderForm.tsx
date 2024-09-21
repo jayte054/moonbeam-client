@@ -35,14 +35,14 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => 
       setBudgetCakesForm((prev) => !prev);
       props.toggleBudgetOrder();
       const newCount = Number(cartCount) + 1
-      setCartCount(newCount);
+      setCartCount(newCount.toString());
     }
 
     const toggleSpecialCakesForm = () => {
       setSpecialCakesForm((prev) => !prev)
       props.toggleSpecialOrder();
       const newCount = Number(cartCount) + 1;
-      setCartCount(newCount);
+      setCartCount(newCount.toString());
     }
 
 

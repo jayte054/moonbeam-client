@@ -127,7 +127,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
                             label="Add To Cart"
                             onClick={() => {
                               const newCount = Number(cartCount) + 1;
-                              setCartCount(newCount);
+                              setCartCount(newCount.toString());
                             }}
                           />  
           </Form>

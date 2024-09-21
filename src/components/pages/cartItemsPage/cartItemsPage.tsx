@@ -13,7 +13,7 @@ import "./cartItemsPage.css";
 
 export const CartItemsPage = () => {
  const [cartItem, setCartItem] = useState<CartObject[]>([])
- const {cartItems, cartTotal} = useContext<any>(CartContext)
+ const {cartItems, cartTotal, cartCount, setCartCount, setCartItems} = useContext<any>(CartContext)
  const {user} = useContext(AuthContext)
  const {deleteCartItem} = CartStores;
  const navigate = useNavigate()
@@ -140,6 +140,11 @@ export const CartItemsPage = () => {
     const updatedCart = cartItem.filter(item => item.itemId !== itemId)
     await deleteCartItem(user.accessToken, itemId);
     setCartItem(updatedCart)
+    setCartItems(updatedCart);
+    const quantity = updatedCart.reduce((total: number, cartItem) => total + Number(cartItem.quantity), 0)
+    setCartCount(quantity.toString());
+    console.log(updatedCart);
+    console.log(quantity);
   }
 
   const quickOrderPage = () => navigate("/auth/quickOrderPage")
