@@ -187,3 +187,35 @@ export const parfaitOrderSchema = yup.object().shape({
     .min(8, "description must contain at least 8 letters")
     .required("Required"),
 });
+
+export const createAddressSchema = yup.object().shape({
+  firstName: yup
+    .string()
+    .min(4, "order name must contain at least 6 letters")
+    .required("Required"),
+  lastName: yup
+    .string()
+    .min(4, "order name must contain at least 6 letters")
+    .required("Required"),
+  phoneNumber: yup
+    .string()
+    .min(11, "phone number must contain 11 numbers")
+    .required("Required"),
+  addititonalPhoneNumber: yup
+    .string()
+    .min(11, "phone number must contain 11 numbers")
+    .required("Required"),
+  deliveryAddress: yup
+    .string()
+    .max(30, "order name must contain at least 6 letters")
+    .required("Required"),
+  region: yup
+    .string()
+    .required("Required"),
+  city: yup
+    .string()
+    .required("Required"),
+  defaultAddress: yup
+    .boolean()
+    .required("Required")
+});

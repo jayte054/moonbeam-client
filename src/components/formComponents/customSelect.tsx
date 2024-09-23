@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useField, useFormikContext} from "formik";
 import "./customSelect.css"
 
-export const CustomSelect = ({label, ...props}: any) => {
+export const CustomSelect = ({label, fetchCities, ...props}: any) => {
         const [field, meta] = useField(props)
         const {setFieldValue} = useFormikContext()
         const [selectedValue, setSelectedVaue] = useState(field.value || "")
@@ -28,6 +28,13 @@ export const CustomSelect = ({label, ...props}: any) => {
             setFieldValue(props.name, value)
 
         }
+
+         useEffect(() => {
+           if (selectedValue && selectedValue !== "other") {
+             fetchCities(selectedValue);
+           }
+         }, [selectedValue]);
+         
     return (
         <div className="customSelect">
             <span className="label">

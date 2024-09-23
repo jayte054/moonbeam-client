@@ -126,3 +126,14 @@ export interface AddressObject {
         defaultAddress: boolean,
         userId: string
 }
+
+export interface CreateDeliveryAddressDto {
+  firstName: string;
+  lastName: string;
+  phoneNumber: string;
+  additionalPhoneNumber: string;
+  deliveryAddress: string;
+  region: string;
+  defaultAddress: boolean;
+  city: string;
+}
