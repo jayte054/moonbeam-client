@@ -45,7 +45,7 @@ export const ProtectAuthRoute = () => {
 //fetch coordinates from google api
 
 export const getCoordinates = async (address: string | number | boolean) => {
-  const apiKey = "AIzaSyDa4lDVdAIf7x3yc_6qD2rihIvEcy2JBLo";
+  const apiKey = process.env.REACT_APP_GOOGLE_MAP_API;
   console.log(apiKey);
   if (!apiKey) {
     throw new Error("google maps api key is missing");
