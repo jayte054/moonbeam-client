@@ -8,27 +8,31 @@ import "./createAddressForm.css";
 import React, { ReactNode, useEffect, useState } from "react";
 
 interface CreateAddressProps extends FormikProps<CreateDeliveryAddressDto> {
-    toggleCreateAddress: (values: CreateDeliveryAddressDto, addressFormikHelper: any ) => void
+  toggleCreateAddress: (
+    values: CreateDeliveryAddressDto,
+    addressFormikHelper: any
+  ) => void;
+  toggleAddressForm: () => void
 }
 
 export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
     const [states, setStates] = useState<string[]>([]);
     const [fetchedStates, setFetchedStates] = useState<any[]>([])
     const [cities, setCities] = useState<string[]>([]);
-    const {values, touched, errors, handleChange, setFieldValue} = props;
+    const {values, touched, errors, handleChange, setFieldValue, toggleAddressForm} = props;
 
     const fetchStates = async () => {
       try {
         const response = await fetch(
-          "https://nigeria-states-towns-lgas.onrender.com/api/all"
+        //   "https://nigeria-states-towns-lgas.onrender.com/api/all"
+          "https://nga-states-lga.onrender.com/fetch"
         );
         console.log(response)
         const data = await response.json();
         console.log(data)
         setFetchedStates(data)
-        const stateNames = data.map((state: {name: string}) => state.name)
-        console.log(stateNames)
-        setStates(stateNames); // Assuming data is an array of state names
+        
+        setStates(data); // Assuming data is an array of state names
       } catch (error) {
         console.error("Error fetching states:", error);
       }
@@ -42,24 +46,13 @@ export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
         console.log(stateName)
       try {
        
-        console.log(fetchedStates)
-        const stateObject = fetchedStates.map(state => ({
-            name: state.name,
-            state_code: state.state_code
-        }))
-        console.log(stateObject)
-        const _state: any = stateObject?.find((state: {name: string}) => state.name === stateName)
-        console.log(_state);
-        const {state_code} = _state
-        console.log({state_code})
         const response = await fetch(
-          `https://nigeria-states-towns-lgas.onrender.com/api/${state_code}/towns`
+          `https://nga-states-lga.onrender.com/?state=${stateName}`
         );
         const data = await response.json();
         console.log(data)
-        const cityNames = data.map((data: {name: string}) => data.name)
-        console.log(cityNames)
-        setCities(cityNames); // Assuming data is an array of city names
+        
+        setCities(data); // Assuming data is an array of city names
         setFieldValue("city", "");
     } catch (error) {
         console.error("Error fetching cities:", error);
@@ -68,6 +61,7 @@ export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
 
     const handleFormSubmit = async (addressFormikHelper: any) => {
       props.toggleCreateAddress(values, addressFormikHelper);
+      toggleAddressForm()
     };
 
     return (

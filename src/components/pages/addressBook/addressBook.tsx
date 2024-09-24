@@ -186,6 +186,7 @@ export const AddressBook = () => {
                     toggleCreateAddress={(values: CreateDeliveryAddressDto) =>
                       createAddress(values, formikProps)
                     }
+                    toggleAddressForm={toggleAddressForm}
                   />
                 </div>
               )}
