@@ -127,6 +127,19 @@ export interface AddressObject {
         userId: string
 }
 
+export interface StudioAddressObject {    
+  studioId: string;        
+  studioTitle: string;
+  studioAddress: string;
+  LGA: string;
+  state: string;
+  phoneNumber: string;
+  deliveryBaseFee: string;
+  deliveryPricePerKm: string;
+  defaultStudioAddress: boolean;
+  userId: string;
+}
+
 export interface CreateDeliveryAddressDto {
   firstName: string;
   lastName: string;

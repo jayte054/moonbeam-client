@@ -1,4 +1,5 @@
 import axios from "axios"
+import { string } from "yup";
 import { CreateDeliveryAddressDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices"
 
@@ -40,7 +41,7 @@ export const getDefaultAddress = async (accessToken: string) => {
     }
 }
 
-export const defaultAddress = async (accessToken: string, deliveryAddressId: string) => {
+export const defaultAddress: any = async (accessToken: string, deliveryAddressId: string) => {
     const config = {
         headers: {
             "Authorization": `Bearer ${accessToken}`
@@ -86,6 +87,77 @@ export const deleteDeliveryAddress = async (accessToken: string, deliveryAddress
         const deliveryAddress = await axios.delete(`${Base_Url}/delivery/deleteAddress/${deliveryAddressId}`, config)
         console.log(deliveryAddress.data)
         return deliveryAddress.data;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export const getStudioAddresses = async (accessToken: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+    try {
+        const studioAddresses = await axios.post(
+          `${Base_Url}/delivery/setStudioAddress`,
+          {},
+          config
+        );
+        console.log(studioAddresses.data)
+        return studioAddresses.data;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export const studioAddresses = async (accessToken: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+    try {
+        const studioAddresses = await axios.get(
+          `${Base_Url}/delivery/getStudioAddresses`,
+          config
+        );
+        console.log(studioAddresses.data)
+        return studioAddresses.data;
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export const setDefaultStudioAddress = async (accessToken: string, studioId: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+    try {
+        const studioAddress = await axios.patch(`${Base_Url}/delivery/setDefaultStudioAddress/${studioId}`, {}, config)
+        console.log(studioAddress.data)
+        return studioAddress.data
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
+
+export const getDefaultStudioAddress = async (accessToken: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+
+    try {const defaultStudioAddress = await axios.get(`${Base_Url}/delivery/getDefaultStudioAddress`, config)
+    console.log(defaultStudioAddress.data)
+    return defaultStudioAddress.data
     } catch (error) {
         console.log(error)
         throw error

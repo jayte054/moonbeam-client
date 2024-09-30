@@ -20,6 +20,7 @@ import {CartProvider} from "./context/cartContext/cartContext"
 import {CheckoutPage} from "./components/pages/checkoutPage/checkoutPage";
 import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
 import { AddressBook } from './components/pages/addressBook/addressBook';
+import { StudioAddressBook } from './components/pages/addressBook/studioAddressBook';
 
 
 function App() {
@@ -63,9 +64,13 @@ function App() {
                           path="/auth/checkoutPage"
                           element={<CheckoutPage />}
                         />
-                        <Route 
+                        <Route
                           path="/auth/addressBook"
                           element={<AddressBook />}
+                        />
+                        <Route
+                          path="/auth/studioAddressBook"
+                          element={<StudioAddressBook />}
                         />
                       </Route>
                     </Routes>

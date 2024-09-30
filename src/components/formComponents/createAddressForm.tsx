@@ -3,6 +3,7 @@ import { CreateDeliveryAddressDto } from "../../types";
 import { AddToCartButton } from "./addToCartButton";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
+import { CustomSelectCities } from "./customSelectCities";
 import { CustomTextArea } from "./customTextArea";
 import "./createAddressForm.css";
 import React, { ReactNode, useEffect, useState } from "react";
@@ -116,7 +117,7 @@ export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
         >
           <option value="false">false</option>
         </CustomSelect>
-        <CustomSelect
+        <CustomSelectCities
           label="State"
           name="region"
           value={values.region}
@@ -137,8 +138,8 @@ export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
               {state}
             </option>
           ))}
-        </CustomSelect>
-        <CustomSelect
+        </CustomSelectCities>
+        <CustomSelectCities
           label="City"
           name="city"
           value={values.city}
@@ -153,7 +154,7 @@ export const CreateAddressForm: React.FC<CreateAddressProps> = (props) => {
               {city}
             </option>
           ))}
-        </CustomSelect>
+        </CustomSelectCities>
         <div className="address-button">
           <AddToCartButton
             type="submit"

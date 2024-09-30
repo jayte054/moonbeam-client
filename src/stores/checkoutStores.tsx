@@ -1,4 +1,4 @@
-import { createDeliveryAddress, defaultAddress, deleteDeliveryAddress, getDefaultAddress, getDeliveryAddress } from "../services/checkoutServices/checkoutService"
+import { createDeliveryAddress, defaultAddress, deleteDeliveryAddress, getDefaultAddress, getDefaultStudioAddress, getDeliveryAddress, getStudioAddresses, setDefaultStudioAddress, studioAddresses } from "../services/checkoutServices/checkoutService"
 import { CreateDeliveryAddressDto } from "../types";
 
 export const checkoutStores = {
@@ -20,5 +20,21 @@ export const checkoutStores = {
 
     deleteDeliveryAddress: async (accessToken: string, deliveryAddressId: string) => {
         return await deleteDeliveryAddress(accessToken, deliveryAddressId)
+    },
+
+    getStudioAddresses: async (accessToken: string) => {
+        return await getStudioAddresses(accessToken)
+    },
+
+    setDefaultStudioAddress: async (accessToken: string, studioId: string) => {
+        return await setDefaultStudioAddress(accessToken, studioId)
+    },
+
+    getDefaultStudioAddress: async (accessToken: string) => {
+        return await getDefaultStudioAddress(accessToken)
+    },
+
+    studioAddresses: async (accessToken: string) => {
+        return await studioAddresses(accessToken)
     }
 }
