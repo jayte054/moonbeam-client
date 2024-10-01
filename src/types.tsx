@@ -71,6 +71,7 @@ export type parfaitObject = {
 };
 
 export interface GenericProductOrderDto {
+        id?: string,
         orderName: string,
         deliveryDate: string,
         description: string,
@@ -98,20 +99,21 @@ export interface CakePafaitOrderDto {
 }
 
 export interface CartObject {
-  itemId: string;
-  itemName: string;
-  itemType: string;
-  price: string;
-  imageUrl: string;
-  image?: string;
-  quantity: string;
-  productOrderId: string;
-  userId: string
+  itemId: string | undefined | any;
+  itemName: string | undefined;
+  itemType: string | undefined;
+  price: string | undefined;
+  imageUrl: string | undefined;
+  image?: string | undefined;
+  quantity: string | undefined;
+  productOrderId?: string | undefined;
+  userId: string | undefined;
 }
 
 export interface setCartCountProps {
   setCartCount: React.Dispatch<React.SetStateAction<string>>;
   cartCount: string;
+  addItemToCart: any;
 }
 
 export interface AddressObject {
@@ -150,3 +152,219 @@ export interface CreateDeliveryAddressDto {
   defaultAddress: boolean;
   city: string;
 }
+
+export interface bronzePackage {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  description: string;
+  imageUrl: string;
+  price: string;
+}
+
+export interface silverPackage {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven: string;
+  itemEight: string;
+  description: string;
+  imageUrl: string;
+  price: string;
+}
+
+export interface goldPackage {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven: string;
+  itemEight: string;
+  itemNine: string;
+  itemTen: string;
+  imageUrl: string;
+  description: string;
+  price: string;
+}
+
+export interface diamondPackage {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven: string;
+  itemEight: string;
+  itemNine: string;
+  itemTen: string;
+  itemEleven: string;
+  itemTwelve: string;
+  imageUrl: string;
+  description: string;
+  price: string;
+}
+
+export interface bronzePackageOrderType  {
+  packageId: string;
+  packageName: string;
+  packageOrderName: string;
+  bronzePackage: {
+    itemOne: string;
+    itemTwo: string;
+    itemThree: string;
+    itemFour: string;
+    itemFive: string;
+    itemSix: string;
+    description: string;
+  };
+  imageUrl: string;
+  price: string;
+  orderDate: string;
+  deliveryDate: string;
+  status: string;
+  addInfo: string;
+  userId: string;
+};
+
+export interface silverPackageOrderType {
+  packageId: string;
+  packageName: string;
+  packageOrderName: string;
+  silverPackage: {
+    itemOne: string;
+    itemTwo: string;
+    itemThree: string;
+    itemFour: string;
+    itemFive: string;
+    itemSix: string;
+    itemSeven: string;
+    itemEight: string;
+    description: string;
+  };
+  imageUrl: string;
+  price: string;
+  orderDate: string;
+  deliveryDate: string;
+  status: string;
+  addInfo: string;
+  userId: string;
+};
+
+export interface goldPackageOrderType  {
+  packageId: string;
+  packageName: string;
+  packageOrderName: string;
+  goldPackage: {
+    itemOne: string;
+    itemTwo: string;
+    itemThree: string;
+    itemFour: string;
+    itemFive: string;
+    itemSix: string;
+    itemSeven: string;
+    itemEight: string;
+    itemNine: string;
+    itemTen: string;
+    description: string;
+  };
+  imageUrl: string;
+  price: string;
+  orderDate: string;
+  deliveryDate: string;
+  status: string;
+  addInfo: string;
+  userId: string;
+};
+
+export interface diamondPackageOrderType  {
+  packageId: string;
+  packageName: string;
+  packageOrderName: string;
+  diamondPackage: {
+    itemOne: string;
+    itemTwo: string;
+    itemThree: string;
+    itemFour: string;
+    itemFive: string;
+    itemSix: string;
+    itemSeven: string;
+    itemEight: string;
+    itemNine: string;
+    itemTen: string;
+    itemEleven: string;
+    itemTwelve: string;
+    description: string;
+  };
+  imageUrl: string;
+  price: string;
+  orderDate: string;
+  deliveryDate: string;
+  status: string;
+  addInfo: string;
+  userId: string;
+};
+
+export interface CakeOrder {
+  id: string;
+  orderName: string;
+  type: string;
+  inches: string;
+  layers: string;
+  productFlavour: string;
+  designCovering: string;
+  imageUrl: string;
+  orderDate: string;
+  price: string;
+  description: string;
+  userId: string;
+  deliveryDate: string;
+  status: string;
+}
+
+export interface ChopsOrderType  {
+  id: string;
+  orderTitle: string;
+  type: string;
+  imageUrl: string;
+  chopPackageType: string;
+  customChopPackage: string;
+  numberOfPacks: string;
+  customNumberOfPacks: string;
+  pastryPackageType: string;
+  customPastryPackage: string;
+  covering: string;
+  price: string;
+  deliveryDate: string;
+  userId: string;
+  description: string;
+  status: string;
+};
+
+export interface VariantCakeOrder {
+  variantId: string;
+  orderName: string;
+  type: string;
+  productFlaovur?: string;
+  price: string;
+  quantity: string;
+  description: string;
+  deliveryDate: string;
+  userId: string;
+};

@@ -12,13 +12,15 @@ interface CartContextType {
   cartTotal: string;
   cartCount: string;
   setCartCount: React.Dispatch<React.SetStateAction<string>>;
+  addItemToCart: (newItem: CartObject) => void;
 }
 
 export const CartContext = createContext<CartContextType>({
-    cartItems: [],
-    cartTotal: "0.00",
-    cartCount: "",
-    setCartCount: () => {},
+  cartItems: [],
+  cartTotal: "0.00",
+  cartCount: "",
+  setCartCount: () => {},
+  addItemToCart: () => {},
 });
 
 export const CartProvider = ({children}: CartProviderProps) => {
@@ -33,12 +35,12 @@ export const CartProvider = ({children}: CartProviderProps) => {
         if(user && user.accessToken) {
           const cartItems = async () => {
             const items = await getCartItems(accessToken);
-            // console.log(items);
+            console.log(items);
             setCartItems(() => items);
           };
           cartItems();
         }
-    }, [user, accessToken, getCartItems ])
+    }, [ accessToken, getCartItems]);
 
     useEffect(() => {
         const newTotal = cartItems.reduce((total, cartItem) => total + Number(cartItem.quantity) * Number(cartItem.price), 0)
@@ -64,12 +66,17 @@ export const CartProvider = ({children}: CartProviderProps) => {
         }).format(amount)
     }
 
+    const addItemToCart = (newItem: CartObject) => {
+      setCartItems((prevItems) => [...prevItems, newItem]);
+    };
+
     const value = {
-        cartItems, 
-        cartTotal: formatCurrency(cartTotal),
-        cartCount,
-        setCartCount,
-        setCartItems,
+      cartItems,
+      cartTotal: formatCurrency(cartTotal),
+      cartCount,
+      setCartCount,
+      setCartItems,
+      addItemToCart,
     };
 
     return (

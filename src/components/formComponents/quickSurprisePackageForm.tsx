@@ -7,8 +7,14 @@ import {CustomButton} from "./customButton"
 import {AddToCartButton} from "./addToCartButton"
 import "./quickSurprisePackageForm.css"
 import { SurprisePackageContext } from "../../context/orderContext/orderContext"
-import { packageObject, setCartCountProps } from "../../types"
+import { CartObject, packageObject, setCartCountProps } from "../../types"
 import { CartContext } from "../../context/cartContext/cartContext"
+import { 
+  // bronzePackage,
+  silverPackage,
+  goldPackage,
+  diamondPackage
+ } from "../../types";
 
 interface bronzePackage {
   packageId: string;  
@@ -25,10 +31,10 @@ interface bronzePackage {
 
 }
 interface _package {
-    bronzePackage: bronzePackage[],
-    silverPackage: any,
-    goldPackage: any,
-    diamondPackage: any,
+  bronzePackage: bronzePackage[];
+  silverPackage: silverPackage[];
+  goldPackage: goldPackage[];
+  diamondPackage: diamondPackage[];
 }
 
 interface QuickSurprisePackageFormProps extends FormikProps<packageObject> {
@@ -46,13 +52,20 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     const [showGoldForm, setShowGoldForm] = useState(false);
     const [showDiamondForm, setShowDiamondForm] = useState(false);
     // const [packages, setPackages] = useState<_package[]>([])
-    const [bronzePackage, setBronzePackage] = useState<bronzePackage | null>(null);
-    const [silverPackage, setSilverPackage] = useState<bronzePackage | null>(null)
-    const [goldPackage, setGoldPackage] = useState<bronzePackage | null>(null);
-    const [diamondPackage, setDiamondPackage] = useState<bronzePackage | null>(null);
+    const [bronzePackage, setBronzePackage] = useState<bronzePackage | null>(
+      null
+    );
+    const [silverPackage, setSilverPackage] = useState<silverPackage | null>(
+      null
+    );
+    const [goldPackage, setGoldPackage] = useState<goldPackage | null>(
+      null
+    );
+    const [diamondPackage, setDiamondPackage] =
+      useState<diamondPackage | null>(null);
     const {packageMap} = useContext<any>(SurprisePackageContext)
     const {values, handleChange, touched, errors} = props;
-    const {cartCount, setCartCount}: setCartCountProps = useContext(CartContext)
+    const {cartCount, setCartCount, addItemToCart}: setCartCountProps = useContext(CartContext)
 
     useEffect(() => {
         const getPackages = () => {
@@ -92,6 +105,8 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
         props.toggleDiamondOrder()
         
     }
+
+    
 
     const renderForm = () => (
           <Form>

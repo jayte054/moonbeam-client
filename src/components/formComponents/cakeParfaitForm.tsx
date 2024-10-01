@@ -9,6 +9,8 @@ import { parfaitObject, setCartCountProps } from "../../types";
 import { FormikProps } from "formik";
 import { CustomDate } from "./customDate";
 import { CartContext } from "../../context/cartContext/cartContext";
+import { CartStores } from "../../stores/cartStores";
+import { AuthContext } from "../../context/authcontext/authContext";
 
 interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
   toggleParfaitOrder: (values: parfaitObject, foilFormikHelpers: any) => void 
@@ -17,7 +19,9 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   const [parfaitForm, setParfaitForm] = useState(false);
   const {values, handleChange, handleSubmit, touched, errors, toggleParfaitOrder} = props;
   const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
-
+   const { getCartItems } = CartStores;
+   const { user } = useContext(AuthContext);
+   
   const toggleParfaitForm = () => {
     setParfaitForm((prev) => !prev);
   };
@@ -26,6 +30,7 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
     toggleParfaitOrder(values, formikHelpers)
     const newCount = Number(cartCount) + Number(values.quantity)
     setCartCount(newCount.toString())
+    await getCartItems(user.accessToken);
   }
   return (
     <div className="quickOrder-foilCakesInput">

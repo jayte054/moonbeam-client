@@ -7,7 +7,7 @@ import {chopsOrderSchema, foilOrderSchema, packageOrderSchema, parfaitOrderSchem
 import {QuickCakeOrderForm} from "../../formComponents/quickCakeOrderForm"
 import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
 import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
-import {chopsObject, foilObject, GenericProductOrderDto, OrderObject, packageObject, parfaitObject} from "../../../types"
+import {bronzePackageOrderType, CakeOrder, CartObject, chopsObject, ChopsOrderType, diamondPackageOrderType, foilObject, GenericProductOrderDto, goldPackageOrderType, OrderObject, packageObject, parfaitObject, silverPackageOrderType, VariantCakeOrder} from "../../../types"
 
 import "./quickOrderPage.css"
 import { CustomSelect } from "../../formComponents/customSelect";
@@ -19,6 +19,7 @@ import { CakeVariantRatesContext } from "../../../context/orderContext/orderCont
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderStores } from "../../../stores/orderStores";
 import { CartIcon } from "../../cartIcon/cartIcon";
+import { CartContext } from "../../../context/cartContext/cartContext";
 
 interface formikHelper extends FormikHelpers<chopsObject> {}
 interface foilFormikHelper extends FormikHelpers<foilObject> {}
@@ -41,6 +42,7 @@ export const QuickOrderPage = () => {
       foilCakeOrder,
       cakeParfaitOrder,
     } = OrderStores;
+    const {addItemToCart} = useContext(CartContext)
             
     const name = user?.firstname || ""
 
@@ -99,8 +101,22 @@ export const QuickOrderPage = () => {
       
     console.log("order: ", genericProductOrderDto);
     try {
-      await budgetCakeOrder(accessToken, genericProductOrderDto);
-      formikHelpers.resetForm()
+       const order: CakeOrder = await budgetCakeOrder(
+         accessToken,
+         genericProductOrderDto
+       );
+      const item: CartObject = {
+        itemId: order.id,
+        itemName: order.orderName,
+        quantity: "1",
+        price: order.price,
+        itemType: "bronze Package",
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+      addItemToCart(item)
+      formikHelpers.resetForm();
+      return order
     } catch (error) {
       console.log(error);
     }
@@ -113,8 +129,19 @@ export const QuickOrderPage = () => {
    
 
     try {
-      await specialCakeOrder(accessToken, genericProductOrderDto)
+      const order: CakeOrder =await specialCakeOrder(accessToken, genericProductOrderDto)
+       const item: CartObject = {
+         itemId: order.id,
+         itemName: order.orderName,
+         quantity: "1",
+         price: order.price,
+         itemType: "bronze Package",
+         imageUrl: order.imageUrl,
+         userId: order.userId,
+       };
+       addItemToCart(item);
       formikHelpers.resetForm()
+      return order;
     } catch (error) {
       console.log(error)
     }
@@ -127,7 +154,20 @@ export const QuickOrderPage = () => {
     console.log(formikHelpers);
 
     try {
-      await bronzePackageOrder(accessToken, surprisePackageOrderDto);
+      const order: bronzePackageOrderType = await bronzePackageOrder(
+        accessToken,
+        surprisePackageOrderDto
+      );
+      const item: CartObject = {
+        itemId: order.packageId,
+        itemName: order.packageOrderName,
+        quantity: "1",
+        price: order.price,
+        itemType: "bronze Package",
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+      addItemToCart(item);
       formikHelpers.resetForm()
     } catch (error) {
       console.log(error)
@@ -140,7 +180,17 @@ export const QuickOrderPage = () => {
     console.log("silverOrder", surprisePackageOrderDto)
 
     try {
-      await silverPackageOrder(accessToken, surprisePackageOrderDto)
+      const order: silverPackageOrderType=await silverPackageOrder(accessToken, surprisePackageOrderDto)
+      const item: CartObject = {
+        itemId: order.packageId,
+        itemName: order.packageOrderName,
+        quantity: "1",
+        price: order.price,
+        itemType: "bronze Package",
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+      addItemToCart(item);
       formikHelpers.resetForm()
     } catch(error) {
       console.log(error)
@@ -153,7 +203,20 @@ export const QuickOrderPage = () => {
     console.log(surprisePackageOrderDto)
 
     try{
-      await goldPackageOrder(accessToken, surprisePackageOrderDto)
+      const order: goldPackageOrderType = await goldPackageOrder(
+        accessToken,
+        surprisePackageOrderDto
+      );
+      const item: CartObject = {
+        itemId: order.packageId,
+        itemName: order.packageOrderName,
+        quantity: "1",
+        price: order.price,
+        itemType: "bronze Package",
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+      addItemToCart(item);
       formikHelpers.resetForm();
     } catch (error) {
       console.log(error)
@@ -166,7 +229,20 @@ export const QuickOrderPage = () => {
     console.log(" diamond",surprisePackageOrderDto)
 
     try {
-      await diamondPackageOrder(accessToken, surprisePackageOrderDto)
+      const order: diamondPackageOrderType = await diamondPackageOrder(
+        accessToken,
+        surprisePackageOrderDto
+      );
+      const item: CartObject = {
+        itemId: order.packageId,
+        itemName: order.packageOrderName,
+        quantity: "1",
+        price: order.price,
+        itemType: "bronze Package",
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+      addItemToCart(item);
       formikHelpers.resetForm()
     } catch (error) {
       console.log(error)
@@ -179,8 +255,25 @@ export const QuickOrderPage = () => {
        const accessToken = user.accessToken;
        const { ...genericChopsOrderDto } = values;
        console.log("chops", genericChopsOrderDto);
-      await chopsOrder(accessToken, genericChopsOrderDto);
+      const order: ChopsOrderType  = await chopsOrder(
+        accessToken,
+        genericChopsOrderDto
+      );
+
+      const item: CartObject = {
+        itemId: order.id,
+        itemName: order.orderTitle,
+        quantity: order.numberOfPacks || order.customNumberOfPacks,
+        price: order.price,
+        itemType: order.chopPackageType || order.pastryPackageType,
+        imageUrl: order.imageUrl,
+        userId: order.userId,
+      };
+
+      addItemToCart(item);
+
       formikHelpers.resetForm()
+      return order;
     } catch (error) {
       console.log(error)
     }
@@ -191,8 +284,27 @@ export const QuickOrderPage = () => {
       const accessToken = user.accessToken;
       const {...foilCakeOrderDto}= values;
       console.log(foilCakeOrderDto)
-      await foilCakeOrder(accessToken, foilCakeOrderDto);
+      const order: VariantCakeOrder =await foilCakeOrder(accessToken, foilCakeOrderDto);
+      
+      const item: CartObject = {
+        itemId: order.variantId,
+        itemName: order.orderName,
+        quantity: order.quantity,
+        price: order.price,
+        itemType: order.type,
+        imageUrl:
+          order.type === "foilCake"
+            ? "/foilcake.png"
+            : order.type === "cakeParfait"
+            ? "/cakeParfait.png"
+            : order.type || "",
+        userId: order.userId,
+      };
+
+      addItemToCart(item);
       foilFormikHelpers.resetForm()
+      return order;
+
     } catch (error) {
       console.log(error)
     }
@@ -203,8 +315,28 @@ export const QuickOrderPage = () => {
       const accessToken = user.accessToken;
       const {...parfaitOrderDto} = values;
       console.log("parfait", parfaitOrderDto);
-      await cakeParfaitOrder(accessToken, parfaitOrderDto)
+      const order: VariantCakeOrder = await cakeParfaitOrder(
+        accessToken,
+        parfaitOrderDto
+      );
+      const item: CartObject = {
+        itemId: order.variantId,
+        itemName: order.orderName,
+        quantity: order.quantity,
+        price: order.price,
+        itemType: order.type,
+        imageUrl:
+          order.type === "foilCake"
+            ? "/foilcake.png"
+            : order.type === "cakeParfait"
+            ? "/cakeParfait.png"
+            : order.type || "",
+        userId: order.userId,
+      };
+
+      addItemToCart(item);
       formikHelpers.resetForm()
+      return order;
     } catch (error) {
       console.log(error)
     }
