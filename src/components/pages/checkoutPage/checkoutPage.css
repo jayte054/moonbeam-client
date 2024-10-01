@@ -49,6 +49,7 @@
 }
 
 .deliveryDetails {
+    margin-top: 1rem;
      border: 1px solid grey;
     border-radius: 1rem;
     background-color: rgb(207, 208, 208);
@@ -66,6 +67,33 @@
 .deliveryDetails-content {
     font-family:'Times New Roman', Times, serif;
     padding: 0.6rem 1rem;
+    
+}
+.cart-container{
+    display: flex;
+}
+.cartItem-content{
+    display: grid;
+    border: 1px solid black;
+    margin: .5rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    /* flex-direction: row;
+    justify-content: space-evenly; */
+}
+
+.cartItem-content span {
+    padding-left: 0;
+}
+
+.cartItem-content img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.cart-desc{
+    display: flex;
+    justify-content: space-around;
 }
 
 .deliveryAddress-content span{

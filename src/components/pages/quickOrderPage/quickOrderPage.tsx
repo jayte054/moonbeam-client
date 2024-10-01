@@ -112,6 +112,7 @@ export const QuickOrderPage = () => {
         price: order.price,
         itemType: "bronze Package",
         imageUrl: order.imageUrl,
+        deliveryDate: order.deliveryDate,
         userId: order.userId,
       };
       addItemToCart(item)
@@ -136,6 +137,7 @@ export const QuickOrderPage = () => {
          quantity: "1",
          price: order.price,
          itemType: "bronze Package",
+         deliveryDate: order.deliveryDate,
          imageUrl: order.imageUrl,
          userId: order.userId,
        };
@@ -164,6 +166,7 @@ export const QuickOrderPage = () => {
         quantity: "1",
         price: order.price,
         itemType: "bronze Package",
+        deliveryDate: order.deliveryDate,
         imageUrl: order.imageUrl,
         userId: order.userId,
       };
@@ -187,6 +190,7 @@ export const QuickOrderPage = () => {
         quantity: "1",
         price: order.price,
         itemType: "bronze Package",
+        deliveryDate: order.deliveryDate,
         imageUrl: order.imageUrl,
         userId: order.userId,
       };
@@ -213,6 +217,7 @@ export const QuickOrderPage = () => {
         quantity: "1",
         price: order.price,
         itemType: "bronze Package",
+        deliveryDate: order.deliveryDate,
         imageUrl: order.imageUrl,
         userId: order.userId,
       };
@@ -240,6 +245,7 @@ export const QuickOrderPage = () => {
         price: order.price,
         itemType: "bronze Package",
         imageUrl: order.imageUrl,
+        deliveryDate: order.deliveryDate,
         userId: order.userId,
       };
       addItemToCart(item);
@@ -266,6 +272,7 @@ export const QuickOrderPage = () => {
         quantity: order.numberOfPacks || order.customNumberOfPacks,
         price: order.price,
         itemType: order.chopPackageType || order.pastryPackageType,
+        deliveryDate: order.deliveryDate,
         imageUrl: order.imageUrl,
         userId: order.userId,
       };
@@ -292,6 +299,7 @@ export const QuickOrderPage = () => {
         quantity: order.quantity,
         price: order.price,
         itemType: order.type,
+        deliveryDate: order.deliveryDate,
         imageUrl:
           order.type === "foilCake"
             ? "/foilcake.png"
@@ -325,6 +333,7 @@ export const QuickOrderPage = () => {
         quantity: order.quantity,
         price: order.price,
         itemType: order.type,
+        deliveryDate: order.deliveryDate,
         imageUrl:
           order.type === "foilCake"
             ? "/foilcake.png"

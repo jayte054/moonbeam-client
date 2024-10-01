@@ -106,6 +106,7 @@ export interface CartObject {
   imageUrl: string | undefined;
   image?: string | undefined;
   quantity: string | undefined;
+  deliveryDate: string | undefined;
   productOrderId?: string | undefined;
   userId: string | undefined;
 }

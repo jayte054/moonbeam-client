@@ -9,6 +9,7 @@ import { calculateDeliveryFee, getCoordinates } from "../../utilsComponent";
 import { checkoutStores } from "../../../stores/checkoutStores";
 import { StudioAddressObject } from "../../../types";
 import { CustomButton } from "../../formComponents/customButton";
+import { CartContext } from "../../../context/cartContext/cartContext";
 
 export const CheckoutPage = () => {
     const [studioAddress, SetStudioAddress] = useState<StudioAddressObject | null>(null)
@@ -21,9 +22,11 @@ export const CheckoutPage = () => {
     const [studioCoordinates, setStudioCoordinates] = useState<any | null>(null);
     const [deliveryRate, setDeliveryRate]= useState<number | null>(null)
     const [deliveryOption, setDeliveryOption] = useState<string>('')
+    const [cartItem, setCartItem] = useState(null)
     const {defaultAddress} = useContext(CheckoutContext)
     const {getDefaultStudioAddress} = checkoutStores
     const {user} = useContext(AuthContext)
+    const {cartItems, cartTotal} = useContext(CartContext)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -115,6 +118,11 @@ export const CheckoutPage = () => {
     const handleDeliveryOption = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDeliveryOption(event.target.value)
     }
+
+    const parsedCartTotal = Number(cartTotal.replace(/[^0-9.-]+/g, ""));
+
+    const total = deliveryRate && deliveryRate + parsedCartTotal;
+    console.log(total);
 
     return (
       <div className="checkoutPage-container">
@@ -216,19 +224,85 @@ export const CheckoutPage = () => {
               </div>
               {deliveryOption === "Home Delivery" ? (
                 <div className="deliveryDetails-content">
+                  <div className="cart-container">
+                    {cartItems.map((cartItem) => (
+                      <div key={cartItem.itemId} className="cartItem-content">
+                        <span style={{ borderBottom: "1px solid black" }}>
+                          Delivery Date : {cartItem.deliveryDate}
+                        </span>{" "}
+                        <div className="cart-desc">
+                          <div>
+                            <span style={{ paddingTop: "1rem" }}>
+                              <img
+                                src={
+                                  cartItem.itemType === "foilCake"
+                                    ? "/foilcake.png"
+                                    : cartItem.itemType === "cakeParfait"
+                                    ? "/cakeParfait.png"
+                                    : cartItem.imageUrl || ""
+                                }
+                                alt={cartItem.itemName}
+                              />
+                            </span>
+                          </div>
+
+                          <div>
+                            <span style={{ paddingTop: ".7rem" }}>
+                              {cartItem.itemName}
+                            </span>
+                            <span>Quantity: {cartItem.quantity}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p> Items Total : {cartTotal}</p>
+
                   <span>
-                    {" "}
                     Delivery rate is NGN{" "}
-                    {deliveryRate && Math.ceil((deliveryRate * 100) / 100)}
+                    {deliveryRate && deliveryRate.toFixed(2)}
                   </span>
+                  <p>Total: NGN {total && total.toFixed(2)}</p>
                 </div>
               ) : (
                 <div className="deliveryDetails-content">
+                  <div className="cart-container">
+                    {cartItems.map((cartItem) => (
+                      <div key={cartItem.itemId} className="cartItem-content">
+                        <span style={{ borderBottom: "1px solid black" }}>
+                          Delivery Date : {cartItem.deliveryDate}
+                        </span>{" "}
+                        <div className="cart-desc">
+                          <div>
+                            <span style={{ paddingTop: "1rem" }}>
+                              <img
+                                src={
+                                  cartItem.itemType === "foilCake"
+                                    ? "/foilcake.png"
+                                    : cartItem.itemType === "cakeParfait"
+                                    ? "/cakeParfait.png"
+                                    : cartItem.imageUrl || ""
+                                }
+                                alt={cartItem.itemName}
+                              />
+                            </span>
+                          </div>
+
+                          <div>
+                            <span style={{ paddingTop: ".7rem" }}>
+                              {cartItem.itemName}
+                            </span>
+                            <span>Quantity: {cartItem.quantity}</span>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <p> Items Total : {cartTotal}</p>
                   <span> Delivery rate is NGN 0</span>
+                  <p>Total: {cartTotal}</p>
                 </div>
               )}
-              <br />
-              <span>Modify Cart</span>
             </div>
             <div className="payment">
               <h3>Payment Method</h3>
