@@ -1,5 +1,7 @@
 import React, {useContext} from "react";
-import { BsBasket2Fill } from "react-icons/bs";
+import { BiMessageDetail } from "react-icons/bi";
+import { MessageOutgoing02Icon } from "hugeicons-react";
+import { BsMessenger } from "react-icons/bs";
 import {Formik, Form, FormikHelpers} from "formik"
 import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
 import {chopsOrderSchema, foilOrderSchema, packageOrderSchema, parfaitOrderSchema, quickOrderSchema} from "../../formComponents/formSchema"
@@ -110,25 +112,25 @@ const handleSignout = async() => {
             <div className="quickOrder-header">
               <span>Make your Custom Orders {name}</span>
               <span>
-                Cart <BsBasket2Fill />
+                Requests <MessageOutgoing02Icon />
               </span>
             </div>
             <div className="quickOrder-input">
               <Formik
                 initialValues={initialValues}
                 onSubmit={(values, formikHelpers) => {
-                  cakeOrder(values, formikHelpers)
+                  cakeOrder(values, formikHelpers);
                 }}
                 validationSchema={quickOrderSchema}
               >
                 {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomCakeOrderForm 
-                          {...formikProps}
-                          toggleCakeOrder = {(values: CustomOrderObject) => {
-                            cakeOrder(values, formikProps)
-                          }}
+                      <CustomCakeOrderForm
+                        {...formikProps}
+                        toggleCakeOrder={(values: CustomOrderObject) => {
+                          cakeOrder(values, formikProps);
+                        }}
                       />
                     </div>
                   </div>
@@ -136,19 +138,22 @@ const handleSignout = async() => {
               </Formik>
               <Formik
                 initialValues={packageInitialValues}
-                onSubmit={(values: CustomPackageObject, formikHelpers: CustomPackageFormikHelper) => {
-                  packageOrder(values, formikHelpers)
+                onSubmit={(
+                  values: CustomPackageObject,
+                  formikHelpers: CustomPackageFormikHelper
+                ) => {
+                  packageOrder(values, formikHelpers);
                 }}
                 validationSchema={packageOrderSchema}
               >
                 {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomSurprisePackageForm 
-                          {...formikProps}
-                          togglePackageOrder={(values: CustomPackageObject) => {
-                            packageOrder(values, formikProps)
-                          }}
+                      <CustomSurprisePackageForm
+                        {...formikProps}
+                        togglePackageOrder={(values: CustomPackageObject) => {
+                          packageOrder(values, formikProps);
+                        }}
                       />
                     </div>
                   </div>
@@ -156,19 +161,22 @@ const handleSignout = async() => {
               </Formik>
               <Formik
                 initialValues={chopsInitialValues}
-                onSubmit={(values: CustomChopsObject, formikHelpers: CustomChopsFormikHelper) => {
-                  chopsOrder(values, formikHelpers)
+                onSubmit={(
+                  values: CustomChopsObject,
+                  formikHelpers: CustomChopsFormikHelper
+                ) => {
+                  chopsOrder(values, formikHelpers);
                 }}
                 validationSchema={chopsOrderSchema}
               >
                 {(formikProps) => (
                   <div className="quickCakeOrder-container">
                     <div>
-                      <CustomChopOrdersForm 
-                          {...formikProps}
-                          toggleChopsOrder={(values: CustomChopsObject) =>{
-                            chopsOrder(values, formikProps)
-                          }}
+                      <CustomChopOrdersForm
+                        {...formikProps}
+                        toggleChopsOrder={(values: CustomChopsObject) => {
+                          chopsOrder(values, formikProps);
+                        }}
                       />
                     </div>
                   </div>

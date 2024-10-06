@@ -5,11 +5,16 @@ import React, { ChangeEventHandler, ReactNode, useContext, useEffect, useState }
 import { CheckoutContext } from "../../../context/checkoutContext/checkoutContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { useNavigate } from "react-router-dom";
-import { calculateDeliveryFee, getCoordinates } from "../../utilsComponent";
+import { calculateDeliveryFee, decryptReference, encryptReference, getCoordinates } from "../../utilsComponent";
 import { checkoutStores } from "../../../stores/checkoutStores";
-import { StudioAddressObject } from "../../../types";
+import { CartObject, ReferenceObject, StudioAddressObject, verificationDto } from "../../../types";
 import { CustomButton } from "../../formComponents/customButton";
 import { CartContext } from "../../../context/cartContext/cartContext";
+import { paymentStores } from "../../../stores/paymentStores";
+import {usePaystackPayment} from "react-paystack"
+import { config } from "process";
+import { deleteCartItem } from "../../../services/cartServices/cartServices";
+import { CartStores } from "../../../stores/cartStores";
 
 export const CheckoutPage = () => {
     const [studioAddress, SetStudioAddress] = useState<StudioAddressObject | null>(null)
@@ -25,8 +30,10 @@ export const CheckoutPage = () => {
     const [cartItem, setCartItem] = useState(null)
     const {defaultAddress} = useContext(CheckoutContext)
     const {getDefaultStudioAddress} = checkoutStores
+    const { initiatePayment, verifyPayment } = paymentStores;
+    const { deleteCartItem, getCartItems } = CartStores;
     const {user} = useContext(AuthContext)
-    const {cartItems, cartTotal} = useContext(CartContext)
+    const { cartItems, cartTotal, setCartItems } = useContext(CartContext);
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -117,12 +124,85 @@ export const CheckoutPage = () => {
 
     const handleDeliveryOption = (event: React.ChangeEvent<HTMLInputElement>) => {
         setDeliveryOption(event.target.value)
-    }
+    };
 
     const parsedCartTotal = Number(cartTotal.replace(/[^0-9.-]+/g, ""));
+    
 
     const total = deliveryRate && deliveryRate + parsedCartTotal;
     console.log(total);
+
+    
+const paymentDto = {
+  amount:
+    deliveryOption === "Pick Up" || "" ? parsedCartTotal.toString() : total?.toString(),
+  userId: user.id,
+};
+
+const config = {
+  email: user.email,
+  amount: Number(paymentDto.amount) * 100,
+  publicKey: process.env.REACT_APP_Paystack_Test_Public_Key!,
+  currency: "NGN",
+};
+
+const initializePayment = usePaystackPayment(config);
+
+
+const handlePayment = async () => {
+  
+  try {
+    // Call initiatePayment to get the reference
+    const paymentResponse = await initiatePayment(user.accessToken, paymentDto);
+    
+    const reference = paymentResponse.reference 
+
+    const iv= paymentResponse.iv
+
+    const decryptedReference = await decryptReference(
+      reference,
+      iv
+    );
+    
+    // Trigger the payment
+    
+    initializePayment({
+      config: {
+        ...config,
+        reference: decryptedReference,
+      },
+      onSuccess: async (reference: ReferenceObject) => {
+        console.log("Payment successful", reference.reference);
+        const encryptedReference = await encryptReference(
+          reference.reference,
+          paymentResponse.iv
+        );
+        const verificationDto: verificationDto = {
+          reference: encryptedReference,
+          iv: paymentResponse.iv,
+          paymentId: paymentResponse.paymentId,
+        };
+
+        await verifyPayment(user.accessToken, verificationDto);
+        console.log("payment verified successfully");
+        const deleteCart = await cartItems.map(cartItem => {
+          deleteCartItem(user.accessToken, cartItem.itemId)
+        })
+        await Promise.all(deleteCart)
+        const updatedCart: CartObject[] = await getCartItems(user.accessToken);
+        setCartItems(() => updatedCart);
+        navigate("/auth/ordersPage")
+      },
+      onClose: () => {
+        console.log("Payment closed");
+      },
+    });
+  } catch (error) {
+    console.log("Error during payment:", error);
+  }
+};
+
+
 
     return (
       <div className="checkoutPage-container">
@@ -156,6 +236,7 @@ export const CheckoutPage = () => {
                     type="button"
                     label="Choose Studio Address"
                     onClick={studioAddressBook}
+                    style={{width: "100%"}}
                   />
                 )}
               </div>
@@ -189,7 +270,9 @@ export const CheckoutPage = () => {
                 </div>
 
                 <div>
-                  <p>Delivery Option: {deliveryOption}</p>{" "}
+                  <p>
+                    <strong>Delivery Option</strong>: {deliveryOption}
+                  </p>{" "}
                 </div>
               </form>
             </div>
@@ -259,7 +342,7 @@ export const CheckoutPage = () => {
                   <p> Items Total : {cartTotal}</p>
 
                   <span>
-                    Delivery rate is NGN{" "}
+                    Delivery rate : NGN{" "}
                     {deliveryRate && deliveryRate.toFixed(2)}
                   </span>
                   <p>Total: NGN {total && total.toFixed(2)}</p>
@@ -298,21 +381,36 @@ export const CheckoutPage = () => {
                       </div>
                     ))}
                   </div>
-                  <p> Items Total : {cartTotal}</p>
-                  <span> Delivery rate is NGN 0</span>
-                  <p>Total: {cartTotal}</p>
+                  <p>
+                    <strong>Items Total</strong> : {cartTotal}
+                  </p>
+                  <p>
+                    {" "}
+                    <strong>Delivery rate</strong> : NGN 0
+                  </p>
+                  <p>
+                    {" "}
+                    <strong>Total</strong>: {cartTotal}
+                  </p>
                 </div>
               )}
             </div>
             <div className="payment">
-              <h3>Payment Method</h3>
+              {deliveryOption === "" ? null : (
+                <>
+                  <h3>Payment</h3>
+                  <CustomButton
+                    type="button"
+                    label="Make Payment"
+                    onClick={handlePayment}
+                    style={{width: "100%"}}
+                  />
+                </>
+              )}
             </div>
           </div>
-          <div className="orderSummary">
-            <h3>Order Summary</h3>
-          </div>
         </div>
-        <Footer />
+        {/* <Footer /> */}
       </div>
     );
 }

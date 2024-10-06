@@ -369,3 +369,24 @@ export interface VariantCakeOrder {
   deliveryDate: string;
   userId: string;
 };
+
+export interface PaymentDto {
+  userId: string | undefined,
+  amount: string | number| undefined;
+}
+
+export interface verificationDto {
+  reference: string | undefined;
+  iv: string | undefined;
+  paymentId: string;
+}
+
+export interface ReferenceObject {
+  message: string;
+  redirecturl: string;
+  reference: string;
+  status: string;
+  trans: string;
+  transaction: string;
+  trxref: string;
+}

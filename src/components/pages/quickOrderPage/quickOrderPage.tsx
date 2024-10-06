@@ -42,7 +42,7 @@ export const QuickOrderPage = () => {
       foilCakeOrder,
       cakeParfaitOrder,
     } = OrderStores;
-    const {addItemToCart} = useContext(CartContext)
+    const {addItemToCart}: any = useContext(CartContext)
             
     const name = user?.firstname || ""
 

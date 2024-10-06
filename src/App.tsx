@@ -21,6 +21,7 @@ import {CheckoutPage} from "./components/pages/checkoutPage/checkoutPage";
 import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
 import { AddressBook } from './components/pages/addressBook/addressBook';
 import { StudioAddressBook } from './components/pages/addressBook/studioAddressBook';
+import { OrdersPage } from './components/pages/OrdersPage/ordersPage';
 
 
 function App() {
@@ -71,6 +72,10 @@ function App() {
                         <Route
                           path="/auth/studioAddressBook"
                           element={<StudioAddressBook />}
+                        />
+                        <Route
+                          path="/auth/ordersPage"
+                          element={<OrdersPage />}
                         />
                       </Route>
                     </Routes>

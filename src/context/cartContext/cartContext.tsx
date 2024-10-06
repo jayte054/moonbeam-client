@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import { CartStores } from "../../stores/cartStores";
 import { CartObject } from "../../types";
 import { AuthContext } from "../authcontext/authContext";
@@ -13,6 +13,7 @@ interface CartContextType {
   cartCount: string;
   setCartCount: React.Dispatch<React.SetStateAction<string>>;
   addItemToCart: (newItem: CartObject) => void;
+  setCartItems: React.Dispatch<React.SetStateAction<CartObject[]>>;
 }
 
 export const CartContext = createContext<CartContextType>({
@@ -21,6 +22,7 @@ export const CartContext = createContext<CartContextType>({
   cartCount: "",
   setCartCount: () => {},
   addItemToCart: () => {},
+  setCartItems: () => {}
 });
 
 export const CartProvider = ({children}: CartProviderProps) => {

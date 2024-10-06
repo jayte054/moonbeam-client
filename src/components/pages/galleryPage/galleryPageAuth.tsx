@@ -84,7 +84,7 @@ export const GalleryPageAuth = () => {
             <div className="quickOrder-body">
                 <div className="gallery-header">
                     <span>Gallery </span>
-                    <span>Cart <BsBasket2Fill /></span>
+                    {/* <span>Cart <BsBasket2Fill /></span> */}
                 </div>
                 <div className="quickorder-categories">
                     <div className="category-title">

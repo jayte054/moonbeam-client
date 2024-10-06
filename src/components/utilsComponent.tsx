@@ -1,14 +1,13 @@
 import { ReactNode } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom"
-// import dotenv from "dotenv";
+import CryptoJS from "crypto-js";
 
-// dotenv.config()
 
 export const clearAllStorage = () => {
     sessionStorage.clear();
     localStorage.clear();
     window.localStorage.clear();
-}
+};
 
 export const ClearStorageAndRedirect = () => {
     const location = useLocation();
@@ -46,7 +45,7 @@ export const ProtectAuthRoute = () => {
 
 export const getCoordinates = async (address: string | number | boolean) => {
   const apiKey = process.env.REACT_APP_GOOGLE_MAP_API;
-  console.log(apiKey);
+  
   if (!apiKey) {
     throw new Error("google maps api key is missing");
   }
@@ -118,3 +117,52 @@ export const calculateDeliveryFee = async (
     return BASE_FEE + additionalFee;
   }
 };
+
+export const encryptReference = async (reference: string, iv: string) => {
+    console.log(reference, iv)
+  try{
+    const keyHex = CryptoJS.enc.Hex.parse(
+      process.env.REACT_APP_FRONTEND_ENCRYPTION_SECRET!
+    );
+    const ivHex = CryptoJS.enc.Hex.parse(iv);
+
+    const encrypted = CryptoJS.AES.encrypt(reference, keyHex, {
+      iv: ivHex,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+    console.log(encrypted.toString())
+    return encrypted.toString();
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const decryptReference = async (reference: string, iv: string): Promise<any> => {
+  console.log(reference, iv)
+  
+  try{
+    const secret = process.env.REACT_APP_ENCRYPTION_SECRET;
+    if (!secret) {
+      console.log(secret)
+      console.error("Encryption secret is not defined");
+      return null; // Early return if secret is not defined
+    }
+
+    const key = CryptoJS.enc.Hex.parse(secret);
+    const ivParsed = CryptoJS.enc.Hex.parse(iv);
+
+    const decrypted = CryptoJS.AES.decrypt(reference, key, {
+      iv: ivParsed,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7,
+    });
+    console.log(decrypted);
+
+    return decrypted.toString(CryptoJS.enc.Utf8);
+  } catch(error) {
+    console.log(error)
+  }
+}
+
+
