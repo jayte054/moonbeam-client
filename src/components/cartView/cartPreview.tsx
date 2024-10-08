@@ -28,9 +28,11 @@ const navigate = useNavigate()
                 : cartItem.imageUrl || "";
           return (
             <div className="cartItem-content" key={cartItem.itemId}>
+              <div>
               <span>
                 <img src={imageUrl} alt={cartItem.itemName} />
               </span>
+              </div>
               <div>
                 <span style={{ fontSize: "1rem" }}>{cartItem.itemName}</span>
                 <span style={{ fontSize: "1rem" }}>

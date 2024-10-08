@@ -185,12 +185,15 @@ const handlePayment = async () => {
 
         await verifyPayment(user.accessToken, verificationDto);
         console.log("payment verified successfully");
-        const deleteCart = await cartItems.map(cartItem => {
-          deleteCartItem(user.accessToken, cartItem.itemId)
+        const deleteCart =  cartItems.map( async (cartItem) => {
+           await deleteCartItem(user.accessToken, cartItem.itemId)
         })
+        
         await Promise.all(deleteCart)
+       
         const updatedCart: CartObject[] = await getCartItems(user.accessToken);
-        setCartItems(() => updatedCart);
+        console.log(updatedCart)
+        setCartItems(updatedCart);
         navigate("/auth/ordersPage")
       },
       onClose: () => {
@@ -236,7 +239,7 @@ const handlePayment = async () => {
                     type="button"
                     label="Choose Studio Address"
                     onClick={studioAddressBook}
-                    style={{width: "100%"}}
+                    style={{ width: "100%" }}
                   />
                 )}
               </div>
@@ -309,7 +312,7 @@ const handlePayment = async () => {
                 <div className="deliveryDetails-content">
                   <div className="cart-container">
                     {cartItems.map((cartItem) => (
-                      <div key={cartItem.itemId} className="cartItem-content">
+                      <div key={cartItem.itemId} className="cartItems">
                         <span style={{ borderBottom: "1px solid black" }}>
                           Delivery Date : {cartItem.deliveryDate}
                         </span>{" "}
@@ -332,7 +335,8 @@ const handlePayment = async () => {
                           <div>
                             <span style={{ paddingTop: ".7rem" }}>
                               {cartItem.itemName}
-                            </span>
+                            </span>{" "}
+                            <br />
                             <span>Quantity: {cartItem.quantity}</span>
                           </div>
                         </div>
@@ -351,7 +355,7 @@ const handlePayment = async () => {
                 <div className="deliveryDetails-content">
                   <div className="cart-container">
                     {cartItems.map((cartItem) => (
-                      <div key={cartItem.itemId} className="cartItem-content">
+                      <div key={cartItem.itemId} className="cartItems">
                         <span style={{ borderBottom: "1px solid black" }}>
                           Delivery Date : {cartItem.deliveryDate}
                         </span>{" "}
@@ -374,7 +378,7 @@ const handlePayment = async () => {
                           <div>
                             <span style={{ paddingTop: ".7rem" }}>
                               {cartItem.itemName}
-                            </span>
+                            </span><br />
                             <span>Quantity: {cartItem.quantity}</span>
                           </div>
                         </div>
@@ -403,7 +407,7 @@ const handlePayment = async () => {
                     type="button"
                     label="Make Payment"
                     onClick={handlePayment}
-                    style={{width: "100%"}}
+                    style={{ width: "100%" }}
                   />
                 </>
               )}
