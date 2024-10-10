@@ -403,3 +403,15 @@ export interface RequestObject {
         productOrderId?: string | undefined;
         userId: string | undefined;
 }
+
+export interface OrderedObject {
+  orderId: string | undefined;
+  orderName: string | undefined;
+  orderDate: string | undefined;
+  imageUrl?: string | undefined;
+  quantity: string | undefined;
+  content?: string[] | undefined;
+  deliveryDate: string | undefined;
+  productOrderId: string | undefined;
+  userId: string | undefined;
+}

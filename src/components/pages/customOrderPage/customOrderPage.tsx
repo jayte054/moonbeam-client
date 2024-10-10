@@ -17,7 +17,7 @@ import "./customOrderPage.css"
 import { CustomCakeOrderForm } from "../../formComponents/customCakeOders";
 import { CustomSurprisePackageForm } from "../../formComponents/customSurprisePackageForm";
 import { CustomChopOrdersForm } from "../../formComponents/customChopOrders";
-import { OrderStores } from "../../../stores/orderStores";
+import { OrderStores } from "../../../stores/productStores";
 import { RequestIcon } from "../../requestIcon/requestIcon";
 import { RequestContext } from "../../../context/customRequestContext/customRequestContext";
 

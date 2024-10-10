@@ -15,9 +15,9 @@ import { CustomButton } from "../../formComponents/customButton";
 import { FoilCakeForm } from "../../formComponents/foilCakeForm";
 import { CakeParfaitForm } from "../../formComponents/cakeParfaitForm";
 import { useContext, useEffect, useState } from "react";
-import { CakeVariantRatesContext } from "../../../context/orderContext/orderContext";
+import { CakeVariantRatesContext } from "../../../context/packageContext/packageContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
-import { OrderStores } from "../../../stores/orderStores";
+import { OrderStores } from "../../../stores/productStores";
 import { CartIcon } from "../../cartIcon/cartIcon";
 import { CartContext } from "../../../context/cartContext/cartContext";
 

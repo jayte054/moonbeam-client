@@ -11,10 +11,11 @@ import { ProfileProvider } from './context/profileContext/profileContext';
 import {
   PackageProvider,
   VariantRatesProvider,
-} from "./context/orderContext/orderContext";
+} from "./context/packageContext/packageContext";
 import {CartProvider} from "./context/cartContext/cartContext"
 import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
 import { RequestProvider } from './context/customRequestContext/customRequestContext';
+import { OrderProvider } from './context/orderContext/orderContext';
 
 // let stores: any = {}
 
@@ -31,13 +32,15 @@ root.render(
         <ProfileProvider>
           <PackageProvider>
             <VariantRatesProvider>
-              <CartProvider>
-                <RequestProvider>
-                  <CheckoutProvider>
-                    <App />
-                  </CheckoutProvider>
-                </RequestProvider>
-              </CartProvider>
+              <OrderProvider>
+                <CartProvider>
+                  <RequestProvider>
+                    <CheckoutProvider>
+                      <App />
+                    </CheckoutProvider>
+                  </RequestProvider>
+                </CartProvider>
+              </OrderProvider>
             </VariantRatesProvider>
           </PackageProvider>
         </ProfileProvider>

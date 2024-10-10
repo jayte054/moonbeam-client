@@ -30,9 +30,9 @@ import { userStore } from "../../stores/userStore";
          <span>
            <Link
              style={{ color: "white", textDecoration: "none" }}
-             to="/auth/cartItemsPage"
+             to="/auth/ordersPage"
            >
-             Cart
+             Orders
            </Link>
          </span>
          <span>

@@ -6,7 +6,7 @@ import {CustomTextArea} from "./customTextArea"
 import {CustomButton} from "./customButton"
 import {AddToCartButton} from "./addToCartButton"
 import "./quickSurprisePackageForm.css"
-import { SurprisePackageContext } from "../../context/orderContext/orderContext"
+import { SurprisePackageContext } from "../../context/packageContext/packageContext"
 import { CartObject, packageObject, setCartCountProps } from "../../types"
 import { CartContext } from "../../context/cartContext/cartContext"
 import { 

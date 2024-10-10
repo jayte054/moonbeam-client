@@ -37,9 +37,9 @@ import "./homepageNavbar.css";
          <span>
            <Link
              style={{ color: "white", textDecoration: "none" }}
-             to="/auth/cartItemsPage"
+             to="/auth/ordersPage"
            >
-             Cart
+             Orders
            </Link>
          </span>
          <span>
