@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik";
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { AddToCartButton } from "./addToCartButton";
 import { CustomButton } from "./customButton"
 import { CustomDate } from "./customDate";
@@ -9,6 +9,7 @@ import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import "./customCakeOrders.css"
 import { CustomOrderObject } from "../../types";
+import { RequestContext } from "../../context/customRequestContext/customRequestContext";
 
 interface CustomCakeOrderFormProps extends FormikProps<CustomOrderObject> {
   toggleCakeOrder: (values: CustomOrderObject, formikHelpers: any) => void;
@@ -18,6 +19,7 @@ interface CustomCakeOrderFormProps extends FormikProps<CustomOrderObject> {
 export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) => {
     const cakeFormImage = <img src="/cake-form.png" alt="cake-form" />;
     const [cakeForm, setCakeForm] = useState(false);
+    const {requestCount, setRequestCount} = useContext(RequestContext)
     const {values, handleSubmit, handleChange, touched, errors, toggleCakeOrder} = props
 
     const toggleCakeForm = () => {
@@ -26,6 +28,8 @@ export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) =
 
     const handleCakeFormSubmit = (formikHelpers: any) => {
       toggleCakeOrder(values, formikHelpers);
+      const newCount =Number (requestCount) + 1
+      setRequestCount(newCount.toString())
     }
 
      const renderForm = () => (

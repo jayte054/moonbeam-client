@@ -1,5 +1,6 @@
 import { ErrorMessage, Form, FormikHelpers, FormikProps } from "formik";
-import { useState } from "react"
+import { useContext, useState } from "react"
+import { RequestContext } from "../../context/customRequestContext/customRequestContext";
 import { CustomPackageObject } from "../../types";
 import { AddToCartButton } from "./addToCartButton";
 import { CustomAutoInput } from "./customAutoInput";
@@ -19,12 +20,17 @@ export const CustomSurprisePackageForm: React.FC<CustomSurprisePackageFormProps>
   );
   const [packageForm, setPackageForm] = useState(false);
   const {values, handleChange, handleSubmit, touched, errors, togglePackageOrder} = props;
+  const {requestCount, setRequestCount} = useContext(RequestContext)
  
   const togglePackageForm = () => {
     setPackageForm((prev) => !prev);
   };
 
-  const handlePackageFormSubmit = (formikHelpers: any) => togglePackageOrder(values, formikHelpers)
+  const handlePackageFormSubmit = (formikHelpers: any) => {
+    togglePackageOrder(values, formikHelpers)
+    const newCount = Number(requestCount) + 1
+    setRequestCount(newCount.toString())
+  }
   
   const renderForm = () => (
     <Form>

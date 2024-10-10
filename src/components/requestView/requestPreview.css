@@ -1,0 +1,36 @@
+.cartPreview-container{
+    border: 3px solid #d767e8;
+    margin:  1rem auto;
+    position: absolute;
+    background-color: white;
+    right: 4rem;
+    transform: translate(-10px);
+     /* opacity: 0;  */
+    /* visibility: hidden; */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 5;
+}
+
+.cartItem-body{
+    width: 15rem auto;
+    height: 18rem;
+    padding: 1rem;
+    overflow: scroll;
+}
+.cartItem-content {
+    padding-bottom: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.cartItem-content span{
+    padding-left: 1rem;
+    display: grid;
+    font-size: 1rem;
+}
+
+.cartItem-content img{
+    width: 4rem;
+    height: 4rem;
+}
+

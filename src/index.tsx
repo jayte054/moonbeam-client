@@ -14,6 +14,7 @@ import {
 } from "./context/orderContext/orderContext";
 import {CartProvider} from "./context/cartContext/cartContext"
 import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
+import { RequestProvider } from './context/customRequestContext/customRequestContext';
 
 // let stores: any = {}
 
@@ -31,9 +32,11 @@ root.render(
           <PackageProvider>
             <VariantRatesProvider>
               <CartProvider>
-                <CheckoutProvider>
-                  <App />
-                </CheckoutProvider>
+                <RequestProvider>
+                  <CheckoutProvider>
+                    <App />
+                  </CheckoutProvider>
+                </RequestProvider>
               </CartProvider>
             </VariantRatesProvider>
           </PackageProvider>

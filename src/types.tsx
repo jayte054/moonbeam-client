@@ -390,3 +390,16 @@ export interface ReferenceObject {
   transaction: string;
   trxref: string;
 }
+
+export interface RequestObject {
+        requestId: string | undefined | any;
+        requestTitle: string | undefined;
+        orderType: string | undefined;
+        content: string[] | undefined;
+        quantity?: string | undefined;
+        imageUrl?: string | undefined;
+        deliveryDate: string | undefined;
+        status: string | undefined;
+        productOrderId?: string | undefined;
+        userId: string | undefined;
+}

@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { AddToCartButton } from "./addToCartButton";
 import { CustomButton } from "./customButton"
 import { CustomDate } from "./customDate";
@@ -8,6 +8,7 @@ import { CustomSelect } from "./customSelect";
 import { CustomTextArea } from "./customTextArea";
 import "./customChopOrderForm.css"
 import { CustomChopsObject } from "../../types";
+import { RequestContext } from "../../context/customRequestContext/customRequestContext";
 
 interface CustomChopsOrderFormProps extends FormikProps<CustomChopsObject> {
   toggleChopsOrder: (values: CustomChopsObject, formikHelpers: any)=> void
@@ -18,6 +19,7 @@ export const CustomChopOrdersForm: React.FC<CustomChopsOrderFormProps> = (props)
 
     const [chopsForm, setChopsForm] = useState(false)
     const {values, handleChange, touched, errors, toggleChopsOrder} = props;
+    const {requestCount, setRequestCount} = useContext(RequestContext)
 
     const toggleChopsForm = () => {
         setChopsForm(prev=> !prev);
@@ -25,7 +27,10 @@ export const CustomChopOrdersForm: React.FC<CustomChopsOrderFormProps> = (props)
 
     const handleChopsFormSubmit = async(formikHelpers: any) => {
       toggleChopsOrder(values, formikHelpers)
+      const newCount = Number(requestCount) + 1;
+      setRequestCount(newCount.toString())
     }
+    
     return (
       <div className="customOderChops-container">
         <CustomButton

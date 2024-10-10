@@ -7,7 +7,7 @@ import {QuickChopsOrderForm} from "../../formComponents/quickChopsOrder"
 import {chopsOrderSchema, foilOrderSchema, packageOrderSchema, parfaitOrderSchema, quickOrderSchema} from "../../formComponents/formSchema"
 import {QuickSurprisePackageForm} from "../../formComponents/quickSurprisePackageForm"
 import {QuickCakeOrderForm} from "../../formComponents/quickCakeOrderForm"
-import {CustomOrderObject, CustomChopsObject, CustomPackageObject} from "../../../types"
+import {CustomOrderObject, CustomChopsObject, CustomPackageObject, RequestObject} from "../../../types"
 import {AuthContext} from "../../../context/authcontext/authContext";
 import {userStore} from "../../../stores/userStore"
 import {QuickOrderPageNav} from "../../navbar/quickOrder"
@@ -18,6 +18,8 @@ import { CustomCakeOrderForm } from "../../formComponents/customCakeOders";
 import { CustomSurprisePackageForm } from "../../formComponents/customSurprisePackageForm";
 import { CustomChopOrdersForm } from "../../formComponents/customChopOrders";
 import { OrderStores } from "../../../stores/orderStores";
+import { RequestIcon } from "../../requestIcon/requestIcon";
+import { RequestContext } from "../../../context/customRequestContext/customRequestContext";
 
 interface CustomCakeFormikHelper extends FormikHelpers<CustomOrderObject> {}
 interface CustomPackageFormikHelper extends FormikHelpers<CustomPackageObject> {}
@@ -26,6 +28,7 @@ interface CustomChopsFormikHelper extends FormikHelpers<CustomChopsObject> {}
 export const CustomOrderPage = () => {
 const {signOut} = userStore;
 const {user} = useContext(AuthContext)
+const {addRequest} = useContext(RequestContext)
 const {customCakeOrder, customPackageOrder, customChopsOrder} = OrderStores;
 const name = user?.firstname || ""
 
@@ -69,7 +72,19 @@ const handleSignout = async() => {
       console.log("customCake", customProductOrderDto);
 
       try {
-        await customCakeOrder(accessToken, customProductOrderDto);
+        const order = await customCakeOrder(accessToken, customProductOrderDto);
+        const request: RequestObject = {
+          requestId: order.id,
+          requestTitle: order.orderName,
+          orderType: order.type,
+          content: ["custom Cake"],
+          quantity: "1",
+          imageUrl: order.imagUrl,
+          deliveryDate: order.deliveryDate,
+          status: order.status,
+          userId: order.userId
+        };
+        addRequest(request)
         formikHelpers.resetForm()
       } catch (error) {
         console.log(error)
@@ -82,7 +97,18 @@ const handleSignout = async() => {
       console.log("package Order", customPackageOrderDto)
 
       try {
-        await customPackageOrder(accessToken, customPackageOrderDto)
+        const order = await customPackageOrder(accessToken, customPackageOrderDto)
+        const request: RequestObject = {
+          requestId: order.customPackageId,
+          requestTitle: order.orderName,
+          content: order.item,
+          orderType: "custom package",
+          quantity: "1",
+          deliveryDate: order.deliveryDate,
+          status: order.status,
+          userId: order.userId,
+        };
+        addRequest(request);
         formikHelpers.resetForm()
       } catch (error) {
         console.log(error)
@@ -95,7 +121,18 @@ const handleSignout = async() => {
       console.log(customChopsOrderDto)
 
       try{
-        await customChopsOrder(accessToken, customChopsOrderDto);
+        const order = await customChopsOrder(accessToken, customChopsOrderDto);
+        const request: RequestObject = {
+          requestId: order.chopsId,
+          requestTitle: order.orderName,
+          orderType: "Chops & Pastries",
+          content: [order.chopType],
+          quantity: order.numberOfPacks,
+          deliveryDate: order.deliveryDate,
+          status: order.status,
+          userId: order.userId,
+        };
+        addRequest(request)
         formikHelpers.resetForm()
       } catch (error) {
         console.log(error)
@@ -112,7 +149,7 @@ const handleSignout = async() => {
             <div className="quickOrder-header">
               <span>Make your Custom Orders {name}</span>
               <span>
-                Requests <MessageOutgoing02Icon />
+                Requests <RequestIcon />
               </span>
             </div>
             <div className="quickOrder-input">
