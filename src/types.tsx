@@ -415,3 +415,11 @@ export interface OrderedObject {
   productOrderId: string | undefined;
   userId: string | undefined;
 }
+
+export interface OrderDto {
+  orderName: string | undefined;
+  imageUrl?: string | undefined;
+  quantity: string | undefined;
+  content?: string[] | undefined;
+  deliveryDate: string | undefined;
+}

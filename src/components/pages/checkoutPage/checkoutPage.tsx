@@ -7,7 +7,7 @@ import { AuthContext } from "../../../context/authcontext/authContext";
 import { useNavigate } from "react-router-dom";
 import { calculateDeliveryFee, decryptReference, encryptReference, getCoordinates } from "../../utilsComponent";
 import { checkoutStores } from "../../../stores/checkoutStores";
-import { CartObject, ReferenceObject, StudioAddressObject, verificationDto } from "../../../types";
+import { CartObject, OrderDto, ReferenceObject, StudioAddressObject, verificationDto } from "../../../types";
 import { CustomButton } from "../../formComponents/customButton";
 import { CartContext } from "../../../context/cartContext/cartContext";
 import { paymentStores } from "../../../stores/paymentStores";
@@ -15,6 +15,7 @@ import {usePaystackPayment} from "react-paystack"
 import { config } from "process";
 import { deleteCartItem } from "../../../services/cartServices/cartServices";
 import { CartStores } from "../../../stores/cartStores";
+import { OrderStores } from "../../../stores/orderStores";
 
 export const CheckoutPage = () => {
     const [studioAddress, SetStudioAddress] = useState<StudioAddressObject | null>(null)
@@ -32,6 +33,7 @@ export const CheckoutPage = () => {
     const {getDefaultStudioAddress} = checkoutStores
     const { initiatePayment, verifyPayment } = paymentStores;
     const { deleteCartItem, getCartItems } = CartStores;
+    const {addItemToOrders} = OrderStores;
     const {user} = useContext(AuthContext)
     const { cartItems, cartTotal, setCartItems } = useContext(CartContext);
     const navigate = useNavigate()
@@ -185,7 +187,19 @@ const handlePayment = async () => {
 
         await verifyPayment(user.accessToken, verificationDto);
         console.log("payment verified successfully");
+        // const orderDto: OrderDto = {
+        //   orderName: cartItem.itemName
+        // }
+        // await addItemToOrders(user.accessToken, orderDto);
         const deleteCart =  cartItems.map( async (cartItem) => {
+          const orderDto: OrderDto = {
+            orderName: cartItem.itemName,
+            imageUrl: cartItem.imageUrl || cartItem.image,
+            quantity: cartItem.quantity,
+            deliveryDate: cartItem.deliveryDate,
+          };
+            await addItemToOrders(user.accessToken, orderDto);
+
            await deleteCartItem(user.accessToken, cartItem.itemId)
         })
         
