@@ -15,7 +15,7 @@
     padding: 1rem;
     display: flex;
     flex-direction: row;
-    font-family: Apple Chancery;
+    font-family: Oswald;
     font-size:3rem;
 }
 
@@ -27,7 +27,7 @@
     padding: 1rem;
     display: flex;
     flex-direction: row;
-    font-family: Apple Chancery;
+    font-family: Oswald;
     font-size:3rem;
     justify-content: space-between;
 }

@@ -102,7 +102,7 @@ export const RequestItemsPage = () => {
          cell: (row: RequestObject) => (
            <CustomButton
              type="button"
-             label="remove"
+             label="cancel request"
              onClick={() => {
                handleRemoveItem(row.requestId);
              }}
@@ -174,14 +174,14 @@ export const RequestItemsPage = () => {
               customStyles={customStyles}
             />
             <div>
-              <h2>Total : {requestCount} </h2>
-              <span>
+              <h2>Total Requests: {requestCount} </h2>
+              {/* <span>
                 <CustomButton
                   type="button"
                   label="send Request"
                   onClick={checkoutPage}
                 />
-              </span>
+              </span> */}
             </div>
           </div>
         </div>

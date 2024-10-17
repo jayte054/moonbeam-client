@@ -60,18 +60,15 @@ export const GalleryPageAuth = () => {
              .filter((product: any) => product.type === productType)
              .slice(startIndex, startIndex + itemsPerPage)
              .map((product: any) => (
-               <div key={product.productId}>
-                 <div className="category-item">
+                 <div key={product.productId} className="category-item">
                    <img
                      src={product.imageUrl}
                      alt={product.description}
                      className="item"
                    />
-                   <br />
                    <span>{product.description}</span>
                    <br />
                  </div>
-               </div>
              ))}
          </div>
        </>
@@ -83,8 +80,7 @@ export const GalleryPageAuth = () => {
             <GalleryPageNav />
             <div className="quickOrder-body">
                 <div className="gallery-header">
-                    <span>Gallery </span>
-                    {/* <span>Cart <BsBasket2Fill /></span> */}
+                    <span className="page-title">Gallery </span>
                 </div>
                 <div className="quickorder-categories">
                     <div className="category-title">

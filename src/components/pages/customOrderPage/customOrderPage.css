@@ -20,7 +20,7 @@
     border-radius: 1rem;
     margin: 1rem auto; /* Centered margin */
     padding: 1rem;
-    font-family: "Apple Chancery", cursive; /* Added fallback font */
+    font-family: Oswald; /* Added fallback font */
     font-weight: bold;
     width: 90%;
     box-sizing: border-box; /* Ensures padding is included in width calculation */

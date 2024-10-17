@@ -1,0 +1,47 @@
+.orderBody-container {
+    margin: 1rem auto;
+    padding: 1rem;
+    background-color: rgb(239,239,225);
+    width: 90%;
+    border-radius: 1rem;
+    font-family: Oswald;
+}
+
+.orderBody-customRequests h3{
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    padding: 1rem;
+}
+
+.orderBody-quickOrders h3{
+    border-radius: 1rem;
+    background-color: black;
+    color: white;
+    padding: 1rem;
+}
+
+.orderBody-quickOrders-container {
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    align-items: center;
+    border: 1px solid rgb(206, 186, 8);
+    border-radius: 1rem;
+    margin: 1rem;
+}
+
+.orderBody-quickOrders-content img{
+    height: 5rem;
+    width: 7rem;
+    border-radius: 1rem;
+}
+
+.orderBody-quickOrders-price {
+    font-size: 1.5rem;
+    border: 1px solid grey;
+    border-radius: 1rem;
+    background-color: grey;
+    padding: .5rem;
+}

@@ -1,24 +1,28 @@
 .quickOrder-container{
-
+    padding: 1rem 2rem;
 }
 
 .quickOrder-body {
     background-color: rgb(239, 239, 225);
     border-radius: 1rem;
-    margin: 2rem; 
+    margin-top: 1rem;
+    padding: 1rem 1.5rem;
     
 }
 
 .gallery-header {
-    margin: 2rem;
     display: flex;
     justify-content: space-between;
     font-weight:bold;
 }
 
+.page-title {
+    
+}
+
 .quickOrder-body span {
     font-size: 2.2rem;
-    font-family: Apple Chancery;
+    font-family: Oswald;
     /* background: url("../../../../public/moonbeamLogo.jpeg") no-repeat center center fixed;
     background-size: cover; */
 }
@@ -26,24 +30,24 @@
 .category-title {
     background-color: black;
     color: white;
-    margin: 1rem;
     border-radius: 1rem;
-    padding: .5rem;
+    padding: .5rem 1rem;
     font-family: "Apple Chancery", cursive;
     display: flex;
     justify-content: space-between;
     text-align: center;
     align-items: center;
+    margin: 1rem 0;
 }
 
 .category-title span {
     font-size: 1.8rem;
     font-weight: bold;
-    padding: 0 1rem;
+    /* padding: 0 1rem; */
 }
 
 .arrow {
-    margin-top: .7rem
+    margin-bottom: .7rem
 }
 
 .arrow:hover {
@@ -52,12 +56,14 @@
 }
 
 .category-type {
-    margin:0.5rem  0 0 1.3rem;
-    display: grid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* display: grid;
     grid-template-columns: repeat(4, 1fr);
     column-gap: 1rem; 
     align-items: center;
-    width: 100%;
+    width: 100%; */
 }
 
 .pagination-nav{
@@ -66,7 +72,6 @@
 
 }
 .pagination-nav span {
-    margin: 0 2rem;
     border: none;
     border-radius: 1rem;
     background-color: grey;
@@ -80,6 +85,12 @@
 .span-nav {
     height: 1.3rem;
     background-color: grey;
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .category-item span {

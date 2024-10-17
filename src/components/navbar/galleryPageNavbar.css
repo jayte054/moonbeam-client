@@ -1,6 +1,4 @@
 .galleryPageNavbar-Container {
-    margin: 1rem;
-    padding: 1rem;
     display: flex;
     justify-content: space-between;
     background-color: #816e91;
@@ -29,7 +27,7 @@
   
   .galleryNavbar-Nav span {
     padding-right: 1rem;
-    font-family: "Apple Chancery", cursive;
+    font-family: Oswald;
   }
 
   .galleryNavbar-Nav span:hover{

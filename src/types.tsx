@@ -410,6 +410,7 @@ export interface OrderedObject {
   orderDate: string | undefined;
   imageUrl?: string | undefined;
   quantity: string | undefined;
+  price: string | undefined;
   content?: string[] | undefined;
   deliveryDate: string | undefined;
   productOrderId: string | undefined;
@@ -420,6 +421,7 @@ export interface OrderDto {
   orderName: string | undefined;
   imageUrl?: string | undefined;
   quantity: string | undefined;
+  price: string | undefined;
   content?: string[] | undefined;
   deliveryDate: string | undefined;
 }
