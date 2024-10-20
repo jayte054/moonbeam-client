@@ -425,3 +425,14 @@ export interface OrderDto {
   content?: string[] | undefined;
   deliveryDate: string | undefined;
 }
+
+export interface rtgProducts {
+  rtgId: string;
+  rtgName: string;
+  rtgType: string;
+  rtgPrice: string;
+  rtgImageUrl: string;
+  rtgDescription: string;
+  date: string;
+  adminId: string;
+}

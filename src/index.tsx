@@ -16,6 +16,7 @@ import {CartProvider} from "./context/cartContext/cartContext"
 import { CheckoutProvider } from './context/checkoutContext/checkoutContext';
 import { RequestProvider } from './context/customRequestContext/customRequestContext';
 import { OrderProvider } from './context/orderContext/orderContext';
+import { RtgProvider } from './context/rtgContext/rtgContext';
 
 // let stores: any = {}
 
@@ -29,21 +30,23 @@ root.render(
   <React.StrictMode>
     <GalleryProvider>
       <UserProvider>
-        <ProfileProvider>
-          <PackageProvider>
-            <VariantRatesProvider>
-              <OrderProvider>
-                <CartProvider>
-                  <RequestProvider>
-                    <CheckoutProvider>
-                      <App />
-                    </CheckoutProvider>
-                  </RequestProvider>
-                </CartProvider>
-              </OrderProvider>
-            </VariantRatesProvider>
-          </PackageProvider>
-        </ProfileProvider>
+        <RtgProvider>
+          <ProfileProvider>
+            <PackageProvider>
+              <VariantRatesProvider>
+                <OrderProvider>
+                  <CartProvider>
+                    <RequestProvider>
+                      <CheckoutProvider>
+                        <App />
+                      </CheckoutProvider>
+                    </RequestProvider>
+                  </CartProvider>
+                </OrderProvider>
+              </VariantRatesProvider>
+            </PackageProvider>
+          </ProfileProvider>
+        </RtgProvider>
       </UserProvider>
     </GalleryProvider>
   </React.StrictMode>
