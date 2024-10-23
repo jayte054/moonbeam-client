@@ -7,11 +7,12 @@ import {AuthContext} from "../../../context/authcontext/authContext"
 import { userStore } from "../../../stores/userStore";
 import "./homePage.css"
 import { RtgContext } from "../../../context/rtgContext/rtgContext";
-import { rtgProducts, setCartCountProps } from "../../../types";
+import { CartObject, RtgOrderDto, rtgProducts, setCartCountProps } from "../../../types";
 import { CustomButton } from "../../formComponents/customButton";
 import { CartIcon } from "../../cartIcon/cartIcon";
 import { CartContext } from "../../../context/cartContext/cartContext";
 import { CustomInput } from "../../formComponents/customInput";
+import { rtgStores } from "../../../stores/rtgStores";
 
 export const Homepage = () => {
     const [products, setProducts] = useState<rtgProducts[]>([])
@@ -25,15 +26,16 @@ export const Homepage = () => {
     const [chopOrderName, setChopOrderName] = useState("");
     const [cakeMessage, setCakeMessage] = useState("")
     const [chopMessage, setChopMessage] = useState("");
-    const [deliveryDate, setDeliveryDate] = useState("")
+    const [cakeDeliveryDate, setCakeDeliveryDate] = useState("")
     const [chopDeliveryDate, setChopDeliveryDate] = useState("");
     const { user } = useContext(AuthContext);
     const {rtgProducts} = useContext(RtgContext)
-    const { cartCount, setCartCount, addItemToCart }: setCartCountProps =
+    const { cartCount, setCartCount, addItemToCart,  }: setCartCountProps =
       useContext(CartContext);
 
     const navigate = useNavigate()
     const {signOut} = userStore;
+    const { createRtgOrder } = rtgStores;
     const customOrderImage = "/custom-img2.png"
     const quickOrderImage = "/quick-img.png"
     const itemsPerPage = 1
@@ -80,6 +82,58 @@ export const Homepage = () => {
             [rtgType]: prevIndex[rtgType] + 1
         }))
     }
+
+    const handleCakeBuy = async (product: rtgProducts) => {
+        console.log(product)
+      const rtgOrderDto: RtgOrderDto = {
+        orderName: cakeOrderName + "'s " + product.rtgName,
+        orderType: product.rtgType,
+        cakeMessage: cakeMessage,
+        deliveryDate: cakeDeliveryDate,
+        price: product.rtgPrice,
+        imageUrl: product.rtgImageUrl,
+      };
+      const item: CartObject = {
+        itemId: product.rtgId,
+        itemName: cakeOrderName + "'s " + product.rtgName,
+        quantity: "1",
+        price: product.rtgPrice,
+        itemType: product.rtgType,
+        deliveryDate: cakeDeliveryDate,
+        imageUrl: product.rtgImageUrl,
+        userId: user.id,
+      };
+      await createRtgOrder(user.accessToken, rtgOrderDto)
+      await addItemToCart(item)
+      setCakeOrderName("")
+      setCakeMessage("")
+      setCakeDeliveryDate("")
+    };
+
+    const handleChopBuy = async (product: rtgProducts) => {
+      const rtgOrderDto: RtgOrderDto = {
+        orderName: chopOrderName + "'s " + product.rtgName,
+        orderType: product.rtgType,
+        deliveryDate: chopDeliveryDate,
+        price: product.rtgPrice,
+        imageUrl: product.rtgImageUrl,
+      };
+      const item: CartObject = {
+        itemId: product.rtgId,
+        itemName: cakeOrderName + "'s " + product.rtgName,
+        quantity: "1",
+        price: product.rtgPrice,
+        itemType: product.rtgType,
+        deliveryDate: chopDeliveryDate,
+        imageUrl: product.rtgImageUrl,
+        userId: user.id,
+      };
+      await createRtgOrder(user.accessToken, rtgOrderDto);
+      await addItemToCart(item);
+        setChopOrderName("");
+        setChopMessage("");
+        setChopDeliveryDate("");
+    };
 
     const renderRtgByType = (rtgType: string) => {
         const startIndex = pageIndex[rtgType] * itemsPerPage;
@@ -167,9 +221,9 @@ export const Homepage = () => {
                                 <br />
                                 <input
                                   type="date"
-                                  value={deliveryDate}
+                                  value={cakeDeliveryDate}
                                   onChange={(e) =>
-                                    setDeliveryDate(e.target.value)
+                                    setCakeDeliveryDate(e.target.value)
                                   }
                                   required
                                 />
@@ -183,6 +237,7 @@ export const Homepage = () => {
                           onClick={() => {
                             const newCount = Number(cartCount) + 1;
                             setCartCount(newCount.toString());
+                            handleCakeBuy(product)
                           }}
                         />
                       </>
@@ -262,8 +317,8 @@ export const Homepage = () => {
                            <br />
                            <input
                              type="date"
-                             value={deliveryDate}
-                             onChange={(e) => setDeliveryDate(e.target.value)}
+                             value={chopDeliveryDate}
+                             onChange={(e) => setChopDeliveryDate(e.target.value)}
                              required
                            />
                          </div>
@@ -275,6 +330,7 @@ export const Homepage = () => {
                          onClick={() => {
                            const newCount = Number(cartCount) + 1;
                            setCartCount(newCount.toString());
+                           handleChopBuy(product)
                          }}
                        />
                      </>

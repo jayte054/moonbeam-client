@@ -436,3 +436,12 @@ export interface rtgProducts {
   date: string;
   adminId: string;
 }
+
+export interface RtgOrderDto {
+  orderName: string;
+  orderType: string;
+  cakeMessage?: any;
+  deliveryDate: string;
+  price: string;
+  imageUrl: any;
+}
