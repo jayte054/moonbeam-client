@@ -38,7 +38,7 @@ export const GalleryPage = () => {
     const handlePrev = (productType: string) => {
         setPageIndex((prevIndex) => ({
             ...prevIndex,
-            [productType]: Math.max(prevIndex[productType] -1, 0),
+            [productType]: Math.max(prevIndex[productType] - 1, 0),
         }))
     }
 

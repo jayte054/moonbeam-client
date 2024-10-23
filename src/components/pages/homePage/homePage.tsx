@@ -1,22 +1,42 @@
 import {useContext, useEffect, useState} from "react"
 import { useNavigate } from 'react-router-dom';
+import {FaChevronRight, FaChevronLeft} from 'react-icons/fa';
 import { Footer } from "../../footer/footer"
 import { HomePageNavbar } from "../../navbar/homepageNavbar"
 import {AuthContext} from "../../../context/authcontext/authContext"
 import { userStore } from "../../../stores/userStore";
 import "./homePage.css"
 import { RtgContext } from "../../../context/rtgContext/rtgContext";
-import { rtgProducts } from "../../../types";
+import { rtgProducts, setCartCountProps } from "../../../types";
+import { CustomButton } from "../../formComponents/customButton";
+import { CartIcon } from "../../cartIcon/cartIcon";
+import { CartContext } from "../../../context/cartContext/cartContext";
+import { CustomInput } from "../../formComponents/customInput";
 
 export const Homepage = () => {
     const [products, setProducts] = useState<rtgProducts[]>([])
-    const {user} = useContext(AuthContext)
+    const [cakeDescription, setCakeDescription] = useState(false)
+    const [chopsDescription, setChopsDescription] = useState(false);
+    const [pageIndex, setPageIndex] = useState<{[key:string]: number}>({
+        Cakes: 0,
+        Chops: 0
+    })
+    const [cakeOrderName, setCakeOrderName] = useState("")
+    const [chopOrderName, setChopOrderName] = useState("");
+    const [cakeMessage, setCakeMessage] = useState("")
+    const [chopMessage, setChopMessage] = useState("");
+    const [deliveryDate, setDeliveryDate] = useState("")
+    const [chopDeliveryDate, setChopDeliveryDate] = useState("");
+    const { user } = useContext(AuthContext);
     const {rtgProducts} = useContext(RtgContext)
+    const { cartCount, setCartCount, addItemToCart }: setCartCountProps =
+      useContext(CartContext);
+
     const navigate = useNavigate()
     const {signOut} = userStore;
     const customOrderImage = "/custom-img2.png"
     const quickOrderImage = "/quick-img.png"
-    console.log(user)
+    const itemsPerPage = 1
    
 
     useEffect(() => {
@@ -27,6 +47,9 @@ export const Homepage = () => {
         }
         products()
     },[rtgProducts])
+
+    const toggleCakeDescription = () => setCakeDescription((prev) => !prev);
+    const toggleChopsDescription = () => setChopsDescription((prev) => !prev);
 
      const handleSignout = async () => {
         await signOut()
@@ -44,6 +67,224 @@ export const Homepage = () => {
         navigate("/auth/customOrderPage")
     }
 
+    const handlePrev = (rtgType: string) => {
+        setPageIndex((prevIndex) => ({
+            ...prevIndex,
+            [rtgType]: Math.max(prevIndex[rtgType] - 1, 0)
+        }))
+    }
+
+    const handleNext = (rtgType: string) => {
+        setPageIndex((prevIndex) => ({
+            ...prevIndex,
+            [rtgType]: prevIndex[rtgType] + 1
+        }))
+    }
+
+    const renderRtgByType = (rtgType: string) => {
+        const startIndex = pageIndex[rtgType] * itemsPerPage;
+
+        return (
+          <div className="rtg-body-cakes">
+            <span className="rtg-body-cakes-title">
+              {rtgType === "Cakes" ? "Cakes" : "Chops"}
+            </span>
+            {products &&
+              products
+                .filter((product) => product.rtgType === rtgType)
+                .slice(startIndex, startIndex + itemsPerPage)
+                .map((product) => (
+                  <div className="rtg-cakes-content">
+                    {product.rtgType === rtgType ? (
+                      <>
+                        <p></p>
+                        <div className="rtg-item-cakes">
+                          <div>
+                            <FaChevronLeft
+                              className="rtg-nav"
+                              onClick={() => handlePrev(product.rtgType)}
+                            />
+                          </div>
+                          <div>
+                            <img
+                              src={product.rtgImageUrl}
+                              alt={product.rtgName}
+                              onClick={() => {
+                                if (rtgType === "Cakes")
+                                  toggleCakeDescription();
+                                else if (rtgType === "Chops")
+                                  toggleChopsDescription();
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <FaChevronRight
+                              className="rtg-nav"
+                              onClick={() => handleNext(product.rtgType)}
+                            />
+                          </div>
+                        </div>
+                        <p>
+                          <strong>
+                            {" "}
+                            {product.rtgName}
+                            <br /> ₦{product.rtgPrice}
+                          </strong>
+                        </p>
+
+                        {rtgType === "Cakes"
+                          ? cakeDescription && (
+                              <div className="rtg-content">
+                                <span>{product.rtgDescription}</span>
+                                <br />
+                                <p></p>
+                                <span className="rtg-span">Order Name</span>
+                                <br />
+                                <input
+                                  type="text"
+                                  placeholder="order name"
+                                  value={cakeOrderName}
+                                  onChange={(e) =>
+                                    setCakeOrderName(e.target.value)
+                                  }
+                                  required
+                                />
+                                <p></p>
+                                <span className="rtg-span">Cake Message</span>
+                                <br />
+                                <input
+                                  type="text"
+                                  placeholder="cake message"
+                                  value={cakeMessage}
+                                  onChange={(e) =>
+                                    setCakeMessage(e.target.value)
+                                  }
+                                  required
+                                />
+                                <br />
+                                <p></p>
+                                <span className="rtg-span">Delivery Date</span>
+                                <br />
+                                <input
+                                  type="date"
+                                  value={deliveryDate}
+                                  onChange={(e) =>
+                                    setDeliveryDate(e.target.value)
+                                  }
+                                  required
+                                />
+                              </div>
+                            )
+                          : null}
+
+                        <CustomButton
+                          label="Buy Now"
+                          type="button"
+                          onClick={() => {
+                            const newCount = Number(cartCount) + 1;
+                            setCartCount(newCount.toString());
+                          }}
+                        />
+                      </>
+                    ) : null}
+                  </div>
+                ))}
+          </div>
+        );
+    }
+
+     const renderChopsRtgByType = (rtgType: string) => {
+       const startIndex = pageIndex[rtgType] * itemsPerPage;
+
+       return (
+         <div className="rtg-body-cakes">
+           <span className="rtg-body-cakes-title">
+             {rtgType === "Cakes" ? "Cakes" : "Chops"}
+           </span>
+           {products &&
+             products
+               .filter((product) => product.rtgType === rtgType)
+               .slice(startIndex, startIndex + itemsPerPage)
+               .map((product) => (
+                 <div className="rtg-cakes-content">
+                   {product.rtgType === rtgType ? (
+                     <>
+                       <p></p>
+                       <div className="rtg-item-cakes">
+                         <div>
+                           <FaChevronLeft
+                             className="rtg-nav"
+                             onClick={() => handlePrev(product.rtgType)}
+                           />
+                         </div>
+                         <div>
+                           <img
+                             src={product.rtgImageUrl}
+                             alt={product.rtgName}
+                             onClick={() => {
+                               toggleChopsDescription();
+                             }}
+                           />
+                         </div>
+                         <div>
+                           <FaChevronRight
+                             className="rtg-nav"
+                             onClick={() => handleNext(product.rtgType)}
+                           />
+                         </div>
+                       </div>
+                       <p>
+                         <strong>
+                           {" "}
+                           {product.rtgName}
+                           <br /> ₦{product.rtgPrice}
+                         </strong>
+                       </p>
+
+                       {chopsDescription && (
+                         <div className="rtg-content">
+                           <span style={{ marginBottom: "1rem" }}>
+                             {product.rtgDescription}
+                           </span>
+                           <br />
+                           <p></p>
+                           <span className="rtg-span">Order Name</span>
+                           <br />
+                           <input
+                             type="text"
+                             placeholder="order name"
+                             value={chopOrderName}
+                             onChange={(e) => setChopOrderName(e.target.value)}
+                             required
+                           />
+                           <p></p>
+                           <span className="rtg-span">Delivery Date</span>
+                           <br />
+                           <input
+                             type="date"
+                             value={deliveryDate}
+                             onChange={(e) => setDeliveryDate(e.target.value)}
+                             required
+                           />
+                         </div>
+                       )}
+
+                       <CustomButton
+                         label="Buy Now"
+                         type="button"
+                         onClick={() => {
+                           const newCount = Number(cartCount) + 1;
+                           setCartCount(newCount.toString());
+                         }}
+                       />
+                     </>
+                   ) : null}
+                 </div>
+               ))}
+         </div>
+       );
+     };
+
     return (
       <>
         {/* {user.firstname ? ( */}
@@ -51,65 +292,43 @@ export const Homepage = () => {
           <HomePageNavbar />
           <div className="home-container">
             <div className="header">
-              <h2>Welcome to Moonbeam {name}</h2>
+              <h1>Welcome to Moonbeam {name}</h1>
             </div>
             <div className="rtg-container">
-              <span className="rtg-header">Ready To Go Orders</span>
+              <div className="rtg-header">
+                <span>Ready To Go Orders</span>
+                <span>
+                  <CartIcon />
+                </span>
+              </div>
+
               <div className="rtg-body">
-                <div className="rtg-body-cakes">
-                  <span>Cakes</span>
-                  {products &&
-                    products.map((product) => (
-                      <div className="rtg-cakes-content">
-                        {product.rtgType === "Cakes" ? (
-                          <>
-                            <img
-                              src={product.rtgImageUrl}
-                              alt={product.rtgName}
-                            />
-                            <span>{product.rtgName}</span>
-                            <br />
-                            <span>{product.rtgPrice}</span>
-                            <br />
-                            <span>{product.rtgDescription}</span>
-                          </>
-                        ) : null}
-                      </div>
-                    ))}
-                </div>
-                <div className="rtg-body-chops">
-                  <span>Chops</span>
-                  {products &&
-                    products.map((product) => (
-                      <div className="rtg-chops-content">
-                        {product.rtgType === "Chops" ? (
-                          <>
-                            <img
-                              src={product.rtgImageUrl}
-                              alt={product.rtgName}
-                            />
-                            <span style={{ paddingTop: "1rem" }}>
-                              {product.rtgName}
-                            </span>
-                            <br />
-                            <span>{product.rtgPrice}</span>
-                            <br />
-                            <span>{product.rtgDescription}</span>
-                          </>
-                        ) : null}
-                      </div>
-                    ))}
-                </div>
+                <>{renderRtgByType("Cakes")}</>
+
+                <>{renderChopsRtgByType("Chops")}</>
               </div>
             </div>
-            <div className="home-body">
-              <div className="quick-order" onClick={navQuickOrder}>
-                <p>Quick Order</p>
-                <img src={quickOrderImage} alt="quick-order-image" />
+            <div className="home-body1">
+              <div className="home-header">
+                <p>Personalised Orders</p>
               </div>
-              <div className="quick-order" onClick={navCustomOrder}>
-                <p> Custom Orders </p>
-                <img src={customOrderImage} alt="custom-order-image" />
+              <p></p>
+              <div className="home-body">
+                <div className="quick-order" onClick={navQuickOrder}>
+                  <p>Quick Order</p>
+                  <img src={quickOrderImage} alt="quick-order-image" />
+                  <br />
+                  <div style={{ color: "black", marginTop: "2rem" }}>
+                    <span>Make your Quick Orders</span>
+                  </div>
+                </div>
+                <div className="quick-order" onClick={navCustomOrder}>
+                  <p> Custom Orders </p>
+                  <img src={customOrderImage} alt="custom-order-image" />
+                  <div style={{ color: "black", marginTop: "2rem" }}>
+                    <span>Make your Custom Orders</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

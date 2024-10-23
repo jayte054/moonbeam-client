@@ -1,16 +1,20 @@
 .footer-container{
     /* border-top:double; */
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
     /* border-top-style: dashed; */
     border-radius: 1rem;
-    
+    width: 93.2%;
+    margin: 2rem;
+    padding: 1rem;
 }
 
 .footer-body {
     margin: 2rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    font-weight: bold;
+
 }
 
 .footer-logo img{
@@ -20,12 +24,15 @@
 
 .footer-contacts li {
     list-style: none;
+    font-weight: bold;
+    font-weight: bold;
 }
 
 .footer-socials span {
     font-size: 1rem;
     padding: 1rem;
-    color: white;
+    color: black;
+    font-weight: bold;
 }
 
 .footer-socials a {
@@ -35,6 +42,8 @@
 .footer-newsletter input {
     width: 70%;
     height: 12%;
+    font-weight: bold;
+
 }
 
 .footer-newsletter button {

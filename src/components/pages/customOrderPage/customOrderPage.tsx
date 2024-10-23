@@ -20,6 +20,7 @@ import { CustomChopOrdersForm } from "../../formComponents/customChopOrders";
 import { OrderStores } from "../../../stores/productStores";
 import { RequestIcon } from "../../requestIcon/requestIcon";
 import { RequestContext } from "../../../context/customRequestContext/customRequestContext";
+import { Footer } from "../../footer/footer";
 
 interface CustomCakeFormikHelper extends FormikHelpers<CustomOrderObject> {}
 interface CustomPackageFormikHelper extends FormikHelpers<CustomPackageObject> {}
@@ -222,6 +223,7 @@ const handleSignout = async() => {
             </div>
           </div>
         </div>
+        <Footer />
         {/* // ) : (
             //     handleSignout()
             // )} */}
