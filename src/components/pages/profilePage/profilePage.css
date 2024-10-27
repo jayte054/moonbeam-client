@@ -1,10 +1,10 @@
 .profile-container{
-    background-color: rgb(239, 239, 225);
+    background-color: #faf7f7;
     display: flex;
     margin: 1rem;
     border-radius: 1rem;
-    justify-content: space-between;
-    width: auto;
+    justify-content: space-evenly;
+    /* width: auto; */
 }
 .profile-save{
     display: flex;
@@ -36,7 +36,7 @@
 }
 
 .profile-input{
-    background-color: rgb(239, 239, 225);
+    background-color: #faf7f7;
     border-top: none;
     border-left: none;
     border-right: none;
@@ -54,10 +54,12 @@
     border-radius: 1rem;
 }
 
-.profile-img{
+.profile-img img{
     margin: 2.5rem 0rem 1rem 0rem;
     opacity: 0.5;
-    width: auto;
+    width: 91%;
+    /* align-items: center; */
+    height:38rem
 }
 
 .profile-pic{

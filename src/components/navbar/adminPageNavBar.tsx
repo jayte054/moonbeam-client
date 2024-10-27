@@ -1,14 +1,13 @@
-import "./galleryPageNavbar.css";
-import { Link } from "react-router-dom";
-import "./checkoutPageNav.css";
-import { userStore } from "../../stores/userStore";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
+import { userStore } from "../../stores/userStore";
+import "./homepageNavbar.css";
 
-export const CheckoutPageNav = () => {
+export const AdminPageNavbar = () => {
   const logo = "/Screenshot 2023-11-14 at 03.35.22.png";
   const { signOut } = userStore;
-  const {admin} = useContext(AdminAuthContext)
+  const { admin } = useContext(AdminAuthContext);
 
   const handleSignout = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -16,12 +15,12 @@ export const CheckoutPageNav = () => {
     document.location.href = "/";
   };
   return (
-    <div className="checkoutPageNavbar-Container">
+    <div className="homePageNavbar-Container">
       {/* <img src={logo} alt = "moonbeam logo" /> */}
-      <div className="checkoutPageNavbar-Title">
+      <div className="homePageNavbar-Title">
         <span>MOONBEAM CAKES</span>
       </div>
-      <div className="checkoutNavbar-Nav">
+      <div className="homePageNavbar-Nav">
         <span>
           <Link
             style={{ color: "white", textDecoration: "none" }}
@@ -30,37 +29,32 @@ export const CheckoutPageNav = () => {
             Home
           </Link>
         </span>
-
         <span>
           <Link
             style={{ color: "white", textDecoration: "none" }}
-            to="/auth/profilePage"
+            to=""
           >
-            Profile
+            Credentials
           </Link>
         </span>
         <span>
           <Link
             style={{ color: "white", textDecoration: "none" }}
-            to="/auth/galleryPage"
+            to=""
           >
-            Gallery
+            Customers
           </Link>
         </span>
-        {admin.isAdmin === true ? (
-          <span>
-            <Link
-              style={{ color: "white", textDecoration: "none" }}
-              to="/auth/adminPage"
-            >
-              Admin
-            </Link>
-          </span>
-        ) : (
-          " "
-        )}
-        <span onClick={handleSignout}>
-          <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
+        <span>
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            to=""
+          >
+            Orders
+          </Link>
+        </span>
+        <span onClick={(e) => handleSignout(e)}>
+          <Link style={{ color: "white", textDecoration: "none" }} to="/">
             Signout
           </Link>
         </span>

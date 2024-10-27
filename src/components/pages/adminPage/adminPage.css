@@ -1,0 +1,54 @@
+.adminPage-container{
+    background-color: white;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.adminPage-body {
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.adminPage-upload {
+    width: 40%
+}
+
+.adminPage-upload-products,
+.adminPage-upload-prices {
+    /* border: 1px solid black; */
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: center;
+    background-color: rgb(212, 212, 208);
+    border-radius: 1rem;
+}
+
+.adminPage-upload-products button,
+.adminPage-upload-prices button{
+    background-color: rgb(67, 39, 93);
+    color: white;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.adminPage-upload-prices p,
+.adminPage-upload-products p{
+    font-weight: bold;
+}
+
+.upload-product-content {
+    text-align: left;
+    padding: 0.5rem;
+}
+
+.upload-product-content span{
+    
+}

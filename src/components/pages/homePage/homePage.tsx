@@ -13,6 +13,7 @@ import { CartIcon } from "../../cartIcon/cartIcon";
 import { CartContext } from "../../../context/cartContext/cartContext";
 import { CustomInput } from "../../formComponents/customInput";
 import { rtgStores } from "../../../stores/rtgStores";
+import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
 
 export const Homepage = () => {
     const [products, setProducts] = useState<rtgProducts[]>([])
@@ -29,6 +30,7 @@ export const Homepage = () => {
     const [cakeDeliveryDate, setCakeDeliveryDate] = useState("")
     const [chopDeliveryDate, setChopDeliveryDate] = useState("");
     const { user } = useContext(AuthContext);
+    const { admin } = useContext(AdminAuthContext);
     const {rtgProducts} = useContext(RtgContext)
     const { cartCount, setCartCount, addItemToCart,  }: setCartCountProps =
       useContext(CartContext);
@@ -58,7 +60,7 @@ export const Homepage = () => {
         document.location.href = "/"
     }
 
-    const name = user?.firstname  || ""
+    const name = user?.firstname  || admin?.firstname || ""
 
 
     const navQuickOrder = () => {
@@ -148,7 +150,7 @@ export const Homepage = () => {
                 .filter((product) => product.rtgType === rtgType)
                 .slice(startIndex, startIndex + itemsPerPage)
                 .map((product) => (
-                  <div className="rtg-cakes-content">
+                  <div className="rtg-cakes-content" key={product.rtgId}>
                     {product.rtgType === rtgType ? (
                       <>
                         <p></p>
@@ -261,7 +263,7 @@ export const Homepage = () => {
                .filter((product) => product.rtgType === rtgType)
                .slice(startIndex, startIndex + itemsPerPage)
                .map((product) => (
-                 <div className="rtg-cakes-content">
+                 <div className="rtg-cakes-content" key={product.rtgId}>
                    {product.rtgType === rtgType ? (
                      <>
                        <p></p>

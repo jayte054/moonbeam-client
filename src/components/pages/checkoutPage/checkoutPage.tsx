@@ -311,8 +311,14 @@ const handlePayment = async () => {
                 <div className="deliveryAddress-content">
                   <span>{clientName}</span> <br />
                   <span>
-                    {clientAddress} | {clientRegion}-{clientCity} |{" "}
-                    {phoneNumber}
+                    {defaultAddress ? (
+                      <>
+                        {clientAddress} | {clientRegion}-{clientCity} |{" "}
+                        {phoneNumber}
+                      </>
+                    ) : (
+                      " Please add a delivery address "
+                    )}
                   </span>
                 </div>
               </div>
@@ -393,7 +399,8 @@ const handlePayment = async () => {
                           <div>
                             <span style={{ paddingTop: ".7rem" }}>
                               {cartItem.itemName}
-                            </span><br />
+                            </span>
+                            <br />
                             <span>Quantity: {cartItem.quantity}</span>
                           </div>
                         </div>
@@ -415,7 +422,7 @@ const handlePayment = async () => {
               )}
             </div>
             <div className="payment">
-              {deliveryOption === "" ? null : (
+              {(deliveryOption === "" || cartItems[0].itemId === null ) ? null : (
                 <>
                   <h3>Payment</h3>
                   <CustomButton

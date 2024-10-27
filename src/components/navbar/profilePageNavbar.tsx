@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
 import { userStore } from "../../stores/userStore";
 import "./profilePageNavbar.css";
 
  export const ProfilePageNavbar = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
-    const {signOut} = userStore
+    const {signOut} = userStore;
+    const {admin} = useContext(AdminAuthContext);
 
     const handleSignout = async (e: React.SyntheticEvent) => {
         e.preventDefault()
@@ -44,13 +46,19 @@ import "./profilePageNavbar.css";
              Orders
            </Link>
          </span>
-         {/* <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
-                  to="/auth/profilePage"
-            >
-                Profile
-            </Link>
-          </span> */}
+         {admin.isAdmin === true ? (
+           <span>
+             <Link
+               style={{ color: "white", textDecoration: "none" }}
+               to="/auth/adminPage"
+             >
+               Admin
+             </Link>
+           </span>
+         ) : (
+           " "
+         )}
+
          <span onClick={(e) => handleSignout(e)}>
            <Link style={{ color: "white", textDecoration: "none" }} to="/">
              Signout

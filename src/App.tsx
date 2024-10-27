@@ -26,92 +26,110 @@ import { RequestProvider } from './context/customRequestContext/customRequestCon
 import { RequestItemsPage } from './components/pages/requestItemsPage/requestItemsPage';
 import { OrderProvider } from './context/orderContext/orderContext';
 import { RtgProvider } from './context/rtgContext/rtgContext';
+import { AdminSignUpPage } from './components/pages/signupPage/adminsignUpPage';
+import { AdminSigninPage } from './components/pages/signinPage/adminSignInPage';
+import { AdminProvider } from './context/authcontext/adminAuthContext';
+import { AdminPage } from './components/pages/adminPage/adminPage';
 
 
 function App() {
   return (
     <div>
-      <UserProvider>
-        <RtgProvider>
-          <ProfileProvider>
-            <PackageProvider>
-              <VariantRatesProvider>
-                <OrderProvider>
-                  <CartProvider>
-                    <RequestProvider>
-                      <CheckoutProvider>
-                        <Router>
-                          <Routes>
-                            <Route path="/" element={<LandingPage />} />
-                            <Route
-                              path="/signUpPage"
-                              element={<SignUpPage />}
-                            />
-                            <Route
-                              path="/signinPage"
-                              element={<SigninPage />}
-                            />
-                            <Route
-                              path="/galleryPage"
-                              element={<GalleryPage />}
-                            />
-                            <Route element={<ProtectAuthRoute />}>
+      <AdminProvider>
+        <UserProvider>
+          <RtgProvider>
+            <ProfileProvider>
+              <PackageProvider>
+                <VariantRatesProvider>
+                  <OrderProvider>
+                    <CartProvider>
+                      <RequestProvider>
+                        <CheckoutProvider>
+                          <Router>
+                            <Routes>
+                              <Route path="/" element={<LandingPage />} />
                               <Route
-                                path="/auth/homepage"
-                                element={<Homepage />}
+                                path="/signUpPage"
+                                element={<SignUpPage />}
                               />
                               <Route
-                                path="/auth/profilePage"
-                                element={<ProfilePage />}
+                                path="/adminSignUpPage"
+                                element={<AdminSignUpPage />}
                               />
                               <Route
-                                path="/auth/galleryPage"
-                                element={<GalleryPageAuth />}
+                                path="/signinPage"
+                                element={<SigninPage />}
                               />
                               <Route
-                                path="/auth/quickOrderPage"
-                                element={<QuickOrderPage />}
+                                path="/adminSigninPage"
+                                element={<AdminSigninPage />}
                               />
                               <Route
-                                path="/auth/customOrderPage"
-                                element={<CustomOrderPage />}
+                                path="/galleryPage"
+                                element={<GalleryPage />}
                               />
-                              <Route
-                                path="/auth/cartItemsPage"
-                                element={<CartItemsPage />}
-                              />
-                              <Route
-                                path="/auth/checkoutPage"
-                                element={<CheckoutPage />}
-                              />
-                              <Route
-                                path="/auth/addressBook"
-                                element={<AddressBook />}
-                              />
-                              <Route
-                                path="/auth/studioAddressBook"
-                                element={<StudioAddressBook />}
-                              />
-                              <Route
-                                path="/auth/ordersPage"
-                                element={<OrdersPage />}
-                              />
-                              <Route
-                                path="/auth/requestPage"
-                                element={<RequestItemsPage />}
-                              />
-                            </Route>
-                          </Routes>
-                        </Router>
-                      </CheckoutProvider>
-                    </RequestProvider>
-                  </CartProvider>
-                </OrderProvider>
-              </VariantRatesProvider>
-            </PackageProvider>
-          </ProfileProvider>
-        </RtgProvider>
-      </UserProvider>
+                              <Route element={<ProtectAuthRoute />}>
+                                <Route
+                                  path="/auth/homepage"
+                                  element={<Homepage />}
+                                />
+                                <Route
+                                  path="/auth/profilePage"
+                                  element={<ProfilePage />}
+                                />
+                                <Route
+                                  path="/auth/galleryPage"
+                                  element={<GalleryPageAuth />}
+                                />
+                                <Route
+                                  path="/auth/quickOrderPage"
+                                  element={<QuickOrderPage />}
+                                />
+                                <Route
+                                  path="/auth/customOrderPage"
+                                  element={<CustomOrderPage />}
+                                />
+                                <Route
+                                  path="/auth/cartItemsPage"
+                                  element={<CartItemsPage />}
+                                />
+                                <Route
+                                  path="/auth/checkoutPage"
+                                  element={<CheckoutPage />}
+                                />
+                                <Route
+                                  path="/auth/addressBook"
+                                  element={<AddressBook />}
+                                />
+                                <Route
+                                  path="/auth/studioAddressBook"
+                                  element={<StudioAddressBook />}
+                                />
+                                <Route
+                                  path="/auth/ordersPage"
+                                  element={<OrdersPage />}
+                                />
+                                <Route
+                                  path="/auth/requestPage"
+                                  element={<RequestItemsPage />}
+                                />
+                                <Route 
+                                  path="/auth/adminPage"
+                                  element={<AdminPage />}
+                                />
+                              </Route>
+                            </Routes>
+                          </Router>
+                        </CheckoutProvider>
+                      </RequestProvider>
+                    </CartProvider>
+                  </OrderProvider>
+                </VariantRatesProvider>
+              </PackageProvider>
+            </ProfileProvider>
+          </RtgProvider>
+        </UserProvider>
+      </AdminProvider>
     </div>
   );
 }

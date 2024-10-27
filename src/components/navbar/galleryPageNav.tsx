@@ -2,10 +2,13 @@ import "./galleryPageNavbar.css"
 import { Link } from "react-router-dom";
 import "./galleryPageNavbar.css";
 import { userStore } from "../../stores/userStore";
+import { useContext } from "react";
+import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
 
  export const GalleryPageNav = () => {
     const logo = "/Screenshot 2023-11-14 at 03.35.22.png"
      const { signOut } = userStore;
+     const {admin} = useContext(AdminAuthContext);
 
      const handleSignout = async (e: React.SyntheticEvent) => {
        e.preventDefault();
@@ -43,6 +46,18 @@ import { userStore } from "../../stores/userStore";
              Profile
            </Link>
          </span>
+         {admin.isAdmin === true ? (
+           <span>
+             <Link
+               style={{ color: "white", textDecoration: "none" }}
+               to="/auth/adminPage"
+             >
+               Admin
+             </Link>
+           </span>
+         ) : (
+           " "
+         )}
          <span onClick={handleSignout}>
            <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
              Signout
