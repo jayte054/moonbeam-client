@@ -52,3 +52,9 @@
 .upload-product-content span{
     
 }
+
+.form-container {
+    background-color: rgb(212, 212, 208);
+    padding: 1rem;
+    border-radius: 1rem;
+}

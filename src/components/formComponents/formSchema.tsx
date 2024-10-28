@@ -219,3 +219,58 @@ export const createAddressSchema = yup.object().shape({
     .boolean()
     .required("Required")
 });
+
+export const galleryProductFormSchema = yup.object().shape({
+  type: yup
+    .string()
+    .oneOf([
+      "wedding",
+      "birthday",
+      "anniversary",
+      "chops / pastries",
+      "suprise package",
+    ])
+    .required("Required"),
+  description: yup
+    .string()
+    .required("Required")
+    .min(6, "description must contain at least 6 letters")
+    .max(20, "maximum number of letters should not exceed 20"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ), // example file type validation
+});
+
+export const RtgProductSchema = yup.object().shape({
+  rtgName: yup.string().required("Required"),
+  rtgType: yup.string().oneOf(["Cakes", "Chops"]),
+  rtgPrice: yup.string().required("Required"),
+  rgDescription: yup
+    .string()
+    .min(15, "description must be at least contain 15 letters")
+    .max(25, "description must be at least contain 25 letters")
+    .required("Required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ),
+});

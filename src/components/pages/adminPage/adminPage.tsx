@@ -1,4 +1,11 @@
-import { useState } from "react";
+import { Formik } from "formik";
+import { useContext, useState } from "react";
+import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
+import { AdminStores } from "../../../stores/adminStores";
+import { GalleryProductDto, GalleryProductInterface, RtgProductDto, rtgProductInterface } from "../../../types";
+import { galleryProductFormSchema, RtgProductSchema } from "../../formComponents/formSchema";
+import { GalleryProductsForm } from "../../formComponents/galleryProductsForm";
+import { RtgProductForm } from "../../formComponents/rtgProductForm";
 import { AdminPageNavbar } from "../../navbar/adminPageNavBar"
 import "./adminPage.css"
 
@@ -10,7 +17,11 @@ export const AdminPage = () => {
     const [designRate, setDesignRate] = useState(false);
     const [packageRates, setPackageRates] = useState(false);
     const [studioDetails, setStudioDetails] = useState(false)
+    const {admin} = useContext(AdminAuthContext)
+
+    const {uploadGalleryProduct, uploadRtgProduct} = AdminStores;
     
+    const accessToken = admin.accessToken
 
     const toggleGalleryProducts = () => {
         setGalleryProducts((prev) => {
@@ -76,6 +87,55 @@ export const AdminPage = () => {
     };
     const toggleStudioDetails = () => setStudioDetails((prev) => !prev);
 
+    const galleryProductInitialValues: GalleryProductDto = {
+        type: "",
+        description: "",
+        file: null,
+    }
+
+    const rtgProductsInitialValues: RtgProductDto = {
+      rtgName: "",
+      rtgType: "",
+      rtgPrice: "",
+      rtgDescription: "",
+      file: null
+    }; 
+
+    const _uploadGalleryProduct = async (values: GalleryProductDto, formikHelpers: any) => {
+        const {...galleryProductDto} = values;
+
+        console.log("product", galleryProductDto)
+        console.log(accessToken);
+
+        try {
+            const product: GalleryProductInterface = await uploadGalleryProduct(
+                accessToken, 
+                galleryProductDto
+                );
+            formikHelpers.resetForm()
+            return product
+
+        } catch (error){
+            console.log(error)
+        }
+    }
+
+    const _uploadRtgProduct = async (values: RtgProductDto, formikHelpers: any) => {
+        const {...rtgProductDto} = values
+
+        try {
+            const product: rtgProductInterface = await uploadRtgProduct(accessToken, rtgProductDto);
+            formikHelpers.resetForm()
+            return product;
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    const [onSubmit, setOnSubmit] = useState<Function>(
+      () => _uploadGalleryProduct
+    );
+
     return (
       <div>
         <AdminPageNavbar />
@@ -84,9 +144,12 @@ export const AdminPage = () => {
           <div className="adminPage-body">
             <div className="adminPage-upload">
               <div className="adminPage-upload-products">
-                {/* <h2>Upload Products</h2> */}
                 <p>
-                  <button type="button" onClick={toggleGalleryProducts}>
+                  <button
+                    type="button"
+                    onClick={toggleGalleryProducts}
+                    aria-label="Toggle Gallery Products"
+                  >
                     Gallery products
                   </button>
                 </p>
@@ -104,10 +167,8 @@ export const AdminPage = () => {
                       <li>Anniversary</li>
                       <li>Chops_Pastries</li>
                       <li>Surprise Package</li>
-                      <li>Surprise Package</li>
                     </ul>
                     <p> Description</p>
-                    {/* </ul> */}
                   </div>
                 )}
                 <button type="button" onClick={toggleRtgProducts}>
@@ -131,6 +192,7 @@ export const AdminPage = () => {
                   </div>
                 )}
               </div>
+
               <div className="adminPage-upload-prices">
                 <p>
                   <button type="button" onClick={toggleProductRate}>
@@ -278,7 +340,51 @@ export const AdminPage = () => {
                 )}
               </div>
             </div>
-            <div>forms</div>
+            <div>
+              <h2>Forms</h2>
+              {galleryProducts && (
+                <div className="form-container">
+                  <h3>Gallery Poducts Form</h3>
+                  <Formik
+                    initialValues={galleryProductInitialValues}
+                    onSubmit={(values, formikHelpers) => {
+                      _uploadGalleryProduct(values, formikHelpers);
+                    }}
+                    validationSchema={galleryProductFormSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <GalleryProductsForm
+                          {...formikProps}
+                          uploadGalleryProduct={(values: GalleryProductDto) =>
+                            _uploadGalleryProduct(values, formikProps)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {rtgProducts && (
+                <div className="form-container">
+                  <h3>Ready to Go Products Form</h3>
+                  <Formik
+                    initialValues={rtgProductsInitialValues}
+                    onSubmit={_uploadRtgProduct}
+                    validationSchema={RtgProductSchema}
+                  >
+                    {(formikProps) => (
+                        <div>
+                            <RtgProductForm 
+                                {...formikProps}
+                                uploadRtgProduct={(values: RtgProductDto) => _uploadRtgProduct(values, formikProps)}
+                            />
+                        </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+            </div>
           </div>
           <div>sales in graph</div>
         </div>

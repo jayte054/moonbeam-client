@@ -445,3 +445,37 @@ export interface RtgOrderDto {
   price: string;
   imageUrl: any;
 }
+
+export interface GalleryProductDto {
+  type: string;
+  description: string;
+  file: any;
+}
+
+export interface GalleryProductInterface {
+  id: string;
+  type: string;
+  imageUrl: string;
+  description: string;
+  date: string;
+  adminId: string;
+}
+
+export interface RtgProductDto {
+  rtgName: string;
+  rtgType: string;
+  rtgPrice: string;
+  rtgDescription: string;   
+  file: any;
+}
+
+export interface rtgProductInterface {
+  rtgId: string;
+  rtgName: string;
+  rtgType: string;
+  rtgPrice: string;
+  rtgImageUrl: string;
+  rtgDescription: string;
+  date: string;
+  adminId: string;
+}
