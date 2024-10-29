@@ -525,7 +525,7 @@ export const AdminPage = () => {
                         </button>
                       </li>
                       <li style={{ listStyle: "none" }}>
-                        <button type="button" onClick={toggleBronzePackageForm}>
+                        <button type="button" onClick={toggleSilverPackageForm}>
                           Silver Package Rates
                         </button>
                       </li>
@@ -706,7 +706,7 @@ export const AdminPage = () => {
                 </div>
               )}
               {silverPackageRates && (
-                <div>
+                <div className="form-container">
                   <h3>Silver Package Rates Form</h3>
                   <Formik
                     initialValues={silverPackageRatesInitialValues}
