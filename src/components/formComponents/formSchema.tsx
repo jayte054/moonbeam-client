@@ -274,3 +274,173 @@ export const RtgProductSchema = yup.object().shape({
       (value) => value && ["image/jpeg", "image/png"].includes(value.type)
     ),
 });
+
+export const productRateValidationSchema = yup.object().shape({
+  chocolateCakeRate: yup.string().required("Required"),
+  strawberryCakeRate: yup.string().required("Required"),
+  vanillaCakeRate: yup.string().required("Required"),
+  redvelvetCakeRate: yup.string().required("Required"),
+  carrotCakeRate: yup.string().required("Required"),
+  cheeseCakeRate: yup.string().required("Required"),
+  bananaCakeRate: yup.string().required("Required"),
+  appleCakeRate: yup.string().required("Required"),
+  lemonCakeRate: yup.string().required("Required"),
+  coffeeCakeRate: yup.string().required("Required"),
+  coconutCakeRate: yup.string().required("Required"),
+  blueberryCakeRate: yup.string().required("Required"),
+  samosaRate: yup.string().required("Required"),
+  springRollRate: yup.string().required("Required"),
+  samosa_springrollRate: yup.string().required("Required"),
+  puffRate: yup.string().required("Required"),
+  pepperedMeatRate: yup.string().required("Required"),
+  puff_pepperedMeatRate: yup.string().required("Required"),
+  samosa_pepperedMeatRate: yup.string().required("Required"),
+  springroll_pepperedMeatRate: yup.string().required("Required"),
+  meatPieRate: yup.string().required("Required"),
+  donutsRate: yup.string().required("Required"),
+  cinamonRollsRate: yup.string().required("Required"),
+  pancakesRate: yup.string().required("Required"),
+  corndogsRate: yup.string().required("Required"),
+  waffelsRate: yup.string().required("Required"),
+  meatpie_donutsRate: yup.string().required("Required"),
+  pancakes_corndogs_waffelsRate: yup.string().required("Required"),
+});
+
+export const designRateValidationSchema = yup.object().shape({
+  nakedRate: yup.string().required("Required"),
+
+  butterCreamRate: yup.string().required("Required"),
+
+  fundantRate: yup.string().required("Required"),
+
+  covering: yup.string().required("Required")
+}); 
+
+export const budgetCakeRateValidationSchema = yup.object().shape({
+  chocolateCakeRate: yup.string().required("Required"),
+  strawberryCakeRate: yup.string().required("Required"),
+  vanillaCakeRate: yup.string().required("Required"),
+  redvelvetCakeRate: yup.string().required("Required"),
+  carrotCakeRate: yup.string().required("Required"),
+  cheeseCakeRate: yup.string().required("Required"),
+  bananaCakeRate: yup.string().required("Required"),
+  appleCakeRate: yup.string().required("Required"),
+  lemonCakeRate: yup.string().required("Required"),
+  coffeeCakeRate: yup.string().required("Required"),
+  coconutCakeRate: yup.string().required("Required"),
+  blueberryCakeRate: yup.string().required("Required"),
+  foilCakeRate: yup.string().required("Required"),
+  cakeParfaitRate: yup.string().required("Required")
+});
+
+export const bonzePackageRatesValidationSchema = yup.object().shape({
+  packageName: yup.string().required("Required"),
+  itemOne: yup.string().required("Required"),
+  itemTwo: yup.string().required("Required"),
+  itemThree: yup.string().required("Required"),
+  itemFour: yup.string().required("Required"),
+  itemFive: yup.string().required("Required"),
+  itemSix: yup.string().required("Required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ),
+  price: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+});
+
+export const silverPackageRatesValidationSchema = yup.object().shape({
+  packageName: yup.string().required("Required"),
+  itemOne: yup.string().required("Required"),
+  itemTwo: yup.string().required("Required"),
+  itemThree: yup.string().required("Required"),
+  itemFour: yup.string().required("Required"),
+  itemFive: yup.string().required("Required"),
+  itemSix: yup.string().required("Required"),
+  itemSeven: yup.string().required("Required"),
+  itemEight: yup.string().required("Required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ),
+  price: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+});
+
+export const goldPackageRatesValidationSchema = yup.object().shape({
+  packageName: yup.string().required("Required"),
+  itemOne: yup.string().required("Required"),
+  itemTwo: yup.string().required("Required"),
+  itemThree: yup.string().required("Required"),
+  itemFour: yup.string().required("Required"),
+  itemFive: yup.string().required("Required"),
+  itemSix: yup.string().required("Required"),
+  itemSeven: yup.string().required("Required"),
+  itemEight: yup.string().required("Required"),
+  itemNine: yup.string().required("Required"),
+  itemTen: yup.string().required("Required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ),
+  price: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+});
+
+export const diamondPackageRatesValidationSchema = yup.object().shape({
+  packageName: yup.string().required("Required"),
+  itemOne: yup.string().required("Required"),
+  itemTwo: yup.string().required("Required"),
+  itemThree: yup.string().required("Required"),
+  itemFour: yup.string().required("Required"),
+  itemFive: yup.string().required("Required"),
+  itemSix: yup.string().required("Required"),
+  itemSeven: yup.string().required("Required"),
+  itemEight: yup.string().required("Required"),
+  itemNine: yup.string().required("Required"),
+  itemTen: yup.string().required("Required"),
+  itemEleven: yup.string().required("Required"),
+  itemTwelve: yup.string().required("Required"),
+  file: yup
+    .mixed<File>()
+    .required("File is required")
+    .test(
+      "fileSize",
+      "File is too large",
+      (value) => value && value.size <= 5 * 1024 * 1024
+    ) // example file size limit: 5MB
+    .test(
+      "fileFormat",
+      "Unsupported File Format",
+      (value) => value && ["image/jpeg", "image/png"].includes(value.type)
+    ),
+  price: yup.string().required("Required"),
+  description: yup.string().required("Required"),
+})

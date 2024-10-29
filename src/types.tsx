@@ -479,3 +479,198 @@ export interface rtgProductInterface {
   date: string;
   adminId: string;
 }
+
+export interface ProductRateDto {
+  chocolateCakeRate: string;
+  strawberryCakeRate: string;
+  vanillaCakeRate: string;
+  redvelvetCakeRate: string;
+  carrotCakeRate: string;
+  cheeseCakeRate: string;
+  bananaCakeRate: string;
+  appleCakeRate: string;
+  lemonCakeRate: string;
+  coffeeCakeRate: string;
+  coconutCakeRate: string;
+  blueberryCakeRate: string;
+  samosaRate?: string;
+  springRollRate?: string;
+  samosa_springrollRate?: string;
+  puffRate?: string;
+  pepperedMeatRate?: string;
+  puff_pepperedMeatRate?: string;
+  samosa_pepperedMeatRate?: string;
+  springroll_pepperedMeatRate?: string;
+  meatPieRate?: string;
+  donutsRate?: string;
+  cinamonRollsRate?: string;
+  pancakesRate?: string;
+  corndogsRate?: string;
+  waffelsRate?: string;
+  meatpie_donutsRate?: string;
+  pancakes_corndogs_waffelsRate?: string;
+}
+
+export interface BudgetRateDto {
+  chocolateCakeRate: string;
+  strawberryCakeRate: string;
+  vanillaCakeRate: string;
+  redvelvetCakeRate: string;
+  carrotCakeRate: string;
+  cheeseCakeRate: string;
+  bananaCakeRate: string;
+  appleCakeRate: string;
+  lemonCakeRate: string;
+  coffeeCakeRate: string;
+  coconutCakeRate: string;
+  blueberryCakeRate: string;
+  foilCakeRate: string;
+  cakeParfaitRate: string;
+}
+
+export interface updateProductRateDto {
+  chocolateCakeRate: string;
+  strawberryCakeRate: string;
+  vanillaCakeRate: string;
+  redvelvetCakeRate: string;
+  carrotCakeRate: string;
+  cheeseCakeRate: string;
+  bananaCakeRate: string;
+  appleCakeRate: string;
+  lemonCakeRate: string;
+  coffeeCakeRate: string;
+  coconutCakeRate: string;
+  blueberryCakeRate: string;
+  samosaRate?: string;
+  springRollRate?: string;
+  samosa_springrollRate?: string;
+  puffRate?: string;
+  pepperedMeatRate?: string;
+  puff_pepperedMeatRate?: string;
+  samosa_pepperedMeatRate?: string;
+  springroll_pepperedMeatRate?: string;
+  meatPieRate?: string;
+  donutsRate?: string;
+  cinamonRollsRate?: string;
+  pancakesRate?: string;
+  corndogsRate?: string;
+  waffelsRate?: string;
+  meatpie_donutsRate?: string;
+  pancakes_corndogs_waffelsRate?: string;
+  foilCakeRate: string;
+  cakeParfaitRate: string;
+}
+
+export interface ProductRateInterface {
+  rateId: string;
+  chocolateCakeRate: string;
+  strawberryCakeRate: string;
+  vanillaCakeRate: string;
+  redvelvetCakeRate: string;
+  carrotCakeRate: string;
+  cheeseCakeRate: string;
+  bananaCakeRate: string;
+  appleCakeRate: string;
+  lemonCakeRate: string;
+  coffeeCakeRate: string;
+  coconutCakeRate: string;
+  blueberryCakeRate: string;
+  samosaRate: string;
+  springRollRate: string;
+  samosa_springrollRate: string;
+  puffRate: string;
+  pepperedMeatRate: string;
+  puff_pepperedMeatRate: string;
+  samosa_pepperedMeatRate: string;
+  springroll_pepperedMeatRate: string;
+  meatPieRate: string;
+  donutsRate: string;
+  cinamonRollsRate: string;
+  pancakesRate: string;
+  corndogsRate: string;
+  waffelsRate: string;
+  meatpie_donutsRate: string;
+  pancakes_corndogs_waffelsRate: string;
+  adminId: string;
+}
+
+export interface designRateDto  {
+  nakedRate: string;
+
+  butterCreamRate: string;
+
+  fundantRate: string;
+
+  covering: string;
+}
+
+export interface DesignRateInterface {
+  rateId: string;
+  butterCreamRate: string;
+  fundantRate: string;
+  nakedrate: string;
+  covering: string;
+  adminId: string;
+}
+
+export interface BudgetRateInterface {
+  rateId: string;
+  chocolateCakeRate: string;
+  strawberryCakeRate: string;
+  vanillaCakeRate: string;
+  redvelvetCakeRate: string;
+  carrotCakeRate: string;
+  cheeseCakeRate: string;
+  bananaCakeRate: string;
+  appleCakeRate: string;
+  lemonCakeRate: string;
+  coffeeCakeRate: string;
+  coconutCakeRate: string;
+  blueberryCakeRate: string;
+  foilCakeRate: string;
+  cakeParfaitRate: string;
+  adminId: string;
+}
+
+export interface PackageRatesDto {
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven?: string | any;
+  itemEight?: string | any;
+  itemNine?: string | any;
+  itemTen?: string | any;
+  itemEleven?: string | any;
+  itemTwelve?: string | any;
+  file: any;
+  price: string;
+  description: string;
+}
+
+
+
+export interface PackageRatesInterface {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven?: string;
+  itemEight?: string;
+  itemNine?: string;
+  itemTen?: string;
+  itemEleven?: string;
+  itemTwelve?: string;
+  file: any;
+  price: string;
+  description: string;
+  date: string;
+  adminId: string;
+}

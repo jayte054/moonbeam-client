@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GalleryProductDto, RtgProductDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const UploadGalleryProduct = async (accessToken: string, galleryProductDto: GalleryProductDto) => {
@@ -48,3 +48,149 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
         console.log(error)
     }
 }
+
+
+    export const uploadProductRates = async (
+      accessToken: string,
+      productRateDto: ProductRateDto
+    ) => {
+      const {
+        chocolateCakeRate,
+        strawberryCakeRate,
+        vanillaCakeRate,
+        redvelvetCakeRate,
+        carrotCakeRate,
+        cheeseCakeRate,
+        bananaCakeRate,
+        appleCakeRate,
+        lemonCakeRate,
+        coffeeCakeRate,
+        coconutCakeRate,
+        blueberryCakeRate,
+        samosaRate,
+        springRollRate,
+        samosa_springrollRate,
+        puffRate,
+        pepperedMeatRate,
+        puff_pepperedMeatRate,
+        samosa_pepperedMeatRate,
+        springroll_pepperedMeatRate,
+        meatPieRate,
+        donutsRate,
+        cinamonRollsRate,
+        pancakesRate,
+        corndogsRate,
+        waffelsRate,
+        meatpie_donutsRate,
+        pancakes_corndogs_waffelsRate,
+      } = productRateDto;
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      try {
+        const productRates = await axios.post(
+          `${Base_Url}/adminHub/setProductRate`,
+          productRateDto,
+          config
+        );
+        return productRates.data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    export const uploadDesignRate = async(accessToken: string, designRateDto: designRateDto) => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        try{
+            const rates = await axios.post(
+              `${Base_Url}/adminHub/productDesignRate`, designRateDto,
+              config
+            );
+            console.log(rates.data)
+            return rates.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    export const uploadBudgetCakeRate = async (accessToken: string, budgetCakeRateDto: BudgetRateDto) => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        try {
+            const rates = await axios.post(
+              `${Base_Url}/adminHub/setBudgetCakeRate`, budgetCakeRateDto, config
+            );
+            console.log(rates.data)
+            return rates.data;
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
+    export const uploadPackageRate = async (accessToken: string, packageRatesDto: PackageRatesDto) => {
+        const {
+            packageName,
+            itemOne,
+            itemTwo,
+            itemThree,
+            itemFour,
+            itemFive,
+            itemSix,
+            itemSeven,
+            itemEight,
+            itemNine,
+            itemTen,
+            itemEleven,
+            itemTwelve,
+            file,
+            price,
+            description,} = packageRatesDto
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }
+
+            const formData = new FormData()
+
+            formData.append("packageName", packageName);
+            formData.append("itemOne", itemOne);
+            formData.append("itemTwo", itemTwo);
+            formData.append("itemThree", itemThree);
+            formData.append("itemFour", itemFour);
+            formData.append("itemFive", itemFive);
+            formData.append("itemSix", itemSix);
+            formData.append("itemSeven", itemSeven);
+            formData.append("itemEight", itemEight);
+            formData.append("itemNine", itemNine);
+            formData.append("itemTen", itemTen);
+            formData.append("itemEleven", itemEleven);
+            formData.append("itemTwelve", itemTwelve);
+            formData.append("file", file);
+            formData.append("price", price);
+            formData.append("description", description);
+
+            try {
+                const packageRates = await axios.post(
+                  `${Base_Url}/adminHub/surprisePackage`, formData, config
+                );
+                console.log(packageRates.data)
+                return packageRates.data;
+            } catch (error) {
+                console.log(error)
+            }
+    }

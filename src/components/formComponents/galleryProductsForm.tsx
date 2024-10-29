@@ -4,6 +4,7 @@ import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
+import { CustomTextArea } from "./customTextArea";
 import "./galleryProductsForm.css"
 
 interface UploadGalleryProductFormProps extends FormikProps<GalleryProductDto> {
@@ -37,7 +38,7 @@ export const GalleryProductsForm: React.FC<UploadGalleryProductFormProps> = (pro
             <option value="chops / pastries">Chops and Pastries</option>
             <option value="suprise package">Surprise Package</option>
           </CustomSelect>
-          <CustomInput
+          <CustomTextArea
             label="Description"
             name="description"
             value={values.description}

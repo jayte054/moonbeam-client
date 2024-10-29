@@ -2,10 +2,15 @@ import { Formik } from "formik";
 import { useContext, useState } from "react";
 import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
 import { AdminStores } from "../../../stores/adminStores";
-import { GalleryProductDto, GalleryProductInterface, RtgProductDto, rtgProductInterface } from "../../../types";
-import { galleryProductFormSchema, RtgProductSchema } from "../../formComponents/formSchema";
+import { PackageRatesInterface, BudgetRateDto, BudgetRateInterface, designRateDto, DesignRateInterface, GalleryProductDto, GalleryProductInterface, PackageRatesDto, ProductRateDto, ProductRateInterface, RtgProductDto, rtgProductInterface } from "../../../types";
+import { BronzePackageForm } from "../../formComponents/bronzePackageForm";
+import { BudgetCakeRateForm } from "../../formComponents/budetCakeRateForm";
+import { DesignRatesForm } from "../../formComponents/designRatesForm";
+import { bonzePackageRatesValidationSchema, budgetCakeRateValidationSchema, designRateValidationSchema, galleryProductFormSchema, productRateValidationSchema, RtgProductSchema } from "../../formComponents/formSchema";
 import { GalleryProductsForm } from "../../formComponents/galleryProductsForm";
+import { ProductRatesForm } from "../../formComponents/productRatesForm";
 import { RtgProductForm } from "../../formComponents/rtgProductForm";
+import { SilverPackageForm } from "../../formComponents/silverPackageForm";
 import { AdminPageNavbar } from "../../navbar/adminPageNavBar"
 import "./adminPage.css"
 
@@ -16,10 +21,21 @@ export const AdminPage = () => {
     const [budgetRate, setBudgetRate] = useState(false)
     const [designRate, setDesignRate] = useState(false);
     const [packageRates, setPackageRates] = useState(false);
+    const [bronzePackageRates, setBronzePackageRates] = useState(false);
+    const [silverPackageRates, setSilverPackageRates] = useState(false);
+    const [goldPackageRates, setGoldPackageRates] = useState(false);
+    const [diamondPackageRates, setDiamondPackageRates] = useState(false);
     const [studioDetails, setStudioDetails] = useState(false)
     const {admin} = useContext(AdminAuthContext)
 
-    const {uploadGalleryProduct, uploadRtgProduct} = AdminStores;
+    const {
+      uploadGalleryProduct,
+      uploadRtgProduct,
+      uploadProductRates,
+      uploadDesignRate,
+      uploadBudgetCakeRate,
+      uploadPackageRate,
+    } = AdminStores;
     
     const accessToken = admin.accessToken
 
@@ -87,6 +103,30 @@ export const AdminPage = () => {
     };
     const toggleStudioDetails = () => setStudioDetails((prev) => !prev);
 
+    const toggleBronzePackageForm = () => {
+        setBronzePackageRates((prev) => {
+            const bronzePackage = !prev;
+            if(bronzePackage) {
+                setGoldPackageRates(false)
+                setSilverPackageRates(false)
+                setDiamondPackageRates(false);
+            }
+            return bronzePackage;
+        });
+    }
+
+    const toggleSilverPackageForm = () => {
+        setSilverPackageRates((prev) => {
+            const silverPackage = !prev;
+            if(silverPackage) {
+                setGoldPackageRates(false);
+                setBronzePackageRates(false);
+                setDiamondPackageRates(false);
+            }
+            return silverPackage
+        })
+    }
+
     const galleryProductInitialValues: GalleryProductDto = {
         type: "",
         description: "",
@@ -101,11 +141,127 @@ export const AdminPage = () => {
       file: null
     }; 
 
+    const productRateInitialValues: ProductRateDto = {
+        chocolateCakeRate: "",
+        strawberryCakeRate: "",
+        vanillaCakeRate: "",
+        redvelvetCakeRate: "",
+        carrotCakeRate: "",
+        cheeseCakeRate: "",
+        bananaCakeRate: "",
+        appleCakeRate: "",
+        lemonCakeRate: "",
+        coffeeCakeRate: "",
+        coconutCakeRate: "",
+        blueberryCakeRate: "",
+        samosaRate: "",
+        springRollRate: "",
+        samosa_springrollRate: "",
+        puffRate: "",
+        pepperedMeatRate: "",
+        puff_pepperedMeatRate: "",
+        samosa_pepperedMeatRate: "",
+        springroll_pepperedMeatRate: "",
+        meatPieRate: "",
+        donutsRate: "",
+        cinamonRollsRate: "",
+        pancakesRate: "",
+        corndogsRate: "",
+        waffelsRate: "",
+        meatpie_donutsRate: "",
+        pancakes_corndogs_waffelsRate: "",
+    };
+
+    const designRateInitialValues: designRateDto = {
+      nakedRate: "",
+      butterCreamRate: "",
+      fundantRate: "",
+      covering: "",
+    };
+
+    const budgetRateInitialValues: BudgetRateDto = {
+        chocolateCakeRate: "",
+        strawberryCakeRate: "",
+        vanillaCakeRate: "",
+        redvelvetCakeRate: "",
+        carrotCakeRate: "",
+        cheeseCakeRate: "",
+        bananaCakeRate: "",
+        appleCakeRate: "",
+        lemonCakeRate: "",
+        coffeeCakeRate: "",
+        coconutCakeRate: "",
+        blueberryCakeRate: "",
+        foilCakeRate: "",
+        cakeParfaitRate: "",
+    };
+
+    const bronzePackageRatesInitialValues: PackageRatesDto = {
+        packageName: "",
+        itemOne: "",
+        itemTwo: "",
+        itemThree: "",
+        itemFour: "",
+        itemFive: "",
+        itemSix: "",
+        file: null,
+        price: "",
+        description: "",
+    };
+
+    const silverPackageRatesInitialValues: PackageRatesDto = {
+      packageName: "",
+      itemOne: "",
+      itemTwo: "",
+      itemThree: "",
+      itemFour: "",
+      itemFive: "",
+      itemSix: "",
+      itemSeven: "",
+      itemEight: "",
+      file: null,
+      price: "",
+      description: "",
+    };
+
+    const goldPackageRatesInitialValues: PackageRatesDto = {
+      packageName: "",
+      itemOne: "",
+      itemTwo: "",
+      itemThree: "",
+      itemFour: "",
+      itemFive: "",
+      itemSix: "",
+      itemSeven: "",
+      itemEight: "",
+      itemNine: "",
+      itemTen: "",
+      file: null,
+      price: "",
+      description: "",
+    };
+
+    const diamondPackageRatesInitialValues: PackageRatesDto = {
+      packageName: "",
+      itemOne: "",
+      itemTwo: "",
+      itemThree: "",
+      itemFour: "",
+      itemFive: "",
+      itemSix: "",
+      itemSeven: "",
+      itemEight: "",
+      itemNine: "",
+      itemTen: "",
+      itemEleven: "",
+      itemTwelve: "",
+      file: null,
+      price: "",
+      description: "",
+    };
+
     const _uploadGalleryProduct = async (values: GalleryProductDto, formikHelpers: any) => {
         const {...galleryProductDto} = values;
-
-        console.log("product", galleryProductDto)
-        console.log(accessToken);
 
         try {
             const product: GalleryProductInterface = await uploadGalleryProduct(
@@ -132,8 +288,70 @@ export const AdminPage = () => {
         }
     }
 
+    const _uploadProductRate = async (values: ProductRateDto, formikHelpers: any) => {
+        const {...productRatesDto} = values
+
+        try{
+            const rates: ProductRateInterface = await uploadProductRates(accessToken, productRatesDto);
+            formikHelpers.resetForm()
+            return rates;
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    const _uploadDesignRate = async(values: designRateDto, formikHelpers: any) => {
+        const {...designRateDto} = values;
+
+        try {
+            const rates: DesignRateInterface = await uploadDesignRate(accessToken, designRateDto);
+            formikHelpers.resetForm()
+            return rates 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const _uploadBudgetRate = async(values: BudgetRateDto, formikHelpers: any) => {
+        const {...budgetCakeRateDto} = values;
+        try{
+            const rates: BudgetRateInterface = await uploadBudgetCakeRate(
+              accessToken,
+              budgetCakeRateDto
+            );
+            formikHelpers.resetForm()
+            return rates
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    const _uploadbronzePackage = async(values: PackageRatesDto, formikHelpers: any) => {
+        const {...packageRatesDto} = values;
+
+        try {
+            const bronzeRate: PackageRatesInterface =
+              await uploadPackageRate(accessToken, packageRatesDto);
+              return bronzeRate;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const _uploadSilverPackage = async(values: PackageRatesDto, formikHelpers: any) => {
+        const {...packageRatesDto} = values;
+
+        try {
+            const silverRate: PackageRatesInterface =
+              await uploadPackageRate(accessToken, packageRatesDto);
+              return silverRate;
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const [onSubmit, setOnSubmit] = useState<Function>(
-      () => _uploadGalleryProduct
+      () => _uploadbronzePackage
     );
 
     return (
@@ -143,6 +361,8 @@ export const AdminPage = () => {
           <h1>Admin Page</h1>
           <div className="adminPage-body">
             <div className="adminPage-upload">
+              <h2>Form Guides</h2>
+
               <div className="adminPage-upload-products">
                 <p>
                   <button
@@ -195,79 +415,6 @@ export const AdminPage = () => {
 
               <div className="adminPage-upload-prices">
                 <p>
-                  <button type="button" onClick={toggleProductRate}>
-                    Special Cakes and Pastries/Chops Rate
-                  </button>
-                </p>
-                {productRate && (
-                  <div className="upload-product-content">
-                    <h3>
-                      The form attached can be used to set the rates for the
-                      following special cake flavours and chops/pastries
-                    </h3>
-                    <ul>
-                      <li>Chocolate Cake Rate</li>
-                      <li>Strawberry Cake Rate</li>
-                      <li>Vanilla Cake Rate</li>
-                      <li>Redvelvet Cake Rate</li>
-                      <li>Carrot Cake Rate</li>
-                      <li>Cheese Cake Rate</li>
-                      <li>Banana Cake Rate</li>
-                      <li>Apple Cake Rate</li>
-                      <li>Lemon Cake Rate</li>
-                      <li>Coffee Cake Rate</li>
-                      <li>Coconut Cake Rate</li>
-                      <li>Blueberry Cake Rate</li>
-                      <li>Samosa Rate</li>
-                      <li>SpringRoll Rate</li>
-                      <li>Samosa_and Springroll Rate</li>
-                      <li>Puff Rate</li>
-                      <li>Peppered Meat Rate</li>
-                      <li>Puffand Peppered Meat Rate</li>
-                      <li>Samosaand Peppered Meat Rate</li>
-                      <li>Springroll and Peppered Meat Rate</li>
-                      <li>MeatPie Rate</li>
-                      <li>Donuts Rate</li>
-                      <li>Cinamon Rolls Rate</li>
-                      <li>Pancakes Rate</li>
-                      <li>Corndogs Rate</li>
-                      <li>Waffels Rate</li>
-                      <li>Meatpie and Donuts Rate</li>
-                      <li>Pancakes, Corndogs and Waffels Rate</li>
-                      {/* <li></li> */}
-                    </ul>
-                  </div>
-                )}
-                <p>
-                  <button type="button" onClick={toggleBudgetRate}>
-                    Budget Cake and Cake Variants Rate
-                  </button>
-                </p>
-                {budgetRate && (
-                  <div className="upload-product-content">
-                    <h3>
-                      The form attached can be used to set the rates for
-                      flavours for budget cakes and Cake variants
-                    </h3>
-                    <ul>
-                      <li>Chocolate Cake Rate</li>
-                      <li>Strawberry Cake Rate</li>
-                      <li>Vanilla Cake Rate</li>
-                      <li>Redvelvet Cake Rate</li>
-                      <li>Carrot Cake Rate</li>
-                      <li>Cheese Cake Rate</li>
-                      <li>Banana Cake Rate</li>
-                      <li>Apple Cake Rate</li>
-                      <li>Lemon Cake Rate</li>
-                      <li>Coffee Cake Rate</li>
-                      <li>Coconut Cake Rate</li>
-                      <li>Blueberry Cake Rate</li>
-                      <li>Cake Parfait Rate</li>
-                      <li>Foil Cakes Rate</li>
-                    </ul>
-                  </div>
-                )}
-                <p>
                   <button type="button" onClick={toggleDesignRate}>
                     Design Rate
                   </button>
@@ -287,6 +434,80 @@ export const AdminPage = () => {
                   </div>
                 )}
                 <p>
+                  <p>
+                    <button type="button" onClick={toggleProductRate}>
+                      Special Cakes and Pastries/Chops Rate
+                    </button>
+                  </p>
+                  {productRate && (
+                    <div className="upload-product-content">
+                      <h3>
+                        The form attached can be used to set the rates for the
+                        following special cake flavours and chops/pastries
+                      </h3>
+                      <ul>
+                        <li>Chocolate Cake Rate</li>
+                        <li>Strawberry Cake Rate</li>
+                        <li>Vanilla Cake Rate</li>
+                        <li>Redvelvet Cake Rate</li>
+                        <li>Carrot Cake Rate</li>
+                        <li>Cheese Cake Rate</li>
+                        <li>Banana Cake Rate</li>
+                        <li>Apple Cake Rate</li>
+                        <li>Lemon Cake Rate</li>
+                        <li>Coffee Cake Rate</li>
+                        <li>Coconut Cake Rate</li>
+                        <li>Blueberry Cake Rate</li>
+                        <li>Samosa Rate</li>
+                        <li>SpringRoll Rate</li>
+                        <li>Samosa_and Springroll Rate</li>
+                        <li>Puff Rate</li>
+                        <li>Peppered Meat Rate</li>
+                        <li>Puffand Peppered Meat Rate</li>
+                        <li>Samosaand Peppered Meat Rate</li>
+                        <li>Springroll and Peppered Meat Rate</li>
+                        <li>MeatPie Rate</li>
+                        <li>Donuts Rate</li>
+                        <li>Cinamon Rolls Rate</li>
+                        <li>Pancakes Rate</li>
+                        <li>Corndogs Rate</li>
+                        <li>Waffels Rate</li>
+                        <li>Meatpie and Donuts Rate</li>
+                        <li>Pancakes, Corndogs and Waffels Rate</li>
+                        {/* <li></li> */}
+                      </ul>
+                    </div>
+                  )}
+                  <p>
+                    <button type="button" onClick={toggleBudgetRate}>
+                      Budget Cake and Cake Variants Rate
+                    </button>
+                  </p>
+                  {budgetRate && (
+                    <div className="upload-product-content">
+                      <h3>
+                        The form attached can be used to set the rates for
+                        flavours for budget cakes and Cake variants
+                      </h3>
+                      <ul>
+                        <li>Chocolate Cake Rate</li>
+                        <li>Strawberry Cake Rate</li>
+                        <li>Vanilla Cake Rate</li>
+                        <li>Redvelvet Cake Rate</li>
+                        <li>Carrot Cake Rate</li>
+                        <li>Cheese Cake Rate</li>
+                        <li>Banana Cake Rate</li>
+                        <li>Apple Cake Rate</li>
+                        <li>Lemon Cake Rate</li>
+                        <li>Coffee Cake Rate</li>
+                        <li>Coconut Cake Rate</li>
+                        <li>Blueberry Cake Rate</li>
+                        <li>Cake Parfait Rate</li>
+                        <li>Foil Cakes Rate</li>
+                      </ul>
+                    </div>
+                  )}
+
                   <button type="button" onClick={togglePackageRate}>
                     Surprise Package Rates
                   </button>
@@ -298,13 +519,23 @@ export const AdminPage = () => {
                       packages which include:{" "}
                     </h3>
                     <ul>
-                      <li>Bronze Package</li>
-                      <li>Silver Package</li>
+                      <li style={{ listStyle: "none" }}>
+                        <button type="button" onClick={toggleBronzePackageForm}>
+                          Bronze Package Rates
+                        </button>
+                      </li>
+                      <li style={{ listStyle: "none" }}>
+                        <button type="button" onClick={toggleBronzePackageForm}>
+                          Silver Package Rates
+                        </button>
+                      </li>
                       <li>Gold Package</li>
                       <li>Diamond Package</li>
                     </ul>
+
                     <p>Each package should contain: </p>
                     <ul>
+                      <li>Items as described in the inputs</li>
                       <li>An Image of the surprise Package 344 × 480 pixels</li>
                       <li>A short Description</li>
                       <li>Price tag</li>
@@ -374,12 +605,127 @@ export const AdminPage = () => {
                     validationSchema={RtgProductSchema}
                   >
                     {(formikProps) => (
-                        <div>
-                            <RtgProductForm 
-                                {...formikProps}
-                                uploadRtgProduct={(values: RtgProductDto) => _uploadRtgProduct(values, formikProps)}
-                            />
-                        </div>
+                      <div>
+                        <RtgProductForm
+                          {...formikProps}
+                          uploadRtgProduct={(values: RtgProductDto) =>
+                            _uploadRtgProduct(values, formikProps)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {productRate && (
+                <div className="form-container">
+                  <h3>Spacial Cakes and Pastries/chops Rates Form</h3>
+                  <Formik
+                    initialValues={productRateInitialValues}
+                    onSubmit={_uploadProductRate}
+                    validationSchema={productRateValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <ProductRatesForm
+                          {...formikProps}
+                          uploadProductRates={(values: ProductRateDto) =>
+                            _uploadProductRate(values, formikProps)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {designRate && (
+                <div className="form-container">
+                  <h3>Design Rates Form</h3>
+                  <Formik
+                    initialValues={designRateInitialValues}
+                    onSubmit={_uploadDesignRate}
+                    validationSchema={designRateValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <DesignRatesForm
+                          {...formikProps}
+                          uploadDesignRate={(values: designRateDto) =>
+                            _uploadDesignRate(values, formikProps)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {budgetRate && (
+                <div className="form-container">
+                  <h3>Budget Cake Rates Form</h3>
+                  <Formik
+                    initialValues={budgetRateInitialValues}
+                    onSubmit={_uploadBudgetRate}
+                    validationSchema={budgetCakeRateValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <BudgetCakeRateForm
+                          {...formikProps}
+                          uploadBudgetCakeRate={(values: BudgetRateDto) =>
+                            _uploadBudgetRate(values, formikProps)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {bronzePackageRates && (
+                <div className="form-container">
+                  <h3> Bronze Package Rates Form</h3>
+                  <Formik
+                    initialValues={bronzePackageRatesInitialValues}
+                    onSubmit={(values, formikHelpers) => {
+                      if (onSubmit) {
+                        onSubmit(values, formikHelpers);
+                      }
+                    }}
+                    validationSchema={bonzePackageRatesValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <BronzePackageForm
+                          {...formikProps}
+                          uploadBronzePackageRates={() =>
+                            setOnSubmit(() => _uploadbronzePackage)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {silverPackageRates && (
+                <div>
+                  <h3>Silver Package Rates Form</h3>
+                  <Formik
+                    initialValues={silverPackageRatesInitialValues}
+                    onSubmit={(values, formikHelpers) => {
+                      if (onSubmit) {
+                        onSubmit(values, formikHelpers);
+                      }
+                    }}
+                    validationSchema={bonzePackageRatesValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <SilverPackageForm
+                          {...formikProps}
+                          uploadSilverPackageRates={() =>
+                            setOnSubmit(() => _uploadSilverPackage)
+                          }
+                        />
+                      </div>
                     )}
                   </Formik>
                 </div>
