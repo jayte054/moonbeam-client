@@ -1,20 +1,32 @@
 import { Formik } from "formik";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
 import { AdminStores } from "../../../stores/adminStores";
-import { PackageRatesInterface, BudgetRateDto, BudgetRateInterface, designRateDto, DesignRateInterface, GalleryProductDto, GalleryProductInterface, PackageRatesDto, ProductRateDto, ProductRateInterface, RtgProductDto, rtgProductInterface } from "../../../types";
+import { PackageRatesInterface, BudgetRateDto, BudgetRateInterface, designRateDto, DesignRateInterface, GalleryProductDto, GalleryProductInterface, PackageRatesDto, ProductRateDto, ProductRateInterface, RtgProductDto, rtgProductInterface, StudioDetailsDto, StudioDetailsInterface } from "../../../types";
 import { BronzePackageForm } from "../../formComponents/bronzePackageForm";
 import { BudgetCakeRateForm } from "../../formComponents/budetCakeRateForm";
 import { DesignRatesForm } from "../../formComponents/designRatesForm";
-import { bonzePackageRatesValidationSchema, budgetCakeRateValidationSchema, designRateValidationSchema, galleryProductFormSchema, productRateValidationSchema, RtgProductSchema } from "../../formComponents/formSchema";
+import { DiamondPackageForm } from "../../formComponents/diamondPackageForm";
+import { 
+    silverPackageRatesValidationSchema,
+    goldPackageRatesValidationSchema,
+    bonzePackageRatesValidationSchema, 
+    budgetCakeRateValidationSchema, 
+    designRateValidationSchema, 
+    galleryProductFormSchema, 
+    productRateValidationSchema, 
+    RtgProductSchema, 
+    diamondPackageRatesValidationSchema,
+    StudioDetailsValidationSchema} from "../../formComponents/formSchema";
 import { GalleryProductsForm } from "../../formComponents/galleryProductsForm";
+import { GoldPackageForm } from "../../formComponents/goldPackageForm";
 import { ProductRatesForm } from "../../formComponents/productRatesForm";
 import { RtgProductForm } from "../../formComponents/rtgProductForm";
 import { SilverPackageForm } from "../../formComponents/silverPackageForm";
-import { AdminPageNavbar } from "../../navbar/adminPageNavBar"
-import "./adminPage.css"
+import { StudioDetailsForm } from "../../formComponents/studioDetailsForm";
+import "./adminUploadPage.css"
 
-export const AdminPage = () => {
+export const AdminUploadPage = () => {
     const [galleryProducts, setGalleryProducts] = useState(false)
     const [rtgProducts, setRtgProducts] = useState(false)
     const [productRate, setProductRate] = useState(false)
@@ -35,6 +47,7 @@ export const AdminPage = () => {
       uploadDesignRate,
       uploadBudgetCakeRate,
       uploadPackageRate,
+      uploadStudioDetails,
     } = AdminStores;
     
     const accessToken = admin.accessToken
@@ -126,6 +139,34 @@ export const AdminPage = () => {
             return silverPackage
         })
     }
+
+    const toggleGoldPackageForm = () => {
+        setGoldPackageRates((prev) => {
+            const goldPackage = !prev;
+            if(goldPackage) {
+                setSilverPackageRates(false);
+                setBronzePackageRates(false);
+                setDiamondPackageRates(false);
+            }
+            return goldPackage;
+        })
+    }
+
+    const toggleDiamondPackageForm = () => {
+        setDiamondPackageRates((prev) => {
+            const diamondPackage = !prev;
+            if (diamondPackage) {
+              setSilverPackageRates(false);
+              setBronzePackageRates(false);
+              setGoldPackageRates(false);
+            }
+            return diamondPackage;
+        })
+    };
+
+    useEffect(() =>{
+        setRtgProducts(true)
+    }, [])
 
     const galleryProductInitialValues: GalleryProductDto = {
         type: "",
@@ -260,6 +301,17 @@ export const AdminPage = () => {
       description: "",
     };
 
+    const studioDetailsInitialValues: StudioDetailsDto = {
+        studioTitle: "",
+        studioAddress: "",
+        LGA: "",
+        state: "",
+        phoneNumber: "",
+        deliveryBaseFee: "",
+        deliveryPricePerKm: "",
+        defaultStudioAddress: false,
+    };
+
     const _uploadGalleryProduct = async (values: GalleryProductDto, formikHelpers: any) => {
         const {...galleryProductDto} = values;
 
@@ -332,7 +384,8 @@ export const AdminPage = () => {
         try {
             const bronzeRate: PackageRatesInterface =
               await uploadPackageRate(accessToken, packageRatesDto);
-              return bronzeRate;
+        formikHelpers.resetForm();
+        return bronzeRate;
         } catch (error) {
             console.log(error)
         }
@@ -344,8 +397,57 @@ export const AdminPage = () => {
         try {
             const silverRate: PackageRatesInterface =
               await uploadPackageRate(accessToken, packageRatesDto);
-              return silverRate;
+        formikHelpers.resetForm();
+        return silverRate;
         } catch (error) {
+            console.log(error)
+        }
+    }
+
+    const _uploadgGoldPackage = async (
+      values: PackageRatesDto,
+      formikHelpers: any
+    ) => {
+      const { ...packageRatesDto } = values;
+
+      try {
+        const silverRate: PackageRatesInterface = await uploadPackageRate(
+          accessToken,
+          packageRatesDto
+        );
+        formikHelpers.resetForm()
+        return silverRate;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const _uploadDiamondPackage = async (
+      values: PackageRatesDto,
+      formikHelpers: any
+    ) => {
+      const { ...packageRatesDto } = values;
+
+      try {
+        const diamondRate: PackageRatesInterface = await uploadPackageRate(
+          accessToken,
+          packageRatesDto
+        );
+        formikHelpers.resetForm();
+        return diamondRate;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const _uploadStudioDetails = async (values: StudioDetailsDto, formikHelpers: any) => {
+        const { ...studioDetailsDto } = values;
+
+        try {
+            const studioDetails: StudioDetailsInterface = await uploadStudioDetails(accessToken, studioDetailsDto)
+            formikHelpers.resetForm()
+            return studioDetails
+        } catch(error) {
             console.log(error)
         }
     }
@@ -356,14 +458,33 @@ export const AdminPage = () => {
 
     return (
       <div>
-        <AdminPageNavbar />
         <div className="adminPage-container">
-          <h1>Admin Page</h1>
+          <h2>Admin Upload Page</h2>
           <div className="adminPage-body">
             <div className="adminPage-upload">
               <h2>Form Guides</h2>
 
               <div className="adminPage-upload-products">
+                <button type="button" onClick={toggleRtgProducts}>
+                  Ready To Go products
+                </button>
+                {rtgProducts && (
+                  <div className="upload-product-content">
+                    <h3>
+                      Upload Ready To Go Go Products which will be <br /> viewed
+                      in the homepage with its content showing the following:
+                    </h3>
+                    <p>product image with a size of 202 x 241 pixels</p>
+                    <p>product name</p>
+                    <p>product price</p>
+                    <p>product decription</p>
+                    <p>
+                      Note that the correct type must be inputed to ensure it's
+                      properly
+                      categorized
+                    </p>
+                  </div>
+                )}
                 <p>
                   <button
                     type="button"
@@ -389,26 +510,6 @@ export const AdminPage = () => {
                       <li>Surprise Package</li>
                     </ul>
                     <p> Description</p>
-                  </div>
-                )}
-                <button type="button" onClick={toggleRtgProducts}>
-                  Ready To Go products
-                </button>
-                {rtgProducts && (
-                  <div className="upload-product-content">
-                    <h3>
-                      Upload Ready To Go Go Products which will be <br /> viewed
-                      in the homepage with its content showing the following:
-                    </h3>
-                    <p>product image with a size of 202 x 241 pixels</p>
-                    <p>product name</p>
-                    <p>product price</p>
-                    <p>product decription</p>
-                    <p>
-                      Note that the correct must be inputed to ensure it's
-                      properly <br />
-                      categorized
-                    </p>
                   </div>
                 )}
               </div>
@@ -529,8 +630,19 @@ export const AdminPage = () => {
                           Silver Package Rates
                         </button>
                       </li>
-                      <li>Gold Package</li>
-                      <li>Diamond Package</li>
+                      <li style={{ listStyle: "none" }}>
+                        <button type="button" onClick={toggleGoldPackageForm}>
+                          Gold Package Rates
+                        </button>
+                      </li>
+                      <li style={{ listStyle: "none" }}>
+                        <button
+                          type="button"
+                          onClick={toggleDiamondPackageForm}
+                        >
+                          Diamond Package Rates
+                        </button>
+                      </li>
                     </ul>
 
                     <p>Each package should contain: </p>
@@ -715,7 +827,7 @@ export const AdminPage = () => {
                         onSubmit(values, formikHelpers);
                       }
                     }}
-                    validationSchema={bonzePackageRatesValidationSchema}
+                    validationSchema={silverPackageRatesValidationSchema}
                   >
                     {(formikProps) => (
                       <div>
@@ -723,6 +835,76 @@ export const AdminPage = () => {
                           {...formikProps}
                           uploadSilverPackageRates={() =>
                             setOnSubmit(() => _uploadSilverPackage)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {goldPackageRates && (
+                <div className="form-container">
+                  <h3>Gold Package Rates Form</h3>
+                  <Formik
+                    initialValues={goldPackageRatesInitialValues}
+                    onSubmit={(values, formikHelpers) => {
+                      if (onSubmit) {
+                        onSubmit(values, formikHelpers);
+                      }
+                    }}
+                    validationSchema={goldPackageRatesValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <GoldPackageForm
+                          {...formikProps}
+                          uploadGoldPackageRates={() =>
+                            setOnSubmit(() => _uploadgGoldPackage)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {diamondPackageRates && (
+                <div className="form-container">
+                  <h3>Diamond Package Rates Form</h3>
+                  <Formik
+                    initialValues={diamondPackageRatesInitialValues}
+                    onSubmit={(values, formikHelpers) => {
+                      if (onSubmit) {
+                        onSubmit(values, formikHelpers);
+                      }
+                    }}
+                    validationSchema={diamondPackageRatesValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <DiamondPackageForm
+                          {...formikProps}
+                          uploadDiamondPackageRates={() =>
+                            setOnSubmit(() => _uploadDiamondPackage)
+                          }
+                        />
+                      </div>
+                    )}
+                  </Formik>
+                </div>
+              )}
+              {studioDetails && (
+                <div className="form-container">
+                  <Formik
+                    initialValues={studioDetailsInitialValues}
+                    onSubmit={_uploadStudioDetails}
+                    validationSchema={StudioDetailsValidationSchema}
+                  >
+                    {(formikProps) => (
+                      <div>
+                        <StudioDetailsForm
+                          {...formikProps}
+                          uploadStudioDetails={(values: StudioDetailsDto) =>
+                            _uploadStudioDetails(values, formikProps)
                           }
                         />
                       </div>

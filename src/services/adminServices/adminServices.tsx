@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateProductDto, UpdateRtgProductDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 export const UploadGalleryProduct = async (accessToken: string, galleryProductDto: GalleryProductDto) => {
@@ -193,4 +193,149 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
             } catch (error) {
                 console.log(error)
             }
+    }
+
+    export const uploadStudioDetails = async (accessToken: string, studioDetailsDto: StudioDetailsDto) => {
+        const config = {
+            headers : {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        try {
+            const studio = await axios.post(
+              `${Base_Url}/adminHub/createStudioDetails`, studioDetailsDto, config
+            );
+            console.log(studio.data)
+            return studio.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    export const fetchGalleryProducts = async (accessToken: string) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+
+        try{
+            const products = await axios.get(`${Base_Url}/adminHub/getProducts`, config)
+            console.log(products.data)
+            return products.data
+        }catch(error) {
+            console.log(error)
+        }
+    }
+
+    export const updateGalleryProduct = async (accessToken: string, updateProductDto: UpdateProductDto, productId: string) => {
+    console.log(updateProductDto);
+
+          const { type, description, file } = updateProductDto;
+          const config = {
+            headers: {
+              "Authorization": `Bearer ${accessToken}`,
+            },
+          };
+          const formData = new FormData();
+          formData.append("type", type);
+          formData.append("description", description);
+          formData.append("file", file);
+
+          try {
+            const product = await axios.patch(
+              `${Base_Url}/adminHub/updateProduct/${productId}`,
+              formData,
+              config
+            );
+            console.log(product.data);
+            return product.data;
+          } catch (error) {
+            console.log(error);
+          }
+    }
+
+    export const deleteGalleryProduct = async (accessToken: string, productId: string) => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        try {
+            const product = await axios.delete(`${Base_Url}/adminHub/deleteProduct/${productId}`, config)
+            console.log(product.data)
+            return product.data
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    export const updateRtgProduct = async (
+      accessToken: string,
+      updateRtgProductDto: UpdateRtgProductDto,
+      rtgId: string
+    ) => {
+      const { rtgName, rtgType, rtgPrice, file, rtgDescription } =
+        updateRtgProductDto;
+
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        const formData = new FormData();
+        formData.append("rtgName", rtgName);
+        formData.append("rtgType", rtgType);
+        formData.append("rtgPrice", rtgPrice);
+        formData.append("file", file);
+        formData.append("rtgDescription", rtgDescription);
+
+        try {
+            const rtgProduct = await axios.patch(
+              `${Base_Url}/adminHub/updateRtgProduct${rtgId}`, formData, config
+            );
+            console.log(rtgProduct.data)
+            return rtgProduct.data
+        } catch (error) {
+            console.log(error)
+        }
+    };
+
+    export const fetchRtgProducts = async (accessToken: string) => {
+        const config= {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+
+        try {
+            const rtgProducts = await axios.get(
+              `${Base_Url}/adminHub/getRtgProduct`, config
+            );
+            console.log(rtgProducts.data)
+            return rtgProducts.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    export const deleteRtgProduct = async (accessToken: string, rtgId: string) => {
+        const config = {
+          headers: {
+            'Authorization': `Bearer ${accessToken}`,
+          },
+        };
+
+        try {
+            const rtgProduct = await axios.delete(
+              `${Base_Url}/adminHub/deleteRtgProduct/${rtgId}`, config
+            );
+            console.log(rtgProduct.data)
+            return rtgProduct.data
+        } catch (error) {
+            console.log(error)
+        }
     }

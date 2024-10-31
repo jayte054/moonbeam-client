@@ -159,7 +159,7 @@ export const BudgetCakeRateForm: React.FC<UploadBudgetCakeRateFormProps> = (prop
             error={touched.cakeParfaitRate && errors.cakeParfaitRate}
           />
           <CustomButton
-            label="Upload Product"
+            label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
           />

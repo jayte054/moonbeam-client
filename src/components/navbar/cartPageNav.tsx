@@ -51,7 +51,7 @@ export const CartPageNav = () => {
           <span>
             <Link
               style={{ color: "white", textDecoration: "none" }}
-              to="/auth/adminPage"
+              to="/auth/adminHomePage"
             >
               Admin
             </Link>

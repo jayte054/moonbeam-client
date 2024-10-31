@@ -295,7 +295,7 @@ export const ProductRatesForm: React.FC<UploadproductRatesFormProps> = (props) =
             }
           />
           <CustomButton
-            label="Upload Product"
+            label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
           />

@@ -117,7 +117,7 @@ export const SilverPackageForm: React.FC<UploadSilverPackageFormProps> = (props)
           />{" "}
           <CustomFile label="File" name="file" type="file" />
           <CustomButton
-            label="Upload Product"
+            label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
           />

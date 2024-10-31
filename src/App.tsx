@@ -29,7 +29,7 @@ import { RtgProvider } from './context/rtgContext/rtgContext';
 import { AdminSignUpPage } from './components/pages/signupPage/adminsignUpPage';
 import { AdminSigninPage } from './components/pages/signinPage/adminSignInPage';
 import { AdminProvider } from './context/authcontext/adminAuthContext';
-import { AdminPage } from './components/pages/adminPage/adminPage';
+import { AdminHomePage } from './components/pages/adminHomePage/adminHomePage';
 
 
 function App() {
@@ -114,8 +114,8 @@ function App() {
                                   element={<RequestItemsPage />}
                                 />
                                 <Route 
-                                  path="/auth/adminPage"
-                                  element={<AdminPage />}
+                                  path="/auth/adminHomePage"
+                                  element={<AdminHomePage />}
                                 />
                               </Route>
                             </Routes>

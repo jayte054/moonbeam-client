@@ -453,7 +453,7 @@ export interface GalleryProductDto {
 }
 
 export interface GalleryProductInterface {
-  id: string;
+  productId: string;
   type: string;
   imageUrl: string;
   description: string;
@@ -673,4 +673,43 @@ export interface PackageRatesInterface {
   description: string;
   date: string;
   adminId: string;
+}
+
+export interface StudioDetailsDto {
+  studioTitle: string;
+  studioAddress: string;
+  LGA: string;
+  state: string;
+  phoneNumber: string;
+  deliveryBaseFee: string;
+  deliveryPricePerKm: string;
+  defaultStudioAddress: boolean;
+}
+
+export interface StudioDetailsInterface {
+  studioTitle: string;
+  studioAddress: string;
+  LGA: string;
+  state: string;
+  phoneNumber: string;
+  deliveryBaseFee: string;
+  deliveryPricePerKm: string;
+  defaultStudioAddress: boolean;
+  adminId: string;
+}
+
+export interface UpdateProductDto  {
+  type?: string | any;
+
+  file?: any;
+
+  description?: string | any;
+}
+
+export interface UpdateRtgProductDto {
+  rtgName?: string | any;
+  rtgType?: string | any;
+  rtgPrice?: string | any;
+  file?: any;
+  rtgDescription?: string | any;
 }

@@ -444,3 +444,14 @@ export const diamondPackageRatesValidationSchema = yup.object().shape({
   price: yup.string().required("Required"),
   description: yup.string().required("Required"),
 })
+
+export const StudioDetailsValidationSchema = yup.object().shape({
+  studioTitle: yup.string().required("Required"),
+  studioAddress: yup.string().required("Required"),
+  LGA: yup.string().required("Required"),
+  state: yup.string().required("Required"),
+  phoneNumber: yup.string().required("Required"),
+  deliveryBaseFee: yup.string().required("Required"),
+  deliveryPricePerKm: yup.string().required("Required"),
+  defaultStudioAddress: yup.boolean().required("Required"),
+})

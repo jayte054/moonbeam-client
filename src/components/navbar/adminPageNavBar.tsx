@@ -30,27 +30,23 @@ export const AdminPageNavbar = () => {
           </Link>
         </span>
         <span>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to=""
-          >
+          <Link style={{ color: "white", textDecoration: "none" }} to="">
             Credentials
           </Link>
         </span>
         <span>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to=""
-          >
+          <Link style={{ color: "white", textDecoration: "none" }} to="">
             Customers
           </Link>
         </span>
         <span>
-          <Link
-            style={{ color: "white", textDecoration: "none" }}
-            to=""
-          >
+          <Link style={{ color: "white", textDecoration: "none" }} to="">
             Orders
+          </Link>
+        </span>
+        <span>
+          <Link style={{ color: "white", textDecoration: "none" }} to="">
+            Sales
           </Link>
         </span>
         <span onClick={(e) => handleSignout(e)}>

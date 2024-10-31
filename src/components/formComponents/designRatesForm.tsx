@@ -59,7 +59,7 @@ export const DesignRatesForm: React.FC<UploadDesignRateFormProps> = (props) => {
           error={touched.covering && errors.covering}
         />
         <CustomButton
-          label="Upload Product"
+          label="Upload Rate"
           type="submit"
           onClick={handleUpload}
         />

@@ -1,0 +1,25 @@
+.adminHomePage-container {
+    background-color: white;
+    margin: 1rem;
+    padding: 1rem;
+}
+
+.adminButton-container{
+    text-align: center;
+}
+
+.adminButton-container button{
+    padding: 1rem;
+    margin: 0 1rem;
+    background-color: rgb(86, 51, 118);
+    font-weight: bold;
+    font-size: 1rem;
+    color: white;
+    position: center;
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.adminButton-container button:focus{
+    font-size: 1.3rem;
+}
