@@ -528,38 +528,38 @@ export interface BudgetRateDto {
   cakeParfaitRate: string;
 }
 
-export interface updateProductRateDto {
-  chocolateCakeRate: string;
-  strawberryCakeRate: string;
-  vanillaCakeRate: string;
-  redvelvetCakeRate: string;
-  carrotCakeRate: string;
-  cheeseCakeRate: string;
-  bananaCakeRate: string;
-  appleCakeRate: string;
-  lemonCakeRate: string;
-  coffeeCakeRate: string;
-  coconutCakeRate: string;
-  blueberryCakeRate: string;
-  samosaRate?: string;
-  springRollRate?: string;
-  samosa_springrollRate?: string;
-  puffRate?: string;
-  pepperedMeatRate?: string;
-  puff_pepperedMeatRate?: string;
-  samosa_pepperedMeatRate?: string;
-  springroll_pepperedMeatRate?: string;
-  meatPieRate?: string;
-  donutsRate?: string;
-  cinamonRollsRate?: string;
-  pancakesRate?: string;
-  corndogsRate?: string;
-  waffelsRate?: string;
-  meatpie_donutsRate?: string;
-  pancakes_corndogs_waffelsRate?: string;
-  foilCakeRate: string;
-  cakeParfaitRate: string;
-}
+// export interface updateProductRateDto {
+//   chocolateCakeRate: string;
+//   strawberryCakeRate: string;
+//   vanillaCakeRate: string;
+//   redvelvetCakeRate: string;
+//   carrotCakeRate: string;
+//   cheeseCakeRate: string;
+//   bananaCakeRate: string;
+//   appleCakeRate: string;
+//   lemonCakeRate: string;
+//   coffeeCakeRate: string;
+//   coconutCakeRate: string;
+//   blueberryCakeRate: string;
+//   samosaRate?: string;
+//   springRollRate?: string;
+//   samosa_springrollRate?: string;
+//   puffRate?: string;
+//   pepperedMeatRate?: string;
+//   puff_pepperedMeatRate?: string;
+//   samosa_pepperedMeatRate?: string;
+//   springroll_pepperedMeatRate?: string;
+//   meatPieRate?: string;
+//   donutsRate?: string;
+//   cinamonRollsRate?: string;
+//   pancakesRate?: string;
+//   corndogsRate?: string;
+//   waffelsRate?: string;
+//   meatpie_donutsRate?: string;
+//   pancakes_corndogs_waffelsRate?: string;
+//   foilCakeRate: string;
+//   cakeParfaitRate: string;
+// }
 
 export interface ProductRateInterface {
   rateId: string;
@@ -594,6 +594,21 @@ export interface ProductRateInterface {
   adminId: string;
 }
 
+export interface ProductRateFormInterface {
+     productRate: string,
+     price: string,
+}
+
+export interface BudgetRateFormInterface {
+  budgetRate: string;
+  price: string;
+}
+
+export interface DesignRateFormInterface {
+  designRate: string;
+  price: string;
+}
+
 export interface designRateDto  {
   nakedRate: string;
 
@@ -605,7 +620,7 @@ export interface designRateDto  {
 }
 
 export interface DesignRateInterface {
-  rateId: string;
+  designId: string;
   butterCreamRate: string;
   fundantRate: string;
   nakedrate: string;
@@ -712,4 +727,44 @@ export interface UpdateRtgProductDto {
   rtgPrice?: string | any;
   file?: any;
   rtgDescription?: string | any;
+}
+
+export interface updateProductRateDto {
+  chocolateCakeRate?: string | any;
+  strawberryCakeRate?: string;
+  vanillaCakeRate?: string;
+  redvelvetCakeRate?: string;
+  carrotCakeRate?: string;
+  cheeseCakeRate?: string;
+  bananaCakeRate?: string;
+  appleCakeRate?: string;
+  lemonCakeRate?: string;
+  coffeeCakeRate?: string;
+  coconutCakeRate?: string;
+  blueberryCakeRate?: string;
+  samosaRate?: string;
+  springRollRate?: string;
+  samosa_springrollRate?: string;
+  puffRate?: string;
+  pepperedMeatRate?: string;
+  puff_pepperedMeatRate?: string;
+  samosa_pepperedMeatRate?: string;
+  springroll_pepperedMeatRate?: string;
+  meatPieRate?: string;
+  donutsRate?: string;
+  cinamonRollsRate?: string;
+  pancakesRate?: string;
+  corndogsRate?: string;
+  waffelsRate?: string;
+  meatpie_donutsRate?: string;
+  pancakes_corndogs_waffelsRate?: string;
+  foilCakeRate?: string;
+  cakeParfaitRate?: string;
+}
+
+export interface UpdateDesignRateDto {
+  butterCreamRate?: string;
+  fundantRate?: string;
+  nakedrate?: string;
+  covering?: string;
 }

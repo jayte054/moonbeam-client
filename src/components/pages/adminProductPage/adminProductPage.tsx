@@ -20,7 +20,10 @@ import {
   UpdateRtgProductDto,
 } from "../../../types";
 import { galleryProductFormSchema, RtgProductSchema } from "../../formComponents/formSchema";
+import { UpdateBudgetRateComponent } from "../../formComponents/updateBudgetRateComponent";
+import { UpdateDesignRateComponentForm } from "../../formComponents/updateDesignRateComponentForm";
 import { UpdateGalleryProductForm } from "../../formComponents/updateGalleryProductForm";
+import { UpdateProductRateComponent } from "../../formComponents/updateProductRatecomponent";
 import { UpdateRtgProductForm } from "../../formComponents/updateRtgProductForm";
 
 import "./adminProductPage.css"
@@ -32,8 +35,11 @@ export const AdminProductPage = () => {
     const [rtgProducts, setRtgProducts] = useState(false)
     const [_rtgProducts, _setRtgProducts] = useState<rtgProductInterface[]>([]);
     const [productRate, setProductRate] = useState(false);
+    const [_productRate, _setProductRate] = useState<ProductRateInterface[]>([]);
     const [budgetRate, setBudgetRate] = useState(false);
+    const [_budgetRate, _setBudgetRate] = useState<BudgetRateInterface[]>([])
     const [designRate, setDesignRate] = useState(false);
+    const [_designRate, _setDesignRate] = useState<DesignRateInterface[]>([]);
     const [packageRates, setPackageRates] = useState(false);
     const [bronzePackageRates, setBronzePackageRates] = useState(false);
     const [silverPackageRates, setSilverPackageRates] = useState(false);
@@ -52,6 +58,9 @@ export const AdminProductPage = () => {
       updateRtgProduct,
       fetchRtgProducts,
       deleteRtgProduct,
+      fetchProductRates,
+      fetchBudgetRate,
+      fetchDesignRate,
     } = AdminStores;
 
     const accessToken = admin.accessToken;
@@ -275,6 +284,21 @@ export const AdminProductPage = () => {
         }))
     }
 
+    const _fetchProductRates = async () => {
+        const rates: ProductRateInterface[] = await fetchProductRates(accessToken);
+        return _setProductRate(() => rates);
+    }
+
+    const _fetchBudgetRates = async () => {
+        const rates: BudgetRateInterface[] = await fetchBudgetRate(accessToken);
+        return _setBudgetRate(() => rates)
+    }
+
+    const _fetchDesignRates = async () => {
+        const rates: DesignRateInterface[] = await fetchDesignRate(accessToken);
+        return _setDesignRate(() => rates)
+    }
+
       const galleryProductInitialValues: UpdateProductDto = {
         type: "",
         description: "",
@@ -289,36 +313,7 @@ export const AdminProductPage = () => {
         file: null,
       };
 
-      const productRateInitialValues: ProductRateDto = {
-        chocolateCakeRate: "",
-        strawberryCakeRate: "",
-        vanillaCakeRate: "",
-        redvelvetCakeRate: "",
-        carrotCakeRate: "",
-        cheeseCakeRate: "",
-        bananaCakeRate: "",
-        appleCakeRate: "",
-        lemonCakeRate: "",
-        coffeeCakeRate: "",
-        coconutCakeRate: "",
-        blueberryCakeRate: "",
-        samosaRate: "",
-        springRollRate: "",
-        samosa_springrollRate: "",
-        puffRate: "",
-        pepperedMeatRate: "",
-        puff_pepperedMeatRate: "",
-        samosa_pepperedMeatRate: "",
-        springroll_pepperedMeatRate: "",
-        meatPieRate: "",
-        donutsRate: "",
-        cinamonRollsRate: "",
-        pancakesRate: "",
-        corndogsRate: "",
-        waffelsRate: "",
-        meatpie_donutsRate: "",
-        pancakes_corndogs_waffelsRate: "",
-      };
+     
 
       const designRateInitialValues: designRateDto = {
         nakedRate: "",
@@ -327,22 +322,6 @@ export const AdminProductPage = () => {
         covering: "",
       };
 
-      const budgetRateInitialValues: BudgetRateDto = {
-        chocolateCakeRate: "",
-        strawberryCakeRate: "",
-        vanillaCakeRate: "",
-        redvelvetCakeRate: "",
-        carrotCakeRate: "",
-        cheeseCakeRate: "",
-        bananaCakeRate: "",
-        appleCakeRate: "",
-        lemonCakeRate: "",
-        coffeeCakeRate: "",
-        coconutCakeRate: "",
-        blueberryCakeRate: "",
-        foilCakeRate: "",
-        cakeParfaitRate: "",
-      };
 
       const bronzePackageRatesInitialValues: PackageRatesDto = {
         packageName: "",
@@ -675,14 +654,69 @@ export const AdminProductPage = () => {
               ))}
 
             <p>
-              <button type="button">Special cakes and Chops Rate</button>
+              <button
+                type="button"
+                onClick={() => {
+                  toggleProductRate();
+                  _fetchProductRates();
+                }}
+              >
+                Special cakes and Chops Rate
+              </button>
             </p>
+            {productRate &&
+              _productRate &&
+              _productRate.map((productRate) => (
+                <>
+                  <div
+                    key={productRate.rateId}
+                    className="productRates-container"
+                  >
+                    <UpdateProductRateComponent productRate={productRate} />
+                  </div>
+                </>
+              ))}
             <p>
-              <button type="button">Budget Cakes and Cake Variants Rate</button>
+              <button
+                type="button"
+                onClick={() => {
+                  toggleBudgetRate();
+                  _fetchBudgetRates();
+                }}
+              >
+                Budget Cakes and Cake Variants Rate
+              </button>
             </p>
+            {budgetRate &&
+              _budgetRate &&
+              _budgetRate.map((budgetRate) => (
+                <>
+                  <div
+                    key={budgetRate.rateId}
+                    className="budgetRates-container"
+                  >
+                    <UpdateBudgetRateComponent budgetRate={budgetRate} />
+                  </div>
+                </>
+              ))}
             <p>
-              <button type="button">Design Rate</button>
+              <button
+                type="button"
+                onClick={() => {
+                  toggleDesignRate();
+                  _fetchDesignRates();
+                }}
+              >
+                Design Rate
+              </button>
             </p>
+            {designRate &&
+              _designRate &&
+              _designRate.map((designRate) => (
+                <div key={designRate.designId} className="designRates-container">
+                  <UpdateDesignRateComponentForm designRate={designRate}/>
+                </div>
+              ))}
             <p>
               <button type="button">Suprise Packages</button>
             </p>

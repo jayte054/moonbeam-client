@@ -1,5 +1,5 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchGalleryProducts, fetchRtgProducts, updateGalleryProduct, updateRtgProduct, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateProductDto, UpdateRtgProductDto } from "../types";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, updateBudgetRate, updateDesignRate, updateGalleryProduct, updateProductRate, updateRtgProduct, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto } from "../types";
 
 export const AdminStores = {
   uploadGalleryProduct: async (
@@ -69,5 +69,35 @@ export const AdminStores = {
   },
   deleteRtgProduct: async (accessToken: string, rtgId: string) => {
     return await deleteRtgProduct(accessToken, rtgId);
+  },
+  fetchProductRates: async (accessToken: string) => {
+    return await fetchProductRates(accessToken);
+  },
+  updateProductRate: async (
+    accessToken: string,
+    updateProductRateDto: updateProductRateDto,
+    rateId: string
+  ) => {
+    return await updateProductRate(accessToken, updateProductRateDto, rateId);
+  },
+  fetchBudgetRate: async (accesToken: string) => {
+    return await fetchBudgetRate(accesToken);
+  },
+  updateBudgetRate: async (
+    accessToken: string,
+    updateBudgetRateDto: updateProductRateDto,
+    rateId: string
+  ) => {
+    return await updateBudgetRate(accessToken, updateBudgetRateDto, rateId);
+  },
+  fetchDesignRate: async (accessToken: string) => {
+    return await fetchDesignRate(accessToken);
+  },
+  updateDesignRate: async (
+    accessToken: string,
+    updateDesignRateDto: UpdateDesignRateDto,
+    designId: string
+  ) => {
+    return await updateDesignRate(accessToken, updateDesignRateDto, designId);
   },
 };

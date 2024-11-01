@@ -24,7 +24,10 @@
 }
 
 .galleryProducts-container,
-.rtgProducts-container{
+.rtgProducts-container,
+.productRates-container,
+.budgetRates-container,
+.designRates-container{
     display: flex;
     justify-content: space-evenly;
     border: 1px solid rgb(234, 200, 89);
@@ -42,7 +45,8 @@
 }
 
 .galleryProducts-button button,
-.rtgProducts-button button{
+.rtgProducts-button button,
+.productRates-button button{
     text-align: center;
     margin: .5rem 0;
     cursor: pointer

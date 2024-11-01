@@ -1,6 +1,8 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateProductDto, UpdateRtgProductDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
+
+
 
 export const UploadGalleryProduct = async (accessToken: string, galleryProductDto: GalleryProductDto) => {
     const { type, description, file } = galleryProductDto;
@@ -339,3 +341,124 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
             console.log(error)
         }
     }
+
+    export const fetchProductRates = async (accessToken: string) => {
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${accessToken}`
+            }
+        }
+        try {
+            const productRates = await axios.get(
+              `${Base_Url}/adminHub/getProductRates`, config
+            );
+            console.log(productRates.data)
+            return productRates.data
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    export const updateProductRate = async (accessToken: string, updateProductRateDto: updateProductRateDto, rateId: string) => {
+             const config = {
+               headers: {
+                 Authorization: `Bearer ${accessToken}`,
+               },
+             };
+
+              try {
+                const productRates = await axios.patch(
+                  `${Base_Url}/adminHub/updateProductRate/${rateId}`,
+                  updateProductRateDto,
+                  config
+                );
+                console.log(productRates.data);
+                return productRates.data;
+              } catch (error) {
+                console.log(error);
+              }
+    }
+
+    export const fetchBudgetRate = async(accessToken: string) => {
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+
+        try {
+            const productRates = await axios.get(
+              `${Base_Url}/adminHub/getBudgetRates`,
+              config 
+            );
+            console.log(productRates.data)
+            return productRates.data
+        } catch (error) {
+            console.log(error)
+        }
+    } 
+
+    export const updateBudgetRate = async(accessToken: string, updateBudgetRateDto: updateProductRateDto, rateId: string) => {
+         const config = {
+           headers: {
+             Authorization: `Bearer ${accessToken}`,
+           },
+         };
+
+         try {
+            const budgetRates = await axios.patch(
+              `${Base_Url}/adminHub/updateBudgetCakeRate/${rateId}`, 
+              updateBudgetRateDto,
+              config
+            );
+            console.log(budgetRates.data)
+            return budgetRates.data;
+         } catch (error) {
+            console.log(error)
+         }
+    }
+
+    export const fetchDesignRate = async (accessToken: string) =>{
+        const config = {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        };
+
+        try {
+            const designRates = await axios.get(
+              `${Base_Url}/adminHub/getProductDesignRate`,
+              config
+            );
+            console.log(designRates.data)
+            return designRates.data
+        } catch(error) {
+            console.log(error)
+        }
+
+    }
+
+
+        export const updateDesignRate = async (
+          accessToken: string,
+          updateDesignRateDto: UpdateDesignRateDto,
+          designId: string
+        ) => {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          };
+
+          try {
+            const designRates = await axios.patch(
+              `${Base_Url}/adminHub/updateDesignRate/${designId}`,
+              updateDesignRateDto,
+              config
+            );
+            console.log(designRates.data);
+            return designRates.data;
+          } catch (error) {
+            console.log(error);
+          }
+        };

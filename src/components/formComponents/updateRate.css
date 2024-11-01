@@ -1,0 +1,11 @@
+.updateRateForm-container{
+    background-color: rgb(212, 212, 208);
+    padding: 1rem;
+}
+
+.updateRateForm-container button {
+    text-align: center;
+    background-color: rgb(97, 47, 111) ;
+    color: white;
+    font-weight: bold;
+}
