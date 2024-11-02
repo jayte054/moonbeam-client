@@ -143,6 +143,8 @@ export interface StudioAddressObject {
   userId: string;
 }
 
+
+
 export interface CreateDeliveryAddressDto {
   firstName: string;
   lastName: string;
@@ -528,38 +530,6 @@ export interface BudgetRateDto {
   cakeParfaitRate: string;
 }
 
-// export interface updateProductRateDto {
-//   chocolateCakeRate: string;
-//   strawberryCakeRate: string;
-//   vanillaCakeRate: string;
-//   redvelvetCakeRate: string;
-//   carrotCakeRate: string;
-//   cheeseCakeRate: string;
-//   bananaCakeRate: string;
-//   appleCakeRate: string;
-//   lemonCakeRate: string;
-//   coffeeCakeRate: string;
-//   coconutCakeRate: string;
-//   blueberryCakeRate: string;
-//   samosaRate?: string;
-//   springRollRate?: string;
-//   samosa_springrollRate?: string;
-//   puffRate?: string;
-//   pepperedMeatRate?: string;
-//   puff_pepperedMeatRate?: string;
-//   samosa_pepperedMeatRate?: string;
-//   springroll_pepperedMeatRate?: string;
-//   meatPieRate?: string;
-//   donutsRate?: string;
-//   cinamonRollsRate?: string;
-//   pancakesRate?: string;
-//   corndogsRate?: string;
-//   waffelsRate?: string;
-//   meatpie_donutsRate?: string;
-//   pancakes_corndogs_waffelsRate?: string;
-//   foilCakeRate: string;
-//   cakeParfaitRate: string;
-// }
 
 export interface ProductRateInterface {
   rateId: string;
@@ -699,6 +669,17 @@ export interface StudioDetailsDto {
   deliveryBaseFee: string;
   deliveryPricePerKm: string;
   defaultStudioAddress: boolean;
+}
+
+export interface UpdateStudioDetailsDto {
+ studioTitle?: string;
+  studioAddress?: string;
+  LGA?: string;
+  state?: string;
+  phoneNumber?: string;
+  deliveryBaseFee?: string;
+  deliveryPricePerKm?: string;
+  defaultStudioAddress?: boolean;       
 }
 
 export interface StudioDetailsInterface {

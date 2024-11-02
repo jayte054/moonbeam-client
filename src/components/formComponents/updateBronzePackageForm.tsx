@@ -54,7 +54,9 @@ export const UpdateBronzePackageForm: React.FC<UpdateBronzePackageFormProps> = (
 
   return (
     <div className="updateRateForm-container">
-        <h3>Bronze Package Form</h3>
+      <h3>Bronze Package Form</h3>
+      <p>All options are optional</p>
+
       <Formik
         initialValues={bronzePackageInitialValues}
         onSubmit={handleSubmit}
@@ -143,7 +145,9 @@ export const UpdateBronzePackageForm: React.FC<UpdateBronzePackageFormProps> = (
                 setFieldValue("description", e.target.value);
               }}
             />
-            <button type="submit" style={{textAlign: "center"}}>Update</button>
+            <button type="submit" style={{ textAlign: "center" }}>
+              Update
+            </button>
           </Form>
         )}
       </Formik>

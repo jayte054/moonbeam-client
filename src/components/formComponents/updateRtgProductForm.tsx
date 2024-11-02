@@ -31,7 +31,7 @@ export const UpdateRtgProductForm: React.FC<UpdateRtgProductFormProps> = (props)
         <CustomInput
           label="Name"
           name="rtgName"
-          value={values.rtgName}
+          value={values.rtgName || rtgProduct.rtgName}
           onChange={handleChange}
           type="text"
           placeholder="name"
@@ -40,7 +40,7 @@ export const UpdateRtgProductForm: React.FC<UpdateRtgProductFormProps> = (props)
         <CustomSelect
           label="Type"
           name="rtgType"
-          value={values.rtgType}
+          value={values.rtgType || rtgProduct.rtgType}
           onChange={handleChange}
           type="text"
           placeholder="type"
@@ -53,7 +53,7 @@ export const UpdateRtgProductForm: React.FC<UpdateRtgProductFormProps> = (props)
         <CustomTextArea
           label="Description"
           name="rtgDescription"
-          value={values.rtgDescription}
+          value={values.rtgDescription || rtgProduct.rtgDescription}
           onChange={handleChange}
           type="text"
           placeholder="description"

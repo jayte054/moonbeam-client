@@ -57,7 +57,8 @@ export const UpdateDiamondPackageForm: React.FC<UpdateDiamondPackageFormProps> =
 
   return (
     <div className="updateRateForm-container">
-      <h3>Silver Package Form</h3>
+      <h3>Diamond Package Form</h3>
+      <p>All options are optional</p>
       <Formik
         initialValues={diamondPackageInitialValues}
         onSubmit={handleSubmit}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 
@@ -668,3 +668,41 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
         console.log(error);
       }
     };    
+
+    export const fetchStudioDetails = async () => {
+
+            try {
+                const studioDetails = await axios.get(
+                  `${Base_Url}/bareAdminHub/getStudios`
+                );
+                console.log(studioDetails.data)
+                return studioDetails.data;
+            } catch (error) {
+                console.log(error)
+            }
+    }
+
+    export const updateStudioDetails = async (accessToken: string, updateStudioDetailsDto: UpdateStudioDetailsDto, studioId: string) => {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+
+      try {
+        const newStudioDetails = await axios.patch(
+            `${Base_Url}/adminHub/updateStudioDetails/${studioId}`,
+                updateStudioDetailsDto,
+                config
+          )
+          console.log(newStudioDetails.data)
+          return newStudioDetails.data;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+
+    
+
+        
+        

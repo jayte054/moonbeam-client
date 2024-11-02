@@ -30,7 +30,7 @@ export const UpdateGalleryProductForm: React.FC<UpdateGalleryProductFormProps> =
           <CustomSelect
             label="Type"
             name="type"
-            value={values.type}
+            value={values.type || product.type}
             onChange={handleChange}
             type="text"
             placeholder="type"
@@ -46,7 +46,7 @@ export const UpdateGalleryProductForm: React.FC<UpdateGalleryProductFormProps> =
           <CustomTextArea
             label="Description"
             name="description"
-            value={values.description}
+            value={values.description || product.description}
             onChange={handleChange}
             type="text"
             placeholder="description"

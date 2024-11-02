@@ -16,9 +16,10 @@ import {
   RtgProductDto,
   rtgProductInterface,
   StudioDetailsDto,
-  StudioDetailsInterface,
+  StudioAddressObject,
   UpdateRtgProductDto,
   SurprisePackageInterface,
+  UpdateStudioDetailsDto,
 } from "../../../types";
 import { galleryProductFormSchema, RtgProductSchema } from "../../formComponents/formSchema";
 import { UpdateBudgetRateComponent } from "../../formComponents/updateBudgetRateComponent";
@@ -32,6 +33,7 @@ import "./adminProductPage.css"
 import { UpdateSilverPackageForm } from "../../formComponents/updateSilverPackageForm";
 import { UpdateGoldPackageForm } from "../../formComponents/updateGoldPacakgeForm";
 import { UpdateDiamondPackageForm } from "../../formComponents/updateDiamondPackageForm";
+import { UpdateStudioDetailsComponent } from "../../formComponents/updateStudioDetailsComponent";
 
 export const AdminProductPage = () => {
     const [galleryProducts, setGalleryProducts] = useState(false)
@@ -59,10 +61,14 @@ export const AdminProductPage = () => {
       SurprisePackageInterface[]
     >([]);
     const [studioDetails, setStudioDetails] = useState(false);
+    const [_studioDetails, _setStudioDetails] = useState<StudioAddressObject[]>([]);
     const [updateGalleryProductState, setUpdateGalleryProductState] = useState<{[key: string]: boolean}>({})
     const [updateRtgProductState, setUpdateRtgProductState] = useState<{
       [key: string]: boolean;
     }>({});
+     const [updateStudioDetailsState, setUpdateStudioDetailsState] = useState<{
+       [key: string]: boolean;
+     }>({});
     const { admin } = useContext(AdminAuthContext);
     const {
       fetchGalleryProducts,
@@ -75,6 +81,8 @@ export const AdminProductPage = () => {
       fetchBudgetRate,
       fetchDesignRate,
       fetchSurpisePackage,
+      fetchStudioDetails,
+      updateStudioDetails,
     } = AdminStores;
 
     const accessToken = admin.accessToken;
@@ -286,6 +294,13 @@ export const AdminProductPage = () => {
         }));
     }
 
+     const toggleUpdateStudioDetails = (studioId: string) => {
+        setUpdateStudioDetailsState((prev) => ({
+          ...prev,
+          [studioId]: !prev[studioId],
+        }));
+    }
+
     const _fetchRtgProducts = async () => {
         const products: rtgProductInterface[] = await fetchRtgProducts(accessToken)
         return _setRtgProducts(() => products)
@@ -330,6 +345,11 @@ export const AdminProductPage = () => {
 
     };
 
+    const _fetchStudioDetails = async() => {
+        const studioDetails: StudioAddressObject[] = await fetchStudioDetails();
+        return _setStudioDetails(() => studioDetails)
+    }
+
       const galleryProductInitialValues: UpdateProductDto = {
         type: "",
         description: "",
@@ -345,58 +365,7 @@ export const AdminProductPage = () => {
       };
 
 
-      const silverPackageRatesInitialValues: PackageRatesDto = {
-        packageName: "",
-        itemOne: "",
-        itemTwo: "",
-        itemThree: "",
-        itemFour: "",
-        itemFive: "",
-        itemSix: "",
-        itemSeven: "",
-        itemEight: "",
-        file: null,
-        price: "",
-        description: "",
-      };
-
-      const goldPackageRatesInitialValues: PackageRatesDto = {
-        packageName: "",
-        itemOne: "",
-        itemTwo: "",
-        itemThree: "",
-        itemFour: "",
-        itemFive: "",
-        itemSix: "",
-        itemSeven: "",
-        itemEight: "",
-        itemNine: "",
-        itemTen: "",
-        file: null,
-        price: "",
-        description: "",
-      };
-
-      const diamondPackageRatesInitialValues: PackageRatesDto = {
-        packageName: "",
-        itemOne: "",
-        itemTwo: "",
-        itemThree: "",
-        itemFour: "",
-        itemFive: "",
-        itemSix: "",
-        itemSeven: "",
-        itemEight: "",
-        itemNine: "",
-        itemTen: "",
-        itemEleven: "",
-        itemTwelve: "",
-        file: null,
-        price: "",
-        description: "",
-      };
-
-      const studioDetailsInitialValues: StudioDetailsDto = {
+      const studioDetailsInitialValues: UpdateStudioDetailsDto = {
         studioTitle: "",
         studioAddress: "",
         LGA: "",
@@ -450,6 +419,26 @@ export const AdminProductPage = () => {
           console.log(error);
         }
       }; 
+
+           const _updateStudioDetails = async (
+             values: UpdateStudioDetailsDto,
+             formikHelpers: any,
+             studioId: string
+           ) => {
+             const { ...updateStudioDetailsDto } = values;
+
+             try {
+               const studio = await updateStudioDetails(
+                 accessToken,
+                 updateStudioDetailsDto,
+                 studioId
+               );
+               formikHelpers.resetForm();
+               return studio;
+             } catch (error) {
+               console.log(error);
+             }
+           };
 
     return (
       <div>
@@ -522,9 +511,7 @@ export const AdminProductPage = () => {
                       {updateGalleryProductState[product.productId] && (
                         <div className="updateForm-container">
                           <p>
-                            <strong>Note: </strong>
-                            Make sure to provide the picture other fields are
-                            optional
+                            <strong>Gallery Products Form</strong>
                           </p>
                           <Formik
                             initialValues={galleryProductInitialValues}
@@ -626,9 +613,7 @@ export const AdminProductPage = () => {
                   {updateRtgProductState[rtgProduct.rtgId] && (
                     <div className="updateForm-container">
                       <p>
-                        <strong>Note: </strong>
-                        Make sure to provide the picture, other fields are
-                        optional
+                        <strong>Ready to Go Products Form</strong>
                       </p>
                       <Formik
                         initialValues={rtgProductsInitialValues}
@@ -837,8 +822,101 @@ export const AdminProductPage = () => {
             )}
 
             <p>
-              <button type="button">Studio Details</button>
+              <button
+                type="button"
+                onClick={() => {
+                  toggleStudioDetails();
+                  _fetchStudioDetails();
+                }}
+              >
+                Studio Details
+              </button>
             </p>
+            {studioDetails &&
+              _studioDetails &&
+              _studioDetails.map((studioDetails) => (
+                <>
+                  <div
+                    key={studioDetails.studioId}
+                    className="studioDetails-container"
+                  >
+                    <div className="studioDetails-title">
+                      <span>
+                        <strong>Studio Title </strong>
+                        <br />
+                        {studioDetails.studioTitle}
+                      </span>
+                    </div>
+                    <div className="studioDetails-about">
+                      <span>
+                        <strong>Phone Number: </strong>
+                        {studioDetails.phoneNumber}
+                      </span>{" "}
+                      <br />
+                      <span>
+                        <strong>State: </strong>
+                        {studioDetails.state}
+                      </span>
+                    </div>
+                    <div className="studioDetails-button">
+                      <span>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            toggleUpdateStudioDetails(studioDetails.studioId)
+                          }
+                        >
+                          Update{" "}
+                        </button>
+                      </span>
+                      <span>
+                        <button
+                        //   type="button"
+                        //   onClick={() =>
+                        //     _deleteGalleryProduct(studioDetails.studioId)
+                        //   }
+                        >
+                          {" "}
+                          Delete{" "}
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+                  {updateStudioDetailsState[studioDetails.studioId] && (
+                    <div className="updateForm-container">
+                      <p></p>
+                      <Formik
+                        initialValues={studioDetailsInitialValues}
+                        onSubmit={(values, formikHelpers) =>
+                          _updateStudioDetails(
+                            values,
+                            formikHelpers,
+                            studioDetails.studioId
+                          )
+                        }
+                      >
+                        {(formikProps) => (
+                          <div>
+                            <UpdateStudioDetailsComponent
+                              {...formikProps}
+                              studioDetails={studioDetails}
+                              updateStudioDetails={(
+                                values: UpdateStudioDetailsDto
+                              ) =>
+                                _updateStudioDetails(
+                                  values,
+                                  formikProps,
+                                  studioDetails.studioId
+                                )
+                              }
+                            />
+                          </div>
+                        )}
+                      </Formik>
+                    </div>
+                  )}
+                </>
+              ))}
           </div>
         </div>
       </div>
