@@ -768,3 +768,25 @@ export interface UpdateDesignRateDto {
   nakedrate?: string;
   covering?: string;
 }
+
+export interface SurprisePackageInterface {
+  packageId: string;
+  packageName: string;
+  itemOne: string;
+  itemTwo: string;
+  itemThree: string;
+  itemFour: string;
+  itemFive: string;
+  itemSix: string;
+  itemSeven: string;
+  itemEight: string;
+  itemNine: string;
+  itemTen: string;
+  itemEleven: string;
+  itemTwelve: string;
+  imageUrl: string;
+  price: string;
+  description: string;
+  date: string;
+  adminId: string;
+}

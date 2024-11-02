@@ -170,7 +170,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
                 {bronzePackage ? (
                   <div key={bronzePackage.packageId} className="bronzePackage">
                     <img
-                      src={bronzePackage.imageUrl}
+                      src={bronzePackage?.imageUrl}
                       alt={bronzePackage.description}
                     />
                     <h3>

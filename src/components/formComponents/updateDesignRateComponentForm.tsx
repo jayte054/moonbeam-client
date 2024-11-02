@@ -101,7 +101,9 @@ export const UpdateDesignRateComponentForm:React.FC<UpdateDesignRateComponentFor
                   setFieldValue("price", e.target.value);
                 }}
               />
-              <button type="submit">Update</button>
+              <button type="submit" style={{ textAlign: "center" }}>
+                Update
+              </button>
             </Form>
           )}
         </Formik>

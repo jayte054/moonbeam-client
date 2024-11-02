@@ -18,6 +18,7 @@ import {
   StudioDetailsDto,
   StudioDetailsInterface,
   UpdateRtgProductDto,
+  SurprisePackageInterface,
 } from "../../../types";
 import { galleryProductFormSchema, RtgProductSchema } from "../../formComponents/formSchema";
 import { UpdateBudgetRateComponent } from "../../formComponents/updateBudgetRateComponent";
@@ -25,8 +26,12 @@ import { UpdateDesignRateComponentForm } from "../../formComponents/updateDesign
 import { UpdateGalleryProductForm } from "../../formComponents/updateGalleryProductForm";
 import { UpdateProductRateComponent } from "../../formComponents/updateProductRatecomponent";
 import { UpdateRtgProductForm } from "../../formComponents/updateRtgProductForm";
+import { UpdateBronzePackageForm } from "../../formComponents/updateBronzePackageForm";
 
 import "./adminProductPage.css"
+import { UpdateSilverPackageForm } from "../../formComponents/updateSilverPackageForm";
+import { UpdateGoldPackageForm } from "../../formComponents/updateGoldPacakgeForm";
+import { UpdateDiamondPackageForm } from "../../formComponents/updateDiamondPackageForm";
 
 export const AdminProductPage = () => {
     const [galleryProducts, setGalleryProducts] = useState(false)
@@ -42,9 +47,17 @@ export const AdminProductPage = () => {
     const [_designRate, _setDesignRate] = useState<DesignRateInterface[]>([]);
     const [packageRates, setPackageRates] = useState(false);
     const [bronzePackageRates, setBronzePackageRates] = useState(false);
+    const [_bronzePackageRates, _setBronzePackageRates] = useState<SurprisePackageInterface[]>([]);
     const [silverPackageRates, setSilverPackageRates] = useState(false);
+    const [_silverPackageRates, _setSilverPackageRates] = useState<SurprisePackageInterface[]>([]);
     const [goldPackageRates, setGoldPackageRates] = useState(false);
+    const [_goldPackageRates, _setGoldPackageRates] = useState<
+      SurprisePackageInterface[]
+    >([]);
     const [diamondPackageRates, setDiamondPackageRates] = useState(false);
+    const [_diamondPackageRates, _setDiamondPackageRates] = useState<
+      SurprisePackageInterface[]
+    >([]);
     const [studioDetails, setStudioDetails] = useState(false);
     const [updateGalleryProductState, setUpdateGalleryProductState] = useState<{[key: string]: boolean}>({})
     const [updateRtgProductState, setUpdateRtgProductState] = useState<{
@@ -61,6 +74,7 @@ export const AdminProductPage = () => {
       fetchProductRates,
       fetchBudgetRate,
       fetchDesignRate,
+      fetchSurpisePackage,
     } = AdminStores;
 
     const accessToken = admin.accessToken;
@@ -299,6 +313,23 @@ export const AdminProductPage = () => {
         return _setDesignRate(() => rates)
     }
 
+    const _fetchSurprisePackage = async (_package: string) => {
+        const packages: SurprisePackageInterface[] = await fetchSurpisePackage();
+        
+                const saidPackage = packages.find((pkg) => pkg.packageName === _package)
+                console.log(saidPackage)
+                if(_package === "Bronze" && saidPackage) {
+                   _setBronzePackageRates([saidPackage]);
+                } else if(_package === "Silver" && saidPackage) {
+                    _setSilverPackageRates([saidPackage])
+                } else if(_package === "Gold" && saidPackage) {
+                    _setGoldPackageRates([saidPackage])
+                } else if(_package === "Diamond" && saidPackage) {
+                    _setDiamondPackageRates([saidPackage])
+                } else {return null}
+
+    };
+
       const galleryProductInitialValues: UpdateProductDto = {
         type: "",
         description: "",
@@ -313,28 +344,6 @@ export const AdminProductPage = () => {
         file: null,
       };
 
-     
-
-      const designRateInitialValues: designRateDto = {
-        nakedRate: "",
-        butterCreamRate: "",
-        fundantRate: "",
-        covering: "",
-      };
-
-
-      const bronzePackageRatesInitialValues: PackageRatesDto = {
-        packageName: "",
-        itemOne: "",
-        itemTwo: "",
-        itemThree: "",
-        itemFour: "",
-        itemFive: "",
-        itemSix: "",
-        file: null,
-        price: "",
-        description: "",
-      };
 
       const silverPackageRatesInitialValues: PackageRatesDto = {
         packageName: "",
@@ -713,27 +722,120 @@ export const AdminProductPage = () => {
             {designRate &&
               _designRate &&
               _designRate.map((designRate) => (
-                <div key={designRate.designId} className="designRates-container">
-                  <UpdateDesignRateComponentForm designRate={designRate}/>
+                <div
+                  key={designRate.designId}
+                  className="designRates-container"
+                >
+                  <UpdateDesignRateComponentForm designRate={designRate} />
                 </div>
               ))}
             <p>
-              <button type="button">Suprise Packages</button>
+              <button
+                type="button"
+                onClick={() => {
+                  togglePackageRate();
+                }}
+              >
+                Suprise Packages
+              </button>
             </p>
-            <ul>
-              <li>
-                <button type="button">Bronze Package</button>
-              </li>
-              <li>
-                <button type="button">Silver Package</button>
-              </li>
-              <li>
-                <button type="button">Gold Package</button>
-              </li>
-              <li>
-                <button type="button">Diamond Package</button>
-              </li>
-            </ul>
+            {packageRates && (
+              <>
+                <ul>
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        toggleBronzePackageForm();
+                        _fetchSurprisePackage("Bronze");
+                      }}
+                    >
+                      Bronze Package
+                    </button>
+                  </li>
+                  {bronzePackageRates &&
+                    _bronzePackageRates &&
+                    _bronzePackageRates.map((bronzePackage) => (
+                      <div
+                        key={bronzePackage.packageId}
+                        className="bronzePackageRates-container"
+                      >
+                        <UpdateBronzePackageForm
+                          bronzePackage={bronzePackage}
+                        />
+                      </div>
+                    ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        toggleSilverPackageForm();
+                        _fetchSurprisePackage("Silver");
+                      }}
+                    >
+                      Silver Package
+                    </button>
+                  </li>
+                  {silverPackageRates &&
+                    _silverPackageRates &&
+                    _silverPackageRates.map((silverPackage) => (
+                      <div
+                        key={silverPackage.packageId}
+                        className="silverPackageRates-container"
+                      >
+                        <UpdateSilverPackageForm
+                          silverPackage={silverPackage}
+                        />
+                      </div>
+                    ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        toggleGoldPackageForm();
+                        _fetchSurprisePackage("Gold");
+                      }}
+                    >
+                      Gold Package
+                    </button>
+                  </li>
+                  {goldPackageRates &&
+                    _goldPackageRates &&
+                    _goldPackageRates.map((goldPackage) => (
+                      <div
+                        key={goldPackage.packageId}
+                        className="goldPackageRates-container"
+                      >
+                        <UpdateGoldPackageForm goldPackage={goldPackage} />
+                      </div>
+                    ))}
+                  <li>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        toggleDiamondPackageForm();
+                        _fetchSurprisePackage("Diamond");
+                      }}
+                    >
+                      Diamond Package
+                    </button>
+                  </li>
+                  {diamondPackageRates &&
+                    _diamondPackageRates &&
+                    _diamondPackageRates.map((diamondPackage) => (
+                      <div
+                        key={diamondPackage.packageId}
+                        className="diamondPackageRates-container"
+                      >
+                        <UpdateDiamondPackageForm
+                          diamondPackage={diamondPackage}
+                        />
+                      </div>
+                    ))}
+                </ul>
+              </>
+            )}
+
             <p>
               <button type="button">Studio Details</button>
             </p>

@@ -1,4 +1,4 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, updateBudgetRate, updateDesignRate, updateGalleryProduct, updateProductRate, updateRtgProduct, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchSurpisePackage, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
 import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto } from "../types";
 
 export const AdminStores = {
@@ -100,4 +100,57 @@ export const AdminStores = {
   ) => {
     return await updateDesignRate(accessToken, updateDesignRateDto, designId);
   },
+  fetchSurpisePackage: async () => {
+    return await fetchSurpisePackage();
+  },
+  updateSurprisePackage: async (
+    accessToken: string,
+    updateBronzePackageRateDto: PackageRatesDto,
+    packageId: string
+  ) => {
+    return await updateSurprisePackage(
+      accessToken,
+      updateBronzePackageRateDto,
+      packageId
+    );
+  },
+
+  updateSilverPackage: async (
+    accessToken: string,
+    updateSilverPackageRateDto: PackageRatesDto,
+    packageId: string
+  ) => {
+    return await updateSilverPackage(
+      accessToken,
+      updateSilverPackageRateDto,
+      packageId
+    );
+  },
+
+  updateGoldPackage: async (
+    accessToken: string,
+    updateGoldPackageRateDto: PackageRatesDto,
+    packageId: string
+  ) => {
+    return await updateGoldPackage(
+      accessToken,
+      updateGoldPackageRateDto,
+      packageId
+    );
+  },
+
+  updateDiamondPackage: async (
+    accessToken: string,
+    updateDiamondPackageRateDto: PackageRatesDto,
+    packageId: string
+  ) => {
+    return await updateDiamondPackage(
+      accessToken,
+      updateDiamondPackageRateDto,
+      packageId
+    );
+  },
 };
+
+
+// updateSilverPackageRateDto;

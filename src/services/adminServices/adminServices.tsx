@@ -19,7 +19,6 @@ export const UploadGalleryProduct = async (accessToken: string, galleryProductDt
     console.log(accessToken)
     try {
         const product = await axios.post(`${Base_Url}/adminHub/uploadProduct`, formData, config);
-        console.log(product.data)
         return product.data
     } catch (error) {
         console.log(error)
@@ -56,36 +55,7 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
       accessToken: string,
       productRateDto: ProductRateDto
     ) => {
-      const {
-        chocolateCakeRate,
-        strawberryCakeRate,
-        vanillaCakeRate,
-        redvelvetCakeRate,
-        carrotCakeRate,
-        cheeseCakeRate,
-        bananaCakeRate,
-        appleCakeRate,
-        lemonCakeRate,
-        coffeeCakeRate,
-        coconutCakeRate,
-        blueberryCakeRate,
-        samosaRate,
-        springRollRate,
-        samosa_springrollRate,
-        puffRate,
-        pepperedMeatRate,
-        puff_pepperedMeatRate,
-        samosa_pepperedMeatRate,
-        springroll_pepperedMeatRate,
-        meatPieRate,
-        donutsRate,
-        cinamonRollsRate,
-        pancakesRate,
-        corndogsRate,
-        waffelsRate,
-        meatpie_donutsRate,
-        pancakes_corndogs_waffelsRate,
-      } = productRateDto;
+   
 
       const config = {
         headers: {
@@ -281,7 +251,7 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
     ) => {
       const { rtgName, rtgType, rtgPrice, file, rtgDescription } =
         updateRtgProductDto;
-
+        // console.log(updateRtgProductDto)
         const config = {
             headers: {
                 "Authorization": `Bearer ${accessToken}`
@@ -462,3 +432,239 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
             console.log(error);
           }
         };
+
+        export const fetchSurpisePackage = async() => {
+        //   const config = {
+        //     headers: {
+        //       Authorization: `Bearer ${accessToken}`,
+        //     },
+        //   };
+
+          try {
+            const surprisePackage = await axios.get(
+              `${Base_Url}/bareAdminHub/getSurprisePackages`
+            //   config
+            );
+            console.log(surprisePackage.data)
+            return surprisePackage.data
+          } catch (error) {
+            console.log(error);
+          }
+        }
+
+        export const updateSurprisePackage = async(accessToken: string, updateBronzePackageRateDto: PackageRatesDto, packageId: string) => {
+             const {
+               packageName,
+               itemOne,
+               itemTwo,
+               itemThree,
+               itemFour,
+               itemFive,
+               itemSix,
+               file,
+               price,
+               description,
+             } = updateBronzePackageRateDto;
+             console.log(updateBronzePackageRateDto);
+             const config = {
+               headers: {
+                 Authorization: `Bearer ${accessToken}`,
+               },
+             };
+             console.log(file)
+             const formData = new FormData();
+
+             formData.append("packageName", packageName);
+             formData.append("itemOne", itemOne);
+             formData.append("itemTwo", itemTwo);
+             formData.append("itemThree", itemThree);
+             formData.append("itemFour", itemFour);
+             formData.append("itemFive", itemFive);
+             formData.append("itemSix", itemSix);
+             formData.append("price", price);
+             formData.append("description", description);
+             formData.append("file", file);
+             
+               try {
+                    const bronzePackage = await axios.patch(
+                      `${Base_Url}/adminHub/updateSurprisePackage/${packageId}`,
+                      formData,
+                      config
+                    );
+                    console.log(bronzePackage.data)
+                    return bronzePackage.data;
+               } catch (error) {
+                console.log(error)
+               }
+        }
+
+    export const updateSilverPackage = async (
+      accessToken: string,
+      updateSilverPackageRateDto: PackageRatesDto,
+      packageId: string
+    ) => {
+      const {
+        packageName,
+        itemOne,
+        itemTwo,
+        itemThree,
+        itemFour,
+        itemFive,
+        itemSix,
+        itemSeven,
+        itemEight,
+        file,
+        price,
+        description,
+      } = updateSilverPackageRateDto;
+      console.log(updateSilverPackageRateDto);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const formData = new FormData();
+
+      formData.append("packageName", packageName);
+      formData.append("itemOne", itemOne);
+      formData.append("itemTwo", itemTwo);
+      formData.append("itemThree", itemThree);
+      formData.append("itemFour", itemFour);
+      formData.append("itemFive", itemFive);
+      formData.append("itemSix", itemSix);
+      formData.append("itemSeven", itemSeven);
+      formData.append("itemEight", itemEight);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("file", file);
+
+      try {
+        const silverPackage = await axios.patch(
+          `${Base_Url}/adminHub/updateSurprisePackage/${packageId}`,
+          formData,
+          config
+        );
+        console.log(silverPackage.data);
+        return silverPackage.data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    export const updateGoldPackage = async (
+      accessToken: string,
+      updateGoldPackageRateDto: PackageRatesDto,
+      packageId: string
+    ) => {
+      const {
+        packageName,
+        itemOne,
+        itemTwo,
+        itemThree,
+        itemFour,
+        itemFive,
+        itemSix,
+        itemSeven,
+        itemEight,
+        itemNine,
+        itemTen,
+        file,
+        price,
+        description,
+      } = updateGoldPackageRateDto;
+      console.log(updateGoldPackageRateDto);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const formData = new FormData();
+
+      formData.append("packageName", packageName);
+      formData.append("itemOne", itemOne);
+      formData.append("itemTwo", itemTwo);
+      formData.append("itemThree", itemThree);
+      formData.append("itemFour", itemFour);
+      formData.append("itemFive", itemFive);
+      formData.append("itemSix", itemSix);
+      formData.append("itemSeven", itemSeven);
+      formData.append("itemEight", itemEight);
+      formData.append("itemNine", itemNine);
+      formData.append("itemTen", itemTen);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("file", file);
+
+      try {
+        const goldPackage = await axios.patch(
+          `${Base_Url}/adminHub/updateSurprisePackage/${packageId}`,
+          formData,
+          config
+        );
+        console.log(goldPackage.data);
+        return goldPackage.data;
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    export const updateDiamondPackage = async (
+      accessToken: string,
+      updateDiamondPackageRateDto: PackageRatesDto,
+      packageId: string
+    ) => {
+      const {
+        packageName,
+        itemOne,
+        itemTwo,
+        itemThree,
+        itemFour,
+        itemFive,
+        itemSix,
+        itemSeven,
+        itemEight,
+        itemNine,
+        itemTen,
+        itemEleven,
+        itemTwelve,
+        file,
+        price,
+        description,
+      } = updateDiamondPackageRateDto;
+      console.log(updateDiamondPackageRateDto);
+      const config = {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      };
+      const formData = new FormData();
+
+      formData.append("packageName", packageName);
+      formData.append("itemOne", itemOne);
+      formData.append("itemTwo", itemTwo);
+      formData.append("itemThree", itemThree);
+      formData.append("itemFour", itemFour);
+      formData.append("itemFive", itemFive);
+      formData.append("itemSix", itemSix);
+      formData.append("itemSeven", itemSeven);
+      formData.append("itemEight", itemEight);
+      formData.append("itemNine", itemNine);
+      formData.append("itemTen", itemTen);
+      formData.append("itemEleven", itemEleven);
+      formData.append("itemTwelve", itemTwelve);
+      formData.append("price", price);
+      formData.append("description", description);
+      formData.append("file", file);
+
+      try {
+        const diamondPackage = await axios.patch(
+          `${Base_Url}/adminHub/updateSurprisePackage/${packageId}`,
+          formData,
+          config
+        );
+        console.log(diamondPackage.data);
+        return diamondPackage.data;
+      } catch (error) {
+        console.log(error);
+      }
+    };    

@@ -27,7 +27,11 @@
 .rtgProducts-container,
 .productRates-container,
 .budgetRates-container,
-.designRates-container{
+.designRates-container,
+.bronzePackageRates-container,
+.silverPackageRates-container,
+.goldPackageRates-container,
+.diamondPackageRates-container{
     display: flex;
     justify-content: space-evenly;
     border: 1px solid rgb(234, 200, 89);
