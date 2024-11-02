@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik"
-import { GalleryProductDto } from "../../types"
+import { GalleryProductDto, GalleryProductInterface } from "../../types"
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
@@ -9,9 +9,10 @@ import "./galleryProductsForm.css"
 
 interface UploadGalleryProductFormProps extends FormikProps<GalleryProductDto> {
   uploadGalleryProduct: (values: GalleryProductDto, formikHelpers: any) => void;
+  galleryProducts: GalleryProductInterface[];
 }
 export const GalleryProductsForm: React.FC<UploadGalleryProductFormProps> = (props) => {
-    const {values, handleSubmit, handleChange, touched, errors, uploadGalleryProduct} = props;
+    const {values, handleSubmit, handleChange, touched, errors, uploadGalleryProduct, galleryProducts} = props;
 
     const handleUpload = async (formikHelpers: any)=> {
         console.log("clicked")
@@ -51,6 +52,7 @@ export const GalleryProductsForm: React.FC<UploadGalleryProductFormProps> = (pro
             label="Upload Product"
             type="submit"
             onClick={handleUpload}
+            disabled={galleryProducts ? true : false}
           />
         </Form>
       </div>

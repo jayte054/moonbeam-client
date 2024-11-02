@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik";
-import { RtgProductDto } from "../../types"
+import { RtgProductDto, rtgProductInterface } from "../../types"
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
@@ -8,10 +8,11 @@ import { CustomTextArea } from "./customTextArea";
 import "./rtgProductForm.css"
 
 interface UploadRtgProductFormProps extends FormikProps<RtgProductDto> {
-    uploadRtgProduct: (values: RtgProductDto, formikHelpers: any) => void;
+  uploadRtgProduct: (values: RtgProductDto, formikHelpers: any) => void;
+  rtgProducts: rtgProductInterface[];
 }
 export const RtgProductForm: React.FC<UploadRtgProductFormProps> = (props) => {
-    const {values, handleSubmit, handleChange, touched, errors, uploadRtgProduct} = props
+    const {values, handleSubmit, handleChange, touched, errors, uploadRtgProduct, rtgProducts} = props
 
     const handleUpload =  async (formikHelpers: any) => await uploadRtgProduct(values, formikHelpers)
 
@@ -63,6 +64,7 @@ export const RtgProductForm: React.FC<UploadRtgProductFormProps> = (props) => {
           label="Upload Product"
           type="submit"
           onClick={handleUpload}
+          disabled={rtgProducts ? true : false}
         />
       </Form>
     </div>

@@ -1,15 +1,25 @@
 import { Form, FormikProps } from "formik";
-import { PackageRatesDto } from "../../types";
+import { PackageRatesDto, SurprisePackageInterface } from "../../types";
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
 
 interface UploadBronzePackageFormProps extends FormikProps<PackageRatesDto> {
-  uploadBronzePackageRates: (values: PackageRatesDto, formikHelpers: any) => void;
+  uploadBronzePackageRates: (
+    values: PackageRatesDto,
+    formikHelpers: any
+  ) => void;
+  diamondPackage: SurprisePackageInterface[];
 }
 export const BronzePackageForm: React.FC<UploadBronzePackageFormProps> = (props) => {
-    const { values, handleChange, touched, errors, uploadBronzePackageRates } =
-      props;
+    const {
+      values,
+      handleChange,
+      touched,
+      errors,
+      uploadBronzePackageRates,
+      diamondPackage,
+    } = props;
 
       const handleUpload = (formikHelpers: any) => uploadBronzePackageRates(values, formikHelpers);
     return (
@@ -101,6 +111,7 @@ export const BronzePackageForm: React.FC<UploadBronzePackageFormProps> = (props)
             label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
+            disabled={diamondPackage ? true : false}
           />
         </Form>
       </div>

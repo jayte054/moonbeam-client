@@ -1,10 +1,11 @@
 import { Form, FormikProps } from "formik"
-import { BudgetRateDto } from "../../types"
+import { BudgetRateDto, BudgetRateInterface } from "../../types"
 import { CustomButton } from "./customButton"
 import { CustomInput } from "./customInput"
 
 interface UploadBudgetCakeRateFormProps extends FormikProps<BudgetRateDto> {
-    uploadBudgetCakeRate: (values: BudgetRateDto, formikHelpers: any) => void
+  uploadBudgetCakeRate: (values: BudgetRateDto, formikHelpers: any) => void;
+  budgetRate: BudgetRateInterface[];
 }
 export const BudgetCakeRateForm: React.FC<UploadBudgetCakeRateFormProps> = (props) => {
     const {
@@ -14,6 +15,7 @@ export const BudgetCakeRateForm: React.FC<UploadBudgetCakeRateFormProps> = (prop
       touched,
       errors,
       uploadBudgetCakeRate,
+      budgetRate
     } = props;
     
     const handleUpload = async (formikHelpers: any) =>
@@ -162,6 +164,7 @@ export const BudgetCakeRateForm: React.FC<UploadBudgetCakeRateFormProps> = (prop
             label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
+            disabled={budgetRate ? true : false}
           />
         </Form>
       </div>

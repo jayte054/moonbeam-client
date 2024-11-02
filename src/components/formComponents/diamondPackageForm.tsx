@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik";
-import { PackageRatesDto } from "../../types";
+import { PackageRatesDto, SurprisePackageInterface } from "../../types";
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
@@ -9,9 +9,10 @@ interface UploadDiamondPackageFormProps extends FormikProps<PackageRatesDto> {
     values: PackageRatesDto,
     formikHelpers: any
   ) => void;
+  diamondPackage: SurprisePackageInterface[]
 }
 export const DiamondPackageForm: React.FC<UploadDiamondPackageFormProps> = (props) => {
-  const { values, handleChange, touched, errors, uploadDiamondPackageRates } =
+  const { values, handleChange, touched, errors, uploadDiamondPackageRates, diamondPackage } =
     props;
 
   const handleUpload = (formikHelpers: any) =>
@@ -159,6 +160,7 @@ export const DiamondPackageForm: React.FC<UploadDiamondPackageFormProps> = (prop
           label="Upload Product Rate"
           type="submit"
           onClick={handleUpload}
+          disabled={diamondPackage ? true : false}
         />
       </Form>
     </div>

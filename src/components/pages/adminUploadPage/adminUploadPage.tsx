@@ -2,7 +2,7 @@ import { Formik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
 import { AdminStores } from "../../../stores/adminStores";
-import { PackageRatesInterface, BudgetRateDto, BudgetRateInterface, designRateDto, DesignRateInterface, GalleryProductDto, GalleryProductInterface, PackageRatesDto, ProductRateDto, ProductRateInterface, RtgProductDto, rtgProductInterface, StudioDetailsDto, StudioDetailsInterface } from "../../../types";
+import { PackageRatesInterface, BudgetRateDto, BudgetRateInterface, designRateDto, DesignRateInterface, GalleryProductDto, GalleryProductInterface, PackageRatesDto, ProductRateDto, ProductRateInterface, RtgProductDto, rtgProductInterface, StudioDetailsDto, StudioDetailsInterface, SurprisePackageInterface, StudioAddressObject } from "../../../types";
 import { BronzePackageForm } from "../../formComponents/bronzePackageForm";
 import { BudgetCakeRateForm } from "../../formComponents/budetCakeRateForm";
 import { DesignRatesForm } from "../../formComponents/designRatesForm";
@@ -28,16 +28,41 @@ import "./adminUploadPage.css"
 
 export const AdminUploadPage = () => {
     const [galleryProducts, setGalleryProducts] = useState(false)
+    const [_galleryProducts, _setGalleryProducts] = useState<
+      GalleryProductInterface[]
+    >([]);
     const [rtgProducts, setRtgProducts] = useState(false)
+    const [_rtgProducts, _setRtgProducts] = useState<rtgProductInterface[]>([]);
+
     const [productRate, setProductRate] = useState(false)
+    const [_productRate, _setProductRate] = useState<ProductRateInterface[]>(
+      []
+    );
     const [budgetRate, setBudgetRate] = useState(false)
+    const [_budgetRate, _setBudgetRate] = useState<BudgetRateInterface[]>([]);
     const [designRate, setDesignRate] = useState(false);
+    const [_designRate, _setDesignRate] = useState<DesignRateInterface[]>([]);
     const [packageRates, setPackageRates] = useState(false);
     const [bronzePackageRates, setBronzePackageRates] = useState(false);
+    const [_bronzePackageRates, _setBronzePackageRates] = useState<
+      SurprisePackageInterface[]
+    >([]);
     const [silverPackageRates, setSilverPackageRates] = useState(false);
+    const [_silverPackageRates, _setSilverPackageRates] = useState<
+      SurprisePackageInterface[]
+    >([]);
     const [goldPackageRates, setGoldPackageRates] = useState(false);
+    const [_goldPackageRates, _setGoldPackageRates] = useState<
+      SurprisePackageInterface[]
+    >([]);
     const [diamondPackageRates, setDiamondPackageRates] = useState(false);
+   const [_diamondPackageRates, _setDiamondPackageRates] = useState<
+     SurprisePackageInterface[]
+   >([]);
     const [studioDetails, setStudioDetails] = useState(false)
+    const [_studioDetails, _setStudioDetails] = useState<StudioAddressObject[]>(
+      []
+    );
     const {admin} = useContext(AdminAuthContext)
 
     const {
@@ -47,6 +72,13 @@ export const AdminUploadPage = () => {
       uploadDesignRate,
       uploadBudgetCakeRate,
       uploadPackageRate,
+      fetchGalleryProducts,
+      fetchRtgProducts,
+      fetchProductRates,
+      fetchBudgetRate,
+      fetchDesignRate,
+      fetchSurpisePackage,
+      fetchStudioDetails,
       uploadStudioDetails,
     } = AdminStores;
     
@@ -164,9 +196,16 @@ export const AdminUploadPage = () => {
         })
     };
 
-    useEffect(() =>{
-        setRtgProducts(true)
-    }, [])
+    useEffect(() => {
+      setRtgProducts(true);
+      _fetchGalleryProducts();
+      _fetchRtgProducts();
+      _fetchProductRates();
+      _fetchBudgetRates();
+      _fetchDesignRates();
+      _fetchSurprisePackage("Diamond");
+      _fetchStudioDetails();
+    }, [fetchRtgProducts]);
 
     const galleryProductInitialValues: GalleryProductDto = {
         type: "",
@@ -311,6 +350,102 @@ export const AdminUploadPage = () => {
         deliveryPricePerKm: "",
         defaultStudioAddress: false,
     };
+
+     const _fetchGalleryProducts = async () => {
+  try {
+    const products: GalleryProductInterface[] = await fetchGalleryProducts(accessToken);
+    if(products[0].imageUrl !== "") {
+    _setGalleryProducts(products);
+
+    }
+  } catch (error) {
+    console.error("Error fetching gallery products:", error);
+  }
+};
+
+const _fetchRtgProducts = async () => {
+  try {
+    const products: rtgProductInterface[] = await fetchRtgProducts(accessToken);
+    if(products[0].rtgImageUrl !== "") {
+    _setRtgProducts(products);
+    }
+  } catch (error) {
+    console.error("Error fetching RTG products:", error);
+  }
+};
+
+const _fetchProductRates = async () => {
+  try {
+    const rates: ProductRateInterface[] = await fetchProductRates(accessToken);
+    if(rates[0].chocolateCakeRate !== "") {
+    _setProductRate(rates);
+
+    }
+  } catch (error) {
+    console.error("Error fetching product rates:", error);
+  }
+};
+
+const _fetchBudgetRates = async () => {
+  try {
+    const rates: BudgetRateInterface[] = await fetchBudgetRate(accessToken);
+    if (rates[0].chocolateCakeRate !== "") {
+      _setBudgetRate(rates);
+    }
+  } catch (error) {
+    console.error("Error fetching budget rates:", error);
+  }
+};
+
+const _fetchSurprisePackage = async (_package: string) => {
+  try {
+    const packages: SurprisePackageInterface[] = await fetchSurpisePackage();
+    const saidPackage = packages.find((pkg) => pkg.packageName === _package);
+    console.log(saidPackage);
+
+    if (saidPackage?.packageName) {
+      switch (_package) {
+        case "Bronze":
+          _setBronzePackageRates([saidPackage]);
+          break;
+        case "Silver":
+          _setSilverPackageRates([saidPackage]);
+          break;
+        case "Gold":
+          _setGoldPackageRates([saidPackage]);
+          break;
+        case "Diamond":
+          _setDiamondPackageRates([saidPackage]);
+          break;
+        default:
+          break;
+      }
+    }
+  } catch (error) {
+    console.error(`Error fetching surprise package "${_package}":`, error);
+  }
+};
+
+const _fetchDesignRates = async () => {
+  try {
+    const rates: DesignRateInterface[] = await fetchDesignRate(accessToken);
+    _setDesignRate(rates);
+  } catch (error) {
+    console.error("Error fetching design rates:", error);
+  }
+};
+
+const _fetchStudioDetails = async () => {
+  try {
+    const studioDetails: StudioAddressObject[] = await fetchStudioDetails();
+    if(studioDetails[0].studioTitle !== "") {
+    _setStudioDetails(studioDetails);
+
+    }
+  } catch (error) {
+    console.error("Error fetching studio details:", error);
+  }
+};
 
     const _uploadGalleryProduct = async (values: GalleryProductDto, formikHelpers: any) => {
         const {...galleryProductDto} = values;
@@ -480,8 +615,7 @@ export const AdminUploadPage = () => {
                     <p>product decription</p>
                     <p>
                       Note that the correct type must be inputed to ensure it's
-                      properly
-                      categorized
+                      properly categorized
                     </p>
                   </div>
                 )}
@@ -699,6 +833,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <GalleryProductsForm
                           {...formikProps}
+                          galleryProducts={_galleryProducts}
                           uploadGalleryProduct={(values: GalleryProductDto) =>
                             _uploadGalleryProduct(values, formikProps)
                           }
@@ -720,6 +855,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <RtgProductForm
                           {...formikProps}
+                          rtgProducts={_rtgProducts}
                           uploadRtgProduct={(values: RtgProductDto) =>
                             _uploadRtgProduct(values, formikProps)
                           }
@@ -741,6 +877,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <ProductRatesForm
                           {...formikProps}
+                          productRate={_productRate}
                           uploadProductRates={(values: ProductRateDto) =>
                             _uploadProductRate(values, formikProps)
                           }
@@ -762,6 +899,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <DesignRatesForm
                           {...formikProps}
+                          designRate={_designRate}
                           uploadDesignRate={(values: designRateDto) =>
                             _uploadDesignRate(values, formikProps)
                           }
@@ -783,6 +921,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <BudgetCakeRateForm
                           {...formikProps}
+                          budgetRate={_budgetRate}
                           uploadBudgetCakeRate={(values: BudgetRateDto) =>
                             _uploadBudgetRate(values, formikProps)
                           }
@@ -808,6 +947,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <BronzePackageForm
                           {...formikProps}
+                          diamondPackage={_diamondPackageRates}
                           uploadBronzePackageRates={() =>
                             setOnSubmit(() => _uploadbronzePackage)
                           }
@@ -833,6 +973,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <SilverPackageForm
                           {...formikProps}
+                          diamondPackage={_diamondPackageRates}
                           uploadSilverPackageRates={() =>
                             setOnSubmit(() => _uploadSilverPackage)
                           }
@@ -858,6 +999,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <GoldPackageForm
                           {...formikProps}
+                          diamondPackage={_diamondPackageRates}
                           uploadGoldPackageRates={() =>
                             setOnSubmit(() => _uploadgGoldPackage)
                           }
@@ -883,6 +1025,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <DiamondPackageForm
                           {...formikProps}
+                          diamondPackage={_diamondPackageRates}
                           uploadDiamondPackageRates={() =>
                             setOnSubmit(() => _uploadDiamondPackage)
                           }
@@ -903,6 +1046,7 @@ export const AdminUploadPage = () => {
                       <div>
                         <StudioDetailsForm
                           {...formikProps}
+                          studioDetails={_studioDetails}
                           uploadStudioDetails={(values: StudioDetailsDto) =>
                             _uploadStudioDetails(values, formikProps)
                           }

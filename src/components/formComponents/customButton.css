@@ -15,3 +15,8 @@
   border-radius: 1rem;
   cursor: pointer;
 }
+
+.customButton button:disabled{
+  color: white;
+  background-color: grey
+}

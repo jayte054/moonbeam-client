@@ -55,7 +55,7 @@ export const UpdateBronzePackageForm: React.FC<UpdateBronzePackageFormProps> = (
   return (
     <div className="updateRateForm-container">
       <h3>Bronze Package Form</h3>
-      <p>All options are optional</p>
+      <p>All inputs are optional</p>
 
       <Formik
         initialValues={bronzePackageInitialValues}

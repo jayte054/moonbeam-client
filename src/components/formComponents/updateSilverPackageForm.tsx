@@ -57,7 +57,7 @@ export const UpdateSilverPackageForm: React.FC<UpdateSilverPackageFormProps> = (
   return (
     <div className="updateRateForm-container">
       <h3>Silver Package Form</h3>
-      <p>All options are optional</p>
+      <p>All inputs are optional</p>
       <Formik
         initialValues={silverPackageInitialValues}
         onSubmit={handleSubmit}

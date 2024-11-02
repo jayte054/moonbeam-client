@@ -871,6 +871,7 @@ export const AdminProductPage = () => {
                       </span>
                       <span>
                         <button
+                        disabled={true}
                         //   type="button"
                         //   onClick={() =>
                         //     _deleteGalleryProduct(studioDetails.studioId)

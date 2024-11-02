@@ -1,5 +1,5 @@
 import { Form, FormikProps } from "formik";
-import { RtgProductDto, StudioDetailsDto } from "../../types";
+import { RtgProductDto, StudioAddressObject, StudioDetailsDto, SurprisePackageInterface } from "../../types";
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
@@ -9,6 +9,7 @@ import "./rtgProductForm.css";
 
 interface UploadStudioDetailsFormProps extends FormikProps<StudioDetailsDto> {
   uploadStudioDetails: (values: StudioDetailsDto, formikHelpers: any) => void;
+  studioDetails: StudioAddressObject[];
 }
 export const StudioDetailsForm: React.FC<UploadStudioDetailsFormProps> = (props) => {
   const {
@@ -18,6 +19,7 @@ export const StudioDetailsForm: React.FC<UploadStudioDetailsFormProps> = (props)
     touched,
     errors,
     uploadStudioDetails,
+    studioDetails,
   } = props;
 
   const handleUpload = async (formikHelpers: any) => await uploadStudioDetails(values, formikHelpers);
@@ -106,6 +108,7 @@ export const StudioDetailsForm: React.FC<UploadStudioDetailsFormProps> = (props)
           label="Upload Studio Details"
           type="submit"
           onClick={handleUpload}
+          disabled={studioDetails ? true : false}
         />
       </Form>
     </div>

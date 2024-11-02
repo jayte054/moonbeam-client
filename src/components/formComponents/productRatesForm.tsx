@@ -1,10 +1,11 @@
 import { Form, FormikProps } from "formik"
-import { ProductRateDto } from "../../types"
+import { ProductRateDto, ProductRateInterface } from "../../types"
 import { CustomButton } from "./customButton";
 import { CustomInput } from "./customInput";
 
 interface UploadproductRatesFormProps extends FormikProps<ProductRateDto> {
-    uploadProductRates: (values: ProductRateDto, formikHelpers: any) => void;
+  uploadProductRates: (values: ProductRateDto, formikHelpers: any) => void;
+  productRate: ProductRateInterface[];
 }
 export const ProductRatesForm: React.FC<UploadproductRatesFormProps> = (props) => {
     const {
@@ -14,6 +15,7 @@ export const ProductRatesForm: React.FC<UploadproductRatesFormProps> = (props) =
       touched,
       errors,
       uploadProductRates,
+      productRate,
     } = props;
 
     const handleUpload = (formikHelpers: any) => uploadProductRates(values, formikHelpers)
@@ -298,6 +300,7 @@ export const ProductRatesForm: React.FC<UploadproductRatesFormProps> = (props) =
             label="Upload Product Rate"
             type="submit"
             onClick={handleUpload}
+            disabled={productRate ? true : false}
           />
         </Form>
       </div>
