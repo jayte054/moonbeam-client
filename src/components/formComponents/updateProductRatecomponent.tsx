@@ -5,103 +5,103 @@ import * as yup from "yup";
 import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
 import { AdminStores } from "../../stores/adminStores";
 
-import { ProductRateDto, ProductRateFormInterface, ProductRateInterface, updateProductRateDto } from "../../types";
-import "../pages/adminProductPage/adminProductPage.css"
+import {
+  ProductRateDto,
+  ProductRateFormInterface,
+  ProductRateInterface,
+  updateProductRateDto,
+} from "../../types";
+import "../pages/adminPages/adminProductPage/adminProductPage.css";
 import { CustomButton } from "./customButton";
 import { CustomInput } from "./customInput";
 import { CustomSelect } from "./customSelect";
-import "./updateRate.css"
+import "./updateRate.css";
 
-interface UpdatePoductRateComponentInterface  {
-    productRate: ProductRateInterface
-}  
-
+interface UpdatePoductRateComponentInterface {
+  productRate: ProductRateInterface;
+}
 
 export const UpdateProductRateComponent: React.FC<
   UpdatePoductRateComponentInterface
 > = (props) => {
-      const {productRate} = props;
-      const {admin} = useContext(AdminAuthContext)
-      const { updateProductRate } = AdminStores;
+  const { productRate } = props;
+  const { admin } = useContext(AdminAuthContext);
+  const { updateProductRate } = AdminStores;
 
-
-  const accessToken = admin.accessToken
-  const rateId = productRate.rateId
+  const accessToken = admin.accessToken;
+  const rateId = productRate.rateId;
 
   const validationSchema = yup.object({
     productRate: yup.string().required("Please select a rate"),
     price: yup.string().required("Please enter a price"),
   });
 
+  const productRateInitialValues: ProductRateFormInterface = {
+    productRate: "",
+    price: "",
+  };
 
+  const productRateObject: ProductRateFormInterface = {
+    productRate: "",
+    price: "",
+  };
 
-   const productRateInitialValues: ProductRateFormInterface = {
-     productRate: "",
-     price: "",
-   };
+  const handleSubmit = async (
+    values: ProductRateFormInterface,
+    formikHelpers: any
+  ) => {
+    productRateObject.productRate = values.productRate;
+    productRateObject.price = values.price;
+    console.log(productRateObject);
+    const updateProductRateDto: updateProductRateDto = {
+      chocolateCakeRate: "",
+      strawberryCakeRate: "",
+      vanillaCakeRate: "",
+      redvelvetCakeRate: "",
+      carrotCakeRate: "",
+      cheeseCakeRate: "",
+      bananaCakeRate: "",
+      appleCakeRate: "",
+      lemonCakeRate: "",
+      coffeeCakeRate: "",
+      coconutCakeRate: "",
+      blueberryCakeRate: "",
+      samosaRate: "",
+      springRollRate: "",
+      samosa_springrollRate: "",
+      puffRate: "",
+      pepperedMeatRate: "",
+      puff_pepperedMeatRate: "",
+      samosa_pepperedMeatRate: "",
+      springroll_pepperedMeatRate: "",
+      meatPieRate: "",
+      donutsRate: "",
+      cinamonRollsRate: "",
+      pancakesRate: "",
+      corndogsRate: "",
+      waffelsRate: "",
+      meatpie_donutsRate: "",
+      pancakes_corndogs_waffelsRate: "",
+    };
+    if (values.productRate in updateProductRateDto) {
+      updateProductRateDto[values.productRate as keyof updateProductRateDto] =
+        values.price;
+    }
 
-   const productRateObject: ProductRateFormInterface = {
-     productRate: "",
-     price: "",
-   };
+    console.log("Updated Product Rate DTO:", updateProductRateDto);
 
-   const handleSubmit = async (values: ProductRateFormInterface, formikHelpers: any) => {
-        productRateObject.productRate = values.productRate;
-        productRateObject.price = values.price;
-        console.log(productRateObject)
-        const updateProductRateDto: updateProductRateDto = {
-            chocolateCakeRate: "",
-            strawberryCakeRate: "",
-            vanillaCakeRate: "",
-            redvelvetCakeRate: "",
-            carrotCakeRate: "",
-            cheeseCakeRate: "",
-            bananaCakeRate: "",
-            appleCakeRate: "",
-            lemonCakeRate: "",
-            coffeeCakeRate: "",
-            coconutCakeRate: "",
-            blueberryCakeRate: "",
-            samosaRate: "",
-            springRollRate: "",
-            samosa_springrollRate: "",
-            puffRate: "",
-            pepperedMeatRate: "",
-            puff_pepperedMeatRate: "",
-            samosa_pepperedMeatRate: "",
-            springroll_pepperedMeatRate: "",
-            meatPieRate: "",
-            donutsRate: "",
-            cinamonRollsRate: "",
-            pancakesRate: "",
-            corndogsRate: "",
-            waffelsRate: "",
-            meatpie_donutsRate: "",
-            pancakes_corndogs_waffelsRate: "",
-            
-        };
-       if (values.productRate in updateProductRateDto) {
-         updateProductRateDto[
-           values.productRate as keyof updateProductRateDto
-         ] = values.price;
-       }
-
-       console.log("Updated Product Rate DTO:", updateProductRateDto);
-
-       try {
-       const newProductRate = await updateProductRate(
-         accessToken,
-         updateProductRateDto,
-         rateId
-       );
-        formikHelpers.resetForm()
-        return newProductRate;
-       } catch (error) {
-        console.log(error)
-       }
-   }
-
-
+    try {
+      const newProductRate = await updateProductRate(
+        accessToken,
+        updateProductRateDto,
+        rateId
+      );
+      formikHelpers.resetForm();
+      return newProductRate;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="updateRateForm-container">
@@ -187,5 +187,3 @@ export const UpdateProductRateComponent: React.FC<
     </div>
   );
 };
-
-

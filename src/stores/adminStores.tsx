@@ -1,5 +1,5 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../types";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../types";
 
 export const AdminStores = {
   uploadGalleryProduct: async (
@@ -150,14 +150,30 @@ export const AdminStores = {
       packageId
     );
   },
-  
-  fetchStudioDetails: async() => {
-    return await fetchStudioDetails()
+
+  fetchStudioDetails: async () => {
+    return await fetchStudioDetails();
   },
 
-  updateStudioDetails: async(accessToken: string, updateStudioDetailsDto: UpdateStudioDetailsDto, studioId: string) => {
-    return await updateStudioDetails(accessToken, updateStudioDetailsDto, studioId)
-}
+  updateStudioDetails: async (
+    accessToken: string,
+    updateStudioDetailsDto: UpdateStudioDetailsDto,
+    studioId: string
+  ) => {
+    return await updateStudioDetails(
+      accessToken,
+      updateStudioDetailsDto,
+      studioId
+    );
+  },
+
+  resetPasswordEmail: async (resetPasswordEmailDto: ResetPasswordEmailDto) => {
+    return resetPasswordEmail(resetPasswordEmailDto);
+  },
+
+  resetPassword: async(resetPasswordDto: ResetPasswordDto) => {
+    return await resetPassword(resetPasswordDto)
+  },
 };
 
 

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 
@@ -703,6 +703,27 @@ export const uploadRtgProduct = async (accessToken: string, rtgProductDto: RtgPr
     }
 
     
-
+export const resetPasswordEmail = async (resetPasswordEmailDto: ResetPasswordEmailDto) => {
+  try{
+   const resetEmail = await axios.post(
+     `${Base_Url}/adminAuth/adminResetPasswordEmail`,
+     resetPasswordEmailDto
+   );
+   return resetEmail.data;
+    }
+   catch (error) {
+    console.log(error)
+  }
+}
         
-        
+export const resetPassword = async (resetPasswordDto: ResetPasswordDto) => {
+  try{
+    const resetPassword = await axios.post(
+      `${Base_Url}/adminAuth/adminResetPassword`, resetPasswordDto
+    );
+    console.log(resetPassword.data)
+    return resetPassword.data;
+  } catch (error) {
+    console.log(error)
+  }
+}     

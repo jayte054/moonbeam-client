@@ -455,3 +455,7 @@ export const StudioDetailsValidationSchema = yup.object().shape({
   deliveryPricePerKm: yup.string().required("Required"),
   defaultStudioAddress: yup.boolean().required("Required"),
 })
+
+export const ResetPasswordEmailValidationSchema = yup.object().shape({
+  email: yup.string().required()
+})

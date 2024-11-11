@@ -771,3 +771,12 @@ export interface SurprisePackageInterface {
   date: string;
   adminId: string;
 }
+
+export interface ResetPasswordEmailDto {
+  email: string;
+}
+
+export interface ResetPasswordDto {
+  token: string;
+  newPassword: string;
+}

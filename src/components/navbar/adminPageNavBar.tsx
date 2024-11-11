@@ -24,28 +24,34 @@ export const AdminPageNavbar = () => {
         <span>
           <Link
             style={{ color: "white", textDecoration: "none" }}
-            to="/auth/homepage"
+            to="/auth/adminHomePage"
           >
             Home
           </Link>
         </span>
         <span>
-          <Link style={{ color: "white", textDecoration: "none" }} to="">
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            to="/auth/admin/credentials"
+          >
             Credentials
           </Link>
         </span>
         <span>
-          <Link style={{ color: "white", textDecoration: "none" }} to="">
+          <Link
+            style={{ color: "white", textDecoration: "none" }}
+            to="/auth/adminCustomersPage"
+          >
             Customers
           </Link>
         </span>
         <span>
-          <Link style={{ color: "white", textDecoration: "none" }} to="">
+          <Link style={{ color: "white", textDecoration: "none" }} to="/auth/adminOrdersPage">
             Orders
           </Link>
         </span>
         <span>
-          <Link style={{ color: "white", textDecoration: "none" }} to="">
+          <Link style={{ color: "white", textDecoration: "none" }} to="/auth/adminSalesPage">
             Sales
           </Link>
         </span>
