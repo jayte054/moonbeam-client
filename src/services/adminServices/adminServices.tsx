@@ -726,4 +726,21 @@ export const resetPassword = async (resetPasswordDto: ResetPasswordDto) => {
   } catch (error) {
     console.log(error)
   }
-}     
+} 
+
+export const getAllUsers = async (accessToken: string) => {
+  try {
+    
+    const config = {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    }
+
+    const users = await axios.get(`${Base_Url}/adminAuth/getAllUsers`, config);
+    console.log(users.data)
+    return users.data;
+  } catch (error) {
+    console.log(error)
+  }
+}

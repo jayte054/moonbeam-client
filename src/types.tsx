@@ -1,67 +1,76 @@
-export type OrderObject = {
-        orderName: string,
-        description: string,
-        productFlavour: string,
-        type: string,
-        designCovering: string,
-        layers: string,
-        deliveryDate: string,
-        inches: string,
-        file: any,
+export interface UserDto {
+  id: string;
+  firstname: string;
+  lastname: string;
+  phoneNumber: string;
+  email: string;
+  orders: string;
 }
+
+export type OrderObject = {
+  orderName: string;
+  description: string;
+  productFlavour: string;
+  type: string;
+  designCovering: string;
+  layers: string;
+  deliveryDate: string;
+  inches: string;
+  file: any;
+};
 
 export type CustomOrderObject = {
-        orderName: string,
-        description: string,
-        productFlavour: string,
-        type: string,
-        designCovering: string,
-        layers: string,
-        deliveryDate: string,
-        inches: string,
-        file: string
-}
+  orderName: string;
+  description: string;
+  productFlavour: string;
+  type: string;
+  designCovering: string;
+  layers: string;
+  deliveryDate: string;
+  inches: string;
+  file: string;
+};
 
 export type packageObject = {
-        packageOrderName: string,
-        deliveryDate: string,
-        addInfo: string,
-}
+  packageOrderName: string;
+  deliveryDate: string;
+  addInfo: string;
+};
 
 export type CustomPackageObject = {
-        orderName: string,
-        item: string[],
-        deliveryDate: string,
-        addInfo: string,
-}
+  orderName: string;
+  item: string[];
+  deliveryDate: string;
+  addInfo: string;
+};
 
 export type chopsObject = {
-        orderTitle: string,
-        type: string,
-        chopPackageType?: any,
-        pastryPackageType?: string,
-        covering?: any,
-        numberOfPacks: string,
-        deliveryDate: string,
-        description: string,
-        file: any
-}
+  orderTitle: string;
+  type: string;
+  chopPackageType?: any;
+  pastryPackageType?: string;
+  covering?: any;
+  numberOfPacks: string;
+  deliveryDate: string;
+  description: string;
+  file: any;
+};
 
 export type CustomChopsObject = {
-        orderName: string,
-        chopType: string,
-        numberOfPacks: string,
-        deliveryDate: string,
-        description: string,
-}
+  orderName: string;
+  chopType: string;
+  numberOfPacks: string;
+  deliveryDate: string;
+  description: string;
+};
 
 export type foilObject = {
-        orderName: string,
-        quantity: string,
-        description: string,
-        deliveryDate: string,
-        productFlavour: string,
-}
+  orderName: string;
+  quantity: string;
+  description: string;
+  deliveryDate: string;
+  productFlavour: string;
+};
 
 export type parfaitObject = {
   orderName: string;
@@ -71,24 +80,24 @@ export type parfaitObject = {
 };
 
 export interface GenericProductOrderDto {
-        id?: string,
-        orderName: string,
-        deliveryDate: string,
-        description: string,
-        productFlavour: string,
-        designCovering: string,
-        layers: string,
-        inches: string,
-        type: string,
-        file: any
+  id?: string;
+  orderName: string;
+  deliveryDate: string;
+  description: string;
+  productFlavour: string;
+  designCovering: string;
+  layers: string;
+  inches: string;
+  type: string;
+  file: any;
 }
 
 export interface FoilCakeOrderDto {
-        orderName: string,
-        quantity: string,
-        description: string,
-        deliveryDate: string,
-        productFlavour: string,
+  orderName: string;
+  quantity: string;
+  description: string;
+  deliveryDate: string;
+  productFlavour: string;
 }
 
 export interface CakePafaitOrderDto {
@@ -118,20 +127,20 @@ export interface setCartCountProps {
 }
 
 export interface AddressObject {
-        deliveryAddressId: string,
-        firstName: string,
-        lastName: string,
-        phoneNumber: number,
-        additionalPhoneNumber?:number,
-        deliveryAddress: string,
-        region: string,
-        city: string,
-        defaultAddress: boolean,
-        userId: string
+  deliveryAddressId: string;
+  firstName: string;
+  lastName: string;
+  phoneNumber: number;
+  additionalPhoneNumber?: number;
+  deliveryAddress: string;
+  region: string;
+  city: string;
+  defaultAddress: boolean;
+  userId: string;
 }
 
-export interface StudioAddressObject {    
-  studioId: string;        
+export interface StudioAddressObject {
+  studioId: string;
   studioTitle: string;
   studioAddress: string;
   LGA: string;
@@ -142,8 +151,6 @@ export interface StudioAddressObject {
   defaultStudioAddress: boolean;
   userId: string;
 }
-
-
 
 export interface CreateDeliveryAddressDto {
   firstName: string;
@@ -224,7 +231,7 @@ export interface diamondPackage {
   price: string;
 }
 
-export interface bronzePackageOrderType  {
+export interface bronzePackageOrderType {
   packageId: string;
   packageName: string;
   packageOrderName: string;
@@ -244,7 +251,7 @@ export interface bronzePackageOrderType  {
   status: string;
   addInfo: string;
   userId: string;
-};
+}
 
 export interface silverPackageOrderType {
   packageId: string;
@@ -268,9 +275,9 @@ export interface silverPackageOrderType {
   status: string;
   addInfo: string;
   userId: string;
-};
+}
 
-export interface goldPackageOrderType  {
+export interface goldPackageOrderType {
   packageId: string;
   packageName: string;
   packageOrderName: string;
@@ -294,9 +301,9 @@ export interface goldPackageOrderType  {
   status: string;
   addInfo: string;
   userId: string;
-};
+}
 
-export interface diamondPackageOrderType  {
+export interface diamondPackageOrderType {
   packageId: string;
   packageName: string;
   packageOrderName: string;
@@ -322,7 +329,7 @@ export interface diamondPackageOrderType  {
   status: string;
   addInfo: string;
   userId: string;
-};
+}
 
 export interface CakeOrder {
   id: string;
@@ -341,7 +348,7 @@ export interface CakeOrder {
   status: string;
 }
 
-export interface ChopsOrderType  {
+export interface ChopsOrderType {
   id: string;
   orderTitle: string;
   type: string;
@@ -358,7 +365,7 @@ export interface ChopsOrderType  {
   userId: string;
   description: string;
   status: string;
-};
+}
 
 export interface VariantCakeOrder {
   variantId: string;
@@ -370,11 +377,11 @@ export interface VariantCakeOrder {
   description: string;
   deliveryDate: string;
   userId: string;
-};
+}
 
 export interface PaymentDto {
-  userId: string | undefined,
-  amount: string | number| undefined;
+  userId: string | undefined;
+  amount: string | number | undefined;
 }
 
 export interface verificationDto {
@@ -394,16 +401,16 @@ export interface ReferenceObject {
 }
 
 export interface RequestObject {
-        requestId: string | undefined | any;
-        requestTitle: string | undefined;
-        orderType: string | undefined;
-        content: string[] | undefined;
-        quantity?: string | undefined;
-        imageUrl?: string | undefined;
-        deliveryDate: string | undefined;
-        status: string | undefined;
-        productOrderId?: string | undefined;
-        userId: string | undefined;
+  requestId: string | undefined | any;
+  requestTitle: string | undefined;
+  orderType: string | undefined;
+  content: string[] | undefined;
+  quantity?: string | undefined;
+  imageUrl?: string | undefined;
+  deliveryDate: string | undefined;
+  status: string | undefined;
+  productOrderId?: string | undefined;
+  userId: string | undefined;
 }
 
 export interface OrderedObject {
@@ -424,7 +431,7 @@ export interface OrderDto {
   imageUrl?: string | undefined;
   quantity: string | undefined;
   price: string | undefined;
-  content?: string[] | undefined;
+  content?: string[] | string |undefined;
   deliveryDate: string | undefined;
 }
 
@@ -467,7 +474,7 @@ export interface RtgProductDto {
   rtgName: string;
   rtgType: string;
   rtgPrice: string;
-  rtgDescription: string;   
+  rtgDescription: string;
   file: any;
 }
 
@@ -530,7 +537,6 @@ export interface BudgetRateDto {
   cakeParfaitRate: string;
 }
 
-
 export interface ProductRateInterface {
   rateId: string;
   chocolateCakeRate: string;
@@ -565,8 +571,8 @@ export interface ProductRateInterface {
 }
 
 export interface ProductRateFormInterface {
-     productRate: string,
-     price: string,
+  productRate: string;
+  price: string;
 }
 
 export interface BudgetRateFormInterface {
@@ -579,7 +585,7 @@ export interface DesignRateFormInterface {
   price: string;
 }
 
-export interface designRateDto  {
+export interface designRateDto {
   nakedRate: string;
 
   butterCreamRate: string;
@@ -636,8 +642,6 @@ export interface PackageRatesDto {
   description: string;
 }
 
-
-
 export interface PackageRatesInterface {
   packageId: string;
   packageName: string;
@@ -672,14 +676,14 @@ export interface StudioDetailsDto {
 }
 
 export interface UpdateStudioDetailsDto {
- studioTitle?: string;
+  studioTitle?: string;
   studioAddress?: string;
   LGA?: string;
   state?: string;
   phoneNumber?: string;
   deliveryBaseFee?: string;
   deliveryPricePerKm?: string;
-  defaultStudioAddress?: boolean;       
+  defaultStudioAddress?: boolean;
 }
 
 export interface StudioDetailsInterface {
@@ -694,7 +698,7 @@ export interface StudioDetailsInterface {
   adminId: string;
 }
 
-export interface UpdateProductDto  {
+export interface UpdateProductDto {
   type?: string | any;
 
   file?: any;
@@ -779,4 +783,11 @@ export interface ResetPasswordEmailDto {
 export interface ResetPasswordDto {
   token: string;
   newPassword: string;
+}
+
+export interface CustomerObject {
+  name: string;
+  phoneNumber: string;
+  email: string;
+  orders: string;
 }

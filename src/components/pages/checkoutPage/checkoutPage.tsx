@@ -197,6 +197,7 @@ const handlePayment = async () => {
             imageUrl: cartItem.imageUrl || cartItem.image,
             quantity: cartItem.quantity,
             price: cartItem.price,
+            content: cartItem.itemType,
             deliveryDate: cartItem.deliveryDate,
           };
             await addItemToOrders(user.accessToken, orderDto);
