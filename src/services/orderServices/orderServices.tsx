@@ -18,6 +18,7 @@ export const fetchOrders = async (accessToken: string) => {
 }
 
 export const addItemToOrders = async (accessToken: string, orderDto: OrderDto) => {
+    console.log(orderDto);
     const config = {
         headers: {
             "Authorization": `Bearer ${accessToken}`

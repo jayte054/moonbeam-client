@@ -1,55 +1,3 @@
-// import { useContext, useEffect, useState } from "react";
-// import { AdminPageNavbar } from "../../../navbar/adminPageNavBar";
-// import "./adminCustomersPage.css"
-// import { CustomerObject, UserDto } from "../../../../types";
-// import { AdminStores } from "../../../../stores/adminStores";
-// import { AdminAuthContext } from "../../../../context/authcontext/adminAuthContext";
-// import { TableColumn } from "react-data-table-component";
-
-// export const AdminCustomersPage = () => {
-//     const [customers, setCustomers] = useState<CustomerObject[]>([])
-//     const {admin} = useContext(AdminAuthContext)
-//     const { getAllUsers } = AdminStores;
-
-//     const accessToken = admin.accessToken;
-
-
-//     useEffect(() => {
-//         const users = async () => {
-//             const allUsers: UserDto[] = await getAllUsers(accessToken);
-
-//             const customers: CustomerObject[] = allUsers && allUsers.map((user) => ({
-//               name: user.firstname + " " + user.lastname,
-//               phoneNumber: user.phoneNumber,
-//               email: user.email,
-//               orders: user.orders,
-//             })); 
-//             setCustomers(() => customers)
-//         }
-//         users()
-//     }, [])
-
-//     const columns: TableColumn<CustomerObject>[] | any = [
-//         {
-//             name: "Customer Name",
-//             selector: (row: CustomerObject) => row.name
-//         }
-//     ]
-
-
-//     return (
-//       <div>
-//         <AdminPageNavbar />
-//         <div className="admin-customersPage-container">
-//           <h2> Customers</h2>
-//           <div className="admin-customersPage-body">
-//             {customers}
-//           </div>
-//         </div>
-//       </div>
-//     );
-// }
-
 import { useContext, useEffect, useState } from "react";
 import { AdminPageNavbar } from "../../../navbar/adminPageNavBar";
 import { CustomerObject, UserDto } from "../../../../types";
@@ -111,6 +59,29 @@ export const AdminCustomersPage = () => {
     },
   ];
 
+  const customStyles = {
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        fontSize: "1.3rem",
+        margin: "1rem auto",
+        textAlign: "center" as "center",
+      },
+    },
+    cells: {
+      style: {
+        fontSize: ".9rem",
+        textAlign: "center" as "center",
+      },
+    },
+    rows: {
+      style: {
+        margin: "1rem auto",
+        textAlign: "center" as "center",
+      },
+    },
+  };
+
   if (loading) {
     return (
       <div>
@@ -151,6 +122,8 @@ export const AdminCustomersPage = () => {
             pagination
             highlightOnHover
             pointerOnHover
+            responsive
+            customStyles={customStyles}
           />
         </div>
       </div>

@@ -18,6 +18,8 @@ export const CartItemsPage = () => {
  const {deleteCartItem} = CartStores;
  const navigate = useNavigate()
 
+ console.log(cartItems)
+
  const name = user ? `${user.firstname}'s Cart` : "Cart";
 
   useEffect(() => {
@@ -156,24 +158,28 @@ export const CartItemsPage = () => {
         <div className="cartItemsPage-body">
           <div className="cartItemsPage-header">
             <span>{name}</span>
-            <button type="button" onClick={quickOrderPage}>quick order page</button>
+            <button type="button" onClick={quickOrderPage}>
+              quick order page
+            </button>
           </div>
           <div className="cartItems-content">
             <DataTable
               columns={columns}
               data={cartItem}
               pagination
+              highlightOnHover
+              pointerOnHover
               responsive
               customStyles={customStyles}
             />
             <div>
               <h2>Total : {cartTotal} </h2>
-              <span >
-                <CustomButton 
-                  type="button" 
-                  label="proceed to checkout" 
-                  onClick={checkoutPage} 
-                  />
+              <span>
+                <CustomButton
+                  type="button"
+                  label="proceed to checkout"
+                  onClick={checkoutPage}
+                />
               </span>
             </div>
           </div>

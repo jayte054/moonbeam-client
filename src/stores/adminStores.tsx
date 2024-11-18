@@ -1,4 +1,4 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
 import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../types";
 
 export const AdminStores = {
@@ -171,12 +171,16 @@ export const AdminStores = {
     return resetPasswordEmail(resetPasswordEmailDto);
   },
 
-  resetPassword: async(resetPasswordDto: ResetPasswordDto) => {
-    return await resetPassword(resetPasswordDto)
+  resetPassword: async (resetPasswordDto: ResetPasswordDto) => {
+    return await resetPassword(resetPasswordDto);
   },
 
-  getAllUsers: async(accessToken: string) => {
+  getAllUsers: async (accessToken: string) => {
     return await getAllUsers(accessToken);
+  },
+
+  fetchUserOrders: async(accessToken: string) => {
+    return await fetchUserOrders(accessToken);
   }
 };
 

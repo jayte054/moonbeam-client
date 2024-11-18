@@ -33,6 +33,7 @@ import { AdminHomePage } from './components/pages/adminPages/adminHomePage/admin
 import { AdminCredentials } from './components/pages/adminPages/adminCredentialsPage/adminCredentials';
 import { AdminCustomersPage } from './components/pages/adminPages/adminCustomersPage/adminCustomersPage';
 import { AdminSalesPage } from './components/pages/adminPages/adminSalesPage/adminSalesPage';
+import { AdminOrdersPage } from './components/pages/adminPages/adminOrdersPage/adminOrdersPage';
 
 
 function App() {
@@ -127,6 +128,10 @@ function App() {
                                 <Route
                                   path="/auth/adminCustomersPage"
                                   element={<AdminCustomersPage />}
+                                />
+                                <Route
+                                  path="/auth/adminOrdersPage"
+                                  element={<AdminOrdersPage />}
                                 />
                                 <Route
                                   path="/auth/adminSalesPage"

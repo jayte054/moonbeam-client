@@ -198,8 +198,11 @@ const handlePayment = async () => {
             quantity: cartItem.quantity,
             price: cartItem.price,
             content: cartItem.itemType,
+            category: cartItem.category,
+            deliveryStatus: 'unresolved',
             deliveryDate: cartItem.deliveryDate,
           };
+          console.log(orderDto)
             await addItemToOrders(user.accessToken, orderDto);
 
            await deleteCartItem(user.accessToken, cartItem.itemId)

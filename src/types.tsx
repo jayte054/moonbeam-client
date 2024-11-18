@@ -48,7 +48,7 @@ export type chopsObject = {
   orderTitle: string;
   type: string;
   chopPackageType?: any;
-  pastryPackageType?: string;
+  pastryPackageType?: any;
   covering?: any;
   numberOfPacks: string;
   deliveryDate: string;
@@ -114,6 +114,7 @@ export interface CartObject {
   price: string | undefined;
   imageUrl: string | undefined;
   image?: string | undefined;
+  category?: string | undefined;
   quantity: string | undefined;
   deliveryDate: string | undefined;
   productOrderId?: string | undefined;
@@ -404,6 +405,7 @@ export interface RequestObject {
   requestId: string | undefined | any;
   requestTitle: string | undefined;
   orderType: string | undefined;
+  category: string | undefined;
   content: string[] | undefined;
   quantity?: string | undefined;
   imageUrl?: string | undefined;
@@ -421,6 +423,8 @@ export interface OrderedObject {
   quantity: string | undefined;
   price: string | undefined;
   content?: string[] | undefined;
+  category: string | undefined;
+  deliveryStatus: string | undefined;
   deliveryDate: string | undefined;
   productOrderId: string | undefined;
   userId: string | undefined;
@@ -432,6 +436,8 @@ export interface OrderDto {
   quantity: string | undefined;
   price: string | undefined;
   content?: string[] | string |undefined;
+  category: string | undefined;
+  deliveryStatus: string | undefined;
   deliveryDate: string | undefined;
 }
 
@@ -790,4 +796,16 @@ export interface CustomerObject {
   phoneNumber: string;
   email: string;
   orders: string;
+}
+
+export interface PaidOrdersDto {
+  id: string;
+  orderName: string;
+  orderType: string | string[] | undefined;
+  category: string;
+  date: string;
+  amount: string;
+  deliveryStatus: string;
+  deliveryDate: string;
+  status: string;
 }

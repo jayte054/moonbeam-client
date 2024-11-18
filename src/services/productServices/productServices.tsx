@@ -213,6 +213,7 @@ export const silverPackageOrder = async (accessToken: string, surprisePackageOrd
       orderTitle, 
       type, 
       chopPackageType, 
+      pastryPackageType,
       numberOfPacks, 
       description, 
       deliveryDate, 
@@ -228,6 +229,7 @@ export const silverPackageOrder = async (accessToken: string, surprisePackageOrd
     formData.append("orderTitle", orderTitle)
     formData.append("type", type)
     formData.append("chopPackageType", chopPackageType)
+    formData.append("pastryPackageType", pastryPackageType);
     formData.append("numberOfPacks", numberOfPacks)
     formData.append("description", description)
     formData.append("deliveryDate", deliveryDate)

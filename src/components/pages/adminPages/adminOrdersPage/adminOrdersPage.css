@@ -1,0 +1,36 @@
+.admin-ordersPage-container{
+    margin: 1rem;
+    padding: 1rem;
+    background-color: white;
+}
+
+.admin-ordersPage-body{
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid grey;
+}
+
+.admin-ordersPage-body li{
+    list-style: none;
+    background-color: rgb(156, 156, 153);
+    margin: 1rem 0;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    font-weight: bold;
+}
+
+.orderPage-title {
+    background-color: rgb(156, 156, 153);
+    margin: 1rem 0;
+    padding: 1rem;
+    cursor: pointer;
+    border-radius: 1rem;
+    font-weight: bold;
+}
+
+.admin-ordersPage-unresolved,
+.admin-ordersPage-resolved {
+    padding: 1rem;
+    border: 1px solid grey;
+}
