@@ -1,4 +1,4 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRequests, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
 import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../types";
 
 export const AdminStores = {
@@ -181,6 +181,10 @@ export const AdminStores = {
 
   fetchUserOrders: async(accessToken: string) => {
     return await fetchUserOrders(accessToken);
+  },
+
+  fetchRequests: async(accessToken: string) => {
+    return await fetchRequests(accessToken);
   }
 };
 

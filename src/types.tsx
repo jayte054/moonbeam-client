@@ -801,6 +801,7 @@ export interface CustomerObject {
 export interface PaidOrdersDto {
   id: string;
   orderName: string;
+  imageUrl: string;
   orderType: string | string[] | undefined;
   category: string;
   date: string;
@@ -808,4 +809,17 @@ export interface PaidOrdersDto {
   deliveryStatus: string;
   deliveryDate: string;
   status: string;
+}
+
+export interface OrderRequestObject {
+  requestId: string;
+  requestTitle: string;
+  orderType: string;
+  quantity: string;
+  content: string | string[];
+  deliveryDate: string;
+  category: string;
+  status: string;
+  productOrderId: string;
+  userId: string;
 }

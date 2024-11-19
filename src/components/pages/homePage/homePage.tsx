@@ -88,7 +88,7 @@ export const Homepage = () => {
     const handleCakeBuy = async (product: rtgProducts) => {
         console.log(product)
       const rtgOrderDto: RtgOrderDto = {
-        orderName: cakeOrderName + "'s " + product.rtgName,
+        orderName: cakeOrderName,
         orderType: product.rtgType,
         cakeMessage: cakeMessage,
         deliveryDate: cakeDeliveryDate,
@@ -97,7 +97,7 @@ export const Homepage = () => {
       };
       const item: CartObject = {
         itemId: product.rtgId,
-        itemName: cakeOrderName + "'s " + product.rtgName,
+        itemName: cakeOrderName,
         quantity: "1",
         price: product.rtgPrice,
         category: 'rtgCakes',
@@ -115,7 +115,7 @@ export const Homepage = () => {
 
     const handleChopBuy = async (product: rtgProducts) => {
       const rtgOrderDto: RtgOrderDto = {
-        orderName: chopOrderName + "'s " + product.rtgName,
+        orderName: chopOrderName,
         orderType: product.rtgType,
         deliveryDate: chopDeliveryDate,
         price: product.rtgPrice,
@@ -123,7 +123,7 @@ export const Homepage = () => {
       };
       const item: CartObject = {
         itemId: product.rtgId,
-        itemName: cakeOrderName + "'s " + product.rtgName,
+        itemName: cakeOrderName,
         quantity: "1",
         price: product.rtgPrice,
         itemType: product.rtgType,

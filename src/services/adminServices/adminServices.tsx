@@ -760,3 +760,19 @@ export const fetchUserOrders = async (accessToken: string) => {
     console.log(error)
   }
 }
+
+export const fetchRequests = async (accessToken: string)=> {
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  }
+
+  try {
+    const requests = await axios.get(`${Base_Url}/adminHub/fetchRequests`, config);
+    console.log(requests.data)
+    return requests.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
