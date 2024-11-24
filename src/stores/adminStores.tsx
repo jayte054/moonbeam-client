@@ -1,5 +1,5 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRequests, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../types";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRequests, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, updateUserOrder, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../types";
 
 export const AdminStores = {
   uploadGalleryProduct: async (
@@ -179,13 +179,17 @@ export const AdminStores = {
     return await getAllUsers(accessToken);
   },
 
-  fetchUserOrders: async(accessToken: string) => {
+  fetchUserOrders: async (accessToken: string) => {
     return await fetchUserOrders(accessToken);
   },
 
-  fetchRequests: async(accessToken: string) => {
+  fetchRequests: async (accessToken: string) => {
     return await fetchRequests(accessToken);
-  }
+  },
+
+  updateUserOrder: async (accessToken: string, orderId: string, updateOrderDto: UpdateUserOrderDto) => {
+    return await updateUserOrder(accessToken, orderId, updateOrderDto);
+  },
 };
 
 

@@ -123,11 +123,11 @@ export const Homepage = () => {
       };
       const item: CartObject = {
         itemId: product.rtgId,
-        itemName: cakeOrderName,
+        itemName: chopOrderName,
         quantity: "1",
         price: product.rtgPrice,
         itemType: product.rtgType,
-        category: 'rtgChops',
+        category: "rtgChops",
         deliveryDate: chopDeliveryDate,
         imageUrl: product.rtgImageUrl,
         userId: user.id,

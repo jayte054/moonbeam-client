@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 
@@ -772,6 +772,26 @@ export const fetchRequests = async (accessToken: string)=> {
     const requests = await axios.get(`${Base_Url}/adminHub/fetchRequests`, config);
     console.log(requests.data)
     return requests.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateUserOrder = async (
+  accessToken: string,
+  orderId: string,
+  updateOrderDto: UpdateUserOrderDto
+) => {
+  const config = {
+    headers: {
+      'Authorization': `Bearer ${accessToken}`
+    }
+  }
+
+  try {
+    const updateOrder = await axios.patch(`${Base_Url}/adminHub/updateOrder/${orderId}`, updateOrderDto, config);
+    console.log(updateOrder.data);
+    return updateOrder.data;
   } catch (error) {
     console.log(error)
   }

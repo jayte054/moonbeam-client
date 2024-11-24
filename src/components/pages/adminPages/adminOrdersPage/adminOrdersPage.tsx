@@ -3,7 +3,7 @@ import { AdminPageNavbar } from "../../../navbar/adminPageNavBar";
 import "./adminOrdersPage.css";
 import { AdminStores } from "../../../../stores/adminStores";
 import { AdminAuthContext } from "../../../../context/authcontext/adminAuthContext";
-import { OrderRequestObject, PaidOrdersDto } from "../../../../types";
+import { OrderRequestObject, PaidOrdersDto, UpdateUserOrderDto } from "../../../../types";
 import DataTable, { TableColumn } from "react-data-table-component";
 
 export const AdminOrdersPage = () => {
@@ -47,8 +47,10 @@ export const AdminOrdersPage = () => {
   const [_customChops, _setCustomChops] = useState(false);
   const [orders, setOrders] = useState<PaidOrdersDto[]>([]);
   const [requests, setRequests] = useState<OrderRequestObject[]>([]);
+  const [orderResolved, setOrderResolved] = useState(false);
+  const [resolvingRowId, setResolvingRowId] = useState<string | null>(null);
   const {admin} = useContext(AdminAuthContext);
-  const { fetchUserOrders, fetchRequests } = AdminStores;
+  const { fetchUserOrders, fetchRequests, updateUserOrder } = AdminStores;
 
  
 
@@ -57,6 +59,8 @@ export const AdminOrdersPage = () => {
    ) => {
      setState((prev) => !prev);
    };
+
+  //  const toggleResolved = 
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -269,11 +273,51 @@ export const AdminOrdersPage = () => {
     },
     {
       name: "Delivery",
-      cell: (row: PaidOrdersDto) => (
-        <button type="button" onClick={() => console.log("resolved")}>
-          {row.deliveryStatus}
-        </button>
-      ),
+      cell: (row: PaidOrdersDto) => {
+        const handleResolveOrder = async () => {
+          const updateOrderDto: UpdateUserOrderDto = {
+            deliveryStatus: "resolved",
+          };
+
+          try {
+            // Set the resolving state for this row
+            setResolvingRowId(row.id);
+
+            const resolveOrder = await updateUserOrder(
+              admin.accessToken,
+              row.id,
+              updateOrderDto
+            );
+
+            if (resolveOrder) {
+              console.log(`Order ${row.id} resolved`);
+              row.deliveryStatus = "resolved"; // Update the row's deliveryStatus locally
+              toggleOrder(setOrderResolved); // Optional: Trigger any global updates
+            }
+          } catch (error) {
+            console.error(`Failed to resolve order ${row.id}`, error);
+          } finally {
+            // Clear the resolving state for this row
+            setResolvingRowId(null);
+          }
+        };
+
+        return (
+          <button
+            type="button"
+            onClick={handleResolveOrder}
+            disabled={
+              row.deliveryStatus === "resolved" || resolvingRowId === row.id
+            } // Disable if already resolved or in progress
+          >
+            {row.deliveryStatus === "resolved"
+              ? "Resolved" // Show "Resolved" if already resolved
+              : resolvingRowId === row.id
+              ? "Resolving..." // Show feedback while resolving
+              : row.deliveryStatus}
+          </button>
+        );
+      },
     },
   ];
 
@@ -284,32 +328,49 @@ export const AdminOrdersPage = () => {
         sortable: true,
       },
       {
-      name: "Content",
-      cell: (row: OrderRequestObject) => {
-        let formattedContent: string;
-
-        // Replace curly braces with square brackets
-        if (typeof row.content === "string") {
-          formattedContent = row.content.replace(/{/g, "[").replace(/}/g, "]");
-        } else {
-          // If content is already an array, join it as a string
-          formattedContent = row.content.join(", ");
-        }
-
-        let contentArray: string[] = [];
-        try {
-          // Parse the JSON into an array
-          contentArray = JSON.parse(formattedContent);
-        } catch (error) {
-          console.error("Failed to parse content:", error);
-        }
-
-        // Render as a comma-separated string or a custom component
-        return contentArray.join(", ");
-      }
+        name: "Image",
+        cell: (row: OrderRequestObject) => (
+          <div>
+            <img
+              src={row?.imageUrl}
+              alt={row?.requestTitle}
+              style={{
+                height: "4rem",
+                width: "4rem",
+              }}
+            />
+          </div>
+        ),
       },
       {
-        name: "Qantity",
+        name: "Content",
+        cell: (row: OrderRequestObject) => {
+          let formattedContent: string;
+
+          // Replace curly braces with square brackets
+          if (typeof row.content === "string") {
+            formattedContent = row.content
+              .replace(/{/g, "[")
+              .replace(/}/g, "]");
+          } else {
+            // If content is already an array, join it as a string
+            formattedContent = row.content.join(", ");
+          }
+
+          let contentArray: string[] = [];
+          try {
+            // Parse the JSON into an array
+            contentArray = JSON.parse(formattedContent);
+          } catch (error) {
+            console.error("Failed to parse content:", error);
+          }
+
+          // Render as a comma-separated string or a custom component
+          return contentArray.join(", ");
+        },
+      },
+      {
+        name: "Quantity",
         selector: (row: OrderRequestObject) => row.quantity,
       },
       {
@@ -637,7 +698,7 @@ export const AdminOrdersPage = () => {
               onClick={() => toggleOrder(setCustom)}
               className="orderPage-title"
             >
-              Custom Orders
+              Custom Requests
             </p>
             {custom && (
               <div>

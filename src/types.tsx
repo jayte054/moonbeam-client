@@ -816,10 +816,22 @@ export interface OrderRequestObject {
   requestTitle: string;
   orderType: string;
   quantity: string;
+  imageUrl?: string;
   content: string | string[];
   deliveryDate: string;
   category: string;
   status: string;
   productOrderId: string;
   userId: string;
+}
+
+export interface UpdateUserOrderDto {
+  orderName?: string;
+  category?: string;
+  imageUrl?: string;
+  quantity?: string;
+  price?: string;
+  content?: string[];
+  deliveryDate?: string;
+  deliveryStatus: string;
 }
