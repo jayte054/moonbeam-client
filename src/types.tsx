@@ -816,13 +816,29 @@ export interface OrderRequestObject {
   requestTitle: string;
   orderType: string;
   quantity: string;
+  file?: any;
   imageUrl?: string;
+  price?: string;
   content: string | string[];
   deliveryDate: string;
   category: string;
   status: string;
   productOrderId: string;
   userId: string;
+}
+
+export class UpdateRequestDto {
+  requestTitle?: string | any;
+  orderType?: string | any;
+  category?: string | any;
+  content?: string[] | any[];
+  quantity?: string | any;
+  price?: string | any;
+  file?: any;
+  imageUrl?: string | any;
+  deliveryDate?: string | any;
+  status?: string | any;
+  productOrderId?: string | any;
 }
 
 export interface UpdateUserOrderDto {

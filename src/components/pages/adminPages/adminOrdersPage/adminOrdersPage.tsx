@@ -3,8 +3,9 @@ import { AdminPageNavbar } from "../../../navbar/adminPageNavBar";
 import "./adminOrdersPage.css";
 import { AdminStores } from "../../../../stores/adminStores";
 import { AdminAuthContext } from "../../../../context/authcontext/adminAuthContext";
-import { OrderRequestObject, PaidOrdersDto, UpdateUserOrderDto } from "../../../../types";
+import { OrderRequestObject, PaidOrdersDto, UpdateRequestDto, UpdateUserOrderDto } from "../../../../types";
 import DataTable, { TableColumn } from "react-data-table-component";
+import { CustomInput } from "../../../formComponents/customInput";
 
 export const AdminOrdersPage = () => {
   const [rtg, setRtg] = useState(false)
@@ -48,9 +49,14 @@ export const AdminOrdersPage = () => {
   const [orders, setOrders] = useState<PaidOrdersDto[]>([]);
   const [requests, setRequests] = useState<OrderRequestObject[]>([]);
   const [orderResolved, setOrderResolved] = useState(false);
+  const [requestResolved, setRequestResolved] = useState(false);
   const [resolvingRowId, setResolvingRowId] = useState<string | null>(null);
+  const [requestPrice, setRequestPrice] = useState<Record<string, string>>({})
+  const [file, setFile] = useState<File | any>();
+  const [requestStatus, setRequestStatus] = useState<string>('')
   const {admin} = useContext(AdminAuthContext);
-  const { fetchUserOrders, fetchRequests, updateUserOrder } = AdminStores;
+  const { fetchUserOrders, fetchRequests, updateUserOrder, updateUserRequest } =
+    AdminStores;
 
  
 
@@ -290,12 +296,11 @@ export const AdminOrdersPage = () => {
             );
 
             if (resolveOrder) {
-              console.log(`Order ${row.id} resolved`);
               row.deliveryStatus = "resolved"; // Update the row's deliveryStatus locally
               toggleOrder(setOrderResolved); // Optional: Trigger any global updates
             }
           } catch (error) {
-            console.error(`Failed to resolve order ${row.id}`, error);
+            console.error( error);
           } finally {
             // Clear the resolving state for this row
             setResolvingRowId(null);
@@ -309,6 +314,23 @@ export const AdminOrdersPage = () => {
             disabled={
               row.deliveryStatus === "resolved" || resolvingRowId === row.id
             } // Disable if already resolved or in progress
+            style={{
+              padding: "0.5rem 1rem",
+              borderRadius: "4px",
+              backgroundColor:
+                row.status === "resolved"
+                  ? "#28a745"
+                  : resolvingRowId === row.id
+                  ? "#ffc107"
+                  : "#007bff",
+              color: "#fff",
+              border: "none",
+              cursor:
+                row.status === "resolved" ||
+                resolvingRowId === row.id
+                  ? "not-allowed"
+                  : "pointer",
+            }}
           >
             {row.deliveryStatus === "resolved"
               ? "Resolved" // Show "Resolved" if already resolved
@@ -321,16 +343,24 @@ export const AdminOrdersPage = () => {
     },
   ];
 
-    const RequestColumns: TableColumn<OrderRequestObject>[] = [
-      {
-        name: "Customer Name",
-        selector: (row: OrderRequestObject) => row.requestTitle,
-        sortable: true,
-      },
-      {
-        name: "Image",
-        cell: (row: OrderRequestObject) => (
-          <div>
+const RequestColumns: TableColumn<OrderRequestObject>[] = [
+  {
+    name: "Customer Name",
+    selector: (row: OrderRequestObject) => row.requestTitle,
+    sortable: true,
+  },
+  {
+    name: "Image",
+    cell: (row: OrderRequestObject) => {
+      const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files?.[0];
+        if (file) {
+          setFile(file);
+        }
+      };
+      return (
+        <div>
+          {row.imageUrl ? (
             <img
               src={row?.imageUrl}
               alt={row?.requestTitle}
@@ -339,53 +369,159 @@ export const AdminOrdersPage = () => {
                 width: "4rem",
               }}
             />
-          </div>
-        ),
-      },
-      {
-        name: "Content",
-        cell: (row: OrderRequestObject) => {
-          let formattedContent: string;
+          ) : (
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              style={{
+                display: "block",
+                marginTop: "0.5rem",
+              }}
+            />
+          )}
+        </div>
+      );
+    },
+  },
+  {
+    name: "Price",
+    cell: (row: OrderRequestObject) => {
+      const handlePriceChange = (requestId: string, value: string) => {
+        setRequestPrice((prev) => ({
+          ...prev,
+          [requestId]: value,
+        }));
+      };
 
-          // Replace curly braces with square brackets
-          if (typeof row.content === "string") {
-            formattedContent = row.content
-              .replace(/{/g, "[")
-              .replace(/}/g, "]");
-          } else {
-            // If content is already an array, join it as a string
-            formattedContent = row.content.join(", ");
+      return (
+        <input
+          type="text"
+          value={requestPrice[row.requestId] || row.price}
+          onChange={(e) => handlePriceChange(row.requestId, e.target.value)}
+          style={{
+            width: "4rem",
+          }}
+          required
+        />
+      );
+    },
+  },
+  {
+    name: "Content",
+    cell: (row: OrderRequestObject) => {
+      try {
+        const contentArray: string[] = Array.isArray(row.content)
+          ? row.content
+          : JSON.parse(row.content.replace(/{/g, "[").replace(/}/g, "]"));
+
+        return contentArray.join(", ");
+      } catch (error) {
+        console.error("Failed to parse content:", error);
+        return "Invalid content format";
+      }
+    },
+  },
+  {
+    name: "Status",
+    cell: (row: OrderRequestObject) => {
+      const handleStatusChange = (
+        event: React.ChangeEvent<HTMLSelectElement>
+      ) => {
+        setRequestStatus(event.target.value);
+      };
+
+      return (
+        <select
+          name="status"
+          value={requestStatus || row.status}
+          onChange={handleStatusChange}
+          style={{
+            padding: "0.5rem",
+            borderRadius: "4px",
+            border: "1px solid #ccc",
+          }}
+        >
+          <option value="">
+            Select Status
+          </option>
+          <option value="canceled">Canceled</option>
+          <option value="delivered">Delivered</option>
+        </select>
+      );
+    },
+  },
+  {
+    name: "Delivery Date",
+    selector: (row: OrderRequestObject) => row.deliveryDate,
+  },
+  {
+    name: "Delivery",
+    cell: (row: OrderRequestObject) => {
+      const handleRequestResolve = async () => {
+        const updateRequestDto: UpdateRequestDto = {
+          price: requestPrice[row.requestId] || row.price,
+          status: requestStatus || row.status,
+        };
+        try {
+          setResolvingRowId(row.requestId);
+          const updateRequest = await updateUserRequest(
+            admin.accessToken,
+            row.requestId,
+            file,
+            updateRequestDto
+          );
+
+          if (updateRequest) {
+            row.status = updateRequestDto.status; // Update locally for immediate feedback
+            toggleOrder(setRequestResolved);
           }
+        } catch (error) {
+          console.error(error);
+        } finally {
+          setResolvingRowId(null);
+        }
+      };
 
-          let contentArray: string[] = [];
-          try {
-            // Parse the JSON into an array
-            contentArray = JSON.parse(formattedContent);
-          } catch (error) {
-            console.error("Failed to parse content:", error);
+      return (
+        <button
+          type="button"
+          onClick={handleRequestResolve}
+          disabled={
+            row.status === "delivered" ||
+            row.status === "canceled" ||
+            resolvingRowId === row.requestId
           }
+          style={{
+            padding: "0.5rem 1rem",
+            borderRadius: "4px",
+            backgroundColor:
+              row.status === "delivered"
+                ? "#28a745"
+                : resolvingRowId === row.requestId
+                ? "#ffc107"
+                : "#007bff",
+            color: "#fff",
+            border: "none",
+            cursor:
+              row.status === "delivered" ||
+              row.status === "canceled" ||
+              resolvingRowId === row.requestId
+                ? "not-allowed"
+                : "pointer",
+          }}
+        >
+          {row.status === "delivered"
+            ? "Resolved"
+            : resolvingRowId === row.requestId
+            ? "Resolving..."
+            : "Resolve"}
+        </button>
+      );
+    },
+  },
+];
 
-          // Render as a comma-separated string or a custom component
-          return contentArray.join(", ");
-        },
-      },
-      {
-        name: "Quantity",
-        selector: (row: OrderRequestObject) => row.quantity,
-      },
-      {
-        name: "Delivery Date",
-        selector: (row: OrderRequestObject) => row.deliveryDate,
-      },
-      {
-        name: "Status",
-        cell: (row: OrderRequestObject) => (
-          <button type="button" onClick={() => console.log("resolved")}>
-            {row.status}
-          </button>
-        ),
-      },
-    ];
 
    const customStyles = {
      headCells: {

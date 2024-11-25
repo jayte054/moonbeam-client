@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRequestDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 
@@ -792,6 +792,38 @@ export const updateUserOrder = async (
     const updateOrder = await axios.patch(`${Base_Url}/adminHub/updateOrder/${orderId}`, updateOrderDto, config);
     console.log(updateOrder.data);
     return updateOrder.data;
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export const updateUserRequest = async (
+  accessToken: string,
+  requestId: string,
+  file: File,
+  updateRequestDto: UpdateRequestDto
+) => {
+  const { status, price,} = updateRequestDto;
+
+  const formData = new FormData();
+  formData.append('status', status)
+  formData.append('price', price)
+  formData.append('file', file)
+
+  const config = {
+    headers: {
+      "Authorization": `Bearer ${accessToken}`
+    }
+  }
+
+  try {
+    const updateRequest = await axios.patch(
+      `${Base_Url}/adminHub/updateRequest/${requestId}`, 
+      formData, 
+      config
+    )
+    console.log(updateRequest.data);
+    return updateRequest.data;
   } catch (error) {
     console.log(error)
   }
