@@ -32,24 +32,43 @@ export const AdminOrdersPage = () => {
   const [customChops, setCustomChops] = useState<OrderRequestObject[]>([]);
   const [customPackage, setCustomPackage] = useState<OrderRequestObject[]>([]);
   const [_rtgCakes, _setRtgCakes] = useState(false);
+  const [resolvedRtgCakes, setResolvedRtgCakes] = useState(false);
   const [_rtgChops, _setRtgChops] = useState(false);
+  const [resolvedRtgChops, setResolvedRtgChops] = useState(false);
   const [_chops, _setChops] = useState(false);
+  const [resolvedChops, setResolvedChops] = useState(false);
   const [_pastry, _setPastry] = useState(false);
+  const [resolvedPastry, setResolvedPastry] = useState(false);
   const [_budgetCake, _setBudgetCake] = useState(false);
+  const [resolvedBudgetCake, setResolvedBudgetCake] = useState(false);
   const [_specialCake, _setSpecialCake] = useState(false);
+  const [resolvedSpecialCake, setResolvedSpecialCake] = useState(false);
   const [_bronzePackage, _setBronzePackage] = useState(false);
+  const [resolvedBronzePackage, setResolvedBronzePackage] = useState(false);
   const [_silverPackage, _setSilverPackage] = useState(false);
+  const [resolvedSilverPackage, setResolvedSilverPackage] = useState(false);
   const [_goldPackage, _setGoldPackage] = useState(false);
+  const [resolvedGoldPackage, setResolvedGoldPackage] = useState(false);
   const [_diamondPackage, _setDiamondPackage] = useState(false);
+  const [resolvedDiamondPackage, setResolvedDiamondPackage] = useState(false);
   const [_cakeParfait, _setCakeParfait] = useState(false);
+  const [resolvedCakeParfait, setResolvedCakeParfait] = useState(false);
   const [_foilCake, _setFoilCake] = useState(false);
+  const [resolvedFoilCake, setResolvedFoilCake] = useState(false);
   const [_customCake, _setCustomCake] = useState(false);
+  const [resolvedCustomCake, setResolvedCustomCake] = useState(false);
   const [_customPackage, _setCustomPackage] = useState(false);
+  const [resolvedCustomPackage, setResolvedCustomPackage] = useState(false);
   const [_customChops, _setCustomChops] = useState(false);
+  const [resolvedCustomChops, setResolvedCustomChops] = useState(false);
   const [orders, setOrders] = useState<PaidOrdersDto[]>([]);
   const [requests, setRequests] = useState<OrderRequestObject[]>([]);
   const [orderResolved, setOrderResolved] = useState(false);
   const [requestResolved, setRequestResolved] = useState(false);
+  const [resolved, setResolved] = useState<PaidOrdersDto[]>([])
+  const [resolvedRequests, setResolvedRequests] = useState<
+    OrderRequestObject[]
+  >([]);
   const [resolvingRowId, setResolvingRowId] = useState<string | null>(null);
   const [requestPrice, setRequestPrice] = useState<Record<string, string>>({})
   const [file, setFile] = useState<File | any>();
@@ -58,15 +77,11 @@ export const AdminOrdersPage = () => {
   const { fetchUserOrders, fetchRequests, updateUserOrder, updateUserRequest } =
     AdminStores;
 
- 
-
    const toggleOrder = (
      setState: React.Dispatch<React.SetStateAction<boolean>>
    ) => {
      setState((prev) => !prev);
    };
-
-  //  const toggleResolved = 
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -229,16 +244,19 @@ export const AdminOrdersPage = () => {
         return setCustomChops(() => saidOrders);
       };
 
-      // const fetchRtgChopOrders = async (category: string) => {
-      //   console.log(category);
-      //   const saidOrders = await orders.filter(
-      //     (order) =>
-      //       order.category === category && order.deliveryStatus === "unresolved"
-      //   );
-      //   return setRtgChops(() => saidOrders);
-      // };
+      const fetchResolvedOrder = async (category: string) => {
+        const saidOrders = await orders.filter(order => order.category === category && order.deliveryStatus === 'resolved')
+        return setResolved(() => saidOrders)
+      }
 
-  
+       const fetchResolvedRequests = async (category: string) => {
+         const saidRequests = await requests.filter(
+           (request) =>
+             request.category === category &&
+             request.status === "delivered"
+         );
+         return setResolvedRequests(() => saidRequests);
+       };
 
   const columns: TableColumn<PaidOrdersDto>[] = [
     {
@@ -312,22 +330,18 @@ export const AdminOrdersPage = () => {
             type="button"
             onClick={handleResolveOrder}
             disabled={
-              row.deliveryStatus === "resolved" || resolvingRowId === row.id
+              row.deliveryStatus === "Resolved" || resolvingRowId === row.id
             } // Disable if already resolved or in progress
+            className="admin-ordersPae-orderButton"
             style={{
-              padding: "0.5rem 1rem",
-              borderRadius: "4px",
               backgroundColor:
                 row.status === "resolved"
                   ? "#28a745"
                   : resolvingRowId === row.id
                   ? "#ffc107"
                   : "#007bff",
-              color: "#fff",
-              border: "none",
               cursor:
-                row.status === "resolved" ||
-                resolvingRowId === row.id
+                row.status === "resolved" || resolvingRowId === row.id
                   ? "not-allowed"
                   : "pointer",
             }}
@@ -340,6 +354,49 @@ export const AdminOrdersPage = () => {
           </button>
         );
       },
+    },
+  ];
+
+  const resolvedOrdersColumns: TableColumn<PaidOrdersDto>[] = [
+    {
+      name: "Customer Name",
+      selector: (row: PaidOrdersDto) => row.orderName,
+      sortable: true,
+    },
+    {
+      name: "Image",
+      cell: (row: PaidOrdersDto) => (
+        <div>
+          <img
+            src={row?.imageUrl}
+            alt={row?.orderName}
+            style={{
+              height: "4rem",
+              width: "4rem",
+            }}
+          />
+        </div>
+      ),
+    },
+    {
+      name: "Price",
+      selector: (row: PaidOrdersDto) => row?.amount,
+    },
+    {
+      name: "Order Date",
+      selector: (row: PaidOrdersDto) => row.date,
+    },
+    {
+      name: "Delivery Date",
+      selector: (row: PaidOrdersDto) => row.deliveryDate,
+    },
+    {
+      name: "Status",
+      selector: (row: PaidOrdersDto) => row.status,
+    },
+    {
+      name: "Delivery",
+      cell: (row: PaidOrdersDto) => row.deliveryStatus,
     },
   ];
 
@@ -462,6 +519,7 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
         const updateRequestDto: UpdateRequestDto = {
           price: requestPrice[row.requestId] || row.price,
           status: requestStatus || row.status,
+          imageUrl: row.imageUrl,
         };
         try {
           setResolvingRowId(row.requestId);
@@ -492,17 +550,15 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
             row.status === "canceled" ||
             resolvingRowId === row.requestId
           }
+          className= "admin-ordersPae-requestButton"
           style={{
-            padding: "0.5rem 1rem",
-            borderRadius: "4px",
+            
             backgroundColor:
               row.status === "delivered"
                 ? "#28a745"
                 : resolvingRowId === row.requestId
                 ? "#ffc107"
                 : "#007bff",
-            color: "#fff",
-            border: "none",
             cursor:
               row.status === "delivered" ||
               row.status === "canceled" ||
@@ -519,6 +575,50 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
         </button>
       );
     },
+  },
+];
+
+const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
+  {
+    name: "Customer Name",
+    selector: (row: OrderRequestObject) => row.requestTitle,
+    sortable: true,
+  },
+  {
+    name: "Image",
+    cell: (row: OrderRequestObject) => (
+    <img 
+      src ={row.imageUrl} 
+      alt={row.requestTitle} 
+      style={{width: '4rem', height: "4rem"}}
+      />)
+  },
+  {
+    name: "Price",
+    cell: (row: OrderRequestObject) => row.price
+  },
+  {
+    name: "Content",
+    cell: (row: OrderRequestObject) => {
+      try {
+        const contentArray: string[] = Array.isArray(row.content)
+          ? row.content
+          : JSON.parse(row.content.replace(/{/g, "[").replace(/}/g, "]"));
+
+        return contentArray.join(", ");
+      } catch (error) {
+        console.error("Failed to parse content:", error);
+        return "Invalid content format";
+      }
+    },
+  },
+  {
+    name: "Status",
+    cell: (row: OrderRequestObject) => row.status
+  },
+  {
+    name: "Delivery Date",
+    selector: (row: OrderRequestObject) => row.deliveryDate,
   },
 ];
 
@@ -990,8 +1090,48 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
             {_rtg && (
               <div>
                 <ul>
-                  <li>Cakes Orders</li>
-                  <li>Chops Orders</li>
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedRtgCakes);
+                      fetchResolvedOrder("rtgCakes");
+                    }}
+                  >
+                    Cakes Orders
+                  </li>
+                  {resolvedRtgCakes && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedRtgChops);
+                      fetchResolvedOrder("rtgChops");
+                    }}
+                  >
+                    Chops Orders
+                  </li>
+                  {resolvedRtgChops && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
                 </ul>
               </div>
             )}
@@ -1005,14 +1145,174 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
             {_quick && (
               <div>
                 <ul>
-                  <li>Budget Cakes Orders</li>
-                  <li>Special Cakes Orders</li>
-                  <li>Bronze Package Orders</li>
-                  <li>Silver Package Orders</li>
-                  <li>Gold Package Orders</li>
-                  <li>Diamond Package Orders</li>
-                  <li>Chops Orders</li>
-                  <li>Pastries Orders</li>
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedBudgetCake);
+                      fetchResolvedOrder("budgetCake");
+                    }}
+                  >
+                    Budget Cakes Orders
+                  </li>
+                  {resolvedBudgetCake && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedSpecialCake);
+                      fetchResolvedOrder("specialCake");
+                    }}
+                  >
+                    Special Cakes Orders
+                  </li>
+                  {resolvedSpecialCake && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedBronzePackage);
+                      fetchResolvedOrder("bronzePackage");
+                    }}
+                  >
+                    Bronze Package Orders
+                  </li>
+                  {resolvedBronzePackage && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedSilverPackage);
+                      fetchResolvedOrder("silverPackage");
+                    }}
+                  >
+                    Silver Package Orders
+                  </li>
+                  {resolvedSilverPackage && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedGoldPackage);
+                      fetchResolvedOrder("goldPackage");
+                    }}
+                  >
+                    Gold Package Orders
+                  </li>
+                  {resolvedGoldPackage && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedDiamondPackage);
+                      fetchResolvedOrder("diamondPackage");
+                    }}
+                  >
+                    Diamond Package Orders
+                  </li>
+                  {resolvedDiamondPackage && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedChops);
+                      fetchResolvedOrder("chops");
+                    }}
+                  >
+                    Chops Orders
+                  </li>
+                  {resolvedChops && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedPastry);
+                      fetchResolvedOrder("chops");
+                    }}
+                  >
+                    Pastries Orders
+                  </li>
+                  {resolvedPastry && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
                 </ul>
               </div>
             )}
@@ -1026,9 +1326,69 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
             {_custom && (
               <div>
                 <ul>
-                  <li>Custom Cake Orders</li>
-                  <li>Custom Package Orders</li>
-                  <li>Custom Chops Orders</li>
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedCustomCake);
+                      fetchResolvedRequests("customCake");
+                    }}
+                  >
+                    Custom Cake Orders
+                  </li>
+                  {resolvedCustomCake && resolvedRequests && (
+                    <div>
+                      <DataTable
+                        columns={ResolvedRequestColumns}
+                        data={resolvedRequests}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedCustomPackage);
+                      fetchResolvedRequests("customPackage");
+                    }}
+                  >
+                    Custom Package Orders
+                  </li>
+                  {resolvedCustomPackage && resolvedRequests && (
+                    <div>
+                      <DataTable
+                        columns={ResolvedRequestColumns}
+                        data={resolvedRequests}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedCustomChops);
+                      fetchResolvedRequests("customChops");
+                    }}
+                  >
+                    Custom Chops Orders
+                  </li>
+                  {resolvedCustomChops && resolvedRequests && (
+                    <div>
+                      <DataTable
+                        columns={ResolvedRequestColumns}
+                        data={resolvedRequests}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
                 </ul>
               </div>
             )}
@@ -1042,8 +1402,48 @@ const RequestColumns: TableColumn<OrderRequestObject>[] = [
             {_variant && (
               <div>
                 <ul>
-                  <li>Foil Cakes Orders</li>
-                  <li>Cake Parfait Orders</li>
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedFoilCake);
+                      fetchResolvedOrder("foilCake");
+                    }}
+                  >
+                    Foil Cakes Orders
+                  </li>
+                  {resolvedFoilCake && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
+                  <li
+                    onClick={() => {
+                      toggleOrder(setResolvedCakeParfait);
+                      fetchResolvedOrder("cakeParfait");
+                    }}
+                  >
+                    Cake Parfait Orders
+                  </li>
+                  {resolvedCakeParfait && resolved && (
+                    <div>
+                      <DataTable
+                        columns={resolvedOrdersColumns}
+                        data={resolved}
+                        pagination
+                        highlightOnHover
+                        pointerOnHover
+                        responsive
+                        customStyles={customStyles}
+                      />
+                    </div>
+                  )}
                 </ul>
               </div>
             )}

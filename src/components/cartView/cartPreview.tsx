@@ -36,7 +36,10 @@ const navigate = useNavigate()
               <div>
                 <span style={{ fontSize: "1rem" }}>{cartItem.itemName}</span>
                 <span style={{ fontSize: "1rem" }}>
-                  {cartItem.quantity}*{cartItem.price}
+                  {cartItem.quantity}
+                </span>
+                <span style={{ fontSize: "1rem" }}>
+                  {cartItem.price}
                 </span>
               </div>
             </div>

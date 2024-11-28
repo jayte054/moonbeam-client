@@ -45,7 +45,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
     }, [ accessToken, getCartItems]);
 
     useEffect(() => {
-        const newTotal = cartItems.reduce((total, cartItem) => total + Number(cartItem.quantity) * Number(cartItem.price), 0)
+        const newTotal = cartItems.reduce((total, cartItem) => total + Number(cartItem.price), 0)
         setCartTotal(() => newTotal)
     }, [cartItems])
 

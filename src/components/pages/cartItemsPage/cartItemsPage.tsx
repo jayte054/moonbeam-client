@@ -19,6 +19,8 @@ export const CartItemsPage = () => {
  const navigate = useNavigate()
 
  console.log(cartItems)
+ console.log(cartTotal);
+ const totalPrice = cartItems.reduce((total: number, cartItem: CartObject) => total + Number(cartItem.price), 0)
 
  const name = user ? `${user.firstname}'s Cart` : "Cart";
 
@@ -173,7 +175,9 @@ export const CartItemsPage = () => {
               customStyles={customStyles}
             />
             <div>
-              <h2>Total : {cartTotal} </h2>
+              <h2>
+                Total : {cartTotal}
+              </h2>
               <span>
                 <CustomButton
                   type="button"

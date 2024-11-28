@@ -803,11 +803,13 @@ export const updateUserRequest = async (
   file: File,
   updateRequestDto: UpdateRequestDto
 ) => {
-  const { status, price,} = updateRequestDto;
+  console.log(updateRequestDto)
+  const { status, price, imageUrl} = updateRequestDto;
 
   const formData = new FormData();
   formData.append('status', status)
   formData.append('price', price)
+  formData.append("imageUrl", imageUrl);
   formData.append('file', file)
 
   const config = {
