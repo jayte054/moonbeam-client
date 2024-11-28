@@ -16,18 +16,6 @@ export const AdminOrdersPage = () => {
   const [_custom, _setCustom] = useState(false);
   const [variant, setVariant] = useState(false)
   const [_variant, _setVariant] = useState(false);
-  const [rtgCakes, setRtgCakes] = useState < PaidOrdersDto[]>([]);
-  const [rtgChops, setRtgChops] = useState<PaidOrdersDto[]>([]);
-  const [budgetCake, setBudgetCake] = useState<PaidOrdersDto[]>([]);
-  const [specialCake, setSpecialCake] = useState<PaidOrdersDto[]>([]);
-  const [chops, setChops] = useState<PaidOrdersDto[]>([]);
-  const [pastry, setPastry] = useState<PaidOrdersDto[]>([]);
-  const [bronzePackage, setBronzePackage] = useState<PaidOrdersDto[]>([]);
-  const [silverPackage, setSilverPackage] = useState<PaidOrdersDto[]>([]);
-  const [goldPackage, setGoldPackage] = useState<PaidOrdersDto[]>([]);
-  const [diamondPackage, setDiamondPackage] = useState<PaidOrdersDto[]>([]);
-  const [cakeParfait, setCakeParfait] = useState<PaidOrdersDto[]>([]);
-  const [foilCake, setFoilCake] = useState<PaidOrdersDto[]>([]);
   const [customCake, setCustomCake] = useState<OrderRequestObject[]>([]);
   const [customChops, setCustomChops] = useState<OrderRequestObject[]>([]);
   const [customPackage, setCustomPackage] = useState<OrderRequestObject[]>([]);
@@ -66,6 +54,7 @@ export const AdminOrdersPage = () => {
   const [orderResolved, setOrderResolved] = useState(false);
   const [requestResolved, setRequestResolved] = useState(false);
   const [resolved, setResolved] = useState<PaidOrdersDto[]>([])
+  const [unresolved, setUnresolved] = useState<PaidOrdersDto[]>([]);
   const [resolvedRequests, setResolvedRequests] = useState<
     OrderRequestObject[]
   >([]);
@@ -109,113 +98,6 @@ export const AdminOrdersPage = () => {
       };
       fetchOrderRequests();
     }, [admin, fetchRequests]);
-
-  const fetchRtgCakeOrders = async (category: string) => {
-    console.log('ioio')
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setRtgCakes(() => saidOrders);
-  }
-
-  const fetchRtgChopOrders = async (category: string) => {
-    console.log(category);
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setRtgChops(() => saidOrders);
-  };
-
-    const fetchBudgetCakeOrders = async (category: string) => {
-      console.log(category);
-      const saidOrders = await orders.filter(
-        (order) =>
-          order.category === category && order.deliveryStatus === "unresolved"
-      );
-      return setBudgetCake(() => saidOrders);
-    };  
-
-    const fetchSpecialCakeOrders = async (category: string) => {
-      console.log(category);
-      const saidOrders = await orders.filter(
-        (order) =>
-          order.category === category && order.deliveryStatus === "unresolved"
-      );
-      return setSpecialCake(() => saidOrders);
-    };  
-
-    const fetchChopOrders = async (category: string) => {
-      console.log(category);
-      const saidOrders = await orders.filter(
-        (order) =>
-          order.category === category && order.deliveryStatus === "unresolved"
-      );
-      return setChops(() => saidOrders);
-    };  
-
-    const fetchPastryOrders = async (category: string) => {
-    console.log(category);
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setPastry(() => saidOrders);
-  };  
-  
-  const fetchBonzeOrders = async (category: string) => {
-    console.log(category);
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setBronzePackage(() => saidOrders);
-  };  
-  const fetchSilverOrders = async (category: string) => {
-    console.log(category);
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setSilverPackage(() => saidOrders);
-  };  
-  
-  const fetchGoldOrders = async (category: string) => {
-    console.log(category);
-    const saidOrders = await orders.filter(
-      (order) =>
-        order.category === category && order.deliveryStatus === "unresolved"
-    );
-    return setGoldPackage(() => saidOrders);
-  };
-
-    const fetchDiamondOrders = async (category: string) => {
-      console.log(category);
-      const saidOrders = await orders.filter(
-        (order) =>
-          order.category === category && order.deliveryStatus === "unresolved"
-      );
-      return setDiamondPackage(() => saidOrders);
-    };
-
-      const fetchCakeParfaitOrders = async (category: string) => {
-        console.log(category);
-        const saidOrders = await orders.filter(
-          (order) =>
-            order.category === category && order.deliveryStatus === "unresolved"
-        );
-        return setCakeParfait(() => saidOrders);
-      };
-
-      const fetchFoilCakeOrders = async (category: string) => {
-        console.log(category);
-        const saidOrders = await orders.filter(
-          (order) =>
-            order.category === category && order.deliveryStatus === "unresolved"
-        );
-        return setFoilCake(() => saidOrders);
-      };
       
       const fetchCustomCakeOrders = async (category: string) => {
         console.log(category);
@@ -242,6 +124,15 @@ export const AdminOrdersPage = () => {
             order.category === category && order.status === "in progress"
         );
         return setCustomChops(() => saidOrders);
+      };
+
+      const fetchUnresolvedOrders = async (category: string) => {
+        console.log(category);
+        const saidOrders = await orders.filter(
+          (order) =>
+            order.category === category && order.deliveryStatus === "unresolved"
+        );
+        return setUnresolved(() => saidOrders);
       };
 
       const fetchResolvedOrder = async (category: string) => {
@@ -663,21 +554,17 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setRtgCakes);
-                      if (rtgCakes[0] === undefined) {
-                        fetchRtgCakeOrders("rtgCakes");
-                      } else {
-                        return;
-                      }
+                        fetchUnresolvedOrders("rtgCakes");
                     }}
                   >
                     Cakes Orders
                   </li>
                   {
-                    _rtgCakes && rtgCakes && (
+                    _rtgCakes && unresolved && (
                       <div className="orderTable">
                         <DataTable
                           columns={columns}
-                          data={rtgCakes}
+                          data={unresolved}
                           pagination
                           highlightOnHover
                           pointerOnHover
@@ -691,20 +578,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setRtgChops);
-                      if (rtgChops[0] === undefined) {
-                        fetchRtgChopOrders("rtgChops");
-                      } else {
-                        return;
-                      }
+                        fetchUnresolvedOrders("rtgChops");
                     }}
                   >
                     Chops Orders
                   </li>
-                  {_rtgChops && rtgChops && (
+                  {_rtgChops && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={rtgChops}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -729,20 +612,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setBudgetCake);
-                      if (budgetCake[0] === undefined) {
-                        fetchBudgetCakeOrders("budgetCake");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("budgetCake");
                     }}
                   >
                     Budget Cakes Orders
                   </li>
-                  {_budgetCake && budgetCake && (
+                  {_budgetCake && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={budgetCake}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -754,20 +633,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setSpecialCake);
-                      if (specialCake[0] === undefined) {
-                        fetchSpecialCakeOrders("specialCake");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("specialCake");
                     }}
                   >
                     Special Cakes Orders
                   </li>
-                  {_specialCake && specialCake && (
+                  {_specialCake && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={specialCake}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -779,20 +654,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setBronzePackage);
-                      if (bronzePackage[0] === undefined) {
-                        fetchBonzeOrders("bronzePackage");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("bronzePackage");
                     }}
                   >
                     Bronze Package Orders
                   </li>
-                  {_bronzePackage && bronzePackage && (
+                  {_bronzePackage && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={bronzePackage}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -804,20 +675,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setSilverPackage);
-                      if (silverPackage[0] === undefined) {
-                        fetchSilverOrders("silverPackage");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("silverPackage");
                     }}
                   >
                     Silver Package Orders
                   </li>
-                  {_silverPackage && silverPackage && (
+                  {_silverPackage && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={silverPackage}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -829,20 +696,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setGoldPackage);
-                      if (goldPackage[0] === undefined) {
-                        fetchGoldOrders("goldPackage");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("goldPackage");
                     }}
                   >
                     Gold Package Orders
                   </li>
-                  {_goldPackage && goldPackage && (
+                  {_goldPackage && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={goldPackage}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -854,20 +717,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setDiamondPackage);
-                      if (diamondPackage[0] === undefined) {
-                        fetchDiamondOrders("diamondPackage");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("diamondPackage");
                     }}
                   >
                     Diamond Package Orders
                   </li>
-                  {_diamondPackage && diamondPackage && (
+                  {_diamondPackage && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={diamondPackage}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -879,20 +738,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setChops);
-                      if (chops[0] === undefined) {
-                        fetchChopOrders("chops");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("chops");
                     }}
                   >
                     Chops Orders
                   </li>
-                  {_chops && chops && (
+                  {_chops && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={chops}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -904,20 +759,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setPastry);
-                      if (pastry[0] === undefined) {
-                        fetchPastryOrders("pastry");
-                      } else {
-                        return;
-                      }
+                      fetchUnresolvedOrders("pastry");
                     }}
                   >
                     Pastries Orders
                   </li>
-                  {_pastry && pastry && (
+                  {_pastry && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={pastry}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -942,11 +793,7 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setCustomCake);
-                      if (customCake[0] === undefined) {
                         fetchCustomCakeOrders("customCake");
-                      } else {
-                        return;
-                      }
                     }}
                   >
                     Custom Cake Orders
@@ -967,11 +814,7 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setCustomPackage);
-                      if (customPackage[0] === undefined) {
                         fetchCustomPackageOrders("customPackage");
-                      } else {
-                        return;
-                      }
                     }}
                   >
                     Custom Package Orders
@@ -992,11 +835,7 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setCustomChops);
-                      if (customChops[0] === undefined) {
                         fetchCustomChopOrders("customChops");
-                      } else {
-                        return;
-                      }
                     }}
                   >
                     Custom Chops Orders
@@ -1030,20 +869,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setFoilCake);
-                      if (foilCake[0] === undefined) {
-                        fetchFoilCakeOrders("foilCake");
-                      } else {
-                        return;
-                      }
+                        fetchUnresolvedOrders("foilCake");
                     }}
                   >
                     Foil Cakes Orders
                   </li>
-                  {_foilCake && foilCake && (
+                  {_foilCake && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={foilCake}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
@@ -1055,20 +890,16 @@ const ResolvedRequestColumns: TableColumn<OrderRequestObject>[] = [
                   <li
                     onClick={() => {
                       toggleOrder(_setCakeParfait);
-                      if (cakeParfait[0] === undefined) {
-                        fetchCakeParfaitOrders("cakeParfait");
-                      } else {
-                        return;
-                      }
+                        fetchUnresolvedOrders("cakeParfait");
                     }}
                   >
                     Cake Parfait Orders
                   </li>
-                  {_cakeParfait && cakeParfait && (
+                  {_cakeParfait && unresolved && (
                     <div className="orderTable">
                       <DataTable
                         columns={columns}
-                        data={cakeParfait}
+                        data={unresolved}
                         pagination
                         highlightOnHover
                         pointerOnHover
