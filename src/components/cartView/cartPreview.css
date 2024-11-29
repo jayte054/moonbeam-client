@@ -1,8 +1,9 @@
 .cartPreview-container{
     border: 3px solid #d767e8;
     margin:  1rem auto;
+    padding: .5rem;
     position: absolute;
-    background-color: white;
+    background-color: #f4f3f0;
     right: 4rem;
     transform: translate(-10px);
      /* opacity: 0;  */
@@ -12,9 +13,10 @@
 }
 
 .cartItem-body{
-    width: 15rem auto;
+    width: 13rem ;
     height: 18rem;
-    padding: 1rem;
+    /* background-color: #fbfaf8; */
+    padding: 1rem 1rem 0 1rem;
     overflow: scroll;
 }
 .cartItem-content {

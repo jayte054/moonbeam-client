@@ -1,4 +1,4 @@
-.cartPreview-container{
+.requestPreview-container{
     border: 3px solid #d767e8;
     margin:  1rem auto;
     position: absolute;
@@ -11,25 +11,25 @@
     z-index: 5;
 }
 
-.cartItem-body{
+.requestItem-body{
     width: 15rem auto;
     height: 18rem;
     padding: 1rem;
     overflow: scroll;
 }
-.cartItem-content {
+.requestItem-content {
     padding-bottom: 1rem;
     display: flex;
     align-items: center;
 }
 
-.cartItem-content span{
+.requestItem-content span{
     padding-left: 1rem;
     display: grid;
     font-size: 1rem;
 }
 
-.cartItem-content img{
+.requestItem-content img{
     width: 4rem;
     height: 4rem;
 }

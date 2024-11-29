@@ -5,7 +5,7 @@ import React, { ChangeEventHandler, ReactNode, useContext, useEffect, useState }
 import { CheckoutContext } from "../../../context/checkoutContext/checkoutContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { useNavigate } from "react-router-dom";
-import { calculateDeliveryFee, decryptReference, encryptReference, getCoordinates } from "../../utilsComponent";
+import { calculateDeliveryFee, decryptReference, encryptReference, getCoordinates, toastify } from "../../utilsComponent";
 import { checkoutStores } from "../../../stores/checkoutStores";
 import { CartObject, OrderDto, ReferenceObject, StudioAddressObject, verificationDto } from "../../../types";
 import { CustomButton } from "../../formComponents/customButton";
@@ -211,7 +211,7 @@ const handlePayment = async () => {
         await Promise.all(deleteCart)
        
         const updatedCart: CartObject[] = await getCartItems(user.accessToken);
-        console.log(updatedCart)
+        toastify.paymentSuccessful(`payment for order successful`);
         setCartItems(updatedCart);
         navigate("/auth/ordersPage")
       },

@@ -5,6 +5,7 @@ import { userStore } from "../../../stores/userStore";
 import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar"
 import "./signinPage.css";
+import { toastify } from "../../utilsComponent";
 
 export const SigninPage = () => {
     const [email, setEmail] = useState("");
@@ -20,9 +21,9 @@ export const SigninPage = () => {
             const userData = await signIn({email, password})
             updateUser(userData)
             navigate("/auth/homepage", {state: {data: userData.user.email}, replace: true})
-            console.log('signin successful')
+            toastify.signInSuccessful('sign in successful')
         } catch(error) {
-            console.log(error)
+            toastify.signinError(`an error occurred while signing in`)
         }
         
     }

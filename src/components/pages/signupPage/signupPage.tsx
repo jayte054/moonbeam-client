@@ -4,6 +4,7 @@ import { userStore } from "../../../stores/userStore";
 import { Footer } from "../../footer/footer";
 import { SignUpPageNavbar } from "../../navbar/signupPageNavbar";
 import "./signupPage.css";
+import { toastify } from "../../utilsComponent";
 
 export const SignUpPage = () => {
     const [firstname, setFirstname] = useState("")
@@ -36,9 +37,10 @@ export const SignUpPage = () => {
             alert("Passwords do not match. Please check again.");
             return;
         }
+        toastify.signupSuccessful(`sign up successful`)
         navigate("/signinPage")
         } catch(error) {
-            console.log(error)
+            toastify.signupError('An error occurred, please try again later')
         }
        
     }

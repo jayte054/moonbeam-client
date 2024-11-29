@@ -8,6 +8,7 @@ import { RequestObject } from "../../../types";
 import { Footer } from "../../footer/footer";
 import { CustomButton } from "../../formComponents/customButton";
 import { CartPageNav } from "../../navbar/cartPageNav";
+import { FaTrash } from "react-icons/fa";
 
 export const RequestItemsPage = () => {
      const [requestItem, setRequestItem] = useState<RequestObject[]>([]);
@@ -20,18 +21,11 @@ export const RequestItemsPage = () => {
     const name = user ? `${user.firstname}'s Requests` : "Requests";
 
 
-    useEffect(() => {
-      const cart = async () => {
-        const items = await requestItems;
-        console.log(items);
-        setRequestItem(() => items);
-      };
-      cart();
-    }, [requestItems]);
-
      useEffect(() => {
        const cart = async () => {
-         const items = await requestItems;
+         const items = await requestItems.filter(
+          (item: RequestObject) => item.status === "in progress"
+        );;
 
          // Assign images based on item type
          const updatedItems = items.map((item: RequestObject) => {
@@ -98,11 +92,11 @@ export const RequestItemsPage = () => {
          selector: (row: RequestObject) => row.orderType,
        },
        {
-         name: "Remove",
+         name: "Delete",
          cell: (row: RequestObject) => (
            <CustomButton
              type="button"
-             label="cancel request"
+             label={<FaTrash />}
              onClick={() => {
                handleRemoveItem(row.requestId);
              }}
@@ -156,7 +150,7 @@ export const RequestItemsPage = () => {
 
 
     return (
-      <div>
+      <div className="cartItemsPage-container">
         <CartPageNav />
         <div className="cartItemsPage-body">
           <div className="cartItemsPage-header">
@@ -174,14 +168,7 @@ export const RequestItemsPage = () => {
               customStyles={customStyles}
             />
             <div>
-              <h2>Total Requests: {requestCount} </h2>
-              {/* <span>
-                <CustomButton
-                  type="button"
-                  label="send Request"
-                  onClick={checkoutPage}
-                />
-              </span> */}
+              <h2>Total Requests: {requestItem.length} </h2>
             </div>
           </div>
         </div>

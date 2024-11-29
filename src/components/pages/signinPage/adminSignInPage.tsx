@@ -6,6 +6,7 @@ import { userStore } from "../../../stores/userStore";
 import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar";
 import "./signinPage.css";
+import { toastify } from "../../utilsComponent";
 
 export const AdminSigninPage = () => {
   const [email, setEmail] = useState("");
@@ -24,9 +25,11 @@ export const AdminSigninPage = () => {
         state: { data: adminData.admin.email },
         replace: true,
       });
-      console.log("signin successful");
+      toastify.signInSuccessful("sign in successful");
+
     } catch (error) {
-      console.log(error);
+      toastify.signinError(`an error occurred while signing in`);
+
     }
   };
 

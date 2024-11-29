@@ -19,8 +19,8 @@ export const RequestPreview = () => {
   const viewCart = () => navigate("/auth/requestPage");
 
   return (
-    <div className="cartPreview-container">
-      <div className="cartItem-body">
+    <div className="requestPreview-container">
+      <div className="requestItem-body">
         {requestItems.map((requestItem: RequestObject) => {
           const imageUrl =
             requestItem.orderType === "custom package" ? (
@@ -31,7 +31,7 @@ export const RequestPreview = () => {
               requestItem.imageUrl || ""
             );
           return (
-            <div className="cartItem-content" key={requestItem.requestId}>
+            <div className="requestItem-content" key={requestItem.requestId}>
               <div>
                 <span>
                   <img src={imageUrl} alt={requestItem.requestTitle} />

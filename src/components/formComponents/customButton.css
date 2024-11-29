@@ -17,6 +17,6 @@
 }
 
 .customButton button:disabled{
-  color: white;
+  color: #f4f3f0;
   background-color: grey
 }

@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import DataTable, {TableColumn} from "react-data-table-component";
 import { useNavigate } from "react-router-dom";
+import { FaTrash } from "react-icons/fa";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { CartContext } from "../../../context/cartContext/cartContext";
 import { CartStores } from "../../../stores/cartStores";
@@ -9,6 +10,7 @@ import { Footer } from "../../footer/footer"
 import { CustomButton } from "../../formComponents/customButton";
 import { CartPageNav } from "../../navbar/cartPageNav"
 import "./cartItemsPage.css";
+import { toastify } from "../../utilsComponent";
 
 
 export const CartItemsPage = () => {
@@ -24,14 +26,14 @@ export const CartItemsPage = () => {
 
  const name = user ? `${user.firstname}'s Cart` : "Cart";
 
-  useEffect(() => {
-    const cart = async() => {
-      const items = await cartItems;
-      console.log(items)
-      setCartItem(() => items)
-    }
-    cart()
-  }, [cartItems])
+  // useEffect(() => {
+  //   const cart = async() => {
+  //     const items = await cartItems;
+  //     console.log(items)
+  //     setCartItem(() => items)
+  //   }
+  //   cart()
+  // }, [cartItems])
 
   useEffect(() => {
     const cart = async () => {
@@ -51,26 +53,6 @@ export const CartItemsPage = () => {
     };
     cart();
   }, [cartItems]);
-
-  //  const fetchCartItems = useCallback(async () => {
-  //    const items = await cartItems;
-
-  //    // Assign images based on item type
-  //    const updatedItems = items.map((item: CartObject) => {
-  //      if (item.itemType === "foilCake") {
-  //        return { ...item, image: "/foilcake.png" };
-  //      } else if (item.itemType === "cakeParfait") {
-  //        return { ...item, image: "/cakeParfait.png" };
-  //      }
-  //      return item;
-  //    });
-
-  //    setCartItem(() => updatedItems);
-  //  }, [cartItems]);
-
-  //  useEffect(() => {
-  //    fetchCartItems();
-  //  }, [fetchCartItems]);
 
 
   const columns: TableColumn<CartObject>[] | any = [
@@ -101,11 +83,11 @@ export const CartItemsPage = () => {
       selector: (row: CartObject) => row.itemType,
     },
     {
-      name: "Remove",
+      name: "Delete",
       cell: (row: CartObject) => (
         <CustomButton
           type="button"
-          label="remove"
+          label={<FaTrash />}
           onClick={() => {
             handleRemoveItem(row.itemId);
           }}
@@ -147,8 +129,7 @@ export const CartItemsPage = () => {
     setCartItems(updatedCart);
     const quantity = updatedCart.reduce((total: number, cartItem) => total + Number(cartItem.quantity), 0)
     setCartCount(quantity.toString());
-    console.log(updatedCart);
-    console.log(quantity);
+    toastify.deleteItem('item successfully deleted');
   }
 
   const quickOrderPage = () => navigate("/auth/quickOrderPage")

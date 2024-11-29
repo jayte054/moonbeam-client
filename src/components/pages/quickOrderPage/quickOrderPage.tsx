@@ -20,6 +20,7 @@ import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderStores } from "../../../stores/productStores";
 import { CartIcon } from "../../cartIcon/cartIcon";
 import { CartContext } from "../../../context/cartContext/cartContext";
+import { toastify } from "../../utilsComponent";
 
 interface formikHelper extends FormikHelpers<chopsObject> {}
 interface foilFormikHelper extends FormikHelpers<foilObject> {}
@@ -99,7 +100,6 @@ export const QuickOrderPage = () => {
     const accessToken = user.accessToken;
     const {...genericProductOrderDto} = values;
       
-    console.log("order: ", genericProductOrderDto);
     try {
        const order: CakeOrder = await budgetCakeOrder(
          accessToken,
@@ -118,17 +118,16 @@ export const QuickOrderPage = () => {
       };
       addItemToCart(item)
       formikHelpers.resetForm();
+      toastify.addItemToCart(`item successfully added to cart`);
       return order
     } catch (error) {
-      console.log(error);
+      toastify.error(`something went wrong please try again later`);
     }
   };
 
   const specialOrder = async (values: OrderObject, formikHelpers: any) => {
     const accessToken = user.accessToken;
     const {...genericProductOrderDto} = values;
-    console.log("special order", genericProductOrderDto)
-   
 
     try {
       const order: CakeOrder =await specialCakeOrder(accessToken, genericProductOrderDto)
@@ -145,17 +144,17 @@ export const QuickOrderPage = () => {
        };
        addItemToCart(item);
       formikHelpers.resetForm()
+      toastify.addItemToCart(`item successfully added to cart`);
       return order;
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
 
   const bronzeOrder = async(values: packageObject, formikHelpers: any) => {
     const accessToken = user.accessToken;
     const {...surprisePackageOrderDto} = values;
-    console.log("bronzeOrder", surprisePackageOrderDto)
-    console.log(formikHelpers);
 
     try {
       const order: bronzePackageOrderType = await bronzePackageOrder(
@@ -174,16 +173,17 @@ export const QuickOrderPage = () => {
         userId: order.userId,
       };
       addItemToCart(item);
+      toastify.addItemToCart(`item successfully added to cart`);
       formikHelpers.resetForm()
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
 
   const silverOrder = async(values: packageObject, formikHelpers: any) => {
     const accessToken = user.accessToken;
     const {...surprisePackageOrderDto} = values;
-    console.log("silverOrder", surprisePackageOrderDto)
 
     try {
       const order: silverPackageOrderType=await silverPackageOrder(accessToken, surprisePackageOrderDto)
@@ -199,16 +199,16 @@ export const QuickOrderPage = () => {
         userId: order.userId,
       };
       addItemToCart(item);
+      toastify.addItemToCart(`item successfully added to cart`);
       formikHelpers.resetForm()
     } catch(error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
     }
   }
 
   const goldOrder = async(values: packageObject, formikHelpers: any) => {
     const accessToken = user.accessToken;
     const {...surprisePackageOrderDto} = values;
-    console.log(surprisePackageOrderDto)
 
     try{
       const order: goldPackageOrderType = await goldPackageOrder(
@@ -227,16 +227,17 @@ export const QuickOrderPage = () => {
         userId: order.userId,
       };
       addItemToCart(item);
+      toastify.addItemToCart(`item successfully added to cart`);
       formikHelpers.resetForm();
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
 
   const diamondOrder = async (values: packageObject, formikHelpers: any) => {
     const accessToken = user.accessToken;
     const {...surprisePackageOrderDto} = values;
-    console.log(" diamond",surprisePackageOrderDto)
 
     try {
       const order: diamondPackageOrderType = await diamondPackageOrder(
@@ -255,9 +256,11 @@ export const QuickOrderPage = () => {
         userId: order.userId,
       };
       addItemToCart(item);
+      toastify.addItemToCart(`item successfully added to cart`);
       formikHelpers.resetForm()
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
 
@@ -266,7 +269,6 @@ export const QuickOrderPage = () => {
     try {
        const accessToken = user.accessToken;
        const { ...genericChopsOrderDto } = values;
-       console.log("chops", genericChopsOrderDto);
       const order: ChopsOrderType  = await chopsOrder(
         accessToken,
         genericChopsOrderDto
@@ -285,11 +287,12 @@ export const QuickOrderPage = () => {
       };
 
       addItemToCart(item);
-
       formikHelpers.resetForm()
+      toastify.addItemToCart(`item successfully added to cart`);
       return order;
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
 
@@ -297,7 +300,6 @@ export const QuickOrderPage = () => {
     try {
       const accessToken = user.accessToken;
       const {...foilCakeOrderDto}= values;
-      console.log(foilCakeOrderDto)
       const order: VariantCakeOrder =await foilCakeOrder(accessToken, foilCakeOrderDto);
       
       const item: CartObject = {
@@ -319,10 +321,10 @@ export const QuickOrderPage = () => {
 
       addItemToCart(item);
       foilFormikHelpers.resetForm()
+      toastify.addItemToCart(`item successfully added to cart`)
       return order;
-
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`)
     }
   }
 
@@ -330,7 +332,6 @@ export const QuickOrderPage = () => {
     try{
       const accessToken = user.accessToken;
       const {...parfaitOrderDto} = values;
-      console.log("parfait", parfaitOrderDto);
       const order: VariantCakeOrder = await cakeParfaitOrder(
         accessToken,
         parfaitOrderDto
@@ -354,9 +355,11 @@ export const QuickOrderPage = () => {
 
       addItemToCart(item);
       formikHelpers.resetForm()
+      toastify.addItemToCart(`item successfully added to cart`);
       return order;
     } catch (error) {
-      console.log(error)
+      toastify.error(`something went wrong please try again later`);
+
     }
   }
    

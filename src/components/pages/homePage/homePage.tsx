@@ -1,6 +1,7 @@
 import {useContext, useEffect, useState} from "react"
 import { useNavigate } from 'react-router-dom';
 import {FaChevronRight, FaChevronLeft} from 'react-icons/fa';
+import Toastify from 'toastify-js';
 import { Footer } from "../../footer/footer"
 import { HomePageNavbar } from "../../navbar/homepageNavbar"
 import {AuthContext} from "../../../context/authcontext/authContext"
@@ -14,6 +15,7 @@ import { CartContext } from "../../../context/cartContext/cartContext";
 import { CustomInput } from "../../formComponents/customInput";
 import { rtgStores } from "../../../stores/rtgStores";
 import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
+import { toastify } from "../../utilsComponent";
 
 export const Homepage = () => {
     const [products, setProducts] = useState<rtgProducts[]>([])
@@ -86,57 +88,66 @@ export const Homepage = () => {
     }
 
     const handleCakeBuy = async (product: rtgProducts) => {
-        console.log(product)
-      const rtgOrderDto: RtgOrderDto = {
-        orderName: cakeOrderName,
-        orderType: product.rtgType,
-        cakeMessage: cakeMessage,
-        deliveryDate: cakeDeliveryDate,
-        price: product.rtgPrice,
-        imageUrl: product.rtgImageUrl,
-      };
-      const item: CartObject = {
-        itemId: product.rtgId,
-        itemName: cakeOrderName,
-        quantity: "1",
-        price: product.rtgPrice,
-        category: 'rtgCakes',
-        itemType: product.rtgType,
-        deliveryDate: cakeDeliveryDate,
-        imageUrl: product.rtgImageUrl,
-        userId: user.id,
-      };
-      await createRtgOrder(user.accessToken, rtgOrderDto)
-      await addItemToCart(item)
-      setCakeOrderName("")
-      setCakeMessage("")
-      setCakeDeliveryDate("")
+      try {
+        const rtgOrderDto: RtgOrderDto = {
+          orderName: cakeOrderName,
+          orderType: product.rtgType,
+          cakeMessage: cakeMessage,
+          deliveryDate: cakeDeliveryDate,
+          price: product.rtgPrice,
+          imageUrl: product.rtgImageUrl,
+        };
+        const item: CartObject = {
+          itemId: product.rtgId,
+          itemName: cakeOrderName,
+          quantity: "1",
+          price: product.rtgPrice,
+          category: "rtgCakes",
+          itemType: product.rtgType,
+          deliveryDate: cakeDeliveryDate,
+          imageUrl: product.rtgImageUrl,
+          userId: user.id,
+        };
+        await createRtgOrder(user.accessToken, rtgOrderDto);
+        await addItemToCart(item);
+        setCakeOrderName("");
+        setCakeMessage("");
+        setCakeDeliveryDate("");
+      } catch (error) {
+        toastify.error(`an error occured please try again`);
+      }
+      
     };
 
     const handleChopBuy = async (product: rtgProducts) => {
-      const rtgOrderDto: RtgOrderDto = {
-        orderName: chopOrderName,
-        orderType: product.rtgType,
-        deliveryDate: chopDeliveryDate,
-        price: product.rtgPrice,
-        imageUrl: product.rtgImageUrl,
-      };
-      const item: CartObject = {
-        itemId: product.rtgId,
-        itemName: chopOrderName,
-        quantity: "1",
-        price: product.rtgPrice,
-        itemType: product.rtgType,
-        category: "rtgChops",
-        deliveryDate: chopDeliveryDate,
-        imageUrl: product.rtgImageUrl,
-        userId: user.id,
-      };
-      await createRtgOrder(user.accessToken, rtgOrderDto);
-      await addItemToCart(item);
+      try {
+        const rtgOrderDto: RtgOrderDto = {
+          orderName: chopOrderName,
+          orderType: product.rtgType,
+          deliveryDate: chopDeliveryDate,
+          price: product.rtgPrice,
+          imageUrl: product.rtgImageUrl,
+        };
+        const item: CartObject = {
+          itemId: product.rtgId,
+          itemName: chopOrderName,
+          quantity: "1",
+          price: product.rtgPrice,
+          itemType: product.rtgType,
+          category: "rtgChops",
+          deliveryDate: chopDeliveryDate,
+          imageUrl: product.rtgImageUrl,
+          userId: user.id,
+        };
+        await createRtgOrder(user.accessToken, rtgOrderDto);
+        await addItemToCart(item);
         setChopOrderName("");
         setChopMessage("");
         setChopDeliveryDate("");
+      } catch (error) {
+        toastify.error(`an error occured please try again`);
+      }
+      
     };
 
     const renderRtgByType = (rtgType: string) => {
@@ -244,12 +255,27 @@ export const Homepage = () => {
                           onClick={
                             () => {
                               if (cakeDescription === false) {
-                                toggleCakeDescription()
+                                toggleCakeDescription();
+                              } else if (
+                                cakeOrderName === "" ||
+                                cakeDeliveryDate === "" ||
+                                cakeMessage === ""
+                              ) {
+                                 toastify.fillRequired(
+                                   `please fill in required fields`
+                                 );
                               } else {
+                                  if (!user.accessToken) {
+                                  toastify.error("failed to add Item to cart");
+                                  return
+                                  }
                                   const newCount = Number(cartCount) + 1;
                                   setCartCount(newCount.toString());
                                   handleCakeBuy(product);
                                   toggleCakeDescription();
+                                  toastify.addItemToCart(
+                                    `item successfully added to cart`
+                                  );
                               } 
                             }
                           }
@@ -347,13 +373,24 @@ export const Homepage = () => {
                            backgroundColor: chopsDescription && "#ffc107",
                          }}
                          onClick={() => {
-                          if (chopsDescription === false) {
-                            toggleChopsDescription()
-                          } else {
-                            const newCount = Number(cartCount) + 1;
-                            setCartCount(newCount.toString());
-                            handleChopBuy(product);
-                          }
+                           if (chopsDescription === false) {
+                             toggleChopsDescription();
+                           } else if(chopOrderName==="" || chopDeliveryDate === ""){
+                            toastify.fillRequired(
+                              `please fill in required fields`
+                            );
+                           } else {
+                            if (!user.accessToken) {
+                              toastify.error("failed to add Item to cart");
+                              return;
+                            }
+                             const newCount = Number(cartCount) + 1;
+                             setCartCount(newCount.toString());
+                             handleChopBuy(product);
+                             toastify.addItemToCart(
+                               `item successfully added to cart`
+                             );
+                           }
                          }}
                        />
                      </>
@@ -377,14 +414,16 @@ export const Homepage = () => {
               <div className="rtg-header">
                 <span>Ready To Go Orders</span>
                 <span>
-                  <CartIcon />
+                  <>
+                    <CartIcon />
+                  </>
                 </span>
               </div>
 
               <div className="rtg-body">
-                  <>{renderRtgByType("Cakes")}</>
-                
-                  <>{renderChopsRtgByType("Chops")}</>
+                <>{renderRtgByType("Cakes")}</>
+
+                <>{renderChopsRtgByType("Chops")}</>
               </div>
             </div>
             <div className="home-body1">

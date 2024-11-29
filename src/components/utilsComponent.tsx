@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom"
 import CryptoJS from "crypto-js";
+import Toastify from "toastify-js";
 
 
 export const clearAllStorage = () => {
@@ -165,4 +166,165 @@ export const decryptReference = async (reference: string, iv: string): Promise<a
   }
 }
 
+export const toastify = {
+  signupSuccessful: (text: string) => {
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #28a745, #85d396) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast();
+  },
+  signupError: (text: string) => {
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #dc3545, #ff6f61) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast();
+  },
+  signInSuccessful: (text: string) => {
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #28a745, #85d396) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast();
+  },
+  signinError: (text: string) => {
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #dc3545, #ff6f61) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast();
+  },
+  addItemToCart: (text: string) =>
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #28a745, #85d396) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast(),
 
+  fillRequired: (text: string) =>
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast(),
+
+  deleteItem: (text: string) =>
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast(),
+  paymentSuccessful: (text: string) =>
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #00b09b, #96c93d) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast(),
+
+  error: (text: string) =>
+    Toastify({
+      text: text,
+      gravity: "top",
+      position: "right",
+      style: {
+        background: "linear-gradient(to right, #dc3545, #ff6f61) ",
+        width: "15rem",
+        position: "fixed",
+        right: "2.5rem",
+        top: "2rem",
+        zIndex: "1000",
+        padding: "1rem",
+        borderRadius: "1rem",
+      },
+      duration: 3000,
+    }).showToast(),
+};

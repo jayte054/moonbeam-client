@@ -21,6 +21,7 @@ import { OrderStores } from "../../../stores/productStores";
 import { RequestIcon } from "../../requestIcon/requestIcon";
 import { RequestContext } from "../../../context/customRequestContext/customRequestContext";
 import { Footer } from "../../footer/footer";
+import { toastify } from "../../utilsComponent";
 
 interface CustomCakeFormikHelper extends FormikHelpers<CustomOrderObject> {}
 interface CustomPackageFormikHelper extends FormikHelpers<CustomPackageObject> {}
@@ -38,9 +39,6 @@ const handleSignout = async() => {
     await signOut()
     document.location.href = '/'
 }
-    const submit: any = () => "submitted"
-
-
 
     const initialValues: CustomOrderObject = {
         orderName: "",
@@ -70,7 +68,6 @@ const handleSignout = async() => {
     const cakeOrder = async(values: CustomOrderObject, formikHelpers:CustomCakeFormikHelper) => {
       const accessToken = user.accessToken;
       const { ...customProductOrderDto } = values;
-      console.log("customCake", customProductOrderDto);
 
       try {
         const order = await customCakeOrder(accessToken, customProductOrderDto);
@@ -88,15 +85,16 @@ const handleSignout = async() => {
         };
         addRequest(request)
         formikHelpers.resetForm()
+        toastify.addItemToCart(`request successfully added to cart`);
       } catch (error) {
-        console.log(error)
+        toastify.error(`something went wrong please try again later`);
+
       }
     }
 
     const packageOrder = async(values: CustomPackageObject, formikHelpers:CustomPackageFormikHelper) => {
       const accessToken = user.accessToken;
       const {...customPackageOrderDto} = values;
-      console.log("package Order", customPackageOrderDto)
 
       try {
         const order = await customPackageOrder(accessToken, customPackageOrderDto)
@@ -113,15 +111,15 @@ const handleSignout = async() => {
         };
         addRequest(request);
         formikHelpers.resetForm()
+        toastify.addItemToCart(`request successfully added to cart`);
       } catch (error) {
-        console.log(error)
+        toastify.error(`something went wrong please try again later`);
       }
     }
 
     const chopsOrder = async(values: CustomChopsObject, formikHelpers: CustomChopsFormikHelper) => {
       const accessToken = user.accessToken;
       const {...customChopsOrderDto} = values;
-      console.log(customChopsOrderDto)
 
       try{
         const order = await customChopsOrder(accessToken, customChopsOrderDto);
@@ -138,8 +136,9 @@ const handleSignout = async() => {
         };
         addRequest(request)
         formikHelpers.resetForm()
+        toastify.addItemToCart(`request successfully added to cart`);
       } catch (error) {
-        console.log(error)
+        toastify.error(`something went wrong please try again later`);
       }
     }
    

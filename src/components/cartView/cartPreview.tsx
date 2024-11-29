@@ -26,27 +26,40 @@ const navigate = useNavigate()
                 : cartItem.itemType === "cakeParfait"
                 ? "/cakeParfait.png"
                 : cartItem.imageUrl || "";
-          return (
-            <div className="cartItem-content" key={cartItem.itemId}>
-              <div>
-              <span>
-                <img src={imageUrl} alt={cartItem.itemName} />
-              </span>
+            return (
+              <div className="cartItem-content" key={cartItem.itemId}>
+                <div>
+                  <span>
+                    <img src={imageUrl} alt={cartItem.itemName} />
+                  </span>
+                </div>
+                <div>
+                  <span style={{ fontSize: "1rem" }}>{cartItem.itemName}</span>
+                  <span style={{ fontSize: "1rem" }}>{cartItem.quantity}</span>
+                  <span style={{ fontSize: "1rem" }}>{cartItem.price}</span>
+                </div>
               </div>
-              <div>
-                <span style={{ fontSize: "1rem" }}>{cartItem.itemName}</span>
-                <span style={{ fontSize: "1rem" }}>
-                  {cartItem.quantity}
-                </span>
-                <span style={{ fontSize: "1rem" }}>
-                  {cartItem.price}
-                </span>
-              </div>
-            </div>
-          )})}
+            );
+          })}
+          {/* <span>
+            <CustomButton
+              type="button"
+              label="checkout"
+              onClick={viewCart}
+              style={
+                {
+                  // margin: '0rem'
+                }
+              }
+            />
+          </span> */}
         </div>
         <span>
-          <CustomButton type="button" label="checkout" onClick={viewCart} />
+          <CustomButton 
+            type="button" 
+            label="checkout" 
+            onClick={viewCart} 
+            />
         </span>
       </div>
     );
