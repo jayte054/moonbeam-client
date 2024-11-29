@@ -236,13 +236,23 @@ export const Homepage = () => {
                           : null}
 
                         <CustomButton
-                          label="Buy Now"
+                          label={cakeDescription ? "Add To Cart" : "Buy Now"}
                           type="button"
-                          onClick={() => {
-                            const newCount = Number(cartCount) + 1;
-                            setCartCount(newCount.toString());
-                            handleCakeBuy(product)
+                          style={{
+                            backgroundColor: cakeDescription && "#ffc107",
                           }}
+                          onClick={
+                            () => {
+                              if (cakeDescription === false) {
+                                toggleCakeDescription()
+                              } else {
+                                  const newCount = Number(cartCount) + 1;
+                                  setCartCount(newCount.toString());
+                                  handleCakeBuy(product);
+                                  toggleCakeDescription();
+                              } 
+                            }
+                          }
                         />
                       </>
                     ) : null}
@@ -256,7 +266,7 @@ export const Homepage = () => {
        const startIndex = pageIndex[rtgType] * itemsPerPage;
 
        return (
-         <div className="rtg-body-cakes">
+         <div className="rtg-body-chops">
            <span className="rtg-body-cakes-title">
              {rtgType === "Cakes" ? "Cakes" : "Chops"}
            </span>
@@ -322,19 +332,28 @@ export const Homepage = () => {
                            <input
                              type="date"
                              value={chopDeliveryDate}
-                             onChange={(e) => setChopDeliveryDate(e.target.value)}
+                             onChange={(e) =>
+                               setChopDeliveryDate(e.target.value)
+                             }
                              required
                            />
                          </div>
                        )}
 
                        <CustomButton
-                         label="Buy Now"
+                         label={chopsDescription ? "Add To Cart" : "Buy Now"}
                          type="button"
+                         style={{
+                           backgroundColor: chopsDescription && "#ffc107",
+                         }}
                          onClick={() => {
-                           const newCount = Number(cartCount) + 1;
-                           setCartCount(newCount.toString());
-                           handleChopBuy(product)
+                          if (chopsDescription === false) {
+                            toggleChopsDescription()
+                          } else {
+                            const newCount = Number(cartCount) + 1;
+                            setCartCount(newCount.toString());
+                            handleChopBuy(product);
+                          }
                          }}
                        />
                      </>
@@ -363,9 +382,9 @@ export const Homepage = () => {
               </div>
 
               <div className="rtg-body">
-                <>{renderRtgByType("Cakes")}</>
-
-                <>{renderChopsRtgByType("Chops")}</>
+                  <>{renderRtgByType("Cakes")}</>
+                
+                  <>{renderChopsRtgByType("Chops")}</>
               </div>
             </div>
             <div className="home-body1">
