@@ -32,3 +32,18 @@ export const addItemToOrders = async (accessToken: string, orderDto: OrderDto) =
         console.log(error)
     }
 }
+
+export const fetchUserRequest = async (accessToken: string) => {
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${accessToken}`
+        }
+    }
+    try {
+        const requests = await axios.get(`${Base_Url}/products/fetchRequests`, config);
+        console.log(requests.data);
+        return requests.data;
+    } catch (error) {
+        console.log(error)
+    }
+}

@@ -2,26 +2,33 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { OrderContext } from "../../../context/orderContext/orderContext";
 import { OrderStores } from "../../../stores/orderStores";
-import { OrderedObject } from "../../../types";
+import { OrderedObject, OrderRequestObject } from "../../../types";
 import { CheckoutPageNav } from "../../navbar/checkoutPageNav";
 
 import "./ordersPage.css";
+import { requestStores } from "../../../stores/requestStores";
 
 export const OrdersPage = () => {
   const [items, setItems] = useState<OrderedObject[]>([]);
-  const [requests, setRequests] = useState<OrderedObject[]>([]);
+  const [requests, setRequests] = useState<OrderRequestObject[]>([]);
   const { orderedItems, setOrderedItems } = useContext(OrderContext);
   const { user } = useContext(AuthContext);
   const { fetchOrders } = OrderStores;
+  const { fetchUserRequests } = requestStores;
 
   useEffect(() => {
     const newItems = async () => {
       const newOrder = await fetchOrders(user.accessToken);
+      const fetchResolvedRequests = await fetchUserRequests(user.accessToken);
       setOrderedItems(() => newOrder);
+      setRequests(() => fetchResolvedRequests)
       setItems(() => newOrder);
     };
     newItems();
-  }, [fetchOrders, user.accessToken, setOrderedItems]);
+  }, [fetchOrders, user.accessToken, setOrderedItems, fetchUserRequests]);
+
+  const resolvedRequests = requests.filter(request => request.status === 'delivered')
+  
 
   return (
     <div>
@@ -35,6 +42,27 @@ export const OrdersPage = () => {
             {requests.length > 0 && (
               <div className="orderBody-customRequests">
                 <h3>Custom Requests</h3>
+                {resolvedRequests.map((req) => (
+                  <div
+                    key={req.requestId}
+                    className="orderBody-quickOrders-container"
+                  >
+                    <div className="orderBody-quickOrders-content">
+                      <span>
+                        <img src={req.imageUrl} alt={req.requestTitle} />
+                      </span>
+                      <br />
+                      <span>Order Name: {req.requestTitle}</span>
+                      <br />
+                      <span>Status: {req.status}</span>
+                      <br />
+                      <span>Delivery Date: {req.deliveryDate}</span>
+                    </div>
+                    <div className="orderBody-quickOrders-price">
+                      <span>Price: ₦{req.price}</span>
+                    </div>
+                  </div>
+                ))}
               </div>
             )}
 
