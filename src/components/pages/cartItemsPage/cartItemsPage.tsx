@@ -123,13 +123,21 @@ export const CartItemsPage = () => {
     };
 
   const handleRemoveItem = async (itemId: string) => {
-    const updatedCart = cartItem.filter(item => item.itemId !== itemId)
-    await deleteCartItem(user.accessToken, itemId);
-    setCartItem(updatedCart)
-    setCartItems(updatedCart);
-    const quantity = updatedCart.reduce((total: number, cartItem) => total + Number(cartItem.quantity), 0)
-    setCartCount(quantity.toString());
-    toastify.deleteItem('item successfully deleted');
+    try {
+      const updatedCart = cartItem.filter((item) => item.itemId !== itemId);
+      await deleteCartItem(user.accessToken, itemId);
+      setCartItem(updatedCart);
+      setCartItems(updatedCart);
+      const quantity = updatedCart.reduce(
+        (total: number, cartItem) => total + Number(cartItem.quantity),
+        0
+      );
+      setCartCount(quantity.toString());
+      toastify.deleteItem("item successfully deleted");
+    } catch (error) {
+      toastify.error('something went wrong, please try again later')
+    }
+    
   }
 
   const quickOrderPage = () => navigate("/auth/quickOrderPage")

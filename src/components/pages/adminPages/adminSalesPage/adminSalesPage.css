@@ -1,0 +1,46 @@
+.admin-salesPage-container{
+    background-color: #f4f3f0;
+    margin: 2rem;
+    padding: 1rem;
+}
+
+.admin-salesPage-body{
+    padding: 1rem;
+    border: 1px solid grey;
+}
+
+.admin-salesChart,
+.admin-salesTable{
+    padding: 1rem;
+    border: 1px solid grey;
+    margin: 1rem;
+}
+
+.admin-sales-button{
+    display: flex;
+    justify-content: space-around;
+}
+
+.month-year{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-weight: bold;
+    padding: 0 0 1rem 0;
+}
+
+.category-button button {
+    width: 8rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: rgb(95, 76, 112);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.sales-category-data,
+.sales-customer-data{
+    padding: 1rem;
+    border: 1px solid grey;
+}
