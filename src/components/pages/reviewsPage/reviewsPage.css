@@ -1,0 +1,66 @@
+/* General styling for the container */
+.reviewPage-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Full viewport height */
+  width: 100%; /* Full width */
+  background-color: #f9f9f9; /* Light background for contrast */
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+/* Headings styling */
+.reviewPage-container h3 {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Input and textarea styling */
+.reviewPage-container input,
+.reviewPage-container textarea {
+  width: 80%; /* Makes the inputs responsive */
+  max-width: 400px; /* Ensures the inputs don’t get too wide */
+  margin: 0.5rem 0;
+  padding: 0.7rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+/* Input and textarea hover/focus effects */
+.reviewPage-container input:focus,
+.reviewPage-container textarea:focus {
+  border-color: #007bff;
+}
+
+/* Button styling */
+.reviewPage-container button {
+  margin-top: 1rem;
+  padding: 0.7rem 1.5rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Button hover effect */
+.reviewPage-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Mobile-friendly adjustments */
+@media (max-width: 768px) {
+  .reviewPage-container input,
+  .reviewPage-container textarea {
+    width: 90%;
+  }
+}

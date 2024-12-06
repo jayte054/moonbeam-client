@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRequestDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../../types";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, ReviewDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRequestDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../../types";
 import { Base_Url } from "../galleryServices/galleryServices";
 
 
@@ -829,4 +829,39 @@ export const updateUserRequest = async (
   } catch (error) {
     console.log(error)
   }
+
 }
+
+export const writeReview = async (reviewDto: ReviewDto) => {
+  const {name, email, review} = reviewDto;
+  try {
+    const reviewObject = {name, review } 
+    const writeReview = await axios.post(`${Base_Url}/review/writeReview/${email}`, reviewObject);
+    return writeReview.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+  export const getReviews = async (page = 1, limit = 10) => {
+    try {
+      const reviews = await axios.get(`${Base_Url}/review/getReviews`, {
+        params: {page, limit}
+      })
+      console.log(reviews.data)
+      return await reviews.data;
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  export const updateReviewStatus = async (reviewId: string) => {
+    try{
+      const toggleStatus = await axios.patch(
+        `${Base_Url}/review/changeReviewStatus/${reviewId}`
+      );
+      return toggleStatus.data;
+    } catch (error) {
+      console.log(error)
+    }
+  }

@@ -851,3 +851,18 @@ export interface UpdateUserOrderDto {
   deliveryDate?: string;
   deliveryStatus: string;
 }
+
+export interface ReviewObject {
+  reviewId: string;
+  email: string;
+  name: string;
+  review: string;
+  isActive: string;
+  date: string;
+}
+
+export interface ReviewDto {
+  name: string;
+  email: string;
+  review: string;
+}

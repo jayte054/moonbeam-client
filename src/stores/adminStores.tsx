@@ -1,5 +1,5 @@
-import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRequests, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, updateUserOrder, updateUserRequest, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails } from "../services/adminServices/adminServices";
-import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRequestDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../types";
+import { deleteGalleryProduct, deleteRtgProduct, fetchBudgetRate, fetchDesignRate, fetchGalleryProducts, fetchProductRates, fetchRequests, fetchRtgProducts, fetchStudioDetails, fetchSurpisePackage, fetchUserOrders, getAllUsers, getReviews, resetPassword, resetPasswordEmail, updateBudgetRate, updateDesignRate, updateDiamondPackage, updateGalleryProduct, updateGoldPackage, updateProductRate, updateReviewStatus, updateRtgProduct, updateSilverPackage, updateStudioDetails, updateSurprisePackage, updateUserOrder, updateUserRequest, uploadBudgetCakeRate, uploadDesignRate, UploadGalleryProduct, uploadPackageRate, uploadProductRates, uploadRtgProduct, uploadStudioDetails, writeReview } from "../services/adminServices/adminServices";
+import { BudgetRateDto, designRateDto, GalleryProductDto, PackageRatesDto, ProductRateDto, ResetPasswordDto, ResetPasswordEmailDto, ReviewDto, RtgProductDto, StudioDetailsDto, UpdateDesignRateDto, UpdateProductDto, updateProductRateDto, UpdateRequestDto, UpdateRtgProductDto, UpdateStudioDetailsDto, UpdateUserOrderDto } from "../types";
 
 export const AdminStores = {
   uploadGalleryProduct: async (
@@ -187,7 +187,11 @@ export const AdminStores = {
     return await fetchRequests(accessToken);
   },
 
-  updateUserOrder: async (accessToken: string, orderId: string, updateOrderDto: UpdateUserOrderDto) => {
+  updateUserOrder: async (
+    accessToken: string,
+    orderId: string,
+    updateOrderDto: UpdateUserOrderDto
+  ) => {
     return await updateUserOrder(accessToken, orderId, updateOrderDto);
   },
 
@@ -202,7 +206,19 @@ export const AdminStores = {
       requestId,
       file,
       updateRequestDto
-    )
+    );
+  },
+
+  getReviews: async (page = 1, limit = 10) => {
+    return await getReviews(page, limit);
+  },
+
+  writeReview: async (reviewDto: ReviewDto) => {
+    return await writeReview(reviewDto);
+  },
+
+  updateReviewStatus: async (reviewId: string) => {
+    return await updateReviewStatus(reviewId)
   }
 };
 

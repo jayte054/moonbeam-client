@@ -34,6 +34,8 @@ import { AdminCredentials } from './components/pages/adminPages/adminCredentials
 import { AdminCustomersPage } from './components/pages/adminPages/adminCustomersPage/adminCustomersPage';
 import { AdminSalesPage } from './components/pages/adminPages/adminSalesPage/adminSalesPage';
 import { AdminOrdersPage } from './components/pages/adminPages/adminOrdersPage/adminOrdersPage';
+import { AdminReviewsPage } from './components/pages/adminPages/adminReviewsPage/adminReviewsPage';
+import { ReviewsPage } from './components/pages/reviewsPage/reviewsPage';
 
 
 function App() {
@@ -71,6 +73,10 @@ function App() {
                               <Route
                                 path="/galleryPage"
                                 element={<GalleryPage />}
+                              />
+                              <Route 
+                                path="/reviewPage"
+                                element={<ReviewsPage />}
                               />
                               <Route element={<ProtectAuthRoute />}>
                                 <Route
@@ -136,6 +142,10 @@ function App() {
                                 <Route
                                   path="/auth/adminSalesPage"
                                   element={<AdminSalesPage />}
+                                />
+                                <Route
+                                  path="/auth/adminReviewsPage"
+                                  element={<AdminReviewsPage />}
                                 />
                               </Route>
                             </Routes>
