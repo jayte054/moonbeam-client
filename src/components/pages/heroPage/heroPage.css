@@ -52,7 +52,7 @@
 .heroPage-three .review-container {
   position: relative;
   width: 25%;
-  height: 100px; /* Adjust based on your design */
+  height: 16rem; /* Adjust based on your design */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -71,6 +71,41 @@
   transition: opacity 1s ease-in-out;
 }
 
+.message-icon {
+  position: relative;
+  background-color: white;
+  border: 2px solid gold;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 80%;
+  text-align: center;
+  height: 100%
+}
+
+.message-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: gold transparent transparent transparent;
+}
+
+.review-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+.review-author {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
 .rtg-container {
   margin: 2rem; 
   padding-top: 1.5rem;
@@ -168,5 +203,29 @@
   padding: .5rem;
 }
 
+.extras{
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
 
+.extras span {
+    margin: 1rem;
+    padding: 1rem;
+    border: 3px solid gold;
+    font-weight: bold;
+    border-radius: 1rem;
+    font-size: 2rem;
+}
+
+.body-end{
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    color:rgb(205, 142, 58);
+    padding: 1rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 

@@ -9,10 +9,11 @@ import {
   setCartCountProps,
 } from "../../../types";
 import { useNavigate } from "react-router-dom";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaCashRegister, FaChevronLeft, FaChevronRight, FaMoneyBill, FaPaypal, FaPenNib } from "react-icons/fa";
 import { CustomButton } from "../../formComponents/customButton";
 import { toastify } from "../../utilsComponent";
 import { AdminStores } from "../../../stores/adminStores";
+import { FaCakeCandles, FaMoneyBills, FaMoneyBillTransfer } from "react-icons/fa6";
 
 export const HeroPage = () => {
        const [products, setProducts] = useState<rtgProducts[]>([]);
@@ -36,6 +37,7 @@ export const HeroPage = () => {
 
     const heroPic = "/heroPic.png"
     const heroPic2 = "/heroPic2.png";
+    const cash = '/cashBundle.ico'
 
      const itemsPerPage = 1;
 
@@ -73,132 +75,151 @@ export const HeroPage = () => {
        navigate("/signinPage")
      };
 
-    const renderRtgByType = (rtgType: string) => {
-      const startIndex = pageIndex[rtgType] * itemsPerPage;
+   const renderRtgByType = (rtgType: string) => {
+     const filteredProducts =
+       products?.filter((product) => product.rtgType === rtgType) || [];
+     const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+     const currentPageIndex = pageIndex[rtgType];
+     const startIndex = currentPageIndex * itemsPerPage;
 
-      return (
-        <div className="rtg-body-cakes">
-          <span className="rtg-body-cakes-title">
-            {rtgType === "Cakes" ? "Cakes" : "Chops"}
-          </span>
-          {products &&
-            products
-              .filter((product) => product.rtgType === rtgType)
-              .slice(startIndex, startIndex + itemsPerPage)
-              .map((product) => (
-                <div className="rtg-cakes-content" key={product.rtgId}>
-                  {product.rtgType === rtgType ? (
-                    <>
-                      <p></p>
-                      <div className="rtg-item-cakes">
-                        <div>
-                          <FaChevronLeft
-                            className="rtg-nav"
-                            onClick={() => handlePrev(product.rtgType)}
-                          />
-                        </div>
-                        <div>
-                          <img
-                            src={product.rtgImageUrl}
-                            alt={product.rtgName}
-                            onClick={() => {
-                              if (rtgType === "Cakes") toggleCakeDescription();
-                              else if (rtgType === "Chops")
-                                toggleChopsDescription();
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <FaChevronRight
-                            className="rtg-nav"
-                            onClick={() => handleNext(product.rtgType)}
-                          />
-                        </div>
-                      </div>
-                      <p>
-                        <strong>
-                          {" "}
-                          {product.rtgName}
-                          <br /> ₦{product.rtgPrice}
-                        </strong>
-                      </p>
+     // Slice products based on pagination
+     const paginatedProducts = filteredProducts.slice(
+       startIndex,
+       startIndex + itemsPerPage
+     );
 
-                      {rtgType === "Cakes"
-                        ? cakeDescription && (
-                            <div className="rtg-content">
-                              <span>{product.rtgDescription}</span>
-                              <br />
-                              <p></p>
-                              <span className="rtg-span">Order Name</span>
-                              <br />
-                              <input
-                                type="text"
-                                placeholder="order name"
-                                value={cakeOrderName}
-                                onChange={(e) =>
-                                  setCakeOrderName(e.target.value)
-                                }
-                                required
-                              />
-                              <p></p>
-                              <span className="rtg-span">Cake Message</span>
-                              <br />
-                              <input
-                                type="text"
-                                placeholder="cake message"
-                                value={cakeMessage}
-                                onChange={(e) => setCakeMessage(e.target.value)}
-                                required
-                              />
-                              <br />
-                              <p></p>
-                              <span className="rtg-span">Delivery Date</span>
-                              <br />
-                              <input
-                                type="date"
-                                value={cakeDeliveryDate}
-                                onChange={(e) =>
-                                  setCakeDeliveryDate(e.target.value)
-                                }
-                                required
-                              />
-                            </div>
-                          )
-                        : null}
+     return (
+       <div className="rtg-body-cakes">
+         <span className="rtg-body-cakes-title">
+           {rtgType === "Cakes" ? "Cakes" : "Chops"}
+         </span>
+         {paginatedProducts.map((product) => (
+           <div className="rtg-cakes-content" key={product.rtgId}>
+             <div className="rtg-item-cakes">
+               {/* Left Navigation */}
+               <div>
+                 <FaChevronLeft
+                   className={`rtg-nav ${
+                     currentPageIndex === 0 ? "disabled" : ""
+                   }`}
+                   onClick={() => {
+                     if (currentPageIndex > 0) handlePrev(rtgType);
+                   }}
+                 />
+               </div>
 
-                      <CustomButton
-                        label={cakeDescription ? "Add To Cart" : "Buy Now"}
-                        type="button"
-                        style={{
-                          backgroundColor: cakeDescription && "#ffc107",
-                        }}
-                        onClick={() => {
-                          if (cakeDescription === false) {
-                            toggleCakeDescription();
-                          } else if (
-                            cakeOrderName === "" ||
-                            cakeDeliveryDate === "" ||
-                            cakeMessage === ""
-                          ) {
-                            toastify.fillRequired(
-                              `please fill in required fields`
-                            );
-                          }
-                            
-                            handleCakeBuy();
-                            toggleCakeDescription();
-                        }}
-                      />
-                    </>
-                  ) : null}
-                </div>
-              ))}
-        </div>
-      );
-    };
+               {/* Product Image */}
+               <div>
+                 <img
+                   src={product.rtgImageUrl}
+                   alt={product.rtgName}
+                   onClick={() => {
+                     if (rtgType === "Cakes") toggleCakeDescription();
+                     else if (rtgType === "Chops") toggleChopsDescription();
+                   }}
+                 />
+               </div>
+
+               {/* Right Navigation */}
+               <div>
+                 <FaChevronRight
+                   className={`rtg-nav ${
+                     currentPageIndex + 1 >= totalPages ? "disabled" : ""
+                   }`}
+                   onClick={() => {
+                     if (currentPageIndex + 1 < totalPages) handleNext(rtgType);
+                   }}
+                 />
+               </div>
+             </div>
+
+             {/* Product Details */}
+             <p>
+               <strong>
+                 {product.rtgName}
+                 <br /> ₦{product.rtgPrice}
+               </strong>
+             </p>
+
+             {/* Conditional Cake Description */}
+             {rtgType === "Cakes" && cakeDescription && (
+               <div className="rtg-content">
+                 <span>{product.rtgDescription}</span>
+                 <br />
+                 <p></p>
+                 <span className="rtg-span">Order Name</span>
+                 <br />
+                 <input
+                   type="text"
+                   placeholder="order name"
+                   value={cakeOrderName}
+                   onChange={(e) => setCakeOrderName(e.target.value)}
+                   required
+                 />
+                 <p></p>
+                 <span className="rtg-span">Cake Message</span>
+                 <br />
+                 <input
+                   type="text"
+                   placeholder="cake message"
+                   value={cakeMessage}
+                   onChange={(e) => setCakeMessage(e.target.value)}
+                   required
+                 />
+                 <br />
+                 <p></p>
+                 <span className="rtg-span">Delivery Date</span>
+                 <br />
+                 <input
+                   type="date"
+                   value={cakeDeliveryDate}
+                   onChange={(e) => setCakeDeliveryDate(e.target.value)}
+                   required
+                 />
+               </div>
+             )}
+
+             {/* Add To Cart / Buy Now Button */}
+             <CustomButton
+               label={cakeDescription ? "Add To Cart" : "Buy Now"}
+               type="button"
+               style={{
+                 backgroundColor: cakeDescription && "#ffc107",
+               }}
+               onClick={() => {
+                 if (cakeDescription === false) {
+                   toggleCakeDescription();
+                 } else if (
+                   cakeOrderName === "" ||
+                   cakeDeliveryDate === "" ||
+                   cakeMessage === ""
+                 ) {
+                   toastify.fillRequired(`please fill in required fields`);
+                 } else {
+                   toggleCakeDescription();
+                   // handleCakeBuy();
+                 }
+               }}
+             />
+           </div>
+         ))}
+       </div>
+     );
+   };
+
 
     const renderChopsRtgByType = (rtgType: string) => {
-      const startIndex = pageIndex[rtgType] * itemsPerPage;
+      const filteredProducts =
+        products?.filter((product) => product.rtgType === rtgType) || [];
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      const currentPageIndex = pageIndex[rtgType];
+      const startIndex = currentPageIndex * itemsPerPage;
+
+      // Slice products based on pagination
+      const paginatedProducts = filteredProducts.slice(
+        startIndex,
+        startIndex + itemsPerPage
+      );
 
       return (
         <div className="rtg-body-chops">
@@ -206,100 +227,105 @@ export const HeroPage = () => {
             {rtgType === "Cakes" ? "Cakes" : "Chops"}
           </span>
           {products &&
-            products
-              .filter((product) => product.rtgType === rtgType)
-              .slice(startIndex, startIndex + itemsPerPage)
-              .map((product) => (
-                <div className="rtg-cakes-content" key={product.rtgId}>
-                  {product.rtgType === rtgType ? (
-                    <>
-                      <p></p>
-                      <div className="rtg-item-cakes">
-                        <div>
-                          <FaChevronLeft
-                            className="rtg-nav"
-                            onClick={() => handlePrev(product.rtgType)}
-                          />
-                        </div>
-                        <div>
-                          <img
-                            src={product.rtgImageUrl}
-                            alt={product.rtgName}
-                            onClick={() => {
-                              toggleChopsDescription();
-                            }}
-                          />
-                        </div>
-                        <div>
-                          <FaChevronRight
-                            className="rtg-nav"
-                            onClick={() => handleNext(product.rtgType)}
-                          />
-                        </div>
+            paginatedProducts.map((product) => (
+              <div className="rtg-cakes-content" key={product.rtgId}>
+                {product.rtgType === rtgType ? (
+                  <>
+                    <p></p>
+                    <div className="rtg-item-cakes">
+                      <div>
+                        <FaChevronLeft
+                          className={`rtg-nav ${
+                            currentPageIndex === 0 ? "disabled" : ""
+                          }`}
+                          onClick={() => {
+                            if (currentPageIndex > 0) handlePrev(rtgType);
+                          }}
+                        />
                       </div>
-                      <p>
-                        <strong>
-                          {" "}
-                          {product.rtgName}
-                          <br /> ₦{product.rtgPrice}
-                        </strong>
-                      </p>
-
-                      {chopsDescription && (
-                        <div className="rtg-content">
-                          <span style={{ marginBottom: "1rem" }}>
-                            {product.rtgDescription}
-                          </span>
-                          <br />
-                          <p></p>
-                          <span className="rtg-span">Order Name</span>
-                          <br />
-                          <input
-                            type="text"
-                            placeholder="order name"
-                            value={chopOrderName}
-                            onChange={(e) => setChopOrderName(e.target.value)}
-                            required
-                          />
-                          <p></p>
-                          <span className="rtg-span">Delivery Date</span>
-                          <br />
-                          <input
-                            type="date"
-                            value={chopDeliveryDate}
-                            onChange={(e) =>
-                              setChopDeliveryDate(e.target.value)
-                            }
-                            required
-                          />
-                        </div>
-                      )}
-
-                      <CustomButton
-                        label={chopsDescription ? "Add To Cart" : "Buy Now"}
-                        type="button"
-                        style={{
-                          backgroundColor: chopsDescription && "#ffc107",
-                        }}
-                        onClick={() => {
-                          if (chopsDescription === false) {
+                      <div>
+                        <img
+                          src={product.rtgImageUrl}
+                          alt={product.rtgName}
+                          onClick={() => {
                             toggleChopsDescription();
-                          } else if (
-                            chopOrderName === "" ||
-                            chopDeliveryDate === ""
-                          ) {
-                            toastify.fillRequired(
-                              `please fill in required fields`
-                            );
-                          }
-                            handleChopBuy();
-                          
-                        }}
-                      />
-                    </>
-                  ) : null}
-                </div>
-              ))}
+                          }}
+                        />
+                      </div>
+                      <div>
+                        <FaChevronRight
+                          className={`rtg-nav ${
+                            currentPageIndex + 1 >= totalPages ? "disabled" : ""
+                          }`}
+                          onClick={() => {
+                            if (currentPageIndex + 1 < totalPages)
+                              handleNext(rtgType);
+                          }}
+                        />
+                      </div>
+                    </div>
+                    <p>
+                      <strong>
+                        {" "}
+                        {product.rtgName}
+                        <br /> ₦{product.rtgPrice}
+                      </strong>
+                    </p>
+
+                    {chopsDescription && (
+                      <div className="rtg-content">
+                        <span style={{ marginBottom: "1rem" }}>
+                          {product.rtgDescription}
+                        </span>
+                        <br />
+                        <p></p>
+                        <span className="rtg-span">Order Name</span>
+                        <br />
+                        <input
+                          type="text"
+                          placeholder="order name"
+                          value={chopOrderName}
+                          onChange={(e) => setChopOrderName(e.target.value)}
+                          required
+                        />
+                        <p></p>
+                        <span className="rtg-span">Delivery Date</span>
+                        <br />
+                        <input
+                          type="date"
+                          value={chopDeliveryDate}
+                          onChange={(e) => setChopDeliveryDate(e.target.value)}
+                          required
+                        />
+                      </div>
+                    )}
+
+                    <CustomButton
+                      label={chopsDescription ? "Add To Cart" : "Buy Now"}
+                      type="button"
+                      style={{
+                        backgroundColor: chopsDescription && "#ffc107",
+                      }}
+                      onClick={() => {
+                        if (chopsDescription === false) {
+                          toggleChopsDescription();
+                        } else if (
+                          chopOrderName === "" ||
+                          chopDeliveryDate === ""
+                        ) {
+                          toastify.fillRequired(
+                            `please fill in required fields`
+                          );
+                        } else {
+                          // handleChopBuy();
+                          toggleChopsDescription();
+                        }
+                      }}
+                    />
+                  </>
+                ) : null}
+              </div>
+            ))}
         </div>
       );
     };
@@ -350,16 +376,16 @@ export const HeroPage = () => {
                               index === currentReviewIndex ? "show" : ""
                             }`}
                           >
-                            <p>
-                              <strong>reviews</strong>
-                            </p>
-                            <p></p>
-                            <span>"{review.review}"</span>
-                            <p></p>
-                            <span>
-                              <strong>{review.name}</strong>
-                            </span>
-                            <p></p>
+                            <div className="message-icon">
+                              <span className="review-text">
+                                "{review.review}"
+                              </span>
+                              <p></p>
+                              <span className="review-author">
+                                <strong>{review.name}</strong>
+                              </span>
+                              <p></p>
+                            </div>
                           </div>
                         ))
                       : null}
@@ -367,6 +393,44 @@ export const HeroPage = () => {
                   <>{renderChopsRtgByType("Chops")}</>
                 </div>
               </div>
+            </div>
+            <div className="extras">
+              <span>
+                fill out an order
+                <br />
+                <FaPenNib
+                  style={{
+                    paddingTop: "1rem",
+                    fontSize: "3.5rem",
+                    color: "#c6b585",
+                  }}
+                />
+              </span>
+              <span>
+                make seemless payment
+                <br />
+                <FaMoneyBillTransfer
+                  style={{
+                    paddingTop: "1rem",
+                    fontSize: "3.5rem",
+                    color: "#73ab39",
+                  }}
+                />
+              </span>
+              <span>
+                enjoy tasty treats
+                <br />
+                <FaCakeCandles
+                  style={{
+                    paddingTop: "1rem",
+                    fontSize: "3.5rem",
+                    color: "#cdb641",
+                  }}
+                />
+              </span>
+            </div>
+            <div className="body-end">
+              <p>'your treat is our delight'</p>
             </div>
           </div>
         </div>

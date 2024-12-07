@@ -151,7 +151,17 @@ export const Homepage = () => {
     };
 
     const renderRtgByType = (rtgType: string) => {
-        const startIndex = pageIndex[rtgType] * itemsPerPage;
+        const filteredProducts =
+          products?.filter((product) => product.rtgType === rtgType) || [];
+        const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+        const currentPageIndex = pageIndex[rtgType];
+        const startIndex = currentPageIndex * itemsPerPage;
+
+        // Slice products based on pagination
+        const paginatedProducts = filteredProducts.slice(
+          startIndex,
+          startIndex + itemsPerPage
+        );
 
         return (
           <div className="rtg-body-cakes">
@@ -159,10 +169,7 @@ export const Homepage = () => {
               {rtgType === "Cakes" ? "Cakes" : "Chops"}
             </span>
             {products &&
-              products
-                .filter((product) => product.rtgType === rtgType)
-                .slice(startIndex, startIndex + itemsPerPage)
-                .map((product) => (
+              paginatedProducts.map((product) => (
                   <div className="rtg-cakes-content" key={product.rtgId}>
                     {product.rtgType === rtgType ? (
                       <>
@@ -170,8 +177,12 @@ export const Homepage = () => {
                         <div className="rtg-item-cakes">
                           <div>
                             <FaChevronLeft
-                              className="rtg-nav"
-                              onClick={() => handlePrev(product.rtgType)}
+                              className={`rtg-nav ${
+                                currentPageIndex === 0 ? "disabled" : ""
+                              }`}
+                              onClick={() => {
+                                if (currentPageIndex > 0) handlePrev(rtgType);
+                              }}
                             />
                           </div>
                           <div>
@@ -188,8 +199,15 @@ export const Homepage = () => {
                           </div>
                           <div>
                             <FaChevronRight
-                              className="rtg-nav"
-                              onClick={() => handleNext(product.rtgType)}
+                              className={`rtg-nav ${
+                                currentPageIndex + 1 >= totalPages
+                                  ? "disabled"
+                                  : ""
+                              }`}
+                              onClick={() => {
+                                if (currentPageIndex + 1 < totalPages)
+                                  handleNext(rtgType);
+                              }}
                             />
                           </div>
                         </div>
@@ -252,33 +270,31 @@ export const Homepage = () => {
                           style={{
                             backgroundColor: cakeDescription && "#ffc107",
                           }}
-                          onClick={
-                            () => {
-                              if (cakeDescription === false) {
-                                toggleCakeDescription();
-                              } else if (
-                                cakeOrderName === "" ||
-                                cakeDeliveryDate === "" ||
-                                cakeMessage === ""
-                              ) {
-                                 toastify.fillRequired(
-                                   `please fill in required fields`
-                                 );
-                              } else {
-                                  if (!user.accessToken) {
-                                  toastify.error("failed to add Item to cart");
-                                  return
-                                  }
-                                  const newCount = Number(cartCount) + 1;
-                                  setCartCount(newCount.toString());
-                                  handleCakeBuy(product);
-                                  toggleCakeDescription();
-                                  toastify.addItemToCart(
-                                    `item successfully added to cart`
-                                  );
-                              } 
+                          onClick={() => {
+                            if (cakeDescription === false) {
+                              toggleCakeDescription();
+                            } else if (
+                              cakeOrderName === "" ||
+                              cakeDeliveryDate === "" ||
+                              cakeMessage === ""
+                            ) {
+                              toastify.fillRequired(
+                                `please fill in required fields`
+                              );
+                            } else {
+                              if (!user.accessToken) {
+                                toastify.error("failed to add Item to cart");
+                                return;
+                              }
+                              const newCount = Number(cartCount) + 1;
+                              setCartCount(newCount.toString());
+                              handleCakeBuy(product);
+                              toggleCakeDescription();
+                              toastify.addItemToCart(
+                                `item successfully added to cart`
+                              );
                             }
-                          }
+                          }}
                         />
                       </>
                     ) : null}
@@ -289,7 +305,17 @@ export const Homepage = () => {
     }
 
      const renderChopsRtgByType = (rtgType: string) => {
-       const startIndex = pageIndex[rtgType] * itemsPerPage;
+       const filteredProducts =
+         products?.filter((product) => product.rtgType === rtgType) || [];
+       const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+       const currentPageIndex = pageIndex[rtgType];
+       const startIndex = currentPageIndex * itemsPerPage;
+
+       // Slice products based on pagination
+       const paginatedProducts = filteredProducts.slice(
+         startIndex,
+         startIndex + itemsPerPage
+       );
 
        return (
          <div className="rtg-body-chops">
@@ -297,106 +323,115 @@ export const Homepage = () => {
              {rtgType === "Cakes" ? "Cakes" : "Chops"}
            </span>
            {products &&
-             products
-               .filter((product) => product.rtgType === rtgType)
-               .slice(startIndex, startIndex + itemsPerPage)
-               .map((product) => (
-                 <div className="rtg-cakes-content" key={product.rtgId}>
-                   {product.rtgType === rtgType ? (
-                     <>
-                       <p></p>
-                       <div className="rtg-item-cakes">
-                         <div>
-                           <FaChevronLeft
-                             className="rtg-nav"
-                             onClick={() => handlePrev(product.rtgType)}
-                           />
-                         </div>
-                         <div>
-                           <img
-                             src={product.rtgImageUrl}
-                             alt={product.rtgName}
-                             onClick={() => {
-                               toggleChopsDescription();
-                             }}
-                           />
-                         </div>
-                         <div>
-                           <FaChevronRight
-                             className="rtg-nav"
-                             onClick={() => handleNext(product.rtgType)}
-                           />
-                         </div>
+             paginatedProducts.map((product) => (
+               <div className="rtg-cakes-content" key={product.rtgId}>
+                 {product.rtgType === rtgType ? (
+                   <>
+                     <p></p>
+                     <div className="rtg-item-cakes">
+                       <div>
+                         <FaChevronLeft
+                           className={`rtg-nav ${
+                             currentPageIndex === 0 ? "disabled" : ""
+                           }`}
+                           onClick={() => {
+                             if (currentPageIndex > 0) handlePrev(rtgType);
+                           }}
+                         />
                        </div>
-                       <p>
-                         <strong>
-                           {" "}
-                           {product.rtgName}
-                           <br /> ₦{product.rtgPrice}
-                         </strong>
-                       </p>
-
-                       {chopsDescription && (
-                         <div className="rtg-content">
-                           <span style={{ marginBottom: "1rem" }}>
-                             {product.rtgDescription}
-                           </span>
-                           <br />
-                           <p></p>
-                           <span className="rtg-span">Order Name</span>
-                           <br />
-                           <input
-                             type="text"
-                             placeholder="order name"
-                             value={chopOrderName}
-                             onChange={(e) => setChopOrderName(e.target.value)}
-                             required
-                           />
-                           <p></p>
-                           <span className="rtg-span">Delivery Date</span>
-                           <br />
-                           <input
-                             type="date"
-                             value={chopDeliveryDate}
-                             onChange={(e) =>
-                               setChopDeliveryDate(e.target.value)
-                             }
-                             required
-                           />
-                         </div>
-                       )}
-
-                       <CustomButton
-                         label={chopsDescription ? "Add To Cart" : "Buy Now"}
-                         type="button"
-                         style={{
-                           backgroundColor: chopsDescription && "#ffc107",
-                         }}
-                         onClick={() => {
-                           if (chopsDescription === false) {
+                       <div>
+                         <img
+                           src={product.rtgImageUrl}
+                           alt={product.rtgName}
+                           onClick={() => {
                              toggleChopsDescription();
-                           } else if(chopOrderName==="" || chopDeliveryDate === ""){
-                            toastify.fillRequired(
-                              `please fill in required fields`
-                            );
-                           } else {
-                            if (!user.accessToken) {
-                              toastify.error("failed to add Item to cart");
-                              return;
-                            }
-                             const newCount = Number(cartCount) + 1;
-                             setCartCount(newCount.toString());
-                             handleChopBuy(product);
-                             toastify.addItemToCart(
-                               `item successfully added to cart`
-                             );
+                           }}
+                         />
+                       </div>
+                       <div>
+                         <FaChevronRight
+                           className={`rtg-nav ${
+                             currentPageIndex + 1 >= totalPages
+                               ? "disabled"
+                               : ""
+                           }`}
+                           onClick={() => {
+                             if (currentPageIndex + 1 < totalPages)
+                               handleNext(rtgType);
+                           }}
+                         />
+                       </div>
+                     </div>
+                     <p>
+                       <strong>
+                         {" "}
+                         {product.rtgName}
+                         <br /> ₦{product.rtgPrice}
+                       </strong>
+                     </p>
+
+                     {chopsDescription && (
+                       <div className="rtg-content">
+                         <span style={{ marginBottom: "1rem" }}>
+                           {product.rtgDescription}
+                         </span>
+                         <br />
+                         <p></p>
+                         <span className="rtg-span">Order Name</span>
+                         <br />
+                         <input
+                           type="text"
+                           placeholder="order name"
+                           value={chopOrderName}
+                           onChange={(e) => setChopOrderName(e.target.value)}
+                           required
+                         />
+                         <p></p>
+                         <span className="rtg-span">Delivery Date</span>
+                         <br />
+                         <input
+                           type="date"
+                           value={chopDeliveryDate}
+                           onChange={(e) => setChopDeliveryDate(e.target.value)}
+                           required
+                         />
+                       </div>
+                     )}
+
+                     <CustomButton
+                       label={chopsDescription ? "Add To Cart" : "Buy Now"}
+                       type="button"
+                       style={{
+                         backgroundColor: chopsDescription && "#ffc107",
+                       }}
+                       onClick={() => {
+                         if (chopsDescription === false) {
+                           toggleChopsDescription();
+                         } else if (
+                           chopOrderName === "" ||
+                           chopDeliveryDate === ""
+                         ) {
+                           toastify.fillRequired(
+                             `please fill in required fields`
+                           );
+                         } else {
+                           if (!user.accessToken) {
+                             toastify.error("failed to add Item to cart");
+                             return;
                            }
-                         }}
-                       />
-                     </>
-                   ) : null}
-                 </div>
-               ))}
+                           const newCount = Number(cartCount) + 1;
+                           setCartCount(newCount.toString());
+                           handleChopBuy(product);
+                           toastify.addItemToCart(
+                             `item successfully added to cart`
+                           );
+                         }
+                       }}
+                     />
+                   </>
+                 ) : null}
+               </div>
+             ))}
          </div>
        );
      };
