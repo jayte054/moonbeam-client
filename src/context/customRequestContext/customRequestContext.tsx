@@ -38,25 +38,12 @@ export const RequestProvider = ({children}: RequestProviderProps) => {
         }
     }, [user, fetchRequests])
 
-    // useEffect(() => {
-    //     const newTotal = requestItems.reduce((total, requestItem) => total + Number(requestItem.quantity), 0)
-    //     setRequestTotal(() => newTotal)
-    // }, [requestItems])
-
-    // useEffect(() => {
-    //     const totalCount = () => {
-    //         const count = requestItems.reduce(
-    //             (total, requestItem) => total + Number(requestItem.quantity), 0
-    //             );
-    //             setRequestCount(() => count.toString())
-    //     }
-    //     totalCount();
-    // }, [requestItems])
 
     useEffect(() => {
       if (requestItems && Array.isArray(requestItems)) {
         console.log(requestItems.length)
-        const _count = requestItems.length;
+        const items = requestItems.filter((item) => item.status === 'in progress');
+        const _count = items.length;
         setRequestCount(_count.toString());
       } else {
         setRequestCount("0");

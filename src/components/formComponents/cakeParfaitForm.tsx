@@ -39,6 +39,7 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
           type="button"
           label="Cake Parfait"
           onClick={toggleParfaitForm}
+          style={{width: 'auto'}}
         />
         {parfaitForm && (
           <div>

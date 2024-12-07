@@ -18,18 +18,18 @@ export const RequestPreview = () => {
 
   const viewCart = () => navigate("/auth/requestPage");
 
+  const items = requestItems.filter((item) => item.status === "in progress");
+
   return (
     <div className="requestPreview-container">
       <div className="requestItem-body">
-        {requestItems.map((requestItem: RequestObject) => {
+        {items.map((requestItem: RequestObject) => {
           const imageUrl =
-            requestItem.orderType === "custom package" ? (
-              "/request_image.png"
-            ) : requestItem.orderType  ? (
-              "/request_image.png"
-            ) : (
-              requestItem.imageUrl || ""
-            );
+            requestItem.orderType === "custom package"
+              ? "/request_image.png"
+              : requestItem.orderType
+              ? "/request_image.png"
+              : requestItem.imageUrl || "";
           return (
             <div className="requestItem-content" key={requestItem.requestId}>
               <div>
@@ -41,9 +41,7 @@ export const RequestPreview = () => {
                 <span style={{ fontSize: "1rem" }}>
                   {requestItem.requestTitle}
                 </span>
-                <span style={{ fontSize: "1rem" }}>
-                  {requestItem.quantity}
-                </span>
+                <span style={{ fontSize: "1rem" }}>{requestItem.quantity}</span>
               </div>
             </div>
           );

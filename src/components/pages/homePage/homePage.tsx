@@ -293,6 +293,7 @@ export const Homepage = () => {
                               toastify.addItemToCart(
                                 `item successfully added to cart`
                               );
+                              toggleCakeDescription();
                             }
                           }}
                         />
@@ -425,6 +426,7 @@ export const Homepage = () => {
                            toastify.addItemToCart(
                              `item successfully added to cart`
                            );
+                           toggleChopsDescription();
                          }
                        }}
                      />

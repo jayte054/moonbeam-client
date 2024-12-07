@@ -27,7 +27,7 @@ export const OrdersPage = () => {
     newItems();
   }, [fetchOrders, user.accessToken, setOrderedItems, fetchUserRequests]);
 
-  const resolvedRequests = requests.filter(request => request.status === 'delivered')
+  const resolvedRequests = requests && requests.filter(request => request.status === 'delivered')
   
 
   return (

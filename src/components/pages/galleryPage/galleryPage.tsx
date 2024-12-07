@@ -5,7 +5,7 @@ import { GalleryContext } from "../../../context/galleryContext/galleryContext";
 import { Footer } from "../../footer/footer"
 import { GalleryPageNavbar } from "../../navbar/galleryPageNavbar"
 import "./galleryPage.css"
-import { FaArrowRight, FaArrowLeft} from "react-icons/fa";
+import { FaArrowRight, FaArrowLeft, FaChevronLeft, FaChevronRight} from "react-icons/fa";
 
 export const GalleryPage = () => {
     const [products, setProducts] = useState<any[]>([])
@@ -17,8 +17,7 @@ export const GalleryPage = () => {
         "suprise package": 0
     })
     const { galleryMap } = useContext<any>(GalleryContext)
-    const nextArrow = <FaArrowRight />;
-    const prevArrow = <FaArrowLeft />;
+    
     const itemsPerPage = 4;
 
     useEffect(() => {
@@ -44,23 +43,35 @@ export const GalleryPage = () => {
 
     // Function to render products based on type
     const renderProductsByType = (productType: string) => {
-        const startIndex = pageIndex[productType] * itemsPerPage;
+          const filteredProducts = products?.filter(
+            (product: any) => product.type === productType
+          );
+      const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+      console.log(filteredProducts.length);
+      const currentPageIndex = pageIndex[productType];
+      const startIndex = currentPageIndex * itemsPerPage;
+
+      // Slice products based on pagination
+      const _products = filteredProducts.slice(
+        startIndex,
+        startIndex + itemsPerPage
+      );
        
 
         return (
           <>
-            <div className="pagination-nav">
-              <span className="arrow" onClick={() => handlePrev(productType)}>
-                <FaArrowLeft className="span-nav" />
-              </span>
-              <span className="arrow" onClick={() => handleNext(productType)}>
-                <FaArrowRight className="span-nav" />
-              </span>
-            </div>
             <div className="category-type">
-              {products
-                .filter((product: any) => product.type === productType)
-                .slice(startIndex, startIndex + itemsPerPage)
+              <span className="arrow">
+                <FaChevronLeft
+                  className={`span-nav ${
+                    currentPageIndex === 0 ? "disabled" : ""
+                  }`}
+                  onClick={() => {
+                    if (currentPageIndex > 0) handlePrev(productType);
+                  }}
+                />
+              </span>
+              {_products
                 .map((product: any) => (
                   <div key={product.productId}>
                     <div className="category-item">
@@ -75,6 +86,17 @@ export const GalleryPage = () => {
                     </div>
                   </div>
                 ))}
+              <span className="arrow">
+                <FaChevronRight
+                  className={`span-nav ${
+                    currentPageIndex + 1 >= totalPages ? "disabled" : ""
+                  }`}
+                  onClick={() => {
+                    if (currentPageIndex + 1 < totalPages)
+                      handleNext(productType);
+                  }}
+                />
+              </span>
             </div>
           </>
         );

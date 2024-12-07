@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { BsBasket2Fill } from "react-icons/bs";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { GalleryContext } from "../../../context/galleryContext/galleryContext";
 import { Footer } from "../../footer/footer"
 import { GalleryPageNav } from "../../navbar/galleryPageNav"
@@ -42,34 +42,49 @@ export const GalleryPageAuth = () => {
 
     // Function to render products based on type
    const renderProductsByType = (productType: string) => {
-     const startIndex = pageIndex[productType] * itemsPerPage;
-    
+          const filteredProducts = products?.filter(
+            (product: any) => product.type === productType
+          );
+          const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+          console.log(filteredProducts.length);
+          const currentPageIndex = pageIndex[productType];
+          const startIndex = currentPageIndex * itemsPerPage;
+
+          // Slice products based on pagination
+          const _products = filteredProducts.slice(
+            startIndex,
+            startIndex + itemsPerPage
+          );
 
      return (
        <>
-         <div className="pagination-nav">
-           <span className="arrow" onClick={() => handlePrev(productType)}>
-             <FaArrowLeft className="span-nav" />
-           </span>
-           <span className="arrow" onClick={() => handleNext(productType)}>
-             <FaArrowRight className="span-nav" />
-           </span>
-         </div>
          <div className="category-type">
-           {products
-             .filter((product: any) => product.type === productType)
-             .slice(startIndex, startIndex + itemsPerPage)
+           <FaChevronLeft
+             className={`span-nav ${currentPageIndex === 0 ? "disabled" : ""}`}
+             onClick={() => {
+               if (currentPageIndex > 0) handlePrev(productType);
+             }}
+           />
+           {_products
              .map((product: any) => (
-                 <div key={product.productId} className="category-item">
-                   <img
-                     src={product.imageUrl}
-                     alt={product.description}
-                     className="item"
-                   />
-                   <span>{product.description}</span>
-                   <br />
-                 </div>
+               <div key={product.productId} className="category-item">
+                 <img
+                   src={product.imageUrl}
+                   alt={product.description}
+                   className="item"
+                 />
+                 <span>{product.description}</span>
+                 <br />
+               </div>
              ))}
+           <FaChevronRight
+             className={`span-nav ${
+               currentPageIndex + 1 >= totalPages ? "disabled" : ""
+             }`}
+             onClick={() => {
+               if (currentPageIndex + 1 < totalPages) handleNext(productType);
+             }}
+           />
          </div>
        </>
      );

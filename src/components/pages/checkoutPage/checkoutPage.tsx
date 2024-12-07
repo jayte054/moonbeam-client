@@ -258,7 +258,7 @@ const handlePayment = async () => {
                     type="button"
                     label="Choose Studio Address"
                     onClick={studioAddressBook}
-                    style={{ width: "100%" }}
+                    style={{ width: "auto", textAlign: 'center' }}
                   />
                 )}
               </div>

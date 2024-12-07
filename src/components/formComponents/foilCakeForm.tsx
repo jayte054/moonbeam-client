@@ -42,6 +42,7 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
             type="button"
             label="Foil Cakes"
             onClick={toggleFoilCakeForm}
+            style={{width: 'auto'}}
           />
           {foilCakeForm && (
             <div>

@@ -172,6 +172,7 @@ export const CartItemsPage = () => {
                   type="button"
                   label="proceed to checkout"
                   onClick={checkoutPage}
+                  style={{width: 'auto'}}
                 />
               </span>
             </div>
