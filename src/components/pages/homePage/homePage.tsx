@@ -170,137 +170,134 @@ export const Homepage = () => {
             </span>
             {products &&
               paginatedProducts.map((product) => (
-                  <div className="rtg-cakes-content" key={product.rtgId}>
-                    {product.rtgType === rtgType ? (
-                      <>
-                        <p></p>
-                        <div className="rtg-item-cakes">
-                          <div>
-                            <FaChevronLeft
-                              className={`rtg-nav ${
-                                currentPageIndex === 0 ? "disabled" : ""
-                              }`}
-                              onClick={() => {
-                                if (currentPageIndex > 0) handlePrev(rtgType);
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <img
-                              src={product.rtgImageUrl}
-                              alt={product.rtgName}
-                              onClick={() => {
-                                if (rtgType === "Cakes")
-                                  toggleCakeDescription();
-                                else if (rtgType === "Chops")
-                                  toggleChopsDescription();
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <FaChevronRight
-                              className={`rtg-nav ${
-                                currentPageIndex + 1 >= totalPages
-                                  ? "disabled"
-                                  : ""
-                              }`}
-                              onClick={() => {
-                                if (currentPageIndex + 1 < totalPages)
-                                  handleNext(rtgType);
-                              }}
-                            />
-                          </div>
+                <div className="rtg-cakes-content" key={product.rtgId}>
+                  {product.rtgType === rtgType ? (
+                    <>
+                      <p></p>
+                      <div className="rtg-item-cakes">
+                        <div className="rtg-nav">
+                          <FaChevronLeft
+                            className={`rtg-nav ${
+                              currentPageIndex === 0 ? "disabled" : ""
+                            }`}
+                            onClick={() => {
+                              if (currentPageIndex > 0) handlePrev(rtgType);
+                            }}
+                          />
                         </div>
-                        <p>
-                          <strong>
-                            {" "}
-                            {product.rtgName}
-                            <br /> ₦{product.rtgPrice}
-                          </strong>
-                        </p>
+                        <div>
+                          <img
+                            src={product.rtgImageUrl}
+                            alt={product.rtgName}
+                            onClick={() => {
+                              if (rtgType === "Cakes") toggleCakeDescription();
+                              else if (rtgType === "Chops")
+                                toggleChopsDescription();
+                            }}
+                          />
+                        </div>
+                        <div className="rtg-nav">
+                          <FaChevronRight
+                            className={`rtg-nav ${
+                              currentPageIndex + 1 >= totalPages
+                                ? "disabled"
+                                : ""
+                            }`}
+                            onClick={() => {
+                              if (currentPageIndex + 1 < totalPages)
+                                handleNext(rtgType);
+                            }}
+                          />
+                        </div>
+                      </div>
+                      <p>
+                        <strong>
+                          {" "}
+                          {product.rtgName}
+                          <br /> ₦{product.rtgPrice}
+                        </strong>
+                      </p>
 
-                        {rtgType === "Cakes"
-                          ? cakeDescription && (
-                              <div className="rtg-content">
-                                <span>{product.rtgDescription}</span>
-                                <br />
-                                <p></p>
-                                <span className="rtg-span">Order Name</span>
-                                <br />
-                                <input
-                                  type="text"
-                                  placeholder="order name"
-                                  value={cakeOrderName}
-                                  onChange={(e) =>
-                                    setCakeOrderName(e.target.value)
-                                  }
-                                  required
-                                />
-                                <p></p>
-                                <span className="rtg-span">Cake Message</span>
-                                <br />
-                                <input
-                                  type="text"
-                                  placeholder="cake message"
-                                  value={cakeMessage}
-                                  onChange={(e) =>
-                                    setCakeMessage(e.target.value)
-                                  }
-                                  required
-                                />
-                                <br />
-                                <p></p>
-                                <span className="rtg-span">Delivery Date</span>
-                                <br />
-                                <input
-                                  type="date"
-                                  value={cakeDeliveryDate}
-                                  onChange={(e) =>
-                                    setCakeDeliveryDate(e.target.value)
-                                  }
-                                  required
-                                />
-                              </div>
-                            )
-                          : null}
+                      {rtgType === "Cakes"
+                        ? cakeDescription && (
+                            <div className="rtg-content">
+                              <span>{product.rtgDescription}</span>
+                              <br />
+                              <p></p>
+                              <span className="rtg-span">Order Name</span>
+                              <br />
+                              <input
+                                type="text"
+                                placeholder="order name"
+                                value={cakeOrderName}
+                                onChange={(e) =>
+                                  setCakeOrderName(e.target.value)
+                                }
+                                required
+                              />
+                              <p></p>
+                              <span className="rtg-span">Cake Message</span>
+                              <br />
+                              <input
+                                type="text"
+                                placeholder="cake message"
+                                value={cakeMessage}
+                                onChange={(e) => setCakeMessage(e.target.value)}
+                                required
+                              />
+                              <br />
+                              <p></p>
+                              <span className="rtg-span">Delivery Date</span>
+                              <br />
+                              <input
+                                type="date"
+                                value={cakeDeliveryDate}
+                                onChange={(e) =>
+                                  setCakeDeliveryDate(e.target.value)
+                                }
+                                required
+                              />
+                            </div>
+                          )
+                        : null}
 
-                        <CustomButton
-                          label={cakeDescription ? "Add To Cart" : "Buy Now"}
-                          type="button"
-                          style={{
-                            backgroundColor: cakeDescription && "#ffc107",
-                          }}
-                          onClick={() => {
-                            if (cakeDescription === false) {
-                              toggleCakeDescription();
-                            } else if (
-                              cakeOrderName === "" ||
-                              cakeDeliveryDate === "" ||
-                              cakeMessage === ""
-                            ) {
-                              toastify.fillRequired(
-                                `please fill in required fields`
-                              );
-                            } else {
-                              if (!user.accessToken) {
-                                toastify.error("failed to add Item to cart");
-                                return;
-                              }
-                              const newCount = Number(cartCount) + 1;
-                              setCartCount(newCount.toString());
-                              handleCakeBuy(product);
-                              toggleCakeDescription();
-                              toastify.addItemToCart(
-                                `item successfully added to cart`
-                              );
-                              toggleCakeDescription();
+                      <CustomButton
+                        label={cakeDescription ? "Add To Cart" : "Buy Now"}
+                        type="button"
+                        style={{
+                          backgroundColor: cakeDescription && "#ffc107",
+                        }}
+                        onClick={() => {
+                          if (cakeDescription === false) {
+                            toggleCakeDescription();
+                          } else if (
+                            cakeOrderName === "" ||
+                            cakeDeliveryDate === "" ||
+                            cakeMessage === ""
+                          ) {
+                            toastify.fillRequired(
+                              `please fill in required fields`
+                            );
+                          } else {
+                            if (!user.accessToken) {
+                              toastify.error("failed to add Item to cart");
+                              return;
                             }
-                          }}
-                        />
-                      </>
-                    ) : null}
-                  </div>
-                ))}
+                            const newCount = Number(cartCount) + 1;
+                            setCartCount(newCount.toString());
+                            handleCakeBuy(product);
+                            toggleCakeDescription();
+                            toastify.addItemToCart(
+                              `item successfully added to cart`
+                            );
+                            toggleCakeDescription();
+                          }
+                        }}
+                      />
+                    </>
+                  ) : null}
+                </div>
+              ))}
           </div>
         );
     }
@@ -442,7 +439,7 @@ export const Homepage = () => {
       <>
         {/* {user.firstname ? ( */}
         <div>
-          <HomePageNavbar />
+            <HomePageNavbar />
           <div className="home-container">
             <div className="header">
               <h1>Welcome to Moonbeam {name}</h1>
@@ -474,14 +471,12 @@ export const Homepage = () => {
                   <img src={quickOrderImage} alt="quick-order-image" />
                   <br />
                   <div style={{ color: "black", marginTop: "2rem" }}>
-                    <span>Make your Quick Orders</span>
                   </div>
                 </div>
                 <div className="quick-order" onClick={navCustomOrder}>
                   <p> Custom Orders </p>
                   <img src={customOrderImage} alt="custom-order-image" />
                   <div style={{ color: "black", marginTop: "2rem" }}>
-                    <span>Make your Custom Orders</span>
                   </div>
                 </div>
               </div>

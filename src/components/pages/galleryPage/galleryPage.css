@@ -60,28 +60,10 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 1rem; 
-    align-items: center;
-    width: 100%; */
-}
-
-/* .pagination-nav{
-    display: flex;
-    justify-content: space-between;
 
 }
-.pagination-nav span {
-    border: none;
-    border-radius: 1rem;
-    background-color: grey;
-    color: white;
-    opacity: 0.2;
-}
-.pagination-nav span:hover {
-    opacity: 1
-} */
+
+
 
 .span-nav {
     height: 1.3rem;
@@ -107,6 +89,7 @@
 .category-item span {
     font-size: 1.3rem;
     font-weight: bold;
+    text-align: center;
 }
 
 .category-item img {

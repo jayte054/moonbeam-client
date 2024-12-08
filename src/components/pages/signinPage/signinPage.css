@@ -1,21 +1,21 @@
-.signin-container {
-    margin: 1rem;
+.signinpage-container {
+    margin: 2rem;
     border-radius: 1rem;
-    background-color: rgba(250, 246, 246, 0.459);
+    background-color: #f4f3f0;
   }
   
   .signin-body {
-    margin: 1rem;
+    /* margin: 1rem; */
     display: flex;
     justify-content: space-between;
-    background-color:rgb(239, 239, 225);
+    background-color:#f4f3f0;
     border-radius: 1rem;
   }
   
   .signin-input {
     display: flex;
     flex-direction: column;
-    margin-right: 3rem;
+    margin-right: 2rem;
   }
 
   .signin-input img {
@@ -23,7 +23,7 @@
   }
   
   .signin-image img {
-    width: 100%;
+    width: 90%;
     height: 100%;
     border-radius: 1rem;
   }
@@ -39,7 +39,7 @@
     height: 1.5rem;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.5);
-    background-color: rgba(250, 246, 246, 0.459);
+    background-color: #f4f3f0;
   }
   
   .signin-button {

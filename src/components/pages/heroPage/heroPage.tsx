@@ -13,7 +13,7 @@ import { FaCashRegister, FaChevronLeft, FaChevronRight, FaMoneyBill, FaPaypal, F
 import { CustomButton } from "../../formComponents/customButton";
 import { toastify } from "../../utilsComponent";
 import { AdminStores } from "../../../stores/adminStores";
-import { FaCakeCandles, FaMoneyBills, FaMoneyBillTransfer } from "react-icons/fa6";
+import { FaCakeCandles, FaListCheck, FaMoneyBills, FaMoneyBillTransfer } from "react-icons/fa6";
 
 export const HeroPage = () => {
        const [products, setProducts] = useState<rtgProducts[]>([]);
@@ -93,6 +93,7 @@ export const HeroPage = () => {
          <span className="rtg-body-cakes-title">
            {rtgType === "Cakes" ? "Cakes" : "Chops"}
          </span>
+         <p></p>
          {paginatedProducts.map((product) => (
            <div className="rtg-cakes-content" key={product.rtgId}>
              <div className="rtg-item-cakes">
@@ -394,40 +395,43 @@ export const HeroPage = () => {
                 </div>
               </div>
             </div>
-            <div className="extras">
-              <span>
-                fill out an order
-                <br />
-                <FaPenNib
-                  style={{
-                    paddingTop: "1rem",
-                    fontSize: "3.5rem",
-                    color: "#c6b585",
-                  }}
-                />
-              </span>
-              <span>
-                make seemless payment
-                <br />
-                <FaMoneyBillTransfer
-                  style={{
-                    paddingTop: "1rem",
-                    fontSize: "3.5rem",
-                    color: "#73ab39",
-                  }}
-                />
-              </span>
-              <span>
-                enjoy tasty treats
-                <br />
-                <FaCakeCandles
-                  style={{
-                    paddingTop: "1rem",
-                    fontSize: "3.5rem",
-                    color: "#cdb641",
-                  }}
-                />
-              </span>
+            <div className="heroPage-four">
+              <h2>how we work </h2>
+              <div className="extras">
+                <span>
+                  <FaListCheck
+                    style={{
+                      paddingTop: "1rem",
+                      fontSize: "3.5rem",
+                      color: "#c6b585",
+                    }}
+                  />
+                  <br />
+                  fill out an order
+                </span>
+                <span>
+                  <FaMoneyBillTransfer
+                    style={{
+                      paddingTop: "1rem",
+                      fontSize: "3.5rem",
+                      color: "#73ab39",
+                    }}
+                  />
+                  <br />
+                  make seemless payment
+                </span>
+                <span>
+                  <FaCakeCandles
+                    style={{
+                      paddingTop: "1rem",
+                      fontSize: "3.5rem",
+                      color: "#cdb641",
+                    }}
+                  />
+                  <br />
+                  enjoy tasty treats
+                </span>
+              </div>
             </div>
             <div className="body-end">
               <p>'your treat is our delight'</p>

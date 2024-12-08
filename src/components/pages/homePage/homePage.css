@@ -59,7 +59,7 @@
 .rtg-body-cakes-title {
   border: 1px solid #d767e8;
   border-radius: 1rem;
-  background-color:#4d2953;
+  background-color:#7d7e61;
   color: white;
   font-size: 1.5rem;
   font-weight: bold;
@@ -120,6 +120,15 @@
   padding: .5rem;
 }
 
+.rtg-nav {
+  color: grey;
+  cursor: pointer;
+}
+
+.rtg-nav:hover{
+  color:black;
+}
+
 .package-cake img, .package-surprise img, .package-chops img {
   width: 95%;
   height: 30rem;
@@ -175,10 +184,11 @@
 
 .quick-order p {
   border: none;
-  background-color: #4d2953;
+  background-color: #7d7e61;
   /* background-color: #e7c899; */
   border-radius: 1rem;
   padding:  1rem 0rem;
+  width: auto;
 }
 
 .quick-order img {
@@ -192,6 +202,6 @@
   border-width: 4px; 
   border-color: #c72bdf; 
   border-radius: 1rem;
-  color: #c72bdf;
+  color: #eeddf1;
   cursor: pointer;
 }
