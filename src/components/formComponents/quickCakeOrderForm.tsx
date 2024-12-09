@@ -18,47 +18,57 @@ interface QuickCakeOrderFormProps extends FormikProps<GenericProductOrderDto> {
   toggleBudgetOrder: () => void;
   toggleSpecialOrder: () => void;
 }
-export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => {
-    const cakeFormImage = <img src="/cake-form.png" alt="cake-form"/>
-    const [cakeCategoryForm, setCakeCategoryForm] = useState(false)
-    const [budgetCakesForm, setBudgetCakesForm] = useState(false)
-    const [specialCakesForm, setSpecialCakesForm] = useState(false)
-    const {values, handleChange, handleSubmit, setFieldValue, touched, errors,} = props
-    const {user} = useContext(AuthContext)
-    const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext);
-
-    const toggleCategoryForm = () => {
-        setCakeCategoryForm((prevShowForm) => !prevShowForm);
-    }
-
-    const toggleBudgetCakesForm = () => {
-      setBudgetCakesForm((prev) => !prev);
-      props.toggleBudgetOrder();
-      const newCount = Number(cartCount) + 1
-      setCartCount(newCount.toString());
-    }
-
-    const toggleSpecialCakesForm = () => {
-      setSpecialCakesForm((prev) => !prev)
-      props.toggleSpecialOrder();
-      const newCount = Number(cartCount) + 1;
-      setCartCount(newCount.toString());
-    }
 
 
+export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (
+  props
+) => {
+  const cakeFormImage = <img src="/cake-form.png" alt="cake-form" />;
+  const [cakeCategoryForm, setCakeCategoryForm] = useState(false);
+  const [budgetCakesForm, setBudgetCakesForm] = useState(false);
+  const [specialCakesForm, setSpecialCakesForm] = useState(false);
+  const { values, handleChange, handleSubmit, setFieldValue, touched, errors } =
+    props;
+  const { user } = useContext(AuthContext);
+  const { setCartCount, cartCount }: setCartCountProps =
+    useContext(CartContext);
 
-    const renderForm = () => (
-      <Form>
-        <CustomInput
-          label="Order Name"
-          name="orderName"
-          value={values.orderName}
-          onChange={handleChange}
-          type="text"
-          placeholder="Order Name"
-          error={touched.orderName && errors.orderName}
-        />
-        <CustomSelect
+  const toggleCategoryForm = () => {
+    setCakeCategoryForm((prevShowForm) => !prevShowForm);
+  };
+
+  const toggleBudgetCakesForm = () => {
+    setBudgetCakesForm((prev) => !prev);
+    setSpecialCakesForm(false);
+  };
+
+  const toggleSpecialCakesForm = () => {
+    setSpecialCakesForm((prev) => !prev);
+    setBudgetCakesForm(false);
+  };
+
+  const handleBudgetCakeBuy = () => {
+    props.toggleBudgetOrder();
+    setCartCount((prev) => (Number(prev) + 1).toString());
+  };
+
+  const handleSpecialCakeBuy = () => {
+    props.toggleSpecialOrder();
+    setCartCount((prev) => (Number(prev) + 1).toString());
+  };
+
+  const renderForm = () => (
+    <Form>
+      <CustomInput
+        label="Order Name"
+        name="orderName"
+        value={values.orderName}
+        onChange={handleChange}
+        type="text"
+        placeholder="Order Name"
+        error={touched.orderName && errors.orderName}
+      />
+      <CustomSelect
           label="Flavour"
           name="productFlavour"
           value={values.productFlavour}
@@ -166,50 +176,52 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (props) => 
           placeholder="please describe or add any other information we would need like decor title"
           error={touched.description && errors.description}
         />
-        <CustomFile
-          label="File"
-          name="file"
-          type="file"
-          error={touched.file && errors.file}
-        />
-        <AddToCartButton type="submit" label="Add To Cart" />
-      </Form>
-    );
-    
+      <CustomFile
+        label="File"
+        name="file"
+        type="file"
+        error={touched.file && errors.file}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => {
+          setFieldValue("file", e.target.files?.[0]);
+        }}
+      />
+      <AddToCartButton
+        type="submit"
+        label="Add To Cart"
+        onClick={() =>
+          budgetCakesForm ? handleBudgetCakeBuy() : handleSpecialCakeBuy()
+        }
+      />
+    </Form>
+  );
 
-    return(
-        <div className="quickOrderCake-container">
-            <CustomButton type="button"
-                          label={!cakeCategoryForm ? "Cakes": "Cake Category"}
-                          onClick={toggleCategoryForm}
-                    />
-            {cakeCategoryForm ? (
-              <>
-                <CustomButton 
-                  type="button"
-                  label="Budget Cakes"
-                  onClick={toggleBudgetCakesForm}
-                  disabled={specialCakesForm}
-                />
-                {budgetCakesForm && (
-                  renderForm()
-                )}
-                <CustomButton 
-                  type="button"
-                  label="Special Cakes"
-                  onClick={toggleSpecialCakesForm}
-                  disabled={budgetCakesForm}
-                  />
-                  {specialCakesForm && (
-                    renderForm()
-                  )}
-              </>
-                ):(
-                  <span>
-                      {cakeFormImage}
-                  </span>
-                )}
-                          
-        </div>
-    )
-}
+  return (
+    <div className="quickOrderCake-container">
+      <CustomButton
+        type="button"
+        label={!cakeCategoryForm ? "Cakes" : "Cake Category"}
+        onClick={toggleCategoryForm}
+      />
+      {cakeCategoryForm ? (
+        <>
+          <CustomButton
+            type="button"
+            label="Budget Cakes"
+            onClick={toggleBudgetCakesForm}
+            disabled={specialCakesForm}
+          />
+          {budgetCakesForm && renderForm()}
+          <CustomButton
+            type="button"
+            label="Special Cakes"
+            onClick={toggleSpecialCakesForm}
+            disabled={budgetCakesForm}
+          />
+          {specialCakesForm && renderForm()}
+        </>
+      ) : (
+        <span>{cakeFormImage}</span>
+      )}
+    </div>
+  );
+};
