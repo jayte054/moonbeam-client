@@ -23,7 +23,7 @@ import "./homepageNavbar.css";
        <div className="homePageNavbar-Nav">
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/homepage"
            >
              Home
@@ -31,7 +31,7 @@ import "./homepageNavbar.css";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/galleryPage"
            >
              Gallery
@@ -39,7 +39,7 @@ import "./homepageNavbar.css";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/ordersPage"
            >
              Orders
@@ -47,7 +47,7 @@ import "./homepageNavbar.css";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/profilePage"
            >
              Profile
@@ -56,7 +56,7 @@ import "./homepageNavbar.css";
          {admin.isAdmin === true ? (
            <span>
              <Link
-               style={{ color: "white", textDecoration: "none" }}
+               style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
                to="/auth/adminHomePage"
              >
                Admin
@@ -66,7 +66,10 @@ import "./homepageNavbar.css";
            " "
          )}
          <span onClick={(e) => handleSignout(e)}>
-           <Link style={{ color: "white", textDecoration: "none" }} to="/">
+           <Link
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
+             to="/"
+           >
              Signout
            </Link>
          </span>

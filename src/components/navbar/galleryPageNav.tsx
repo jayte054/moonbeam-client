@@ -24,7 +24,7 @@ import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
        <div className="galleryNavbar-Nav">
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/homepage"
            >
              Home
@@ -32,7 +32,7 @@ import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/ordersPage"
            >
              Orders
@@ -40,7 +40,7 @@ import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/profilePage"
            >
              Profile
@@ -49,7 +49,7 @@ import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
          {admin.isAdmin === true ? (
            <span>
              <Link
-               style={{ color: "white", textDecoration: "none" }}
+               style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
                to="/auth/adminHomePage"
              >
                Admin
@@ -59,7 +59,7 @@ import { AdminAuthContext } from "../../context/authcontext/adminAuthContext";
            " "
          )}
          <span onClick={handleSignout}>
-           <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
+           <Link style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }} to={"/"}>
              Signout
            </Link>
          </span>

@@ -702,6 +702,8 @@ export const AdminUploadPage = () => {
                     <li>Surprise Package</li>
                   </ul>
                   <p> Description</p>
+                  <p> Total Number of products that can be uploaded in 
+                      the gallery is 40, advisedly 8 per row</p>
                 </div>
               )}
             </div>
@@ -876,7 +878,7 @@ export const AdminUploadPage = () => {
             <h2>Forms</h2>
             {galleryProducts && (
               <div className="form-container">
-                <h3>Gallery Poducts Form</h3>
+                <h3>Gallery Products Form</h3>
                 <Formik
                   initialValues={galleryProductInitialValues}
                   onSubmit={(values, formikHelpers) => {

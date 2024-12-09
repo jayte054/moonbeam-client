@@ -14,7 +14,7 @@ import "./galleryPageNavbar.css";
       </div>
       <div className="galleryNavbar-Nav">
         <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
+            <Link style={{color:"rgb(54, 47, 47)", textDecoration:"none"}} 
                   to="/"
             >
                 Home
@@ -22,14 +22,14 @@ import "./galleryPageNavbar.css";
         </span>
        
         <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
+            <Link style={{color:"rgb(54, 47, 47)", textDecoration:"none"}} 
                   to="/signupPage"
             >
               Sign Up
             </Link>
           </span>
         <span>
-            <Link style={{color:"white", textDecoration:"none"}} 
+            <Link style={{color:"rgb(54, 47, 47)", textDecoration:"none"}} 
                   to="/signinPage"
             >
                 Sign in

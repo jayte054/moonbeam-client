@@ -24,7 +24,7 @@ import "./profilePageNavbar.css";
        <div className="profilePageNavbar-Nav">
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/homepage"
            >
              Home
@@ -32,7 +32,7 @@ import "./profilePageNavbar.css";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/galleryPage"
            >
              Gallery
@@ -40,7 +40,7 @@ import "./profilePageNavbar.css";
          </span>
          <span>
            <Link
-             style={{ color: "white", textDecoration: "none" }}
+             style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
              to="/auth/ordersPage"
            >
              Orders
@@ -49,7 +49,7 @@ import "./profilePageNavbar.css";
          {admin.isAdmin === true ? (
            <span>
              <Link
-               style={{ color: "white", textDecoration: "none" }}
+               style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
                to="/auth/adminHomePage"
              >
                Admin
@@ -60,7 +60,7 @@ import "./profilePageNavbar.css";
          )}
 
          <span onClick={(e) => handleSignout(e)}>
-           <Link style={{ color: "white", textDecoration: "none" }} to="/">
+           <Link style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }} to="/">
              Signout
            </Link>
          </span>

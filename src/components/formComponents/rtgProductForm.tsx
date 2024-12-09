@@ -64,7 +64,7 @@ export const RtgProductForm: React.FC<UploadRtgProductFormProps> = (props) => {
           label="Upload Product"
           type="submit"
           onClick={handleUpload}
-          disabled={rtgProducts ? true : false}
+          disabled={rtgProducts.length === 12 ? true : false}
         />
       </Form>
     </div>

@@ -26,7 +26,7 @@ import { useContext } from "react";
         <div className="quickOrder-Nav">
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/homepage"
             >
               Home
@@ -34,7 +34,7 @@ import { useContext } from "react";
           </span>
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/galleryPage"
             >
               Gallery
@@ -42,7 +42,7 @@ import { useContext } from "react";
           </span>
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/ordersPage"
             >
               Orders
@@ -50,7 +50,7 @@ import { useContext } from "react";
           </span>
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/profilePage"
             >
               Profile
@@ -59,7 +59,7 @@ import { useContext } from "react";
           {admin.isAdmin === true ? (
             <span>
               <Link
-                style={{ color: "white", textDecoration: "none" }}
+                style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
                 to="/auth/adminHomePage"
               >
                 Admin
@@ -69,7 +69,7 @@ import { useContext } from "react";
             " "
           )}
           <span onClick={(e) => handleSignout(e)}>
-            <Link style={{ color: "white", textDecoration: "none" }} to="/">
+            <Link style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }} to="/">
               Signout
             </Link>
           </span>

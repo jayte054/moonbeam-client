@@ -24,7 +24,7 @@ export const CartPageNav = () => {
       <div className="galleryNavbar-Nav">
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/homepage"
           >
             Home
@@ -33,7 +33,7 @@ export const CartPageNav = () => {
 
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/profilePage"
           >
             Profile
@@ -41,7 +41,7 @@ export const CartPageNav = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/galleryPage"
           >
             Gallery
@@ -50,7 +50,7 @@ export const CartPageNav = () => {
         {admin.isAdmin === true ? (
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/adminHomePage"
             >
               Admin
@@ -60,7 +60,10 @@ export const CartPageNav = () => {
           " "
         )}
         <span onClick={handleSignout}>
-          <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
+          <Link
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
+            to={"/"}
+          >
             Signout
           </Link>
         </span>

@@ -23,7 +23,7 @@ export const AdminPageNavbar = () => {
       <div className="homePageNavbar-Nav">
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/adminHomePage"
           >
             Home
@@ -31,7 +31,7 @@ export const AdminPageNavbar = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/admin/credentials"
           >
             Credentials
@@ -39,7 +39,7 @@ export const AdminPageNavbar = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/adminCustomersPage"
           >
             Customers
@@ -47,7 +47,7 @@ export const AdminPageNavbar = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/adminOrdersPage"
           >
             Orders
@@ -55,7 +55,7 @@ export const AdminPageNavbar = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/adminSalesPage"
           >
             Sales
@@ -63,14 +63,17 @@ export const AdminPageNavbar = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/adminReviewsPage"
           >
             Reviews
           </Link>
         </span>
         <span onClick={(e) => handleSignout(e)}>
-          <Link style={{ color: "white", textDecoration: "none" }} to="/">
+          <Link
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
+            to="/"
+          >
             Signout
           </Link>
         </span>

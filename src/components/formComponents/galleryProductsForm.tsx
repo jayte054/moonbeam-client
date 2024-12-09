@@ -52,7 +52,7 @@ export const GalleryProductsForm: React.FC<UploadGalleryProductFormProps> = (pro
             label="Upload Product"
             type="submit"
             onClick={handleUpload}
-            disabled={galleryProducts ? true : false}
+            disabled={galleryProducts.length === 40 ? true : false}
           />
         </Form>
       </div>

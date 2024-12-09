@@ -24,7 +24,7 @@ export const CheckoutPageNav = () => {
       <div className="checkoutNavbar-Nav">
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/homepage"
           >
             Home
@@ -33,7 +33,7 @@ export const CheckoutPageNav = () => {
 
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/profilePage"
           >
             Profile
@@ -41,7 +41,7 @@ export const CheckoutPageNav = () => {
         </span>
         <span>
           <Link
-            style={{ color: "white", textDecoration: "none" }}
+            style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
             to="/auth/galleryPage"
           >
             Gallery
@@ -50,7 +50,7 @@ export const CheckoutPageNav = () => {
         {admin.isAdmin === true ? (
           <span>
             <Link
-              style={{ color: "white", textDecoration: "none" }}
+              style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }}
               to="/auth/adminHomePage"
             >
               Admin
@@ -60,7 +60,7 @@ export const CheckoutPageNav = () => {
           " "
         )}
         <span onClick={handleSignout}>
-          <Link style={{ color: "white", textDecoration: "none" }} to={"/"}>
+          <Link style={{ color: "rgb(54, 47, 47)", textDecoration: "none" }} to={"/"}>
             Signout
           </Link>
         </span>
