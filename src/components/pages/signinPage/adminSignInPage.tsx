@@ -7,10 +7,12 @@ import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar";
 import "./signinPage.css";
 import { toastify } from "../../utilsComponent";
+import { MoonLoader } from "react-spinners";
 
 export const AdminSigninPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false)
   const { updateAdmin } = useContext(AdminAuthContext);
   const signinImage = "/signinPic.png";
   const navigate = useNavigate();
@@ -19,12 +21,17 @@ export const AdminSigninPage = () => {
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+      setIsLoading(true)
       const adminData = await adminSignin({ email, password });
       updateAdmin(adminData);
+      if(adminData) {
+        setIsLoading(false)
+      }
       navigate("/auth/homepage", {
         state: { data: adminData.admin.email },
         replace: true,
       });
+
       toastify.signInSuccessful("sign in successful");
 
     } catch (error) {
@@ -64,7 +71,7 @@ export const AdminSigninPage = () => {
               type="button"
               onClick={(e) => handleSubmit(e)}
             >
-              Sign In
+              { isLoading ? <MoonLoader size={6} /> : 'Sign In' }
             </button>
             <div className="page-logo">
               <img src="/moonbeamLogo.jpeg" alt="moonbeam logo" />

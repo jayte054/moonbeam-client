@@ -14,9 +14,11 @@ import { CustomButton } from "../../formComponents/customButton";
 import { toastify } from "../../utilsComponent";
 import { AdminStores } from "../../../stores/adminStores";
 import { FaCakeCandles, FaListCheck, FaMoneyBills, FaMoneyBillTransfer } from "react-icons/fa6";
+import { CircleLoader } from "react-spinners";
 
 export const HeroPage = () => {
        const [products, setProducts] = useState<rtgProducts[]>([]);
+       const [isLoading, setIsLoading] = useState(false);
        const [cakeDescription, setCakeDescription] = useState(false);
        const [chopsDescription, setChopsDescription] = useState(false);
        const [pageIndex, setPageIndex] = useState<{ [key: string]: number }>({
@@ -44,7 +46,6 @@ export const HeroPage = () => {
      useEffect(() => {
        const products = async () => {
          const rtgProduct = rtgProducts;
-         console.log(rtgProduct);
          setProducts(rtgProduct);
        };
        products();
@@ -110,16 +111,20 @@ export const HeroPage = () => {
                </div>
 
                {/* Product Image */}
-               <div>
-                 <img
-                   src={product.rtgImageUrl}
-                   alt={product.rtgName}
-                   onClick={() => {
-                     if (rtgType === "Cakes") toggleCakeDescription();
-                     else if (rtgType === "Chops") toggleChopsDescription();
-                   }}
-                 />
-               </div>
+               {isLoading ? (
+                 <CircleLoader size={10} />
+               ) : (
+                 <div>
+                   <img
+                     src={product.rtgImageUrl}
+                     alt={product.rtgName}
+                     onClick={() => {
+                       if (rtgType === "Cakes") toggleCakeDescription();
+                       else if (rtgType === "Chops") toggleChopsDescription();
+                     }}
+                   />
+                 </div>
+               )}
 
                {/* Right Navigation */}
                <div>
@@ -244,15 +249,19 @@ export const HeroPage = () => {
                           }}
                         />
                       </div>
-                      <div>
-                        <img
-                          src={product.rtgImageUrl}
-                          alt={product.rtgName}
-                          onClick={() => {
-                            toggleChopsDescription();
-                          }}
-                        />
-                      </div>
+                      {isLoading ? (
+                        <CircleLoader size={8} />
+                      ) : (
+                        <div>
+                          <img
+                            src={product.rtgImageUrl}
+                            alt={product.rtgName}
+                            onClick={() => {
+                              toggleChopsDescription();
+                            }}
+                          />
+                        </div>
+                      )}
                       <div>
                         <FaChevronRight
                           className={`rtg-nav ${

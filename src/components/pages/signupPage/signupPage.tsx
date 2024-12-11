@@ -5,6 +5,7 @@ import { Footer } from "../../footer/footer";
 import { SignUpPageNavbar } from "../../navbar/signupPageNavbar";
 import "./signupPage.css";
 import { toastify } from "../../utilsComponent";
+import { MoonLoader } from "react-spinners";
 
 export const SignUpPage = () => {
     const [firstname, setFirstname] = useState("")
@@ -13,6 +14,7 @@ export const SignUpPage = () => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [confirmPassword, setConfirmPassword] = useState("")
+    const [isLoading, setIsLoading] = useState(false);
     const [passwordMatch, setPasswordMatch] = useState(true)
     const navigate = useNavigate()
     const { signUp } = userStore;
@@ -32,11 +34,14 @@ export const SignUpPage = () => {
 
          e.preventDefault();
         try{
+          setIsLoading(true)
           await signUp(firstname, lastname, phoneNumber, email, password)
           if(!passwordMatch) {
+            setIsLoading(false)
             alert("Passwords do not match. Please check again.");
             return;
         }
+        setIsLoading(false)
         toastify.signupSuccessful(`sign up successful`)
         navigate("/signinPage")
         } catch(error) {
@@ -45,74 +50,79 @@ export const SignUpPage = () => {
        
     }
     return (
-        <div >
-                <SignUpPageNavbar />
+      <div>
+        <SignUpPageNavbar />
         <div className="signup-container">
-            <div className = "signup-body">
+          <div className="signup-body">
             <div className="signup-image">
-            <img src="/signupPic.png" alt = "signup pic" />
+              <img src="/signupPic.png" alt="signup pic" />
             </div>
             <div className="signup-input">
-            <h2>Sign Up Page</h2>
-            <span>Firstname</span>
-            <input type = "text" 
-                   placeholder= "firstname"
-                   value = {firstname}
-                   onChange={e => setFirstname(e.target.value)}
-                   required 
-            />
-            <span>Lastname</span>
-            <input type = "text"
-                   placeholder= "lastname"
-                   value= {lastname}
-                   onChange = {e => setLastname(e.target.value)}
-                   required
-            />
-            <span>Phone Number</span>
-            <input type = "text"
-                   placeholder="phone number"
-                   value = {phoneNumber}
-                   onChange = {e => setPhoneNumber(e.target.value)}
-                   required 
-            />
-            <span> Email </span>
-            <input type = "email"
-                   placeholder = "email"
-                   value = {email}
-                   onChange = {e => setEmail(e.target.value)}
-                   required
-            />
-            <span> Password </span>
-            <input type = "password"
-                   placeholder = "password"
-                   value = {password}
-                   onChange = {e => handlePassword(e.target.value)}
-                   required
-            />
-            <span> Confirm Password</span>
-            <input type = "password"
-                   placeholder = "confirm password"
-                   value = {confirmPassword}
-                   onChange = {e => handleConfirmPassword(e.target.value)}
-                   required
-            />
-            {!passwordMatch && (
+              <h2>Sign Up Page</h2>
+              <span>Firstname</span>
+              <input
+                type="text"
+                placeholder="firstname"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+                required
+              />
+              <span>Lastname</span>
+              <input
+                type="text"
+                placeholder="lastname"
+                value={lastname}
+                onChange={(e) => setLastname(e.target.value)}
+                required
+              />
+              <span>Phone Number</span>
+              <input
+                type="text"
+                placeholder="phone number"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value)}
+                required
+              />
+              <span> Email </span>
+              <input
+                type="email"
+                placeholder="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+              <span> Password </span>
+              <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => handlePassword(e.target.value)}
+                required
+              />
+              <span> Confirm Password</span>
+              <input
+                type="password"
+                placeholder="confirm password"
+                value={confirmPassword}
+                onChange={(e) => handleConfirmPassword(e.target.value)}
+                required
+              />
+              {!passwordMatch && (
                 <p style={{ color: "red" }}>Passwords do not match</p>
-            )}
-            <button className="signup-button" 
-                    type = "button" 
-                    onClick={(e) => handleSignup(e)}
-            >
-                        Sign Up
-            </button>
-            </div>            
+              )}
+              <button
+                className="signup-button"
+                type="button"
+                onClick={(e) => handleSignup(e)}
+              >
+                {isLoading ? <MoonLoader size={6} /> : "Sign Up"}
+              </button>
             </div>
-            
+          </div>
         </div>
-            <div>
-                <Footer />
-            </div>
+        <div>
+          <Footer />
         </div>
-        
-    )
+      </div>
+    );
 }

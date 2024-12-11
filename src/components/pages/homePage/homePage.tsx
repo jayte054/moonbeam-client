@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState} from "react"
 import { useNavigate } from 'react-router-dom';
-import {FaChevronRight, FaChevronLeft} from 'react-icons/fa';
-import Toastify from 'toastify-js';
+import { CircleLoader, ClockLoader, MoonLoader } from "react-spinners";
+import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 import { Footer } from "../../footer/footer"
 import { HomePageNavbar } from "../../navbar/homepageNavbar"
 import {AuthContext} from "../../../context/authcontext/authContext"
@@ -12,7 +12,6 @@ import { CartObject, RtgOrderDto, rtgProducts, setCartCountProps } from "../../.
 import { CustomButton } from "../../formComponents/customButton";
 import { CartIcon } from "../../cartIcon/cartIcon";
 import { CartContext } from "../../../context/cartContext/cartContext";
-import { CustomInput } from "../../formComponents/customInput";
 import { rtgStores } from "../../../stores/rtgStores";
 import { AdminAuthContext } from "../../../context/authcontext/adminAuthContext";
 import { toastify } from "../../utilsComponent";
@@ -21,6 +20,8 @@ export const Homepage = () => {
     const [products, setProducts] = useState<rtgProducts[]>([])
     const [cakeDescription, setCakeDescription] = useState(false)
     const [chopsDescription, setChopsDescription] = useState(false);
+    const [isLoading, setIsLoading] = useState(false)
+    const [isChopLoading, setIsChopLoading] = useState(false);
     const [pageIndex, setPageIndex] = useState<{[key:string]: number}>({
         Cakes: 0,
         Chops: 0
@@ -89,6 +90,7 @@ export const Homepage = () => {
 
     const handleCakeBuy = async (product: rtgProducts) => {
       try {
+        setIsLoading(true)
         const rtgOrderDto: RtgOrderDto = {
           orderName: cakeOrderName,
           orderType: product.rtgType,
@@ -113,7 +115,9 @@ export const Homepage = () => {
         setCakeOrderName("");
         setCakeMessage("");
         setCakeDeliveryDate("");
+        setIsLoading(false)
       } catch (error) {
+        setIsLoading(false)
         toastify.error(`an error occured please try again`);
       }
       
@@ -121,6 +125,7 @@ export const Homepage = () => {
 
     const handleChopBuy = async (product: rtgProducts) => {
       try {
+        setIsChopLoading(true)
         const rtgOrderDto: RtgOrderDto = {
           orderName: chopOrderName,
           orderType: product.rtgType,
@@ -144,7 +149,9 @@ export const Homepage = () => {
         setChopOrderName("");
         setChopMessage("");
         setChopDeliveryDate("");
+        setIsChopLoading(false);
       } catch (error) {
+        setIsChopLoading(false);
         toastify.error(`an error occured please try again`);
       }
       
@@ -185,6 +192,7 @@ export const Homepage = () => {
                             }}
                           />
                         </div>
+
                         <div>
                           <img
                             src={product.rtgImageUrl}
@@ -196,6 +204,7 @@ export const Homepage = () => {
                             }}
                           />
                         </div>
+
                         <div className="rtg-nav">
                           <FaChevronRight
                             className={`rtg-nav ${
@@ -262,36 +271,67 @@ export const Homepage = () => {
                         : null}
 
                       <CustomButton
-                        label={cakeDescription ? "Add To Cart" : "Buy Now"}
+                        label={
+                          cakeDescription ? (
+                            isLoading ? (
+                              <ClockLoader size={13} />
+                            ) : (
+                              "Add To Cart"
+                            )
+                          ) : (
+                            "Buy Now"
+                          )
+                        }
                         type="button"
                         style={{
                           backgroundColor: cakeDescription && "#ffc107",
                         }}
                         onClick={() => {
-                          if (cakeDescription === false) {
-                            toggleCakeDescription();
-                          } else if (
-                            cakeOrderName === "" ||
-                            cakeDeliveryDate === "" ||
-                            cakeMessage === ""
-                          ) {
-                            toastify.fillRequired(
-                              `please fill in required fields`
-                            );
-                          } else {
-                            if (!user.accessToken) {
-                              toastify.error("failed to add Item to cart");
-                              return;
+                          setIsLoading(true);
+
+                              if (!cakeDescription) {
+                                toggleCakeDescription();
+                                setIsLoading(false);
+                                return;
+                              }
+
+                              // Validate required fields
+                              if (
+                                !cakeOrderName.trim() ||
+                                !cakeDeliveryDate.trim() ||
+                                !cakeMessage.trim()
+                              ) {
+                                toastify.fillRequired(
+                                  "Please fill in required fields"
+                                );
+                                setIsLoading(false)
+                                return;
+                              }
+
+                              // Check user authentication
+                              if (!user.accessToken) {
+                                toastify.error("Failed to add item to cart");
+                                setIsLoading(false)
+                                return;
+                              }
+                            setTimeout(() => {
+                            try {
+                              // Proceed with adding to cart
+                              const newCount = Number(cartCount) + 1;
+                              setCartCount(newCount.toString());
+                              handleCakeBuy(product);
+                              toastify.addItemToCart(
+                                "Item successfully added to cart"
+                              );
+                              toggleCakeDescription(); // Collapse description
+                            } catch (error) {
+                              toastify.error(
+                                "An error occurred. Please try again."
+                              );
+                            } finally {
+                              setIsLoading(false); // Ensure loading is turned off
                             }
-                            const newCount = Number(cartCount) + 1;
-                            setCartCount(newCount.toString());
-                            handleCakeBuy(product);
-                            toggleCakeDescription();
-                            toastify.addItemToCart(
-                              `item successfully added to cart`
-                            );
-                            toggleCakeDescription();
-                          }
+                          }, 4000);
                         }}
                       />
                     </>
@@ -337,15 +377,16 @@ export const Homepage = () => {
                            }}
                          />
                        </div>
-                       <div>
-                         <img
-                           src={product.rtgImageUrl}
-                           alt={product.rtgName}
-                           onClick={() => {
-                             toggleChopsDescription();
-                           }}
-                         />
-                       </div>
+                       
+                         <div>
+                           <img
+                             src={product.rtgImageUrl}
+                             alt={product.rtgName}
+                             onClick={() => {
+                               toggleChopsDescription();
+                             }}
+                           />
+                         </div>
                        <div>
                          <FaChevronRight
                            className={`rtg-nav ${
@@ -397,14 +438,17 @@ export const Homepage = () => {
                      )}
 
                      <CustomButton
-                       label={chopsDescription ? "Add To Cart" : "Buy Now"}
+                        label={chopsDescription ? ( isChopLoading ? <ClockLoader size={13} /> : "Add To Cart") : "Buy Now"}
+                     
                        type="button"
                        style={{
                          backgroundColor: chopsDescription && "#ffc107",
                        }}
                        onClick={() => {
+                        setIsChopLoading(true)
                          if (chopsDescription === false) {
                            toggleChopsDescription();
+                           setIsChopLoading(false)
                          } else if (
                            chopOrderName === "" ||
                            chopDeliveryDate === ""
@@ -412,18 +456,32 @@ export const Homepage = () => {
                            toastify.fillRequired(
                              `please fill in required fields`
                            );
+                           setIsChopLoading(false)
                          } else {
                            if (!user.accessToken) {
                              toastify.error("failed to add Item to cart");
+                             setIsChopLoading(false)
                              return;
                            }
-                           const newCount = Number(cartCount) + 1;
-                           setCartCount(newCount.toString());
-                           handleChopBuy(product);
-                           toastify.addItemToCart(
-                             `item successfully added to cart`
-                           );
-                           toggleChopsDescription();
+                           setTimeout(() => {
+                             try {
+                               const newCount = Number(cartCount) + 1;
+                               setCartCount(newCount.toString());
+                               handleChopBuy(product);
+                               toastify.addItemToCart(
+                                 `item successfully added to cart`
+                               );
+                               toggleChopsDescription();
+                             } catch (error) {
+                               toastify.error(
+                                 "An error occurred. Please try again."
+                               );
+                             } finally {
+                               setIsChopLoading(false);
+                             }
+                           }, 4000)
+                          
+                           
                          }
                        }}
                      />

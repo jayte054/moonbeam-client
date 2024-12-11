@@ -5,10 +5,12 @@ import { Footer } from "../../footer/footer";
 import { SignUpPageNavbar } from "../../navbar/signupPageNavbar";
 import "./signupPage.css";
 import { toastify } from "../../utilsComponent";
+import { MoonLoader } from "react-spinners";
 
 export const AdminSignUpPage = () => {
   const [firstname, setFirstname] = useState("");
   const [lastname, setLastname] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -30,12 +32,15 @@ export const AdminSignUpPage = () => {
   const handleSignup = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     try {
+      setIsLoading(true)
       await adminSignUp(firstname, lastname, phoneNumber, email, password);
       if (!passwordMatch) {
+        setIsLoading(false);
         alert("Passwords do not match. Please check again.");
         return;
       }
-        toastify.signupSuccessful(`sign up successful`);
+      setIsLoading(false);
+      toastify.signupSuccessful(`sign up successful`);
       navigate("/adminSigninPage");
     } catch (error) {
       toastify.signupError("An error occurred, please try again later");
@@ -107,7 +112,7 @@ export const AdminSignUpPage = () => {
               type="button"
               onClick={(e) => handleSignup(e)}
             >
-              Sign Up
+              { isLoading ? <MoonLoader size={6} /> : 'Sign Up'}
             </button>
           </div>
         </div>

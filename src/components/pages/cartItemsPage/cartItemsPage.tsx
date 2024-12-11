@@ -91,6 +91,10 @@ export const CartItemsPage = () => {
           onClick={() => {
             handleRemoveItem(row.itemId);
           }}
+          style={{
+            backgroundColor: "#f4f3f0",
+            color: 'red'
+          }}
         />
       ),
     },
