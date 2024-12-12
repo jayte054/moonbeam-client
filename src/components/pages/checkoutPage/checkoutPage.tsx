@@ -2,6 +2,7 @@ import {CheckoutPageNav} from "../../navbar/checkoutPageNav";
 import {Footer} from "../../footer/footer"
 import "./checkoutPage.css"
 import React, { ChangeEventHandler, ReactNode, useContext, useEffect, useState } from "react";
+import { ClockLoader } from 'react-spinners';
 import { CheckoutContext } from "../../../context/checkoutContext/checkoutContext";
 import { AuthContext } from "../../../context/authcontext/authContext";
 import { useNavigate } from "react-router-dom";
@@ -28,6 +29,7 @@ export const CheckoutPage = () => {
     const [studioCoordinates, setStudioCoordinates] = useState<any | null>(null);
     const [deliveryRate, setDeliveryRate]= useState<number | null>(null)
     const [deliveryOption, setDeliveryOption] = useState<string>('')
+    const [isLoading, setIsLoading] = useState(false);
     const [cartItem, setCartItem] = useState(null)
     const {defaultAddress} = useContext(CheckoutContext)
     const {getDefaultStudioAddress} = checkoutStores
@@ -40,28 +42,30 @@ export const CheckoutPage = () => {
 
     useEffect(() => {
       const studio = async () => {
-        const accessToken = user.accessToken;
-        const address = await getDefaultStudioAddress(accessToken);
-        console.log(address);
-        SetStudioAddress(() => address);
+        try{
+          const accessToken = user.accessToken;
+          const address = await getDefaultStudioAddress(accessToken);
+          SetStudioAddress(() => address);
+        } catch(error) {
+          toastify.error('choose a studio address')
+        }
+        
       };
       studio();
     }, [ getDefaultStudioAddress]);
 
         useEffect(() => {
           const geo2 = async () => {
-            console.log(studioAddress);
-            const studioAddressDetails: string | any = studioAddress
-              ? studioAddress.studioAddress +
-                " " +
-                studioAddress.LGA +
-                " " +
-                studioAddress.state
-              : "";
-            console.log(studioAddressDetails);
-            const homeCoords = await getCoordinates(studioAddressDetails);
-            setStudioCoordinates(homeCoords);
-            console.log(homeCoords);
+              const studioAddressDetails: string | any = studioAddress
+                ? studioAddress.studioAddress +
+                  " " +
+                  studioAddress.LGA +
+                  " " +
+                  studioAddress.state
+                : "";
+              console.log(studioAddressDetails);
+              const homeCoords = await getCoordinates(studioAddressDetails);
+              setStudioCoordinates(homeCoords);
           };
           geo2();
         }, [studioAddress, getDefaultStudioAddress]);
@@ -90,7 +94,6 @@ export const CheckoutPage = () => {
 
     useEffect(() => {
         const fetchDeliveryCoordinates = async () => {
-            console.log(defaultAddress)
           const address = defaultAddress
             ? defaultAddress.deliveryAddress +
               ", " +
@@ -98,9 +101,7 @@ export const CheckoutPage = () => {
               ", " +
               defaultAddress.region
             : "";
-              console.log(address)
           const coordinates = await getCoordinates(address);
-          console.log(coordinates);
           setDeliveryCoordinates(() => coordinates);
         };
         fetchDeliveryCoordinates()
@@ -113,14 +114,20 @@ export const CheckoutPage = () => {
         const studioLon = studioCoordinates && studioCoordinates.lng;
         const rate = await calculateDeliveryFee(customerLat, customerLon, studioLat, studioLon)
         setDeliveryRate(rate)
-        console.log(rate)
     }
 
     useEffect(() => {
-      const delivery = () =>
-        studioCoordinates && deliveryCoordinates !== null
+      const delivery = () =>{
+        try{
+          const calculateFee = studioCoordinates && deliveryCoordinates !== null
           ? deliveryFee()
           : null;
+          return calculateFee;
+
+        } catch (error) {
+            toastify.error("error calculating delivery fee");
+        }
+        }
       delivery();
     }, [studioCoordinates, deliveryCoordinates]);
 
@@ -132,27 +139,26 @@ export const CheckoutPage = () => {
     
 
     const total = deliveryRate && deliveryRate + parsedCartTotal;
-    console.log(total);
 
     
-const paymentDto = {
-  amount:
-    deliveryOption === "Pick Up" || "" ? parsedCartTotal.toString() : total?.toString(),
-  userId: user.id,
-};
+    const paymentDto = {
+      amount:
+        deliveryOption === "Pick Up" || "" ? parsedCartTotal.toString() : total?.toString(),
+      userId: user.id,
+    };
 
-const config = {
-  email: user.email,
-  amount: Number(paymentDto.amount) * 100,
-  publicKey: process.env.REACT_APP_Paystack_Test_Public_Key!,
-  currency: "NGN",
-};
+    const config = {
+      email: user.email,
+      amount: Number(paymentDto.amount) * 100,
+      publicKey: process.env.REACT_APP_Paystack_Test_Public_Key!,
+      currency: "NGN",
+    };
 
 const initializePayment = usePaystackPayment(config);
 
 
 const handlePayment = async () => {
-  
+  setIsLoading(true)
   try {
     // Call initiatePayment to get the reference
     const paymentResponse = await initiatePayment(user.accessToken, paymentDto);
@@ -174,7 +180,6 @@ const handlePayment = async () => {
         reference: decryptedReference,
       },
       onSuccess: async (reference: ReferenceObject) => {
-        console.log("Payment successful", reference.reference);
         const encryptedReference = await encryptReference(
           reference.reference,
           paymentResponse.iv
@@ -186,11 +191,7 @@ const handlePayment = async () => {
         };
 
         await verifyPayment(user.accessToken, verificationDto);
-        console.log("payment verified successfully");
-        // const orderDto: OrderDto = {
-        //   orderName: cartItem.itemName
-        // }
-        // await addItemToOrders(user.accessToken, orderDto);
+        toastify.successful('payment verified successfully')
         const deleteCart =  cartItems.map( async (cartItem) => {
           const orderDto: OrderDto = {
             orderName: cartItem.itemName,
@@ -202,9 +203,7 @@ const handlePayment = async () => {
             deliveryStatus: 'unresolved',
             deliveryDate: cartItem.deliveryDate,
           };
-          console.log(orderDto)
             await addItemToOrders(user.accessToken, orderDto);
-
            await deleteCartItem(user.accessToken, cartItem.itemId)
         })
         
@@ -213,6 +212,7 @@ const handlePayment = async () => {
         const updatedCart: CartObject[] = await getCartItems(user.accessToken);
         toastify.paymentSuccessful(`payment for order successful`);
         setCartItems(updatedCart);
+        setIsLoading(false)
         navigate("/auth/ordersPage")
       },
       onClose: () => {
@@ -220,7 +220,7 @@ const handlePayment = async () => {
       },
     });
   } catch (error) {
-    console.log("Error during payment:", error);
+    toastify.error("Error during payment")
   }
 };
 
@@ -431,9 +431,9 @@ const handlePayment = async () => {
                   <h3>Payment</h3>
                   <CustomButton
                     type="button"
-                    label="Make Payment"
+                    label={ isLoading ? <ClockLoader size={13} /> : "Make Payment"}
                     onClick={handlePayment}
-                    style={{ width: "100%" }}
+                    style={{ width: "100%", backgroundColor: 'gold' }}
                   />
                 </>
               )}

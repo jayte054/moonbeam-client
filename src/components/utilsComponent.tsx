@@ -45,27 +45,33 @@ export const ProtectAuthRoute = () => {
 //fetch coordinates from google api
 
 export const getCoordinates = async (address: string | number | boolean) => {
-  const apiKey = process.env.REACT_APP_GOOGLE_MAP_API;
+  try {
+    const apiKey = process.env.REACT_APP_GOOGLE_MAP_API;
+
+    if (!apiKey) {
+      throw new Error("google maps api key is missing");
+    }
+
+    const response =  await fetch(
+          `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
+            address
+          )}&key=${apiKey}`
+        );
+
+    const data = await response.json();
+    if (data.status === "OK") {
+      const { lat, lng } = data.results[0].geometry.location;
+      console.log({ lat, lng });
+      return { lat, lng };
+    } else {
+      toastify.error("please choose an address");
+      console.error(`Geocoding Api error`, data.status);
+      return null;
+    }
+  } catch(error) {
+    toastify.error('an error occured, input address details')
+  }
   
-  if (!apiKey) {
-    throw new Error("google maps api key is missing");
-  }
-
-  const response = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
-      address
-    )}&key=${apiKey}`
-  );
-
-  const data = await response.json();
-  if (data.status === "OK") {
-    const { lat, lng } = data.results[0].geometry.location;
-    console.log({lat,lng})
-    return { lat, lng };
-  } else {
-    console.error(`Geocoding Api error`, data.status);
-    return null;
-  }
 };
 
 // calculate delivery fee
