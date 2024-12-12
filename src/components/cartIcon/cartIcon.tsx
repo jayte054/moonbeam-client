@@ -18,12 +18,10 @@ export const CartIcon = () => {
     return (
       <>
         <BsBasket2Fill
-          style={{ cursor: "pointer", color: "rgb(78, 51, 104)" }}
+          style={{ cursor: "pointer", color: "black" }}
           onClick={toggleCart}
         />
-        <span style={{ fontSize: "1rem", color: "rgb(78, 51, 104)" }}>
-          {cartCount}
-        </span>
+        <span style={{ fontSize: "1rem", color: "black" }}>{cartCount}</span>
         {isOpen && <CartPreview />}
       </>
     );

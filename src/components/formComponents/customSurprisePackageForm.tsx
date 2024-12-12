@@ -9,6 +9,7 @@ import { CustomDate } from "./customDate";
 import { CustomInput } from "./customInput";
 import "./customSurprisePackageForm.css"
 import { CustomTextArea } from "./customTextArea";
+import { ClockLoader } from "react-spinners";
 
 interface CustomSurprisePackageFormProps extends FormikProps<CustomPackageObject> {
   togglePackageOrder: (values: CustomPackageObject, formikHelpers: any) => void
@@ -18,6 +19,7 @@ export const CustomSurprisePackageForm: React.FC<CustomSurprisePackageFormProps>
   const surpriseFormImage = (
     <img src="/surpriseForm.png" alt="surprise-package" />
   );
+  const [isLoading, setIsLoading] = useState(false);
   const [packageForm, setPackageForm] = useState(false);
   const {values, handleChange, handleSubmit, touched, errors, togglePackageOrder} = props;
   const {requestCount, setRequestCount} = useContext(RequestContext)
@@ -27,9 +29,13 @@ export const CustomSurprisePackageForm: React.FC<CustomSurprisePackageFormProps>
   };
 
   const handlePackageFormSubmit = (formikHelpers: any) => {
+    setIsLoading(true)
     togglePackageOrder(values, formikHelpers)
     const newCount = Number(requestCount) + 1
     setRequestCount(newCount.toString())
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 6000)
   }
   
   const renderForm = () => (
@@ -67,7 +73,7 @@ export const CustomSurprisePackageForm: React.FC<CustomSurprisePackageFormProps>
       />
       <AddToCartButton 
         type="submit" 
-        label=" Custom Request" 
+        label={isLoading ? <ClockLoader size={13} /> : "Package Request" }
         onClick={handlePackageFormSubmit}
         />
     </Form>

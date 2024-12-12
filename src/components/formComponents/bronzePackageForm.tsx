@@ -3,6 +3,7 @@ import { PackageRatesDto, SurprisePackageInterface } from "../../types";
 import { CustomButton } from "./customButton";
 import { CustomFile } from "./customFile";
 import { CustomInput } from "./customInput";
+import { useState } from "react";
 
 interface UploadBronzePackageFormProps extends FormikProps<PackageRatesDto> {
   uploadBronzePackageRates: (
@@ -12,6 +13,7 @@ interface UploadBronzePackageFormProps extends FormikProps<PackageRatesDto> {
   diamondPackage: SurprisePackageInterface[];
 }
 export const BronzePackageForm: React.FC<UploadBronzePackageFormProps> = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
     const {
       values,
       handleChange,
@@ -21,7 +23,11 @@ export const BronzePackageForm: React.FC<UploadBronzePackageFormProps> = (props)
       diamondPackage,
     } = props;
 
-      const handleUpload = (formikHelpers: any) => uploadBronzePackageRates(values, formikHelpers);
+      const handleUpload = (formikHelpers: any) => {
+        setIsLoading(true);
+        uploadBronzePackageRates(values, formikHelpers);
+        setIsLoading(false)
+      }
     return (
       <div>
         <Form>

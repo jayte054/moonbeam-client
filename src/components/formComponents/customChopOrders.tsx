@@ -9,6 +9,7 @@ import { CustomTextArea } from "./customTextArea";
 import "./customChopOrderForm.css"
 import { CustomChopsObject } from "../../types";
 import { RequestContext } from "../../context/customRequestContext/customRequestContext";
+import { ClockLoader } from "react-spinners";
 
 interface CustomChopsOrderFormProps extends FormikProps<CustomChopsObject> {
   toggleChopsOrder: (values: CustomChopsObject, formikHelpers: any)=> void
@@ -16,8 +17,8 @@ interface CustomChopsOrderFormProps extends FormikProps<CustomChopsObject> {
 
 export const CustomChopOrdersForm: React.FC<CustomChopsOrderFormProps> = (props) => {
     const chopsFormImage = <img src="/chopsform.png" alt="chops image" />;
-
-    const [chopsForm, setChopsForm] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
+    const [chopsForm, setChopsForm] = useState(false);
     const {values, handleChange, touched, errors, toggleChopsOrder} = props;
     const {requestCount, setRequestCount} = useContext(RequestContext)
 
@@ -26,9 +27,13 @@ export const CustomChopOrdersForm: React.FC<CustomChopsOrderFormProps> = (props)
     }
 
     const handleChopsFormSubmit = async(formikHelpers: any) => {
+      setIsLoading(true);
       toggleChopsOrder(values, formikHelpers)
       const newCount = Number(requestCount) + 1;
       setRequestCount(newCount.toString())
+      setTimeout(() => {
+      setIsLoading(false);
+      }, 6000)
     }
     
     return (
@@ -88,7 +93,7 @@ export const CustomChopOrdersForm: React.FC<CustomChopsOrderFormProps> = (props)
             />
             <AddToCartButton 
                 type="submit" 
-                label="Custom Request" 
+                label={ isLoading ? <ClockLoader size={13} /> : "Chops Request" }
                 onClick={handleChopsFormSubmit}
                 />
           </Form>

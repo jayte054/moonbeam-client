@@ -7,7 +7,7 @@ import { Footer } from "../../footer/footer";
 import { SigninPageNavbar } from "../../navbar/signinPageNavbar";
 import "./signinPage.css";
 import { toastify } from "../../utilsComponent";
-import { MoonLoader } from "react-spinners";
+import { MoonLoader, SyncLoader } from "react-spinners";
 
 export const AdminSigninPage = () => {
   const [email, setEmail] = useState("");
@@ -35,6 +35,7 @@ export const AdminSigninPage = () => {
       toastify.signInSuccessful("sign in successful");
 
     } catch (error) {
+      setIsLoading(false)
       toastify.signinError(`an error occurred while signing in`);
 
     }
@@ -71,7 +72,7 @@ export const AdminSigninPage = () => {
               type="button"
               onClick={(e) => handleSubmit(e)}
             >
-              { isLoading ? <MoonLoader size={6} /> : 'Sign In' }
+              {isLoading ? <SyncLoader size={6} /> : "Sign In"}
             </button>
             <div className="page-logo">
               <img src="/moonbeamLogo.jpeg" alt="moonbeam logo" />

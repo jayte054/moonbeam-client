@@ -17,12 +17,10 @@ export const RequestIcon = () => {
   return (
     <>
       <MessageOutgoing02Icon
-        style={{ cursor: "pointer", color: "rgb(78, 51, 104)" }}
+        style={{ cursor: "pointer", color: "black" }}
         onClick={toggleCart}
       />
-      <span style={{ fontSize: "1rem", color: "rgb(78, 51, 104)" }}>
-        {requestCount}
-      </span>
+      <span style={{ fontSize: "1rem", color: "black" }}>{requestCount}</span>
       {isOpen && <RequestPreview />}
     </>
   );

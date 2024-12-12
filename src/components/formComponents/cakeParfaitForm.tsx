@@ -11,12 +11,14 @@ import { CustomDate } from "./customDate";
 import { CartContext } from "../../context/cartContext/cartContext";
 import { CartStores } from "../../stores/cartStores";
 import { AuthContext } from "../../context/authcontext/authContext";
+import { ClockLoader } from "react-spinners";
 
 interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
   toggleParfaitOrder: (values: parfaitObject, foilFormikHelpers: any) => void 
 }
 export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   const [parfaitForm, setParfaitForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const {values, handleChange, handleSubmit, touched, errors, toggleParfaitOrder} = props;
   const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
    const { getCartItems } = CartStores;
@@ -27,10 +29,12 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
   };
 
   const handleParfaitFormOrder = async(formikHelpers: any) => {
+    setIsLoading(true)
     toggleParfaitOrder(values, formikHelpers)
     const newCount = Number(cartCount) + Number(values.quantity)
     setCartCount(newCount.toString())
     await getCartItems(user.accessToken);
+    setIsLoading(false)
   }
   return (
     <div className="quickOrder-foilCakesInput">
@@ -82,7 +86,7 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
             <div>
               <AddToCartButton
                 type="submit"
-                label="Add To Cart"
+                label={isLoading ? <ClockLoader size={13} /> : "Add To Cart" }
                 onClick={handleParfaitFormOrder}
               />
             </div>

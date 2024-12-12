@@ -12,6 +12,7 @@ import { AuthContext } from "../../context/authcontext/authContext"
 import { GenericProductOrderDto, setCartCountProps } from "../../types"
 import { quickOrderSchema } from "./formSchema"
 import { CartContext } from "../../context/cartContext/cartContext"
+import { ClockLoader } from "react-spinners"
 
 interface QuickCakeOrderFormProps extends FormikProps<GenericProductOrderDto> {
   // onSubmit: (values: GenericProductOrderDto, formikHelpers: any) => void;
@@ -27,6 +28,8 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (
   const [cakeCategoryForm, setCakeCategoryForm] = useState(false);
   const [budgetCakesForm, setBudgetCakesForm] = useState(false);
   const [specialCakesForm, setSpecialCakesForm] = useState(false);
+  const [isBudgetLoading, setIsBudgetLoading] = useState(false);
+  const [isSpecialLoading, setIsSpecialLoading] = useState(false);
   const { values, handleChange, handleSubmit, setFieldValue, touched, errors } =
     props;
   const { user } = useContext(AuthContext);
@@ -48,13 +51,17 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (
   };
 
   const handleBudgetCakeBuy = () => {
+    setIsBudgetLoading(true)
     props.toggleBudgetOrder();
     setCartCount((prev) => (Number(prev) + 1).toString());
+    setIsBudgetLoading(false)
   };
 
   const handleSpecialCakeBuy = () => {
+    setIsSpecialLoading(true);
     props.toggleSpecialOrder();
     setCartCount((prev) => (Number(prev) + 1).toString());
+    setIsSpecialLoading(false);
   };
 
   const renderForm = () => (
@@ -168,7 +175,7 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (
           <option value="20">20</option>
         </CustomSelect>
         <CustomTextArea
-          label="Description"
+          label="Cake Message"
           name="description"
           value={values.description}
           onChange={handleChange}
@@ -187,7 +194,7 @@ export const QuickCakeOrderForm: React.FC<QuickCakeOrderFormProps> = (
       />
       <AddToCartButton
         type="submit"
-        label="Add To Cart"
+        label={isBudgetLoading || isSpecialLoading ? <ClockLoader size={13} /> : "Add To Cart"}
         onClick={() =>
           budgetCakesForm ? handleBudgetCakeBuy() : handleSpecialCakeBuy()
         }

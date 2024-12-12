@@ -1,5 +1,6 @@
 import { Form, FormikProps } from "formik";
 import { useContext, useState } from "react"
+import { ClockLoader } from 'react-spinners';
 import { AddToCartButton } from "./addToCartButton";
 import { CustomButton } from "./customButton"
 import { CustomDate } from "./customDate";
@@ -19,6 +20,7 @@ interface CustomCakeOrderFormProps extends FormikProps<CustomOrderObject> {
 export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) => {
     const cakeFormImage = <img src="/cake-form.png" alt="cake-form" />;
     const [cakeForm, setCakeForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const {requestCount, setRequestCount} = useContext(RequestContext)
     const {values, handleSubmit, handleChange, touched, errors, toggleCakeOrder} = props
 
@@ -26,14 +28,19 @@ export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) =
         setCakeForm((prev) => !prev)
     }
 
-    const handleCakeFormSubmit = (formikHelpers: any) => {
+    const handleCakeFormSubmit = async (formikHelpers: any) => {
+      setIsLoading(true)
+      const newCount = Number(requestCount) + 1;
+      setRequestCount(newCount.toString());
       toggleCakeOrder(values, formikHelpers);
-      const newCount =Number (requestCount) + 1
-      setRequestCount(newCount.toString())
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 4000);
     }
 
      const renderForm = () => (
-       <Form onSubmit={handleSubmit}>
+       <Form>
          <CustomInput
            label="Order Name"
            name="orderName"
@@ -141,7 +148,7 @@ export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) =
            <option value="20">20</option>
          </CustomSelect>
          <CustomTextArea
-           label="Description"
+           label="Cake Message"
            name="description"
            value={values.description}
            onChange={handleChange}
@@ -152,8 +159,8 @@ export const CustomCakeOrderForm: React.FC<CustomCakeOrderFormProps> = (props) =
          <CustomFile label="File" name="file" type="file" />
          <AddToCartButton 
               type="submit" 
-              label="Custom Request" 
-              onSubmit={handleCakeFormSubmit}
+              label={ isLoading ? <ClockLoader size={13} /> : "Cake Request"} 
+              onClick={handleCakeFormSubmit}
               />
        </Form>
      );

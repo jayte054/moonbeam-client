@@ -11,6 +11,7 @@ import "./quickChopsOrder.css"
 import { CustomSelectChops } from "./customSelectChops"
 import { chopsObject, setCartCountProps } from "../../types"
 import { CartContext } from "../../context/cartContext/cartContext"
+import { ClockLoader } from "react-spinners"
 
 interface QuickChopsOrderFormProps extends FormikProps<chopsObject> {
   toggleChopOrder: (values: chopsObject, formikHelpers: any) => void;
@@ -22,6 +23,8 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
     const [showChopsForm, setShowChopsForm] = useState(false)
     const [showPastryForm, setShowPastryForm] = useState(false)
     const [showCategory, setShowCategory] = useState(false)
+    const [isChopsLoading, setIsChopsLoading] = useState(false)
+    const [isPastryLoading, setIsPastryLoading] = useState(false)
     const [selectImage, setSelectImage] = useState<string | null>(null)
     const {values, handleChange, handleSubmit,setFieldValue, touched, errors} = props
     const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
@@ -80,9 +83,14 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
      };
 
      const handleChopsFormSubmit = async (formikHelpers: any) => {
-       props.toggleChopOrder(values, formikHelpers); // Toggles the form 
-       const newCount = Number(cartCount) + Number(values.numberOfPacks)
-       setCartCount(newCount.toString())
+      setIsChopsLoading(true)
+      setTimeout(() => {
+         props.toggleChopOrder(values, formikHelpers); // Toggles the form
+         const newCount = Number(cartCount) + Number(values.numberOfPacks);
+         setCartCount(newCount.toString());
+         setIsChopsLoading(false);
+      }, 6000)
+      
      };
      
     const renderChopsForm = () => (
@@ -194,7 +202,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
         />
         <AddToCartButton 
             type="submit" 
-            label="Add To Cart" 
+            label={isChopsLoading ? <ClockLoader size={13}/> : "Add To Cart"} 
             onClick={handleChopsFormSubmit}
         />
       </Form>
@@ -309,7 +317,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
         />
         <AddToCartButton
           type="submit"
-          label="Add To Cart"
+          label={isChopsLoading ? <ClockLoader size = {13} /> : "Add To Cart"}
           onClick={handleChopsFormSubmit}
         />
       </Form>

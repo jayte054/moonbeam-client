@@ -11,6 +11,7 @@ import { CustomDate } from "./customDate";
 import { CartContext } from "../../context/cartContext/cartContext";
 import { CartStores } from "../../stores/cartStores";
 import { AuthContext } from "../../context/authcontext/authContext";
+import { ClockLoader } from "react-spinners";
 
 interface FoilCakeFormProps extends FormikProps<foilObject>  {
   toggleFoilOrder: (values: foilObject, foilFormikHelpers: any) => void
@@ -18,6 +19,7 @@ interface FoilCakeFormProps extends FormikProps<foilObject>  {
 
 export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
     const [foilCakeForm, setFoilCakeForm] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
     const {values, handleChange, handleSubmit, setFieldValue, touched, errors} = props;
     const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
     const {getCartItems} = CartStores
@@ -28,10 +30,12 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
     }
 
     const handleFoilFormSubmit = async(foilFormikHelpers: any) => {
+      setIsLoading(true)
       props.toggleFoilOrder(values, foilFormikHelpers)
       const newCount = Number(cartCount) + Number(values.quantity)
       setCartCount(newCount.toString())
       await getCartItems(user.accessToken)
+      setIsLoading(false)
     }
 
 
@@ -96,7 +100,7 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
               <div>
                 <AddToCartButton
                   type="submit"
-                  label="Add To Cart"
+                  label={ isLoading ? <ClockLoader size={13} /> : "Add To Cart" }
                   onClick={handleFoilFormSubmit}
                 />
               </div>

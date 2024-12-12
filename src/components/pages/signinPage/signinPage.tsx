@@ -29,6 +29,7 @@ export const SigninPage = () => {
             navigate("/auth/homepage", {state: {data: userData.user.email}, replace: true})
             toastify.signInSuccessful('sign in successful')
         } catch(error) {
+            setIsLoading(false)
             toastify.signinError(`an error occurred while signing in`)
         }
         

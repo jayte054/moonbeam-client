@@ -15,6 +15,7 @@ import {
   goldPackage,
   diamondPackage
  } from "../../types";
+import { ClockLoader } from "react-spinners"
 
 interface bronzePackage {
   packageId: string;  
@@ -51,6 +52,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     const [showSilverForm, setShowSilverForm] = useState(false);
     const [showGoldForm, setShowGoldForm] = useState(false);
     const [showDiamondForm, setShowDiamondForm] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     // const [packages, setPackages] = useState<_package[]>([])
     const [bronzePackage, setBronzePackage] = useState<bronzePackage | null>(
       null
@@ -102,8 +104,7 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
 
     const toggleDiamondForm = () => {
         setShowDiamondForm((prev) => !prev);
-        props.toggleDiamondOrder()
-        
+          props.toggleDiamondOrder()
     }
 
     
@@ -139,10 +140,19 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
             />
              <AddToCartButton 
                             type="submit"
-                            label="Add To Cart"
+                            label={
+                              isLoading ? 
+                              <ClockLoader size={13} /> :
+                              "Add To Cart" 
+                            }
                             onClick={() => {
-                              const newCount = Number(cartCount) + 1;
-                              setCartCount(newCount.toString());
+                              setIsLoading(true);
+                              setTimeout(() => {
+                                const newCount = Number(cartCount) + 1;
+                                setCartCount(newCount.toString());
+                                setIsLoading(false);
+                              }, 4000)
+                              
                             }}
                           />  
           </Form>
