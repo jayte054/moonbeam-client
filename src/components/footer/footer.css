@@ -4,7 +4,7 @@
     color: black;
     /* border-top-style: dashed; */
     border-radius: 1rem;
-    width: 93.2%;
+    width: auto;
     margin: 2rem;
     padding: 1rem;
 }
@@ -14,18 +14,20 @@
     display: flex;
     justify-content: space-between;
     font-weight: bold;
-
+    flex-wrap: wrap; /* Allow content to wrap on smaller screens */
+    gap: 1rem;
 }
 
 .footer-logo img{
     width:40%;
     margin:0rem 0rem 0rem 4rem;
+    display: block;
 }
 
 .footer-contacts li {
     list-style: none;
     font-weight: bold;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .footer-socials span {
@@ -53,4 +55,125 @@
     border-radius: .5rem;
     font-weight: bold;
     font-size: 1rem;
+}
+
+@media (max-width: 1023px) {
+     .footer-container {
+        margin:.5rem;
+        padding: 0;
+        width: auto;
+        display: left;
+        height: 100%;
+    }
+    .footer-body {
+        margin: .5rem;
+        padding: .8rem; 
+        flex-direction: column; /* Stack items vertically */
+    }
+
+    .footer-logo img {
+        width: 40%; /* Make the logo larger on mobile */
+        margin: 1rem auto;
+        height: 25rem;
+    }
+
+    .footer-newsletter input {
+        width: 90%; /* Slightly reduce width for better spacing */
+    }
+
+    .footer-newsletter button {
+        width: 90%; /* Match input width */
+    }
+
+    .footer-socials span {
+        font-size: 0.9rem; /* Slightly smaller font size */
+        text-align: center;
+        /* display: block; Stack socials vertically */
+    }
+
+    .footer-operanda h2,
+    .footer-newsletter h2{
+        margin: 0;
+    }
+}
+@media (max-width: 768px) {
+    .footer-container {
+        margin:.5rem;
+        padding: 0;
+        width: auto;
+        display: left;
+        /* height: auto; */
+    }
+    .footer-body {
+        margin: .5rem;
+        padding: .8rem; 
+        flex-direction: column; /* Stack items vertically */
+        height: auto;
+    }
+
+    .footer-logo img {
+        width: 60%; /* Make the logo larger on mobile */
+        margin: 1rem auto;
+        /* height: auto; */
+    }
+
+    .footer-newsletter input {
+        width: 90%; /* Slightly reduce width for better spacing */
+    }
+
+    .footer-newsletter button {
+        width: 90%; /* Match input width */
+    }
+
+    .footer-socials span {
+        font-size: 0.9rem; /* Slightly smaller font size */
+        text-align: center;
+        /* display: block; Stack socials vertically */
+    }
+
+    .footer-operanda h2,
+    .footer-newsletter h2{
+        margin: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .footer-container {
+        margin:.5rem;
+        padding: 0;
+        width: auto;
+        display: left;
+        /* height: auto; */
+    }
+    .footer-body {
+        margin: .5rem;
+        padding: .8rem; 
+        flex-direction: column; /* Stack items vertically */
+        height: auto;
+    }
+
+    .footer-logo img {
+        width: 60%; /* Make the logo larger on mobile */
+        margin: 1rem auto;
+        height: auto;
+    }
+
+    .footer-newsletter input {
+        width: 90%; /* Slightly reduce width for better spacing */
+    }
+
+    .footer-newsletter button {
+        width: 90%; /* Match input width */
+    }
+
+    .footer-socials span {
+        font-size: 0.9rem; /* Slightly smaller font size */
+        text-align: center;
+        /* display: block; Stack socials vertically */
+    }
+
+    .footer-operanda h2,
+    .footer-newsletter h2{
+        margin: 0;
+    }
 }

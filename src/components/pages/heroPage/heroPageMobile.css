@@ -1,0 +1,184 @@
+.heroPageMobile-container{
+    margin: .5rem;
+    background-color: #fbfaf8;;
+    border-radius: 1rem;
+    width: auto;
+    position: relative;
+    z-index: 1
+}
+
+.heroPageMobile-one {
+    position: relative;
+    /* height: auto; */
+    width: 100%;
+}
+
+.heroMobile-image {
+    width: auto;
+    height: auto;
+    /* border-radius: 1rem; */
+    /* overflow: hidden; */
+}
+
+.heroMobile-image img{
+    position: relative;
+    padding: .5rem;
+    border-radius: 1rem;
+    width: 95.5%;
+}
+
+.heroPageMobile-three {
+    /* align-items: center; */
+    height: auto;
+}
+
+ .reviewMobile-container {
+  position: relative;
+  width: auto;
+  height: 10rem; /* Adjust based on your design */
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  overflow: hidden;
+  /* margin: 1rem auto; */
+  /* padding: 1.5rem; */
+  /* text-align: center; */
+  font-style: italic;
+}
+
+ .reviewMobile {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  align-items: center;
+
+}
+
+ .reviewMobile.show {
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  text-align: center;
+}
+
+.messageMobile-icon {
+  margin: 1rem 1rem 0 1rem;
+
+  position: relative;
+  background-color: white;
+  border: 2px solid gold;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  /* max-width: 80%; */
+  text-align: center;
+  height: 100%;
+}
+
+.messageMobile-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 0 10px;
+  border-color: gold transparent transparent transparent;
+}
+
+.reviewMobile-text {
+  font-size: 1rem;
+  color: #333;
+}
+
+.reviewMobile-author {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.rtgMobile-container{
+    text-align: center;
+}
+
+.rtgMobile-body span {
+    margin: .2rem;
+}
+
+.rtgMobile-body button {
+    width: 9rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 1rem;
+  border: 1px solid #d767e8;
+    
+}
+
+.rtg-body-cakes-title {
+  border: 1px solid #d767e8;
+  border-radius: 1rem;
+  background-color:#e2c1e8;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* margin: 1.5rem;  */
+  padding: 1rem; 
+}
+
+
+
+.rtgMobile-body-cakes,
+.rtgMobile-body-chops{
+  margin: 1rem;
+  padding-top:1.5rem;
+  padding-bottom:2rem;
+  border: 1px solid #d767e8;
+  border-radius: 1rem;
+  width: auto;
+  background-color: #f4f3f0;
+  box-shadow: 0px 0px 10px  gray;
+  text-align: center;
+}
+
+.rtg-item-cakes{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.heroPageMobile-four {
+    background-color: #f4f3f0;
+    margin: 2rem;
+    padding: 1rem;
+    border-radius: 1rem;
+  
+}
+
+.extrasMobile{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    margin: 1rem;
+}
+
+.extrasMobile span {
+    margin: 1rem;
+    padding: 1rem;
+    border: 1px solid gold;
+    font-weight: bold;
+    border-radius: 1rem;
+    font-size: 1rem;
+}
+
+.bodyMobile-end{
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    font-style: italic;
+    color:rgb(205, 142, 58);
+    padding: 1rem;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}

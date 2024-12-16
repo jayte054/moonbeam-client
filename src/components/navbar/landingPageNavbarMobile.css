@@ -1,0 +1,50 @@
+.landingPageNavbarMobile-Container {
+   margin: 1rem;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   
+  }
+
+  .nav-burger {
+    font-size: 1.5rem;
+    margin-top: 1.7rem;
+  }
+
+  .landingPageNavbarMobile-Title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    font-family: Apple Chancery;
+   
+  }
+  
+  .nav-menu {
+    position: absolute;
+    z-index: 20;
+    background-color: white;
+    right:1rem;
+    top: 5.9rem;
+  }
+  
+  
+  
+  .landingPageNavbar-Nav {
+    margin-top: 2rem;
+    padding: 0.5rem;
+    display: flex;
+  }
+  
+  .landingPageNavbar-Nav span {
+    padding-right: 1rem;
+    font-family: Oswald;
+    
+  }
+
+  .landingPageNavbar-Nav span:hover{
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    color: rgb(54, 47, 47);
+  }

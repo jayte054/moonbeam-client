@@ -203,7 +203,7 @@ export const HeroPage = () => {
                    toastify.fillRequired(`please fill in required fields`);
                  } else {
                    toggleCakeDescription();
-                   // handleCakeBuy();
+                   handleCakeBuy();
                  }
                }}
              />
@@ -327,7 +327,7 @@ export const HeroPage = () => {
                             `please fill in required fields`
                           );
                         } else {
-                          // handleChopBuy();
+                          handleChopBuy();
                           toggleChopsDescription();
                         }
                       }}
