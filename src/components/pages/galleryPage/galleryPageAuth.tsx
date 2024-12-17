@@ -91,36 +91,36 @@ export const GalleryPageAuth = () => {
    };
 
     return (
-        <div className="quickOrder-container">
-            <GalleryPageNav />
-            <div className="quickOrder-body">
-                <div className="gallery-header">
-                    <span className="page-title">Gallery </span>
-                </div>
-                <div className="quickorder-categories">
-                    <div className="category-title">
-                        <span>Birthday Cakes</span>
-                    </div>
-                        {renderProductsByType("birthday")}
-                    <div className="category-title">
-                        <span>Anniversary Cakes</span>
-                    </div>
-                        {renderProductsByType("anniversary")}
-                    <div className="category-title">
-                        <span>Wedding Cakes</span>
-                    </div>
-                        {renderProductsByType("wedding")}
-                    <div className="category-title">
-                        <span>Chops / Pastries</span>
-                    </div>
-                    {renderProductsByType("chops / pastries")}
-                    <div className="category-title">
-                        <span>Surprise Packages</span>
-                    </div>
-                        {renderProductsByType("suprise package")}
-                </div>
+      <div className="quickOrder-container">
+        <GalleryPageNav />
+        <div className="quickOrder-body">
+          <div className="gallery-header">
+            <span className="page-title"> Testimonial's Gallery </span>
+          </div>
+          <div className="quickorder-categories">
+            <div className="category-title">
+              <span>Birthday Cakes</span>
             </div>
-            <Footer />
+            {renderProductsByType("birthday")}
+            <div className="category-title">
+              <span>Anniversary Cakes</span>
+            </div>
+            {renderProductsByType("anniversary")}
+            <div className="category-title">
+              <span>Wedding Cakes</span>
+            </div>
+            {renderProductsByType("wedding")}
+            <div className="category-title">
+              <span>Chops / Pastries</span>
+            </div>
+            {renderProductsByType("chops / pastries")}
+            <div className="category-title">
+              <span>Surprise Packages</span>
+            </div>
+            {renderProductsByType("suprise package")}
+          </div>
         </div>
-    )
+        <Footer />
+      </div>
+    );
 }

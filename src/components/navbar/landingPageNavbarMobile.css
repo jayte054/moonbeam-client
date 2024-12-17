@@ -22,7 +22,6 @@
   .nav-menu {
     position: absolute;
     z-index: 20;
-    background-color: white;
     right:1rem;
     top: 5.9rem;
   }

@@ -1,0 +1,64 @@
+.signinpageMobile-container {
+    margin: .6rem;
+    border-radius: 1rem;
+    background-color: white;
+  }
+  
+  .signinMobile-body {
+   
+    text-align: center;
+    border-radius: 1rem;
+  }
+  
+  .signinMobile-input {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .signinMobile-input img {
+    width:80%;
+  }
+  
+  .signin-image img {
+    width: 90%;
+    height: 100%;
+    border-radius: 1rem;
+  }
+  
+  .signinMobile-input span {
+    padding: 0 2rem 1rem 2rem;
+    font-weight: bold;
+  }
+  
+  .signinMobile-input input {
+    margin: 0 2rem 1rem 2rem;
+    font-weight: bold;
+    width: auto;
+    height: 2rem;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    background-color: #f4f3f0;
+  }
+  
+  .signinMobile-button {
+    margin: 0 2rem 1rem 2rem;
+    /* width: auto; */
+    height: 3rem;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border-radius: 1rem;
+    cursor: pointer;
+  }
+
+  .signinMobile-button:hover{
+    height: 2.5rem;
+    background-color:blanchedalmond;
+  }
+
+  .page-logo img{
+    margin: 1rem 0rem 0rem 0rem;
+    opacity: 0.05;
+  }
+  

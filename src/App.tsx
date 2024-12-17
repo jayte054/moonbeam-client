@@ -36,6 +36,9 @@ import { AdminSalesPage } from './components/pages/adminPages/adminSalesPage/adm
 import { AdminOrdersPage } from './components/pages/adminPages/adminOrdersPage/adminOrdersPage';
 import { AdminReviewsPage } from './components/pages/adminPages/adminReviewsPage/adminReviewsPage';
 import { ReviewsPage } from './components/pages/reviewsPage/reviewsPage';
+import { GalleryPageIndex } from './components/pages/galleryPage';
+import { SignupPageMobileIndex } from './components/pages/signupPage';
+import { SigninPageIndex } from './components/pages/signinPage';
 
 
 function App() {
@@ -56,7 +59,7 @@ function App() {
                               <Route path="/" element={<LandingPage />} />
                               <Route
                                 path="/signUpPage"
-                                element={<SignUpPage />}
+                                element={<SignupPageMobileIndex />}
                               />
                               <Route
                                 path="/adminSignUpPage"
@@ -64,7 +67,7 @@ function App() {
                               />
                               <Route
                                 path="/signinPage"
-                                element={<SigninPage />}
+                                element={<SigninPageIndex />}
                               />
                               <Route
                                 path="/adminSigninPage"
@@ -72,9 +75,9 @@ function App() {
                               />
                               <Route
                                 path="/galleryPage"
-                                element={<GalleryPage />}
+                                element={<GalleryPageIndex />}
                               />
-                              <Route 
+                              <Route
                                 path="/reviewPage"
                                 element={<ReviewsPage />}
                               />

@@ -2,8 +2,9 @@
     padding: 1rem;
     width: 10rem;
     text-align: center;
-    background-color: rgb(249, 246, 246);
-
+    background-color: rgb(203, 188, 122);
+    border-radius: 1rem;
+    border-bottom-left-radius: 3.5rem;
 }
 
 .nav-menu-list {

@@ -1,0 +1,104 @@
+.quickOrderMobile-container{
+    padding: .2rem ;
+}
+
+.quickOrderMobile-body {
+    background-color: #fbfaf8;
+    border-radius: 1rem;
+    margin: .5rem;
+    padding: 1rem 1.5rem;
+    
+}
+
+.gallery-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight:bold;
+}
+
+
+.quickOrder-body span {
+    font-size: 2.2rem;
+    font-family: Oswald;
+    /* background: url("../../../../public/moonbeamLogo.jpeg") no-repeat center center fixed;
+    background-size: cover; */
+}
+
+
+.categoryMobile-title {
+    background-color: rgb(139, 79, 145);
+    color: white;
+    border-radius: 1rem;
+    padding: .5rem 1rem;
+    font-family: "Apple Chancery", cursive;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    margin: 1rem 0;
+}
+
+.category-title span {
+    font-size: 1.4rem;
+    font-weight: bold;
+    /* padding: 0 1rem; */
+}
+
+.arrow {
+    margin-bottom: .7rem
+}
+
+.arrow:hover {
+    color:rgb(71, 65, 76);
+    cursor:pointer;
+}
+
+.category-type {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+
+
+.span-nav {
+    height: 1.3rem;
+    /* background-color: grey; */
+    border: none;
+    border-radius: 1rem;
+    color: rgb(21, 17, 1);
+    opacity: 0.2;
+}
+
+.span-nav:hover {
+    opacity: 1;
+    cursor: pointer;
+    color:rgb(71, 62, 10)
+}
+
+.category-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.category-item span {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.category-item img {
+    height: 20rem;
+    width: 90%;
+    border-radius: 1rem;
+    box-shadow: 0px 0px 10px  gray;
+    border:.1rem solid #d767e8
+}
+
+
+
+
+
