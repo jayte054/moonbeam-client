@@ -1,0 +1,228 @@
+.homeMobile-container {
+  background-color: #fbfaf8;;
+  /* margin: 0 1rem ; */
+  /* padding: 0 2rem; */
+  margin: 1rem auto;
+  width: 95%;
+  border-radius: 1rem;
+  font-family: Oswald;
+  /* position: relative; */
+
+}
+
+.headerMobile{
+    padding: 1rem 0rem 0rem 1rem; 
+}
+
+.homeMobile-body1 {
+  background-color: #f4f3f0;
+  margin: 1rem; 
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.homeMobile-body span{
+  /* align-items: center;  */
+  /* display: flex; */
+  /* justify-content: space-evenly; */
+   /* width: auto; */
+  
+}
+
+.homeMobile-body button {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    border: 1px solid #d767e8;
+    
+}
+
+.rtgMobile-container {
+  margin: 1rem; 
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  text-align:center;
+  background-color: #f4f3f0;
+  /* border: 1px solid #808080; */
+  width: auto;
+  border-radius: 1rem; 
+}
+
+.rtgMobile-header {
+  padding: 1rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 1rem;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+.rtgMobile-body {
+  padding-bottom: 1rem;
+  /* display: flex;
+  justify-content: space-evenly; */
+}
+
+.rtgMobile-body button {
+    width: 8rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    border: 1px solid #d767e8;
+    
+}
+
+.rtg-body-cakes-title {
+  border: 1px solid #d767e8;
+  border-radius: 1rem;
+  background-color:#7d7e61;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  /* margin: 1.5rem;  */
+  padding: 1rem; 
+}
+
+.rtgMobile-body-cakes,
+.rtgMobile-body-chops{
+  margin: 1rem;
+  padding-top:1.5rem;
+  padding-bottom:2rem;
+  border: 1px solid #d767e8;
+  border-radius: 1rem;
+  width: auto;
+  background-color: #f4f3f0;
+  box-shadow: 0px 0px 10px  gray;
+  text-align: center;
+
+}
+
+.rtg-item-cakes{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.rtg-cakes-content img {
+  width: 75%;
+  height: 15rem;
+  border-radius: 2rem;
+  margin: 1rem;
+  padding: 1rem 1rem 1rem 1rem;
+  cursor: pointer;
+  border: 5px solid rgb(194, 187, 42)
+}
+
+
+
+.rtg-cakes-content p {
+  margin-top: 0;
+  font-size: 1.2rem
+}
+
+.rtg-content{
+  padding: .5rem 1rem;
+}
+
+.rtg-span{
+  font-weight: bold;
+  padding: 1rem;
+  margin: 1rem;
+}
+
+.rtg-content input {
+  border-left: none;
+  border-right: none;
+  border-top:none ;
+  background-color: #f4f3f0;
+  padding: .5rem;
+}
+
+.rtg-nav {
+  color: grey;
+  cursor: pointer;
+}
+
+.rtg-nav:hover{
+  color:black;
+}
+
+.package-cake img, .package-surprise img, .package-chops img {
+  width: 95%;
+  height: 30rem;
+  border-radius: 1rem;
+}
+
+.package-cake, .package-surprise, .package-chops {
+  border: 3px solid #d767e8;
+  border-radius: 1rem;
+  display: flex; /* Ensure flex properties are applied */
+  flex-direction: column;
+  align-items: center; /* Center items along the cross axis */
+  padding: .2rem;
+  transition: border 0.3s ease; /* Smooth transition for border changes */
+}
+.package-cake h4, .package-surprise h4, .package-chops h4{
+    background-color: black;
+    color: white;
+    padding: 1rem;
+    border-radius: 1.5rem;
+}
+
+.package-cake:hover, .package-surprise:hover, .package-chops:hover {
+  border-width: 10px; /* Change only the border width on hover */
+  border-color: #c72bdf;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+
+.homeMobile-header {
+  font-weight: bold;
+  font-size: 1rem;
+  color: black;
+  text-align: center;
+}
+
+.quickMobile-order{
+    /* background-color: black; */
+    text-align: center;
+    color: white;
+    margin: 1rem 0;
+    border-radius: 1rem;
+    padding: .2rem;
+    /* border: 2px solid #d767e8; */
+    font-weight: bold;
+    font-size: 1.5rem;
+    width: auto;
+    background-color: #fbfaf8;
+    /* height: auto; */
+     box-shadow: 0px 0px 10px gray;
+}
+
+.quickMobile-order p {
+  border: none;
+  background-color: #7d7e61;
+  /* background-color: #e7c899; */
+  border-radius: 1rem;
+  padding:  1rem 0rem;
+  width: auto;
+}
+
+.quickMobile-order img {
+  width:auto;
+  height: 23rem;
+  border-radius: 1rem;
+}
+
+.quick-order:hover {
+  border: 3px solid #dfa42c;
+  border-width: 4px; 
+  border-color: #c72bdf; 
+  border-radius: 1rem;
+  color: #eeddf1;
+  cursor: pointer;
+}

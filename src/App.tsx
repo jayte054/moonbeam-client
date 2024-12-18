@@ -39,6 +39,7 @@ import { ReviewsPage } from './components/pages/reviewsPage/reviewsPage';
 import { GalleryPageIndex } from './components/pages/galleryPage';
 import { SignupPageMobileIndex } from './components/pages/signupPage';
 import { SigninPageIndex } from './components/pages/signinPage';
+import { HomePageIndex } from './components/pages/homePage';
 
 
 function App() {
@@ -84,7 +85,7 @@ function App() {
                               <Route element={<ProtectAuthRoute />}>
                                 <Route
                                   path="/auth/homepage"
-                                  element={<Homepage />}
+                                  element={<HomePageIndex />}
                                 />
                                 <Route
                                   path="/auth/profilePage"

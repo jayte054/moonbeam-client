@@ -58,7 +58,11 @@ const navigate = useNavigate()
           <CustomButton 
             type="button" 
             label="checkout" 
-            onClick={viewCart} 
+            onClick={viewCart}
+            style={{
+              fontSize: '1.5rem',
+              padding: '.5rem'
+            }}
             />
         </span>
       </div>
