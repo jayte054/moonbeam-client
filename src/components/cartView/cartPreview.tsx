@@ -33,26 +33,14 @@ const navigate = useNavigate()
                     <img src={imageUrl} alt={cartItem.itemName} />
                   </span>
                 </div>
-                <div>
-                  <span style={{ fontSize: "1rem" }}>{cartItem.itemName}</span>
-                  <span style={{ fontSize: "1rem" }}>{cartItem.quantity}</span>
-                  <span style={{ fontSize: "1rem" }}>{cartItem.price}</span>
+                <div className="content-details">
+                  <span>{cartItem.itemName}</span>
+                  <span>{cartItem.quantity}</span>
+                  <span>₦{cartItem.price}</span>
                 </div>
               </div>
             );
           })}
-          {/* <span>
-            <CustomButton
-              type="button"
-              label="checkout"
-              onClick={viewCart}
-              style={
-                {
-                  // margin: '0rem'
-                }
-              }
-            />
-          </span> */}
         </div>
         <span>
           <CustomButton 

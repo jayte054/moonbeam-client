@@ -12,6 +12,7 @@ import { CartContext } from "../../context/cartContext/cartContext";
 import { CartStores } from "../../stores/cartStores";
 import { AuthContext } from "../../context/authcontext/authContext";
 import { ClockLoader } from "react-spinners";
+import { useMediaQuery } from "react-responsive";
 
 interface CakeParfaitFormProps extends FormikProps<parfaitObject>  {
   toggleParfaitOrder: (values: parfaitObject, foilFormikHelpers: any) => void 
@@ -36,15 +37,34 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
     await getCartItems(user.accessToken);
     setIsLoading(false)
   }
+
+   const isDesktop = useMediaQuery({ minWidth: 1024 });
+   const isMobile = useMediaQuery({ maxWidth: 767 });
+
   return (
     <div className="quickOrder-foilCakesInput">
       <div>
-        <CustomButton2
-          type="button"
-          label="Cake Parfait"
-          onClick={toggleParfaitForm}
-          style={{width: 'auto'}}
-        />
+        {isDesktop && (
+          <CustomButton2
+            type="button"
+            label="Cake Parfait"
+            onClick={toggleParfaitForm}
+            style={{ width: "auto" }}
+          />
+        )}
+        {isMobile && (
+          <CustomButton2
+            type="button"
+            label="Cake Parfait"
+            onClick={toggleParfaitForm}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "10rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
         {parfaitForm && (
           <div>
             <CustomInput
@@ -84,11 +104,26 @@ export const CakeParfaitForm: React.FC<CakeParfaitFormProps> = (props) => {
             />
 
             <div>
-              <AddToCartButton
-                type="submit"
-                label={isLoading ? <ClockLoader size={13} /> : "Add To Cart" }
-                onClick={handleParfaitFormOrder}
-              />
+              {isDesktop && (
+                <AddToCartButton
+                  type="submit"
+                  label={isLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+                  onClick={handleParfaitFormOrder}
+                />
+              )}
+              {isMobile && (
+                <AddToCartButton
+                  type="submit"
+                  label={isLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+                  onClick={handleParfaitFormOrder}
+                  style={{
+                    padding: ".5rem",
+                    height: "3rem",
+                    width: "10rem",
+                    fontSize: "1rem",
+                  }}
+                />
+              )}
             </div>
           </div>
         )}

@@ -16,6 +16,7 @@ import {
   diamondPackage
  } from "../../types";
 import { ClockLoader } from "react-spinners"
+import { useMediaQuery } from "react-responsive"
 
 interface bronzePackage {
   packageId: string;  
@@ -69,6 +70,9 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     const {values, handleChange, touched, errors} = props;
     const {cartCount, setCartCount, addItemToCart}: setCartCountProps = useContext(CartContext)
 
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
+    const isMobile = useMediaQuery({ maxWidth: 767 });
+
     useEffect(() => {
         const getPackages = () => {
         setBronzePackage(() => packageMap.bronzePackage || []);
@@ -110,71 +114,118 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
     
 
     const renderForm = () => (
-          <Form>
-            <CustomInput
-              label="Order Name"
-              name="packageOrderName"
-              value={values.packageOrderName}
-              onChange={handleChange}
-              type="text"
-              placeholder="Order Name"
-              error={touched.packageOrderName && errors.packageOrderName}
-            />
-            <CustomDate
-              label="Delivery Date"
-              name="deliveryDate"
-              value={values.deliveryDate}
-              onChange={handleChange}
-              type="date"
-              placeholder="Delivery Date"
-              error={touched.deliveryDate && errors.deliveryDate}
-            />
-            <CustomTextArea
-              label="Additional Info"
-              name="addInfo"
-              value={values.addInfo}
-              onChange={handleChange}
-              type="text"
-              placeholder="please include any other additional information like delivery address"
-              error={touched.addInfo && errors.addInfo}
-            />
-             <AddToCartButton 
-                            type="submit"
-                            label={
-                              isLoading ? 
-                              <ClockLoader size={13} /> :
-                              "Add To Cart" 
-                            }
-                            onClick={() => {
-                              setIsLoading(true);
-                              setTimeout(() => {
-                                const newCount = Number(cartCount) + 1;
-                                setCartCount(newCount.toString());
-                                setIsLoading(false);
-                              }, 4000)
-                              
-                            }}
-                          />  
-          </Form>
-        );
+      <Form>
+        <CustomInput
+          label="Order Name"
+          name="packageOrderName"
+          value={values.packageOrderName}
+          onChange={handleChange}
+          type="text"
+          placeholder="Order Name"
+          error={touched.packageOrderName && errors.packageOrderName}
+        />
+        <CustomDate
+          label="Delivery Date"
+          name="deliveryDate"
+          value={values.deliveryDate}
+          onChange={handleChange}
+          type="date"
+          placeholder="Delivery Date"
+          error={touched.deliveryDate && errors.deliveryDate}
+        />
+        <CustomTextArea
+          label="Additional Info"
+          name="addInfo"
+          value={values.addInfo}
+          onChange={handleChange}
+          type="text"
+          placeholder="please include any other additional information like delivery address"
+          error={touched.addInfo && errors.addInfo}
+        />
+        {isDesktop && (
+          <AddToCartButton
+            type="submit"
+            label={isLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+            onClick={() => {
+              setIsLoading(true);
+              setTimeout(() => {
+                const newCount = Number(cartCount) + 1;
+                setCartCount(newCount.toString());
+                setIsLoading(false);
+              }, 4000);
+            }}
+          />
+        )}
+        {isMobile && (
+          <AddToCartButton
+            type="submit"
+            label={isLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+            onClick={() => {
+              setIsLoading(true);
+              setTimeout(() => {
+                const newCount = Number(cartCount) + 1;
+                setCartCount(newCount.toString());
+                setIsLoading(false);
+              }, 4000);
+            }}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "10rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
+      </Form>
+    );
     
 
     return (
       <div className="quickSurprisePackage-container">
-        <CustomButton
-          type="button"
-          label={!showPackages ? "Packages" : "Package Category"}
-          onClick={togglePackage}
-        />
+        {isDesktop && (
+          <CustomButton
+            type="button"
+            label={!showPackages ? "Packages" : "Package Category"}
+            onClick={togglePackage}
+          />
+        )}
+        {isMobile && (
+          <CustomButton
+            type="button"
+            label={!showPackages ? "Packages" : "Package Category"}
+            onClick={togglePackage}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "10rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
         {showPackages ? (
           <>
-            <CustomButton
-              type="button"
-              label="Bronze Package"
-              onClick={toggleBronzeForm}
-              disabled={showSilverForm || showGoldForm || showDiamondForm}
-            />
-
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Bronze Package"
+                onClick={toggleBronzeForm}
+                disabled={showSilverForm || showGoldForm || showDiamondForm}
+              />
+            )}
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Bronze Package"
+                onClick={toggleBronzeForm}
+                disabled={showSilverForm || showGoldForm || showDiamondForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
             {showBronzeForm && (
               <>
                 {bronzePackage ? (
@@ -194,12 +245,28 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
                 {renderForm()}
               </>
             )}
-            <CustomButton
-              type="button"
-              label="Silver Package"
-              onClick={toggleSilverForm}
-              disabled={showBronzeForm || showGoldForm || showDiamondForm}
-            />
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Silver Package"
+                onClick={toggleSilverForm}
+                disabled={showBronzeForm || showGoldForm || showDiamondForm}
+              />
+            )}
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Silver Package"
+                onClick={toggleSilverForm}
+                disabled={showBronzeForm || showGoldForm || showDiamondForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
             {showSilverForm && (
               <>
                 {silverPackage ? (
@@ -219,12 +286,28 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
                 {renderForm()}
               </>
             )}
-            <CustomButton
-              type="button"
-              label="Gold Package"
-              onClick={toggleGoldForm}
-              disabled={showBronzeForm || showSilverForm || showDiamondForm}
-            />
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Gold Package"
+                onClick={toggleGoldForm}
+                disabled={showBronzeForm || showSilverForm || showDiamondForm}
+              />
+            )}
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Gold Package"
+                onClick={toggleGoldForm}
+                disabled={showBronzeForm || showSilverForm || showDiamondForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
             {showGoldForm && (
               <>
                 {goldPackage ? (
@@ -244,12 +327,28 @@ export const QuickSurprisePackageForm: React.FC<QuickSurprisePackageFormProps> =
                 {renderForm()}
               </>
             )}
-            <CustomButton
-              type="button"
-              label="Diamond Package"
-              onClick={toggleDiamondForm}
-              disabled={showSilverForm || showGoldForm || showBronzeForm}
-            />
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Diamond Package"
+                onClick={toggleDiamondForm}
+                disabled={showSilverForm || showGoldForm || showBronzeForm}
+              />
+            )}
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Diamond Package"
+                onClick={toggleDiamondForm}
+                disabled={showSilverForm || showGoldForm || showBronzeForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
             {showDiamondForm && (
               <>
                 {diamondPackage ? (

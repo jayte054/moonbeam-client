@@ -1,0 +1,9 @@
+@media (max-width: 768px) {
+  .quickOrder-foilCakesInput{
+    text-align: center;
+    width: 100%;
+  }
+  .variant-inputs{
+    /* width: 90% */
+  }
+}

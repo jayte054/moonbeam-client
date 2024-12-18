@@ -25,3 +25,17 @@
     padding: .4rem;
     background-color: #d0d0d0
 }
+
+@media (max-width: 768px) {
+  .quickSurprisePackage-container{
+  width: auto;
+  }
+
+  .bronzePackage span, .diamondPackage span,.goldPackage span, .silverPackage span{
+    border: 1.5px solid;
+    border-radius: 1rem;
+    margin: .3rem;
+    padding: .1rem;
+    background-color: #d0d0d0
+}
+}

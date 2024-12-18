@@ -12,6 +12,7 @@ import { CartContext } from "../../context/cartContext/cartContext";
 import { CartStores } from "../../stores/cartStores";
 import { AuthContext } from "../../context/authcontext/authContext";
 import { ClockLoader } from "react-spinners";
+import { useMediaQuery } from "react-responsive";
 
 interface FoilCakeFormProps extends FormikProps<foilObject>  {
   toggleFoilOrder: (values: foilObject, foilFormikHelpers: any) => void
@@ -38,18 +39,36 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
       setIsLoading(false)
     }
 
+ const isDesktop = useMediaQuery({ minWidth: 1024 });
+ const isMobile = useMediaQuery({ maxWidth: 767 });
 
     return (
       <div className="quickOrder-foilCakesInput">
         <div>
-          <CustomButton2
-            type="button"
-            label="Foil Cakes"
-            onClick={toggleFoilCakeForm}
-            style={{width: 'auto'}}
-          />
+          {isDesktop && (
+            <CustomButton2
+              type="button"
+              label="Foil Cakes"
+              onClick={toggleFoilCakeForm}
+              style={{ width: "auto" }}
+            />
+          )}
+
+          {isMobile && (
+            <CustomButton2
+              type="button"
+              label="Foil Cakes"
+              onClick={toggleFoilCakeForm}
+              style={{
+                padding: ".5rem",
+                height: "3rem",
+                width: "10rem",
+                fontSize: "1rem",
+              }}
+            />
+          )}
           {foilCakeForm && (
-            <div>
+            <div className="variant-inputs">
               <CustomInput
                 label="Order Name"
                 name="orderName"
@@ -98,11 +117,30 @@ export const FoilCakeForm: React.FC<FoilCakeFormProps> = (props) => {
               />
 
               <div>
-                <AddToCartButton
-                  type="submit"
-                  label={ isLoading ? <ClockLoader size={13} /> : "Add To Cart" }
-                  onClick={handleFoilFormSubmit}
-                />
+                {isDesktop && (
+                  <AddToCartButton
+                    type="submit"
+                    label={
+                      isLoading ? <ClockLoader size={13} /> : "Add To Cart"
+                    }
+                    onClick={handleFoilFormSubmit}
+                  />
+                )}
+                {isMobile && (
+                  <AddToCartButton
+                    type="submit"
+                    label={
+                      isLoading ? <ClockLoader size={13} /> : "Add To Cart"
+                    }
+                    onClick={handleFoilFormSubmit}
+                    style={{
+                      padding: ".5rem",
+                      height: "3rem",
+                      width: "10rem",
+                      fontSize: "1rem",
+                    }}
+                  />
+                )}
               </div>
             </div>
           )}

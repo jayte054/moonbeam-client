@@ -1,0 +1,85 @@
+.quickOrderPageMobile-container {
+    width: auto;
+    /* Consider adding a global margin or padding instead of using margins in multiple places */
+}
+
+.quickOrderMobile-header {
+    margin: .5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* Ensures header elements are aligned vertically */
+}
+
+.quickOrderMobile-input button {
+    width: 5rem;
+    height: 2.5rem;
+    font-size: .9rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    border: 1px solid #d767e8;
+    
+}
+
+.quickOrder-header span {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.quickOrderPageMobile-body {
+    background-color: white; /* Hex color code for consistency */
+    border-radius: 1rem;
+    margin: .5rem ; /* Centered margin */
+    padding: .5rem;
+    font-family: Oswald; /* Added fallback font */
+    font-weight: bold;
+    width: auto;
+    box-sizing: border-box; /* Ensures padding is included in width calculation */
+}
+
+.quickOrderPage-body h2 {
+    margin: 1rem 0; /* Adds top and bottom margin only */
+}
+
+.quickOrderMobile-input {
+    padding: .2rem; /* Simplified padding */
+    text-align: center;
+}
+
+.quickOrderMobile-variants {
+    margin: .2rem ;
+    border: 3px solid #d767e8;
+    border-radius: 1rem;
+    width: auto;
+    padding: 1rem;
+    text-align: center;
+
+}
+
+.quickOrderMobile-variants button {
+    width: 8rem;
+    height: 2.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 1rem;
+    border: 1px solid #d767e8;
+    
+}
+
+.quickOrder-foilCakes, .quickOrder-cakeParfait{
+    margin: 1rem;
+    font-size: 1.5rem;
+    font-weight: bold;
+    /* display: flex;
+    justify-content: space-between; */
+    /* align-items: center; */
+    /* text-align: center; */
+}
+
+.foilPrice-mobile span, .parfaitPrice span{
+    border: 1.5px solid;
+    border-radius: 1rem;
+    margin: .7rem;
+    padding: .4rem;
+    background-color: #d0d0d0;
+
+}

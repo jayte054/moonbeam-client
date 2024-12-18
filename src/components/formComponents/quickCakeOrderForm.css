@@ -18,3 +18,9 @@
     height: 30rem;
     border-radius: 1rem;
 }
+
+@media (max-width: 768px) {
+  .quickOrderCake-container{
+  width: auto;
+  }
+}

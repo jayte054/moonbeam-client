@@ -40,6 +40,7 @@ import { GalleryPageIndex } from './components/pages/galleryPage';
 import { SignupPageMobileIndex } from './components/pages/signupPage';
 import { SigninPageIndex } from './components/pages/signinPage';
 import { HomePageIndex } from './components/pages/homePage';
+import { QuickOrderPageIndex } from './components/pages/quickOrderPage';
 
 
 function App() {
@@ -97,7 +98,7 @@ function App() {
                                 />
                                 <Route
                                   path="/auth/quickOrderPage"
-                                  element={<QuickOrderPage />}
+                                  element={<QuickOrderPageIndex />}
                                 />
                                 <Route
                                   path="/auth/customOrderPage"

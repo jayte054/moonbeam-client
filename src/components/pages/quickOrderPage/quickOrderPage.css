@@ -16,13 +16,13 @@
 }
 
 .quickOrderPage-body {
-    background-color: #efefe1; /* Hex color code for consistency */
+    background-color: white; /* Hex color code for consistency */
     border-radius: 1rem;
     margin: 1rem auto; /* Centered margin */
     padding: 1rem;
     font-family: Oswald; /* Added fallback font */
     font-weight: bold;
-    width: 90%;
+    width: 95.7%;
     box-sizing: border-box; /* Ensures padding is included in width calculation */
 }
 

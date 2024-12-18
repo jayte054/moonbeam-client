@@ -12,6 +12,7 @@ import { CustomSelectChops } from "./customSelectChops"
 import { chopsObject, setCartCountProps } from "../../types"
 import { CartContext } from "../../context/cartContext/cartContext"
 import { ClockLoader } from "react-spinners"
+import { useMediaQuery } from "react-responsive"
 
 interface QuickChopsOrderFormProps extends FormikProps<chopsObject> {
   toggleChopOrder: (values: chopsObject, formikHelpers: any) => void;
@@ -28,6 +29,9 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
     const [selectImage, setSelectImage] = useState<string | null>(null)
     const {values, handleChange, handleSubmit,setFieldValue, touched, errors} = props
     const {setCartCount, cartCount}: setCartCountProps = useContext(CartContext)
+
+     const isDesktop = useMediaQuery({ minWidth: 1024 });
+     const isMobile = useMediaQuery({ maxWidth: 767 });
 
     const preLoadedImages: { [key: string]: string } = {
       samosa: "/samosa.png",
@@ -140,7 +144,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
             Springroll &PepperedMeat
           </option>
         </CustomSelectChops>
-         <CustomSelect
+        <CustomSelect
           label="Covering"
           name="covering"
           value={values.covering}
@@ -152,7 +156,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
           <option value="">Chops Covering</option>
           <option value="true">True</option>
           <option value="false">False</option>
-          </CustomSelect>
+        </CustomSelect>
         <CustomSelect
           label="Number Of Packs"
           name="numberOfPacks"
@@ -200,11 +204,26 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
           preloadedfile={selectImage}
           error={touched.file && errors.file}
         />
-        <AddToCartButton 
-            type="submit" 
-            label={isChopsLoading ? <ClockLoader size={13}/> : "Add To Cart"} 
+        {isDesktop && (
+          <AddToCartButton
+            type="submit"
+            label={isChopsLoading ? <ClockLoader size={13} /> : "Add To Cart"}
             onClick={handleChopsFormSubmit}
-        />
+          />
+        )}
+        {isMobile && (
+          <AddToCartButton
+            type="submit"
+            label={isChopsLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+            onClick={handleChopsFormSubmit}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "10rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
       </Form>
     );
 
@@ -300,7 +319,7 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
         />
 
         <CustomTextArea
-          label="Description"
+          label="Additional Info"
           name="description"
           value={values.description}
           onChange={handleChange}
@@ -315,42 +334,104 @@ export const QuickChopsOrderForm: React.FC<QuickChopsOrderFormProps> = (props) =
           preloadedfile={selectImage}
           error={touched.file && errors.file}
         />
-        <AddToCartButton
-          type="submit"
-          label={isChopsLoading ? <ClockLoader size = {13} /> : "Add To Cart"}
-          onClick={handleChopsFormSubmit}
-        />
+        {isDesktop && (
+          <AddToCartButton
+            type="submit"
+            label={isChopsLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+            onClick={handleChopsFormSubmit}
+          />
+        )}
+        {isMobile && (
+          <AddToCartButton
+            type="submit"
+            label={isChopsLoading ? <ClockLoader size={13} /> : "Add To Cart"}
+            onClick={handleChopsFormSubmit}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "10rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
       </Form>
     );
 
 
     return (
       <div className="quickOrderChops-container">
-        <CustomButton
-          type="button"
-          label={!showCategory ? "Chops / Pastries" : "chops/pastries category"}
-          onClick={togglePage}
-        />
+        {isDesktop && (
+          <CustomButton
+            type="button"
+            label={
+              !showCategory ? "Chops / Pastries" : "chops/pastries category"
+            }
+            onClick={togglePage}
+          />
+        )}
+        {isMobile && (
+          <CustomButton
+            type="button"
+            label={
+              !showCategory ? "Chops / Pastries" : "chops/pastries category"
+            }
+            onClick={togglePage}
+            style={{
+              padding: ".5rem",
+              height: "3rem",
+              width: "12rem",
+              fontSize: "1rem",
+            }}
+          />
+        )}
         {showCategory ? (
           <>
-            <CustomButton
-              type="button"
-              label="Chops"
-              onClick={toggleChops}
-              disabled={showPastryForm}
-            />
-            {showChopsForm && (
-              renderChopsForm()
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Chops"
+                onClick={toggleChops}
+                disabled={showPastryForm}
+              />
             )}
-            <CustomButton
-              type="button"
-              label="Pastry"
-              onClick={togglePastryForm}
-              disabled={showChopsForm}
-            />
-            {showPastryForm && (
-              renderPastryForm()
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Chops"
+                onClick={toggleChops}
+                disabled={showPastryForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
             )}
+            {showChopsForm && renderChopsForm()}
+            {isDesktop && (
+              <CustomButton
+                type="button"
+                label="Pastry"
+                onClick={togglePastryForm}
+                disabled={showChopsForm}
+              />
+            )}
+            {isMobile && (
+              <CustomButton
+                type="button"
+                label="Pastry"
+                onClick={togglePastryForm}
+                disabled={showChopsForm}
+                style={{
+                  padding: ".5rem",
+                  height: "3rem",
+                  width: "10rem",
+                  fontSize: "1rem",
+                }}
+              />
+            )}
+            {showPastryForm && renderPastryForm()}
           </>
         ) : (
           <span>{chopsFormImage}</span>
