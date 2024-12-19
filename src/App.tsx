@@ -41,6 +41,8 @@ import { SignupPageMobileIndex } from './components/pages/signupPage';
 import { SigninPageIndex } from './components/pages/signinPage';
 import { HomePageIndex } from './components/pages/homePage';
 import { QuickOrderPageIndex } from './components/pages/quickOrderPage';
+import { CartItemsPageIndex } from './components/pages/cartItemsPage';
+import { CheckoutPageIndex } from './components/pages/checkoutPage';
 
 
 function App() {
@@ -106,11 +108,11 @@ function App() {
                                 />
                                 <Route
                                   path="/auth/cartItemsPage"
-                                  element={<CartItemsPage />}
+                                  element={<CartItemsPageIndex />}
                                 />
                                 <Route
                                   path="/auth/checkoutPage"
-                                  element={<CheckoutPage />}
+                                  element={<CheckoutPageIndex />}
                                 />
                                 <Route
                                   path="/auth/addressBook"

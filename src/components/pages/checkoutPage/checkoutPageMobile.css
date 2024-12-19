@@ -1,0 +1,110 @@
+.checkoutPageBodyMobile-container {
+    margin: .5rem;
+    background-color: #f4f3f0;
+    width: auto;
+    border-radius: 1rem;
+    font-family: Oswald;
+    /* display: flex;
+    justify-content: space-between; */
+}
+
+.checkoutPageMobile-body {
+    margin: .3rem;
+    padding: .3rem;
+}
+.studioAddressMobile {
+    border: 1px solid grey;
+    border-radius: 1rem;
+    background-color: rgb(207, 208, 208);
+    padding: .3rem;
+}
+.studioAddressMobile-header {
+    margin-left: .5rem;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+.studioAddress-content {
+    font-family:'Times New Roman', Times, serif;
+    padding: 0.6rem 1rem;
+}
+.deliveryAddressMobile {
+    border: 1px solid grey;
+    border-radius: 1rem;
+    background-color: rgb(207, 208, 208);
+    padding: .3rem;
+}
+.deliveryAddressMobile-header {   
+    margin-left: .5rem;
+    border-bottom: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.deliveryAddress-content {
+    font-family:'Times New Roman', Times, serif;
+    padding: 0.6rem 1rem;
+}
+
+.deliveryDetailsMobile {
+    margin-top: 1rem;
+     border: 1px solid grey;
+    border-radius: 1rem;
+    background-color: rgb(207, 208, 208);
+    padding: .3rem;
+}
+
+.deliveryDetailsMobile-header {
+     margin-left: .5rem;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    font-weight: bold;
+}
+
+.deliveryDetails-content {
+    font-family:'Times New Roman', Times, serif;
+    padding: 0.6rem 1rem;
+    
+}
+.cart-container{
+    display: flex;
+    flex-direction: column;
+}
+.cartItemsMobile{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    margin: .5rem;
+    padding: .5rem;
+    border-radius: 1rem;
+    /* flex-direction: row;
+    justify-content: space-evenly; */
+}
+
+.cartItems span {
+    padding-left: 0;
+}
+
+.cartItemsMobile img{
+    width: 2rem;
+    height: 2rem;
+}
+
+.cart-desc{
+    padding-top: .5rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* .deliveryAddress-content span{
+    /* padding-bottom: .8rem */
+/* } */
+
+/* .orderSummary {
+    /* margin: 1rem; */
+/* } */ 

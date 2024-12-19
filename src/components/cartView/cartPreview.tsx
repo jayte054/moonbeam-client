@@ -4,6 +4,7 @@ import { CartContext } from "../../context/cartContext/cartContext";
 import { CartObject } from "../../types"
 import { CustomButton } from "../formComponents/customButton"
 import "./cartPreview.css"
+import { useMediaQuery } from "react-responsive";
 
 interface CartObjectProps {
     cartItems: CartObject[]
@@ -14,7 +15,8 @@ const {cartItems}: CartObjectProps = useContext(CartContext)
 const navigate = useNavigate()
 
     const viewCart = () => navigate("/auth/cartItemsPage");
-
+ const isDesktop = useMediaQuery({ minWidth: 1024 });
+ const isMobile = useMediaQuery({ maxWidth: 767 });
 
     return (
       <div className="cartPreview-container">
@@ -34,9 +36,32 @@ const navigate = useNavigate()
                   </span>
                 </div>
                 <div className="content-details">
-                  <span>{cartItem.itemName}</span>
-                  <span>{cartItem.quantity}</span>
-                  <span>₦{cartItem.price}</span>
+                  {isDesktop && (
+                    <>
+                      <span style={{ fontSize: "1rem" }}>
+                        {cartItem.itemName}
+                      </span>
+                      <span style={{ fontSize: "1rem" }}>
+                        {cartItem.quantity}
+                      </span>
+                      <span style={{ fontSize: "1rem" }}>
+                        ₦{cartItem.price}
+                      </span>
+                    </>
+                  )}
+                  {isMobile && (
+                    <>
+                      <span>
+                        {cartItem.itemName}
+                      </span>
+                      <span>
+                        {cartItem.quantity}
+                      </span>
+                      <span>
+                        ₦{cartItem.price}
+                      </span>
+                    </>
+                  )}
                 </div>
               </div>
             );

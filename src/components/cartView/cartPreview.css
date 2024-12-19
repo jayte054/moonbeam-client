@@ -22,13 +22,13 @@
 .cartItem-content {
     padding-bottom: 1rem;
     display: flex;
+    /* justify-content: space-between; */
     align-items: center;
 }
 
 .cartItem-content span{
     padding-left: 1rem;
     display: grid;
-    font-size: 1rem;
 }
 
 .cartItem-content img{
@@ -38,8 +38,9 @@
 
 .content-details {
     justify-content: flex-end;
-    font-size: 1rem;
 }
+
+
 
 @media (max-width: 1023px) {
 
